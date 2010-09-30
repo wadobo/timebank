@@ -1,0 +1,71 @@
+﻿/*
+Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+body{
+	color: #006600;
+	background-color: #FFCC00;
+	font-family: Helvetica;
+}
+
+text, input, textarea, select {
+	background-color:#FFCC33;
+	color:#006600;
+	font-family:Helvetica,Arial,sans-serif;
+	font-weight:bold;
+}
+
+textarea{
+	/* background-color: red; */
+	width: 290px; 
+	height: 90px;
+}
+div#content{
+	display: block;
+	margin-bottom:2%;
+}
+
+div#sidebar{
+	float: left;
+	display: block;
+	margin-right: 3%;
+	margin-left: 2%;
+	background-color: teal;
+	border: solid; 
+	border-style: outset;
+	margin-bottom:5%;
+}
+div#sidebar th{
+	color: #7FFF00;
+}
+div#sidebar tr{
+	font-weight:bold;
+	text-align: center;
+	margin-bottom: 2%;
+	display: block;
+	background-color: teal;
+	border: solid; 
+	font-family:Arial;
+}
+div#sidebar tr td{
+	display:block;
+}
+.errorlist{
+	color: red;
+}
+div#sidebar A:link , div#sidebar A:visited, div#sidebar A:active  {text-decoration: none; color:#FFCC00;}
+div#sidebar A:hover {text-decoration: underline overline; color: #FFCC00;}
+/* El color de cada celda de la barra de navegación se definirá en el CSS específico para la sección */

@@ -1,0 +1,81 @@
+{% extends "base_online.html" %}
+{% block style %}"/site_media/buscador.css"{% endblock %}
+{% block content %}
+
+<form method="POST">
+	Indique la(s) palabra(s) clave: <input type="text" name="palabras" value="{{ palabras }}" maxlength="20"/>
+	<input name="Buscar" type="submit" value="Buscar"/><font color="#CD661D"> <br/>si no indica ninguna palabra, se mostrarán todos los servicios, según los demás criterios. </font><br/>
+	
+	<input type="radio" name="group1" value="Servicio" {{ serv_chkd }}/> Servicio
+	<input type="radio" name="group1" value="Usuario" {{ usu_chkd }} {% block anonimo3 %}{% endblock%} /> Usuari@  <font color="#CD661D">{% block anonimo4 %}si decide buscar por usuari@ indique sólo el nombre de usuari@ o parte de él{% endblock%} </font><br/>
+	{% ifequal group2 0 %} ckecked {% endifequal %}
+	<input type="radio" name="group2" value="Solicitado" {{ solicitado }}/> Solicitado
+	<input type="radio" name="group2" value="Ofrecido" {{ ofrecido }}/> Ofrecido
+	<input type="radio" name="group2" value="Ambos" {{ ambos }}/> Ambos <br/>
+	
+	<p><label for="id_zona">Por zona:</label> <select name="zona" id="id_zona">
+			<option value="0"> Todas las zonas </option>
+			{% for zona in lista_zonas %}
+					<option value="{{ zona.id }}" {% ifequal zona.id z %} selected {% endifequal %}> {{ zona.nombre_zona }} </option>
+			{% endfor %}
+	</select> </p>
+	
+	<p><label for="id_categoria">Por categoría:</label> <select name="categoria" id="id_categoria">
+			<option value="0"> Todas las categorías </option>
+			{% for cat in lista_categorias %}
+					<option value="{{ cat.id }}" {% ifequal cat.id c %} selected {% endifequal %}>{{ cat.nombre_categoria }} </option>
+			{% endfor %}
+	</select> </p>	
+	
+</form>
+<hr/><br/>
+
+	<div id="mensajes" align="center">
+		{% if messages %}
+			<ul>
+			{% for message in messages %}
+			    {% if message %}
+				<li>{{ message }}</li>
+				{% endif %}
+			{% endfor %}
+			</ul>
+		{% endif %}
+	</div>
+<div id="c_servicios">
+{% if set_solicitado %}
+	{% for serv in servicios_buscados.object_list %}
+	<div class="un_servicio">
+		 Servicio <strong> {% if serv.oferta %} ofrecido  {% else %} solicitado{% endif %}</strong>  por: {% block anonimo %}{{ serv.creador }} {% endblock %}<a href="{% url aplicacion.views.publico serv.creador_id %}"> Ver su perfil público </a> <br/>
+		 <p class="descr">{{serv.descripcion }}</p>
+		<p> Zona: <strong> {{ serv.zona }} </strong> Categoría: <font color="teal">{{ serv.categoria }} </font> Fecha: <font color="navy">{{ serv.pub_date|date:"d.m.Y, H:i" }} </font></p>
+		
+		<form method="POST" action="{% url serv.views.contactar %}">
+			<input type="hidden" name="id_servicio" value="{{ serv.id }}"/>
+			<input type="submit" name="contactar" value={% block anonimo6 %}"Contactar"{% endblock%} align="center" {% block anonimo5 %}{% endblock%} />
+		</form>
+		
+	</div>
+	{% endfor %}
+{% endif %}
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if servicios_buscados.has_previous %}
+            <a href="?pagina={{ servicios_buscados.previous_page_number }}">anterior</a>
+        {% endif %}
+
+        <span class="current">
+            Página {{ servicios_buscados.number }} de {{ servicios_buscados.paginator.num_pages }}.
+        </span>
+
+        {% if servicios_buscados.has_next %}
+            <a href="?pagina={{ servicios_buscados.next_page_number }}">siguiente</a>
+        {% endif %}
+    </span>
+</div>
+
+{% block anonimo2 %}
+{% endblock%}
+
+{% endblock content %}

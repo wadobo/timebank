@@ -1,0 +1,72 @@
+﻿/*
+Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+@import url(/site_media/estilo_online.css);
+.mensajes, .transferencias{
+	margin-left:25%;
+}
+/* Perteneciente hilo de mensajes */
+.mensaje{
+	margin-left:25%;
+	width: 60%;
+	margin-top:2%;
+}
+div#lineaHorizontal{
+	margin-left:25%;
+	width: 50%;
+	border-bottom-style: solid;
+	border-width: thin;
+	margin-bottom: 1%;
+	margin-top:1%;
+	color:#006600;
+}
+.botones{
+	margin-left:40%;
+	margin-bottom: 3%;
+}
+.botones textarea{
+	height:100px;
+	width:350px;
+}
+.botones input[type = submit]{
+	margin-bottom:3%;
+	margin-top: 3%;
+}
+/* Perteneciente a transferencia */
+textarea{
+	width: 200px;
+	height: 40px;
+
+}
+
+input#id_cantidad{
+	width:40px;
+	font-size: 130%;
+}
+input#id_usuario{
+	font-size: 120%
+}
+div#tx{
+	margin-left: 22%;
+}
+
+td.celdamensajes{
+	background-color: #FFCC33;
+}
+div#sidebar td.celdamensajes A{
+	color: #006600;
+}

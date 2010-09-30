@@ -1,0 +1,39 @@
+{% extends "base_online.html" %}
+{% block style %}"/site_media/buscador.css"{% endblock %}
+{% block content %}
+	{% if messages %}
+		<ul>
+		{% for message in messages %}
+			<li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+
+	
+	
+	Estás accediendo al servicio 
+	{% if serv.oferta %}
+		ofertado
+	{% else %}
+		solicitado
+	{% endif %}
+	por: {{ serv.creador }} <br/>
+	
+	Descripción del servicio: {{ serv.descripcion }}<br/>
+	
+	Zona: {{ serv.zona }} Categoría: {{ serv.categoria }} Fecha: {{ serv.pub_date }} <br/> <br/>
+	
+	En el cuadro de texto indicado escribe el primer mensaje que se enviará al usuari@ que publicó este servicio.
+	<div id="mensaje_error">
+		<font color="red"> {{ msj_error }} </font>
+	</div>
+	<form method="POST">
+		{{ form.as_p }}
+		<input type="hidden" name="id_servicio" value="{{ serv.id }}"/>
+		<input type="submit" name="creaContactoI" value="Establecer contacto"/>
+	
+	</form>
+	
+	
+	
+{% endblock content %}

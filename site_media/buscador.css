@@ -1,0 +1,49 @@
+﻿/*
+Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+@import url(/site_media/estilo_online.css);
+form{
+	margin-left: 23%;
+	font-family: helvetica;
+}
+
+
+div#c_servicios{
+	margin-left: 23%;
+	width: 70%;
+	font-family: helvetica;
+}
+
+.un_servicio{
+	border-bottom-style: dashed;
+	margin-bottom: 5%;
+	padding-bottom: 3%;
+}
+.descr{
+	margin-top:0.5%;
+	text-indent: 2em;
+}
+.pagination{
+	text-align: center;
+}
+
+td.celdabuscador{
+	background-color: #FFCC33;
+}
+div#sidebar td.celdabuscador A{
+	color: #006600;
+}

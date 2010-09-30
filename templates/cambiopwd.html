@@ -1,0 +1,12 @@
+{% extends "base_online.html" %}
+{% block style %}"/site_media/personal.css"{% endblock %}
+{% block content %}
+<div id="cambiopwd">
+	<form action="." method="POST">
+		<table>
+			{{ form.as_table }}
+		</table>
+			<input id="botonPwd" type="submit" value="Cambiar contraseña" />
+	</form>
+</div>
+{% endblock content %}

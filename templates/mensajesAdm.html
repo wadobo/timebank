@@ -1,0 +1,53 @@
+{% extends "base_online.html" %}
+{% block style %}"/site_media/personal.css"{% endblock %}
+{% block content %}
+<div id="msjadm">
+{% if msj_error %}
+	<font color="red"> {{ msj_error }} </font>
+{% endif %}
+{% if contacto_establecido and not contacto.usuario_borrar %}
+	<div name="tema" align="left">
+		<h4>Tema de la conversación: {{ contacto.tema }} </h4>
+	</div>
+
+	{%  for msj in set_msj %}
+		<div class="mensaje">
+			{% if msj.a_a_u %}
+				{{ contacto.administrador }}
+			{% else %}
+				{{ contacto.usuario_normal }}
+			{% endif %}		
+			escribe: {{ msj.contenido }} || {{ msj.pub_date|date:"d.m.Y, H:i" }} <br/>
+			----
+		</div>
+	{% endfor %}
+
+	{% if activa %}
+	{% comment %}
+		Si un usuari@ ha decidido borra la conversación ya no podrá acceder a ella,
+		aunque si la otra parte ha sido la que ha borrado la conversación, la podrá seguir,
+		visualizando hasta que decida cerrarla, cuando será borrada de la BD.
+	{% endcomment %}
+	<div name="botones">
+		<form method="POST">
+			<textarea name="contenido" rows="5" cols="37"></textarea><br/>
+			<input type="submit" name="escribir" value="Enviar mensaje"/>
+			<input type="submit" name="borrar_conv" value="Borrar conversación"/>
+		</form>
+	</div>
+	{% else %}
+		El administrador implicado en la conversación ha decidido borrarla, por lo que ya no podrá <br/>
+		escribir más mensajes. Aunque si podrá seguir visualizandola, cuando pulse en "Borrar definitivamente" <br/>
+		ya no habrá forma de recuperar la conversación. Aunque entonces podrá establecer un nuevo contacto con la administración.
+		<form method="POST">
+			<input type="submit" name="borrar_def" value="Borrar la conversación definitivamente"/>
+		</form>
+	{% endif %}
+{% else %}
+	Aún no has establecido contacto con la administración, para hacerlo<br/>
+	dirigete a la sección correspondiente a ello desde tu página personal <br/>
+	o pulsa <a href="{% url aplicacion.views.contAdm %}">aquí</a>.
+
+{% endif %}
+</div>
+{% endblock content %}

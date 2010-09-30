@@ -1,0 +1,98 @@
+{% extends "base_online.html" %}
+{% block style %}"/site_media/mensajes.css"{% endblock %}
+{% block content %}
+<h3> Conversaciones abiertas: </h3>
+{% for inter in set_intercambios %}
+<div class="mensajes">
+	<p>
+	{% ifequal usu inter.solicitante %}
+		{% if not inter.solicitante_borrar %} {# Si el usuari@ no ha marcado la conversación como borrada #}
+				{% ifequal usu inter.servicio.creador %}
+					{% if inter.servicio.oferta %}
+						{{ inter.solicitante }} te ha contactado por un servicio que ofertas
+					{% else %}
+						{{ inter.oferente }} te ha contactado por un servicio que solicitas
+					{% endif %}
+				{% else %}
+					{% if inter.servicio.oferta %}
+						Has contactado con {{ inter.oferente }} por un servicio que este usuari@ oferta
+					{% else %}
+						Has contactado con {{ inter.solicitante }} por un servicio que éste usuari@ solicita
+					{% endif %}
+				{% endifequal %}:<br/>
+
+				{{ inter.servicio.descripcion|slice:":80"  }}...<a href="{% url serv.views.intercambio inter.id %}"> Ver más </a></p> 	
+		{% endif %}
+	{% else %} {# Se repite exactamente el mismo código, sería mejor pasar una vble. de la view, y se hará...#}
+		{% if not inter.oferente_borrar %} {# Lo mismo como oferente #}
+				{% ifequal usu inter.servicio.creador %}
+					{% if inter.servicio.oferta %}
+						{{ inter.solicitante }} te ha contactado por un servicio que ofertas
+					{% else %}
+						{{ inter.oferente }} te ha contactado por un servicio que solicitas
+					{% endif %}
+				{% else %}
+					{% if inter.servicio.oferta %}
+						Has contactado con {{ inter.oferente }} por un servicio que éste usuari@ oferta
+					{% else %}
+						Has contactado con {{ inter.solicitante }} por un servicio que éste usuari@ solicita
+					{% endif %}
+				{% endifequal %}:<br/>
+
+				{{ inter.servicio.descripcion|slice:":80"  }}...<a href="{% url serv.views.intercambio inter.id %}"> Ver más </a></p> 
+		{% endif %}
+	{% endifequal %}
+</div>
+{% endfor %}
+<hr>
+
+<h3> Transferencias pendientes </h3>
+
+<div class="transferencias">
+	<h4><a href="{% url aplicacion.views.transferencia %}"> Crear petición de transferencia </a></h4>
+	<h4> Transferencias que has enviado:</h4>
+	{% for tx in set_tx %}
+		{%if tx.creoBeneficiario %}
+				{%ifequal usu tx.beneficiario%}<li>
+					Transferencia a favor de: {{ tx.beneficiario }}, a cargo de: {{ tx.deudor }}, en fecha: {{ tx.fechaTx|date:"d.m.Y, H:i" }}.<br/>
+					Breve descripción: {{ tx.descrServ }} 
+					<form method="POST">Créditos de tiempo a transferir: {{ tx.cantidad }} Estado:{% if tx.rechazada %} Rechazada {% else %} Pendiente {% endif %}
+					<input type="submit" name="borrar" value="Borrar"/><input type="hidden" name="id_tx" value="{{ tx.id }}"/></form></li><br/>
+				{% endifequal %}
+			{% else %}
+				{%ifequal usu tx.deudor %} <li>
+					Transferencia a favor de: {{ tx.beneficiario }}, a cargo de: {{ tx.deudor}}, en fecha: {{ tx.fechaTx|date:"d.m.Y, H:i" }}.<br/>
+					Breve descripción: {{ tx.descrServ }} 
+					<form method="POST">Créditos de tiempo a transferir: {{ tx.cantidad }} Estado:{% if tx.rechazada %} Rechazada {% else %} Pendiente {% endif %}
+					<input type="submit" name="borrar" value="Borrar"/><input type="hidden" name="id_tx" value="{{ tx.id }}"/></form></li><br/>
+				{% endifequal %}
+			{% endif %}
+	{% endfor %}
+	{# Todos estos casos se dán porque tanto el beneficiario cómo el deudor pueden enviar la solicitud de transferencia a favor de uno o de otro según el caso#}
+	<h4> Transferencias que has recibido:</h4>
+	{% if msj %}<font color="red">{{ msj }}</font>{% endif %}
+	{% for tx in set_tx %}
+		{%if tx.creoBeneficiario %} {# Para filtrar las solicitudes de transferencia que has recibio primero miramos si las creo el beneficiario #}
+				{%ifequal usu tx.deudor %} {# y si las creo el beneficiario y tu no eres el beneficiario y es que la has recibido y no enviado #}
+					{% if not tx.rechazada %}<li> {# Las transferencias que tu hayas rechazado, ya no se visualizarán #}
+					Transferencia a favor de: {{ tx.beneficiario }}, a cargo de: {{ tx.deudor }}, en fecha: {{ tx.fechaTx|date:"d.m.Y, H:i" }}.<br/>
+					Breve descripción: {{ tx.descrServ }} 
+					<form method="POST">Créditos de tiempo a transferir: {{ tx.cantidad }}
+					<input type="submit" name="aceptar" value="Aceptar"/><input type="submit" name="rechazar" value="Rechazar"/><input type="hidden" name="id_tx" value="{{ tx.id }}"/></form></li><br/>
+					{% endif %}
+				{% endifequal %}
+			{% else %}
+				{%ifequal usu tx.beneficiario %} {# A cambio si no las creo el beneficiario y tu eres el beneficiario, la has recibido tb#}
+					{% if not tx.rechazada %}<li>
+					Transferencia a favor de: {{ tx.beneficiario }}, a cargo de: {{ tx.deudor }}, en fecha: {{ tx.fechaTx|date:"d.m.Y, H:i" }}.<br/>
+					Breve descripción: {{ tx.descrServ }} 
+					<form method="POST">Créditos de tiempo a transferir: {{ tx.cantidad }}
+					<input type="submit" name="aceptar" value="Aceptar"/><input type="submit" name="rechazar" value="Rechazar"/><input type="hidden" name="id_tx" value="{{ tx.id }}"/></form></li><br/>
+					{% endif %}
+				{% endifequal %}
+			{% endif %}
+	{% endfor %}
+</div>
+
+
+{% endblock content %}

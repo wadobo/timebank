@@ -1,0 +1,61 @@
+{% extends "base_online.html" %}
+{% block style %}"/site_media/servicios.css"{% endblock %}
+{% block content %}
+	{% if messages %}
+		<ul>
+		{% for message in messages %}
+			<li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+<!-- <fieldset> Se podría resumir todo a esto pero no estaría el elto. anterior.
+    <legend>Editando un servicio:</legend>
+	<form action="/servicios/" method="POST">
+		{{ form.as_p }}
+		<input name="reBaja" type="submit" value="Guardar cambios"/>
+	</form>
+		<text> {{ msj }}  </text>
+</fieldset> -->
+
+<fieldset>
+<legend>Editando un servicio:</legend>
+<form action="{% url serv.views.misservicios %}" method="POST">
+	<div class="fieldWrapper">
+		<label for="id_oferta">Crear una</label>: <select name="oferta" id="id_oferta">
+			<!-- Para tener seleccionado el parámetro correcto los ifs con selected -->
+			<option value="0"{% if not object.oferta %} selected="selected"{% endif %}>DEMANDA</option>			
+			<option value="1" {% if object.oferta %} selected="selected" {% endif %} >OFERTA</option>
+		</select>
+	</div>
+	
+	<div class="fieldWrapper">
+				{{ error_msj }}
+					<label for="id_descripcion">Descripción</label>: <textarea id="id_descripcion" rows="10" cols="40" name="descripcion"> {{ object.descripcion }} </textarea>
+
+	</div>
+
+		
+	<div class="fieldWrapper">		
+			<p><label for="id_zona">Zona:</label> <select name="zona" id="id_zona">
+				{% for zona in lista_zonas %}
+					<option value="{{ zona.id }}" {% ifequal object.zona_id zona.id %}	selected="selected"	{% endifequal %} > {{ zona.nombre_zona }} </option>
+				{% endfor %}
+			</select> </p>
+	</div>
+	
+	<div class="fieldWrapper">			
+					<p><label for="id_categoria">Categoría:</label> <select name="categoria" id="id_categoria">
+					{% for cat in lista_categorias %}
+						<option value="{{ cat.id }}" {% ifequal object.categoria_id cat.id %} selected="selected" {% endifequal %} >{{ cat.nombre_categoria }} </option>
+					{% endfor %}
+					</select> </p>
+	</div>
+	
+		<input name="creaServ" type="submit" value="Guardar cambios"/>
+		<input type="hidden" name="id_modifica" value="{{ object.id }}" />
+		<input type="hidden" name="modified" value="True" /> <!-- Indica a la vista que hemos modificado un objeto, para que no cree uno nuevo -->
+</form>
+		<text> {{ msj }}  </text>
+</fieldset>
+
+{% endblock content  %}

@@ -1,0 +1,9 @@
+All the files in this directory are under this AGPL v3 or later
+as specified in ../COPYING, but the license and copyright headers
+are not included in all the files because it would make the license
+appear multiple times in the resulting templated pages, as some
+templates include some others.
+
+Here is a list of the Copyright holders for all the templates:
+
+Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
