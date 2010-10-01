@@ -1,4 +1,5 @@
-﻿# Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
+﻿# Copyright (C) 2009 Tim Gaggstatter <Tim.Gaggstatter AT gmx DOT net>
+# Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
