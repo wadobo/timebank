@@ -1,9 +1,9 @@
-Manual r·pido de instalaciÛn de Django:
+Manual r√°pido de instalaci√≥n de Django:
 
-1. Instalar Python 2.5 o posterior, NO recomendable versiÛn 3.0
+1. Instalar Python 2.5 o posterior, NO recomendable versi√≥n 3.0
 
 2. Instalar Apache 2.x y mod_python 3.x
-	Configurar Apache, aÒadir al archivo httpd.conf:
+	Configurar Apache, a√±adir al archivo httpd.conf:
 		<Location "/mysite/">
   			 SetHandler python-program
  			 PythonHandler django.core.handlers.modpython
@@ -11,29 +11,29 @@ Manual r·pido de instalaciÛn de Django:
    			 PythonOption django.root /mysite
    			 PythonDebug On
 		</Location>
-	reemplanzando mysite.settings con la ruta Python hacia el archivo settings.py del proyecto de Django. Si el proyecto no est· en el PYTONPATH por defecto del equipo, hay que indicarle a mod_python dÛnde puede encontrar el proyecto aÒadiendo:
+	reemplanzando mysite.settings con la ruta Python hacia el archivo settings.py del proyecto de Django. Si el proyecto no est√° en el PYTONPATH por defecto del equipo, hay que indicarle a mod_python d√≥nde puede encontrar el proyecto a√±adiendo:
 			PythonPath "['/path/to/project'] + sys.path"
 
 con la ruta hacia el proyecto, en a la lista anterior.
-	Para m·s detalles, servir archivos media (.css, .jpg,etc) y archivos de administrador: http://docs.djangoproject.com/en/dev/howto/deployment/modpython/#howto-deployment-modpython
+	Para m√°s detalles, servir archivos media (.css, .jpg,etc) y archivos de administrador: http://docs.djangoproject.com/en/dev/howto/deployment/modpython/#howto-deployment-modpython
 
 
-3. Instalar gestor de base de datos: MySQL versiÛn mÌnima: 3.23, mejor 4.1 o 5.0. .Usar el tipo de tablas: InnoDB (totalmente soportado por Django).
+3. Instalar gestor de base de datos: MySQL versi√≥n m√≠nima: 3.23, mejor 4.1 o 5.0. .Usar el tipo de tablas: InnoDB (totalmente soportado por Django).
 
-4. Instalar MySQLdb interface Python para MySQl versiÛn: 1.2.1p2 o posterior.
+4. Instalar MySQLdb interface Python para MySQl versi√≥n: 1.2.1p2 o posterior.
 
-5. Crear base de datos con CHARACTER SET utf8, la configuraciÛn debe corresponderse con la indicada en settings.py. NOTA: settings.py debe llevar la configuraciÛn especÌfica de la 	BD, Èste documento una vez que hayas puesto la configuraciÛn, yo harÈ un update,me crearÈ una BD con el mismo nombre,usuario y clave en mi equipo, asÌ los posteriores commit de settings.py no te crear·n una configuraciÛn no deseada. El problema es que el settings.py aparte de la configuraciÛn de la BD tambiÈn tiene otros par·metros que seguramente si modificarÈ, si no fuera asÌ serÌa tan simple cÛmo cada uno tener su propia copia de settings.py e ignorar al sincronizar con el repositorio. Espero que te parezca buena y compatible la 'idea'. De todas formas en Èste fichero hay que hacer muy pocos cambios a lo largo del desarrollo asi que no creo que cree problemas.
+5. Crear base de datos con CHARACTER SET utf8, la configuraci√≥n debe corresponderse con la indicada en settings.py. NOTA: settings.py debe llevar la configuraci√≥n espec√≠fica de la 	BD, √©ste documento una vez que hayas puesto la configuraci√≥n, yo har√© un update,me crear√© una BD con el mismo nombre,usuario y clave en mi equipo, as√≠ los posteriores commit de settings.py no te crear√°n una configuraci√≥n no deseada. El problema es que el settings.py aparte de la configuraci√≥n de la BD tambi√©n tiene otros par√°metros que seguramente si modificar√©, si no fuera as√≠ ser√≠a tan simple c√≥mo cada uno tener su propia copia de settings.py e ignorar al sincronizar con el repositorio. Espero que te parezca buena y compatible la 'idea'. De todas formas en √©ste fichero hay que hacer muy pocos cambios a lo largo del desarrollo asi que no creo que cree problemas.
 
 6. Instalar django:
-	6.1 Descargar la ˙ltima versiÛn oficial desde http://www.djangoproject.com/download/
+	6.1 Descargar la √∫ltima versi√≥n oficial desde http://www.djangoproject.com/download/
 	6.2 Descomprimir el archivo
-	6.3 Ejecutar el comando 'sudo python setup.py install' desde el directorio dÛnde descomprimimos el archivo en el paso anterior
+	6.3 Ejecutar el comando 'sudo python setup.py install' desde el directorio d√≥nde descomprimimos el archivo en el paso anterior
 
-Finalizada la instalaciÛn y listo para lanzar el proyecto.
+Finalizada la instalaci√≥n y listo para lanzar el proyecto.
 
 1. Crear una base de datos con el nombre que sea en mysq:'CREATE DATABASE nombre'
-2. En bdt1/settings.py indicar la confifguraciÛn de la BD creada
+2. En bdt1/settings.py indicar la confifguraci√≥n de la BD creada
 3. Ejecutar en el directorio bdt1/ el comando "python manage.py syncdb" crea las tablas en la base de datos a partir de los modelos.
 4. Ejectuar en el mismo directorio "python manage.py runserver".
 
-AplicaciÛn lanzada...
+Aplicaci√≥n lanzada...
