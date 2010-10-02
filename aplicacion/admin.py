@@ -50,8 +50,9 @@ class UsuarioAdmin(admin.ModelAdmin):
     search_fields = ['^username', '^first_name', '^last_name']
     list_per_page = 40
 
-    def save_model(self, request, model, form, change):
-        current_model = 
+    # TODO: Add change password, and send a welcome email when user is activated
+    #def save_model(self, request, model, form, change):
+        #current_model = 
 
 class ComentarioAdmin(admin.ModelAdmin):
     date_hierarchy = 'pub_date'
