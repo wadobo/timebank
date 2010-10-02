@@ -1,0 +1,6 @@
+*.pyc
+*.mo
+*.swp
+sessions
+database.sqlite
+.kdev4
