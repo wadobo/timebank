@@ -18,43 +18,43 @@ from serv.models import Servicio, Zona, Categoria, ContactoAdministracion, Conta
 from django.contrib import admin
 
 class ServicioAdmin(admin.ModelAdmin):
-	date_hierarchy = 'pub_date'
-	list_display = ('creador','cortaServicio','oferta','activo',)
-	list_filter = ('oferta','activo','categoria', 'zona')
-	list_display_links = ('creador',)
-	search_fields = ['^creador__username', 'descripcion', ]
-	
+    date_hierarchy = 'pub_date'
+    list_display = ('creador','cortaServicio','oferta','activo',)
+    list_filter = ('oferta','activo','categoria', 'zona')
+    list_display_links = ('creador',)
+    search_fields = ['^creador__username', 'descripcion', ]
+
 class MensajesAdmInline(admin.TabularInline):
-	model = MensajeA
+    model = MensajeA
 
 class ContactoAdmAdmin(admin.ModelAdmin):
-	inlines = [
-		MensajesAdmInline,
-	]
-	list_display = ('administrador','usuario_normal','tema',)
-	list_filter = ('usuario_borrar','administrador_borrar',)
-	list_display_links = ('administrador','usuario_normal','tema',)
-	search_fields = ['^administrador__username', '^usuario_normal__username','tema', ]
-	list_per_page = 40
-	
+    inlines = [
+        MensajesAdmInline,
+    ]
+    list_display = ('administrador','usuario_normal','tema',)
+    list_filter = ('usuario_borrar','administrador_borrar',)
+    list_display_links = ('administrador','usuario_normal','tema',)
+    search_fields = ['^administrador__username', '^usuario_normal__username','tema', ]
+    list_per_page = 40
+
 class MensajesIntInline(admin.TabularInline):
-	model = MensajeI
+    model = MensajeI
 
 class ContactoIntAdmin(admin.ModelAdmin):
-	inlines = [
-		MensajesIntInline,
-	]
-	fields = ('oferente','solicitante','oferente_borrar','solicitante_borrar',)
-	list_display = ('oferente','solicitante','descripcion_del_servicio',)#,'resumenTema'
-	list_filter = ('oferente_borrar','solicitante_borrar',)
-	list_display_links = ('oferente','solicitante',)#'resumenTema',
-	search_fields = ['^oferente__username', '^solicitante__username','servicio__descripcion']
-	list_per_page = 40
+    inlines = [
+        MensajesIntInline,
+    ]
+    fields = ('oferente','solicitante','oferente_borrar','solicitante_borrar',)
+    list_display = ('oferente','solicitante','descripcion_del_servicio',)#,'resumenTema'
+    list_filter = ('oferente_borrar','solicitante_borrar',)
+    list_display_links = ('oferente','solicitante',)#'resumenTema',
+    search_fields = ['^oferente__username', '^solicitante__username','servicio__descripcion']
+    list_per_page = 40
 
 class MensajesAdmin(admin.ModelAdmin):
-	date_hierarchy = 'pub_date'
-	search_fields = ['contenido', ]
-	list_per_page = 200
+    date_hierarchy = 'pub_date'
+    search_fields = ['contenido', ]
+    list_per_page = 200
 	
 admin.site.register(Servicio, ServicioAdmin)
 admin.site.register(Zona)

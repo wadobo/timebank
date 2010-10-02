@@ -21,42 +21,44 @@ admin.site.unregister(User)
 admin.site.unregister(Group)
 
 class TransferenciaAdmin(admin.ModelAdmin):
-	date_hierarchy = 'fechaTx'
-	list_display = ('beneficiario','deudor','descrServ','fechaTx','cantidad','rechazada','realizada')
-	list_filter = ('rechazada','realizada',)
-	list_display_links = ('beneficiario','deudor','descrServ',)
-	search_fields = ['^beneficiario__username', '^deudor__username', 'descrServ']
+    date_hierarchy = 'fechaTx'
+    list_display = ('beneficiario','deudor','descrServ','fechaTx','cantidad','rechazada','realizada')
+    list_filter = ('rechazada','realizada',)
+    list_display_links = ('beneficiario','deudor','descrServ',)
+    search_fields = ['^beneficiario__username', '^deudor__username', 'descrServ']
 
 class PerfilInline(admin.StackedInline):
-	model = PerfilUsuario
+    model = PerfilUsuario
 
 class UsuarioAdmin(admin.ModelAdmin):
-	inlines = [
-		PerfilInline,
-	]
-	fieldsets = (
-		('Datos personales', {
-			'fields': ('first_name', 'last_name', 'email', 'is_active')
-		}),
-		('Opciones avanzadas', {
-			'classes': ('collapse',),
-			'fields': ('username','is_staff', 'is_superuser', 'date_joined', 'last_login',)
-		}),
-	)
-	date_hierarchy = 'date_joined'
-	list_display = ('username','date_joined','first_name','last_name','email',)
-	list_filter = ('is_active','is_staff',)
-	list_display_links = ('username',)
-	search_fields = ['^username', '^first_name', '^last_name']
-	list_per_page = 40
+    inlines = [
+        PerfilInline,
+    ]
+    fieldsets = (
+        ('Datos personales', {
+            'fields': ('first_name', 'last_name', 'email', 'is_active')
+        }),
+        ('Opciones avanzadas', {
+            'classes': ('collapse',),
+            'fields': ('username','is_staff', 'is_superuser', 'date_joined', 'last_login',)
+        }),
+    )
+    date_hierarchy = 'date_joined'
+    list_display = ('username','date_joined','first_name','last_name','email',)
+    list_filter = ('is_active','is_staff',)
+    list_display_links = ('username',)
+    search_fields = ['^username', '^first_name', '^last_name']
+    list_per_page = 40
+
+    def save_model(self, request, model, form, change):
+        current_model = 
 
 class ComentarioAdmin(admin.ModelAdmin):
-	date_hierarchy = 'pub_date'
-	list_display = ('autor','destinatario','contenidoCorto','puntuacion','pub_date',)
-	list_display_links = ('autor','destinatario',)
-	search_fields = ['^autor__username', '^destinatario__username', 'contenido']
-	list_per_page = 60
-
+    date_hierarchy = 'pub_date'
+    list_display = ('autor','destinatario','contenidoCorto','puntuacion','pub_date',)
+    list_display_links = ('autor','destinatario',)
+    search_fields = ['^autor__username', '^destinatario__username', 'contenido']
+    list_per_page = 60
 
 admin.site.register(Message)
 admin.site.register(User, UsuarioAdmin)

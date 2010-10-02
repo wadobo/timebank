@@ -25,264 +25,331 @@ from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 from aplicacion.views import *
 
-
 @login_required
 def misservicios(request):
-	msj = ""
-	valCreaServ = "Crear nuevo servicio"
-	id_elemento=""
-	if request.method == 'POST':
-		if request.POST.has_key('creaServ'): #Hemos decidido crear un nuevo servicio
-			form = ServicioForm(request.POST)
-			if form.is_valid():
-				instserv = form.save(commit=False) #Se guardan los datos en una instancia del tipo Servicio aunque aun no se mandan a la BD porque falta completar quien es el creador.
-				instserv.creador = request.user
-				if request.POST.has_key('modified'): #Si estamos modificando un servicio (no queremos crear uno nuevo)
-					instserv.id = request.POST['id_modifica']
-				instserv.save() #Guardamos el nuevo servicio creado
-				msj = "has creado un nuevo servicio con éxito. Si lo deseas puedes verificarlo usando el buscador en la sección de oferta y demanda."
-				form = ServicioForm()#Devolvemos un formulario vacío por si se quiere crear otro servicio
-		else: #Queremos modificar cualquiera de los servicios presentes
-			id_elemento = request.POST['id_elemento']
-			set_elementos = funcAccion(request,id_elemento)
-			if request.POST.has_key('Modificar'):
-				return set_elementos
-			if set_elementos.has_key('msj'):
-				msj = set_elementos['msj']
-			if set_elementos.has_key('form'):
-				form = set_elementos['form']
-		
-	else:
-		form = ServicioForm()
-	set_completo = servSets(request.user) #Llama a la función servSets
-	
-	return render_to_response('servicios.html', {
-										'sectiontitle': 'Mis servicios',
-										'nombre_usuario': request.user.username,
-										'form': form,
-										'msj': msj,
-										'ofreces': set_completo['ofrece_set'],
-										'solicitas': set_completo['solicita_set'],
-										'inactivos': set_completo['inactivo_set'],
-										'valCreaServ': valCreaServ,
-										'id_modifica': id_elemento, #En lugar de pasar la variable otra vez al formulario para luego volver a leerla se podría usar la variable session
-								})
-			
+    msj = ""
+    valCreaServ = "Crear nuevo servicio"
+    id_elemento = ""
+    if request.method == 'POST' and request.POST.has_key('creaServ'):
+        # Hemos decidido crear un nuevo servicio
+        form = ServicioForm(request.POST)
+        if form.is_valid():
+            # Se guardan los datos en una instancia del tipo Servicio aunque
+            # aun no se mandan a la BD porque falta completar quien es el
+            # creador.
+            instserv = form.save(commit=False)
+            instserv.creador = request.user
+            
+            # Si estamos modificando un servicio (no queremos crear uno
+            # nuevo)
+            if request.POST.has_key('modified'):
+                instserv.id = request.POST['id_modifica']
+
+            # Guardamos el nuevo servicio creado
+            instserv.save()
+            msj = "has creado un nuevo servicio con éxito. Si lo deseas puedes verificarlo usando el buscador en la sección de oferta y demanda."
+
+            # Devolvemos un formulario vacío por si se quiere crear otro
+            # servicio
+            form = ServicioForm()
+    # Queremos modificar cualquiera de los servicios presentes
+    elif request.method == 'GET':
+        id_elemento = request.POST['id_elemento']
+        set_elementos = funcAccion(request,id_elemento)
+        if request.POST.has_key('Modificar'):
+            return set_elementos
+        if set_elementos.has_key('msj'):
+            msj = set_elementos['msj']
+        if set_elementos.has_key('form'):
+            form = set_elementos['form']
+    else:
+        form = ServicioForm()
+
+    # Llama a la función servSets
+    set_completo = servSets(request.user)
+
+    return render_to_response('servicios.html', {
+        'sectiontitle': 'Mis servicios',
+        'nombre_usuario': request.user.username,
+        'form': form,
+        'msj': msj,
+        'ofreces': set_completo['ofrece_set'],
+        'solicitas': set_completo['solicita_set'],
+        'inactivos': set_completo['inactivo_set'],
+        'valCreaServ': valCreaServ,
+        # En lugar de pasar la variable otra vez al formulario para luego volver
+        # a leerla se podría usar la variable session
+        'id_modifica': id_elemento
+    })
+
 def servSets (usu):
-	"""
-	Una función que nos devuelve un diccionario con los diferentes
-	sets de servicios existentes de un usuario determinado.
-	"""
-	set_completo = dict()
-	set_completo['ofrece_set'] = Servicio.objects.filter(creador=usu, oferta=True, activo=True).order_by('-pub_date')
-	set_completo['solicita_set'] = Servicio.objects.filter(creador=usu, oferta=False, activo=True).order_by('-pub_date')
-	set_completo['inactivo_set'] = Servicio.objects.filter(creador=usu, activo=False).order_by('-pub_date')
-	return set_completo
-				
+    """
+    Una función que nos devuelve un diccionario con los diferentes
+    sets de servicios existentes de un usuario determinado.
+    """
+    set_completo = dict()
+    set_completo['ofrece_set'] = Servicio.objects.filter(creador=usu, oferta=True, activo=True).order_by('-pub_date')
+    set_completo['solicita_set'] = Servicio.objects.filter(creador=usu, oferta=False, activo=True).order_by('-pub_date')
+    set_completo['inactivo_set'] = Servicio.objects.filter(creador=usu, activo=False).order_by('-pub_date')
+    return set_completo
+
 def funcAccion(request, id_elemento):
-	"""
-	Según la acción(que nos indica el request)actua sobre el elemento cuyo id nos pasan como parámetro
-	"""
-	form = ServicioForm()
-	if request.POST.has_key('Eliminar'):
-		Servicio.objects.get(pk = id_elemento).delete()
-		msj = "has eliminado un servicio."
-	elif request.POST.has_key('Modificar'):
-		msj = "has decidido modificar un servicio."
-		valCreaServ = "Guardar cambios"
-		from django.views.generic.create_update import update_object
-		return update_object(request, 
-							form_class=ServicioForm,
-							object_id=id_elemento,
-							post_save_redirect="/servicios/",#no se usa
-							template_name="modificarServ.html", #Debería devolver el id de la zona y categoria actuales para tenerlos preseleccionados en el menú desplegable
-							extra_context = {'lista_zonas': Zona.objects.all(),
-											'lista_categorias': Categoria.objects.all(),
-											'sectiontitle': 'Mis servicios - Editando',
-											}
-							)
-		
-	elif request.POST.has_key('Desactivar'):
-		msj = "has decidido desactivar un servicio, este no será accesible por los demás usuarios hasta que vuelvas a activarlo."
-		obj = Servicio.objects.get(pk = id_elemento)
-		obj.activo = 0
-		obj.save()
-	else: #Activar un servicio desactivaod
-		msj = "has decidido activar un servicio."
-		obj = Servicio.objects.get(pk = id_elemento)
-		obj.activo = 1
-		obj.save()
-		
-	set_elementos = dict()
-	set_elementos['msj'] = msj
-	set_elementos['form'] = form
-	return set_elementos
-			
-			
-#@login_required #También se puede acceder siendo anónimo
+    """
+    Según la acción(que nos indica el request)actua sobre el elemento cuyo id nos pasan como parámetro
+    """
+    form = ServicioForm()
+    if request.POST.has_key('Eliminar'):
+        Servicio.objects.get(pk = id_elemento).delete()
+        msj = "has eliminado un servicio."
+    elif request.POST.has_key('Modificar'):
+        msj = "has decidido modificar un servicio."
+        valCreaServ = "Guardar cambios"
+        from django.views.generic.create_update import update_object
+        return update_object(request, 
+            form_class=ServicioForm,
+            object_id=id_elemento,
+            # no se usa
+            post_save_redirect="/servicios/",
+            # Debería devolver el id de la zona y categoria actuales para
+            # tenerlos preseleccionados en el menú desplegable
+            template_name="modificarServ.html", 
+            extra_context = {
+                'lista_zonas': Zona.objects.all(),
+                'lista_categorias': Categoria.objects.all(),
+                'sectiontitle': 'Mis servicios - Editando',
+            }
+        )
+    elif request.POST.has_key('Desactivar'):
+        msj = "has decidido desactivar un servicio, este no será accesible por los demás usuarios hasta que vuelvas a activarlo."
+        obj = Servicio.objects.get(pk = id_elemento)
+        obj.activo = 0
+        obj.save()
+    else:
+        # Activar un servicio desactivaod
+        msj = "has decidido activar un servicio."
+        obj = Servicio.objects.get(pk = id_elemento)
+        obj.activo = 1
+        obj.save()
+        
+    set_elementos = dict()
+    set_elementos['msj'] = msj
+    set_elementos['form'] = form
+    return set_elementos
+
+
+# END misservicios related
+
 def buscador(request):
-	set_solicitado = ""
-	c = 0
-	z = 0
-	pagina = 1
-	palabras = ""
-	serv_chkd = "checked"
-	usu_chkd = ""
-	ambos = "checked"
-	ofrecido = ""
-	solicitado = ""
-	msjs = []
+    set_solicitado = ""
+    c = 0
+    z = 0
+    pagina = 1
+    palabras = ""
+    serv_chkd = "checked"
+    usu_chkd = ""
+    ambos = "checked"
+    ofrecido = ""
+    solicitado = ""
+    msjs = []
+
+    if request.method == 'POST' and request.POST.has_key('palabras'):
+        # Si el campo de palabras no está vacío
+        if not request.POST['palabras'] == "":
+            request.session['palabras'] = request.POST['palabras']
+            # Si queremos realizar una búsqueda por servicios
+            if request.POST['group1'] == "Servicio":
+                    request.session['serv_chkd'] = "checked"
+                    request.session['usu_chkd'] = ""
+                    # Separamos cada una de las palabras, como separador
+                    # suponemos el espacio en blanco.
+                    lista_palab = request.POST['palabras'].split()
+                    todos = Servicio.objects.filter(activo = True)
+                    # Esta es la alternativa que la descripción tenga que
+                    # contener todas las palabras que ha introducido el usuario
+                    for w in lista_palab:
+                        # En cada iteración vamos refinando más el cjto. de
+                        # elto. seleccionados
+                        todos = todos.filter(descripcion__icontains=w)
+                    set_solicitado = todos
+                    if not set_solicitado:
+                        # Si no hay ninguna resultado
+                        msjs.append("No hay ningún servicio que coincida con tus criterios.")
+                        # request.user.message_set.create(message=\"No hay "\
+                        # "ningun servicio que coincida con tus criterios.")
+                    #Y esta es la alternativa para que la descripción solamente
+                    # tenga que contener alguna de las palabras insertadas por
+                    # el usuario.
+                    # querystring = Q()
+                    # for w in lista_palab:
+                        # Creamos la cadena de la consula con objetos Q(que se
+                        # usan para consultas complejas)
+                        # Si se insertan varias palabras, se devuelven todas las
+                        # que contengan alguna de estas palabras
+                        # querystring |= Q(descripcion__icontains=w)
+                    # set_solicitado = Servicio.objects.filter(querystring)
+            else:
+                # Buscar por nombre de usuario
+                request.session['serv_chkd'] = ""
+                request.session['usu_chkd'] = "checked"
+                querystring = Q()
+                lista_palab = request.POST['palabras'].split()
+                if lista_palab:
+                    # Si la lista está vacía no podemos acceder ni al primer
+                    # indice
+                    # Puede devolver un cjto. de usuarios. Sólo se tiene en
+                    # cuenta la primera palabra insertada en la caja de texto,
+                    # los nombres de usuario nunca contiene espacios.
+                    usu = User.objects.filter(username__icontains = lista_palab[0]) 
+                    for usuario in usu: #Obtenemos una consulta por cada usuario
+                        querystring |= Q(creador=usuario.id)
+                    if querystring:
+                        # Aplicamos las consultas y obtenemos todos los
+                        # servicios pertenecientes a los usuarios, cuyos nombres
+                        # de usuario incluyan la cadena insertada por el usuario
+                        set_solicitado = Servicio.objects.filter(querystring, activo=True) 
+                    else:
+                        # Si no ha habido ningun usuario que coincidiera con
+                        # nuestra palabra clave
+
+                        # Debemos devolver un queryset vacio del tipo servicios
+                        # para que las sucesivas filtraciones no den errores
+                        set_solicitado = Servicio.objects.filter(creador = 700)
+                        msjs.append("No hay ningún servicio que coincida con tus criterios.")
+                        # request.user.message_set.create(message="No hay " \
+                        # "ningun servicio que coincida con tus criterios.")
+        # En este punto set_solicitado ya contendrá sólo los servicios que
+        # pertenecen a un usuario (o a un cjto. de ellos) dtdo.
+        # o un cjto. de servicios que en su descripción contiene las palabras
+        # clave indicadas.
+        # En caso de que hayamos dejado la caja de palabras clave en blanco, nos
+        # devuelven todos los servicios ordenados, por los demás criterios
+        # exceptuando usuario y servicio, pues es lo mismo devolver todos los
+        # servicios que devolver los servicios de todos los usuarios
+        else:
+            # No hay palabras clave
+            request.session['palabras'] = ""
+            # En todos casos sólo queremos ver los servicios activos
+            set_solicitado = Servicio.objects.filter(activo = True)
+            if request.POST['group1'] == "Servicio":
+                request.session['serv_chkd'] = "checked"
+                request.session['usu_chkd'] = ""
+            else:
+                request.session['serv_chkd'] = ""
+                request.session['usu_chkd'] = "checked"
+            # Siguiente paso de filtración sólo si se ha elegido la opción
+            # solicitado u ofrecido, si es ambos no realizamos nada	
+        request.session['ambos'] = ""
+        request.session['ofrecido'] = ""
+        # Tb podríamos marcarlo con un número p.ej. 0,1,2 y compararlo en el template
+        request.session['solicitado'] = ""
+    
+        if request.POST['group2'] == "Ambos":
+            request.session['ambos'] = "checked"
+        elif request.POST['group2'] == "Ofrecido":
+            request.session['ofrecido'] = "checked"
+            set_solicitado = set_solicitado.filter(oferta=1)
+        else:
+            #Servicios solicitados
+            request.session['solicitado'] = "checked"
+            set_solicitado = set_solicitado.filter(oferta=0)
+    
+        # Otros 2 pasos de filtración: por zona y por categoría
+        c = int(request.POST['categoria'])
+        if c:
+            # En caso de que sea cero no se entra
+            set_solicitado = set_solicitado.filter(categoria=c)
+        request.session['c'] = c
+        z = int(request.POST['zona'])
+        if z:
+            set_solicitado = set_solicitado.filter(zona=z)
+        request.session['z'] = z
 
 
+        # Finalmente ordenamos los servicios filtrados por fecha, la más 
+        # reciente primero.
+        set_solicitado = set_solicitado.order_by('-pub_date')
+        # Guardamos en session la consulta, para cuando accedamos a posteriores
+        # páginas no tengamos que volver a filtrar
+        # Si no hay set_solicitado nuevo, no lo guarda (machaca).
+        request.session['consulta'] = set_solicitado
+    else:
+        # Si hemos entrado por Get y no por Post y además en caso de venir desde
+        # el metodo contactar
+        if request.session.has_key('consulta'):
+            # Al entrar por GET al consultar las páginas consecutivas a la
+            # primera, no se machaca este queryset hasta que se haga una nueva
+            # consulta.
+            set_solicitado = request.session['consulta']
+            
+    #En todos casos
+    if request.session.has_key('palabras'):
+        palabras = request.session['palabras'] 
+    if request.session.has_key('serv_chkd'):
+        serv_chkd = request.session['serv_chkd']
+    if request.session.has_key('usu_chkd'):
+        usu_chkd = request.session['usu_chkd']
+    if request.session.has_key('ambos'):
+        ambos = request.session['ambos']
+    if request.session.has_key('ofrecido'):
+        ofrecido = request.session['ofrecido']
+    if request.session.has_key('solicitado'):
+        solicitado = request.session['solicitado']
+    if request.session.has_key('c'):	
+        c = request.session['c']
+    if request.session.has_key('z'):
+        z = request.session['z']
 
-	if request.method == 'POST' and request.POST.has_key('palabras'):
-	
-		if not request.POST['palabras'] == "": #Si el campo de palabras no está vacío
-			request.session['palabras'] = request.POST['palabras']
-			if request.POST['group1'] == "Servicio": #Si queremos realizar una búsqueda por servicios
-					request.session['serv_chkd'] = "checked"
-					request.session['usu_chkd'] = ""
-					lista_palab = request.POST['palabras'].split() #Separamos cada una de las palabras, como separador suponemos el espacio en blanco.
-					todos = Servicio.objects.filter(activo = True)
-					#Esta es la alternativa que la descripción tenga que contener todas las palabras que ha introducido el usuario
-					for w in lista_palab:
-						todos = todos.filter(descripcion__icontains=w) #En cada iteración vamos refinando más el cjto. de elto. seleccionados
-					set_solicitado = todos
-					if not set_solicitado:#Si no hay ninguna resultado
-						msjs.append("No hay ningún servicio que coincida con tus criterios.")
-						#request.user.message_set.create(message="No hay ningun servicio que coincida con tus criterios.")
-					#Y esta es la alternativa para que la descripción solamente tenga que contener alguna de las palabras insertadas por el usuario.
-					# querystring = Q()
-					# for w in lista_palab: #Creamos la cadena de la consula con objetos Q(que se usan para consultas complejas)
-						# querystring |= Q(descripcion__icontains=w) #Si se insertan varias palabras, se devuelven todas las que contengan alguna de estas palabras
-					# set_solicitado = Servicio.objects.filter(querystring)
-				
-		
-			else: #Buscar por nombre de usuario
-				request.session['serv_chkd'] = ""
-				request.session['usu_chkd'] = "checked"
-				querystring = Q()
-				lista_palab = request.POST['palabras'].split()
-				if lista_palab: #Si la lista está vacía no podemos acceder ni al primer indice
-					usu = User.objects.filter(username__icontains = lista_palab[0]) #Puede devolver un cjto. de usuarios. Sólo se tiene en cuenta la primera palabra insertada en la caja de texto, los nombres de usuario nunca contiene espacios.
-					for usuario in usu: #Obtenemos una consulta por cada usuario
-						querystring |= Q(creador=usuario.id)
-					if querystring:
-						set_solicitado = Servicio.objects.filter(querystring, activo=True) #Aplicamos las consultas y obtenemos todos los servicios pertenecientes a los usuarios, cuyos nombres de usuario incluyan la cadena insertada por el usuario
-					else: #Si no ha habido ningun usuario que coincidiera con nuestra palabra clave
-						set_solicitado = Servicio.objects.filter(creador = 700)#Debemos devolver un queryset vacio del tipo servicios para que las sucesivas filtraciones no den errores
-						msjs.append("No hay ningún servicio que coincida con tus criterios.")
-						#request.user.message_set.create(message="No hay ningun servicio que coincida con tus criterios.")
-		#En este punto set_solicitado ya contendrá sólo los servicios que pertenecen a un usuario (o a un cjto. de ellos) dtdo.
-		#o un cjto. de servicios que en su descripción contiene las palabras clave indicadas
-		#En caso de que hayamos dejado la caja de palabras clave en blanco, nos devuelven todos los servicios ordenados, por los demás criterios
-		# exceptuando usuario y servicio, pues es lo mismo devolver todos los servicios que devolver los servicios de todos los usuarios
-		else: #No hay palabras clave
-			request.session['palabras'] = ""
-			set_solicitado = Servicio.objects.filter(activo = True)#En todos casos sólo queremos ver los servicios activos
-			if request.POST['group1'] == "Servicio":
-				request.session['serv_chkd'] = "checked"
-				request.session['usu_chkd'] = ""
-			else:
-				request.session['serv_chkd'] = ""
-				request.session['usu_chkd'] = "checked"
-			#Siguiente paso de filtración sólo si se ha elegido la opción solicitado u ofrecido, si es ambos no realizamos nada	
-		request.session['ambos'] = ""
-		request.session['ofrecido'] = ""
-		request.session['solicitado'] = "" #Tb podríamos marcarlo con un número p.ej. 0,1,2 y compararlo en el template
-	
-		if request.POST['group2'] == "Ambos":
-			request.session['ambos'] = "checked"
-		elif request.POST['group2'] == "Ofrecido":
-			request.session['ofrecido'] = "checked"
-			set_solicitado = set_solicitado.filter(oferta=1)
-		else: #Servicios solicitados
-			request.session['solicitado'] = "checked"
-			set_solicitado = set_solicitado.filter(oferta=0)
-	
-		#Otros 2 pasos de filtración: por zona y por categoría
-		c = int(request.POST['categoria'])
-		if c: #En caso de que sea cero no se entra
-			set_solicitado = set_solicitado.filter(categoria=c)
-		request.session['c'] = c
-		z = int(request.POST['zona'])
-		if z:
-			set_solicitado = set_solicitado.filter(zona=z)
-		request.session['z'] = z
+    # Añadiendo paginación, hay que guardar la consulta en session, cuando
+    # accedemos a las otras páginas, accedemos por GET!
+    paginacion = Paginator(set_solicitado, 7)
+    try:
+        if not request.method == "POST":
+            # Si hemos hecho una consulta nueva, empezamos en la página primera.
+            pagina = int(request.GET.get('pagina', '1'))
+    except:
+        pagina = 1
+    try:
+        servicios_buscados = paginacion.page(pagina)
+    except:
+        servicios_buscados = paginacion.page(paginacion.num_pages)
 
+    if request.user.is_authenticated():
+        # Para los usuarios registrados se mostrarán todos los detalles
+        html_name = 'buscador.html'
+        nom_usu = request.user.username
+        cadena = str(request.user.get_and_delete_messages())
+        # Quitamos que sea un elto. de lista unicode para imprimir
+        cadena = cadena[3:(len(cadena)-2)]
+        msjs.append(cadena)
+    else:
+        # Para los usuarios no registrados.
+        html_name='buscador_anonimo.html'
+        nom_usu = ""
 
-		#Finalmente ordenamos los servicios filtrados por fecha, la más reciente primero.
-		set_solicitado = set_solicitado.order_by('-pub_date')
-		request.session['consulta'] = set_solicitado#Guardamos en session la consulta, para cuando accedamos a posteriores páginas no tengamos que volver a filtrar
-		#Si no hay set_solicitado nuevo, no lo guarda (machaca).
-	else:#Si hemos entrado por GEt y no por Post y además en caso de venir desde el metodo contactar
-		if request.session.has_key('consulta'):
-			set_solicitado = request.session['consulta']#Al entrar por GET al consultar las páginas consecutivas a la primera, no se machaca este queryset hasta que se haga una nueva consulta.
-			
-	#En todos casos
-	if request.session.has_key('palabras'):
-		palabras = request.session['palabras'] 
-	if request.session.has_key('serv_chkd'):
-		serv_chkd = request.session['serv_chkd']
-	if request.session.has_key('usu_chkd'):
-		usu_chkd = request.session['usu_chkd']
-	if request.session.has_key('ambos'):
-		ambos = request.session['ambos']
-	if request.session.has_key('ofrecido'):
-		ofrecido = request.session['ofrecido']
-	if request.session.has_key('solicitado'):
-		solicitado = request.session['solicitado']
-	if request.session.has_key('c'):	
-		c = request.session['c']
-	if request.session.has_key('z'):
-		z = request.session['z']
-		
-	
+    return render_to_response( html_name, {
+        'sectiontitle': 'Página de búsqueda de servicios y usuari@s',
+        'nombre_usuario': nom_usu,
+        'lista_zonas': Zona.objects.all(),
+        'lista_categorias': Categoria.objects.all(),
+        'set_solicitado': set_solicitado,
+        'servicios_buscados': servicios_buscados,
+        'palabras': palabras,
+        'serv_chkd': serv_chkd,
+        'usu_chkd': usu_chkd,
+        'ambos': ambos,
+        'ofrecido': ofrecido,
+        'solicitado': solicitado,
+        # Pasamos los criterios de la consulta para que el usuario tenga la
+        # posibilidad de simplemente modificarlos, no tener q ponerlos todos de
+        # nuevo.
+        'c': c,
+        'z': z,
+        'messages': msjs,
+    })
 
-	#Añadiendo paginación, hay que guardar la consulta en session, cuando accedemos a las otras páginas, accedemos por GET!
-	paginacion = Paginator(set_solicitado, 7)
-	try:
-		if not request.method == "POST": #Si hemos hecho una consulta nueva, empezamos en la página primera.
-			pagina = int(request.GET.get('pagina', '1'))
-	except:
-		pagina = 1
-	try:
-		servicios_buscados = paginacion.page(pagina)
-	except:
-		servicios_buscados = paginacion.page(paginacion.num_pages)
+# END buscador
 
-	if request.user.is_authenticated():
-		html_name = 'buscador.html'#Para los usuarios registrados se mostrarán todos los detalles
-		nom_usu = request.user.username
-		cadena = str(request.user.get_and_delete_messages())
-		cadena = cadena[3:(len(cadena)-2)]#Quitamos que sea un elto. de lista unicode para imprimir
-		msjs.append(cadena)
-	else:
-		html_name='buscador_anonimo.html'#Para los usuarios no registrados.
-		nom_usu = ""
-		
-#	assert False
-		
-	return render_to_response( html_name, {
-										'sectiontitle': 'Página de búsqueda de servicios y usuari@s',
-										'nombre_usuario': nom_usu,
-										'lista_zonas': Zona.objects.all(),
-										'lista_categorias': Categoria.objects.all(),
-										'set_solicitado': set_solicitado,
-										'servicios_buscados': servicios_buscados,
-										'palabras': palabras,
-										'serv_chkd': serv_chkd,
-										'usu_chkd': usu_chkd,
-										'ambos': ambos,
-										'ofrecido': ofrecido,
-										'solicitado': solicitado,
-										#Pasamos los criterios de la consulta para que el usuario tenga la posibilidad de simplemente modificarlos, no tener q ponerlos todos de nuevo.
-										'c': c,
-										'z': z,
-										'messages': msjs,
-										})
-								
-@login_required								
+@login_required
 def contactar(request):
 	formI = ContactoIForm()
 	form = MensajeIForm()
