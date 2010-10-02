@@ -16,6 +16,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+
+curdir = os.path.abspath(os.path.dirname(__file__))
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
@@ -25,8 +29,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'bdt1'             # Or path to database file if using sqlite3.
+DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'database.sqlite'             # Or path to database file if using sqlite3.
 DATABASE_USER = 'root'             # Not used with sqlite3.
 DATABASE_PASSWORD = 'mysql.1984.lsi'         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -85,7 +89,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	"/var/www/django/templates",
+	os.path.join(curdir, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -113,7 +117,7 @@ LOGIN_REDIRECT_URL = 'personal/'
 AUTH_PROFILE_MODULE = 'aplicacion.perfilusuario'
 
 #La ruta para servir documentos estáticos (básicamente los css).
-STATIC_DOC_ROOT = '/var/www/django/site_media'
+STATIC_DOC_ROOT = os.path.join(curdir, 'site_media')
 
 
 DATE_FORMAT = 'd/m/Y'
