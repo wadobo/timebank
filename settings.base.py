@@ -1,5 +1,5 @@
 ﻿# -*- coding: utf-8 -*- 
-# Django settings for bdt project.
+# Django settings for timebank project.
 # Copyright (C) 2009 Tim Gaggstatter <Tim.Gaggstatter AT gmx DOT net>
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 #
@@ -20,21 +20,31 @@ import os
 
 curdir = os.path.abspath(os.path.dirname(__file__))
 
-DEBUG = False
+### Django configuration
+
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('tim', 'ti@domain.com'),
+    ('admin', 'admin@localhost'),
 )
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'database.sqlite'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'root'             # Not used with sqlite3.
-DATABASE_PASSWORD = 'mysql.1984.lsi'         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+# Possible values are 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3', 'oracle'. Only
+# 'mysql' and 'sqlite3' have been tested.
+DATABASE_ENGINE = 'sqlite3'
+
+# Database name or path to database file if using sqlite3.
+DATABASE_NAME = 'database.sqlite'
+
+# Not used with sqlite3.
+DATABASE_USER = ''
+DATABASE_PASSWORD = ''
+
+# Set to empty string for localhost. Not used with sqlite3.
+DATABASE_HOST = ''
+DATABASE_PORT = ''
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -68,13 +78,13 @@ MEDIA_URL = ''
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
+# Automatically when executing python manage.py start-project
 SECRET_KEY = 'k#)-9d^v+^k37nt_j0%9+mdvlq5qj%_1@^-d&!m()w^sfvfdj&'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
+    'django.template.loaders.app_directories.load_template_source'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,48 +96,47 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
+    # Put strings here, like "/home/html/django_templates" or
+    # "C:/www/django/templates". Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	os.path.join(curdir, 'templates'),
+    os.path.join(curdir, 'templates'),
 )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
-	'django.contrib.humanize', #añadido
+    'django.contrib.humanize',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-	'django.contrib.admin',
-	'aplicacion',
-	'serv',
-	# 'django.contrib.databrowse',
+    'django.contrib.admin',
+    'aplicacion',
+    'serv',
+    # 'django.contrib.databrowse',
 )
 
-# Más cosas
-
-# la página de inicio o '/' es la página donde se hará login
 LOGIN_URL = '/'
-#Se debe pasar como parametro
 
-# una vez hecho login se redirigirá a la página personal
+# The URL where requests are redirected after login when the
+# contrib.auth.login view gets no next parameter.
 LOGIN_REDIRECT_URL = 'personal/'
 
-# Esto es porque la información con la que se almacena un usuario por defecto no es suficiente, definimos otro modelo perfilusuario
+# The site-specific user profile model used by this site.
 AUTH_PROFILE_MODULE = 'aplicacion.perfilusuario'
 
 #La ruta para servir documentos estáticos (básicamente los css).
 STATIC_DOC_ROOT = os.path.join(curdir, 'site_media')
 
-
 DATE_FORMAT = 'd/m/Y'
 DATETIME_FORMAT = 'd/m/Y, H:i'
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
-SESSION_COOKIE_AGE=6000 #900 15 min. sin actividad expira la sesión, en la siguienta acción se redirige a login.
 
-#TEMPLATE_STRING_IF_INVALID="Invalid:%s" #Muestra el mensaje + el nombre del objeto inválido
+# Specified in seconds. After this time of inactivity, next action which
+# requires user to be logged will redirect to login page. Default is two weeks,
+# or 1209600 seconds.
+#SESSION_COOKIE_AGE=1209600
 
-EMAIL_HOST = 'mail.us.es'
-EMAIL_PORT = 25
-EMAIL_HOST_USER = '1984lsi'
-EMAIL_HOST_PASSWORD = 'email-1984-use'
+# Email configuration. Configure appropiately if emails are not directly sent by localhost
+#EMAIL_HOST = ''
+#EMAIL_PORT = 0
+#EMAIL_HOST_USER = ''
+#EMAIL_HOST_PASSWORD = ''
