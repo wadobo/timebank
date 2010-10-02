@@ -454,14 +454,14 @@ def intercambio(request, id_inter=1):
 				# XXX: Pablo added this
 				destinatario = User.objects.get(id=intercambio.solicitante.id)
 				msg_email = "Tienes un mensaje nuevo de %s que espera respuesta.\n\nAccede a la web del Banco del Tiempo del Ecolocal y consulta 'Conversaciones y transferencias'.\n\n¡No lo dejes pasar!\n\nhttp://www.ecolocal.es\n"%intercambio.oferente
-				send_mail("BdT Ecolocal: Nuevo mensaje espera respuesta", msg_email, 'ecolocal@gmail.com', [destinatario.email])
+				send_mail("BdT Ecolocal: Nuevo mensaje espera respuesta", msg_email, 'ecolocal@gmail.com', [destinatario.email], fail_silently=False)
 			else:
 				msjotro = "Tiene un mensaje nuevo de: %s. Verifiquelo bajo 'Conversaciones y transferencias'."%intercambio.solicitante
 				intercambio.oferente.message_set.create(message=msjotro)
 				# XXX: Pablo added this
 				destinatario = User.objects.get(id=intercambio.oferente.id)
 				msg_email = "Tienes un mensaje nuevo de %s que espera respuesta.\n\nAccede a la web del Banco del Tiempo del Ecolocal y consulta 'Conversaciones y transferencias'.\n\n¡No lo dejes pasar!\n\nhttp://www.ecolocal.es\n"%intercambio.solicitante
-				send_mail("BdT Ecolocal: Nuevo mensaje espera respuesta", msg_email, 'ecolocal@gmail.com', [destinatario.email])
+				send_mail("BdT Ecolocal: Nuevo mensaje espera respuesta", msg_email, 'ecolocal@gmail.com', [destinatario.email], fail_silently=False)
 		elif request.POST.has_key('ver_menos'):
 			return redirect(mensajesTransf)
 		elif request.POST.has_key('atras'):

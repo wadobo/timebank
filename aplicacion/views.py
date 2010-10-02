@@ -45,7 +45,7 @@ def registro(request):
 				extraform2.save()
 				#pdb.set_trace()
 				msjAdm = "Se ha registrado un nuevo usuario con nombre de usuario: %s . Revise sus datos y delo de alta."%instanciaUsuario.username
-				#send_mail("Nuevo usuario registrado", msjAdm, 'ORIGEN',['DESTINATARIO'])
+				#send_mail("Nuevo usuario registrado", msjAdm, 'ORIGEN',['DESTINATARIO'], fail_silently=False)
 				return redirect(regExito) # Redirigimos tras POST
 	else:
 		form = UserForm() # Un formulario vacío
@@ -109,7 +109,7 @@ def personal(request):
 
 				msj = "Datos personales actualizados con éxito."
 				
-				#send_mail("Usuario cambio datos personales", msjAntiguo, 'ORIGEN',['DESTINATARIO'])
+				#send_mail("Usuario cambio datos personales", msjAntiguo, 'ORIGEN',['DESTINATARIO'], fail_silently=False)
 				# * Enviar email a la administración comunicando los datos nuevos(se pueden verificar en la BD) y antiguos, sino un usuario podría cambiar todos sus datos y noquedaría rastro
 			else:
 				msj = "Datos personales NO actualizados, corrija los datos erróneos."
@@ -160,7 +160,7 @@ def baja(request):
 			usu.is_active = False
 			usu.save()
 			msjAdmin = "El usuario:%s se ha dado de baja."%usu.username
-			#send_mail("Usuario de baja", msjAdmin, 'ORIGEN',['DESTINATARIO'])
+			#send_mail("Usuario de baja", msjAdmin, 'ORIGEN',['DESTINATARIO'], fail_silently=False)
 			from django.contrib.auth import views as m
 			#return m.login(request, 'login.html')
 			return redirect(m.login)
@@ -346,7 +346,7 @@ def transferencia(request):
 									usu.message_set.create(message = msj2)
 									# XXX: Pablo added this
 									msg_email = "Tienes una nueva solicitud de transferencia de %s que espera respuesta.\n\nAccede a la web del Banco del Tiempo del Ecolocal y consulta 'Conversaciones y transferencias'.\n\nhttp://www.ecolocal.es\n"%request.user.username
-									send_mail("BdT Ecolocal: Nueva solicitud de transferencia espera respuesta", msg_email, 'ecolocal@gmail.com', [usu.email])
+									send_mail("BdT Ecolocal: Nueva solicitud de transferencia espera respuesta", msg_email, 'ecolocal@gmail.com', [usu.email], fail_silently=False)
 									return redirect(mensajesTransf)
 									#return HttpResponseRedirect('/mensajes/')#Redireccionamos a la página donde el usuario podrá ver su Tx
 								else:
@@ -403,7 +403,7 @@ def recuerdoClave(request):
 				usu.set_password(pwd)
 				message = "%s,\n\nTu nueva clave es: %s\n\nPuedes cambiar esta clave desde tu pagina personal, en la barra de opciones que se encuentra abajo a la derecha."%(usu.username, pwd)
 				#usu.email_user("BdT: El Ecolocal le dá una nueva contraseña", message, 'tim.gaggstatter@gmx.net' )
-				send_mail("BdT: Nueva contraseña", message, 'ecolocal@gmail.com', [usu.email])
+				send_mail("BdT: Nueva contraseña", message, 'ecolocal@gmail.com', [usu.email], fail_silently=False)
 				usu.save()
 				msj = "Se le ha enviado una nueva clave, comprueba tu correo tras unos minutos."
 		except:
@@ -434,5 +434,5 @@ def pwdCambiado(request):
 	return render_to_response('cambiopwdhecho.html', {'nombre_usuario' : request.user.username, 'sectiontitle': "Contraseña cambiada",})
 
 def dummy_mail(request):
-	send_mail("Nuevo usuario registrado", "Contenido del mensaje", 'bdt@ecolocal.es',['tim.gaggstatter@gmx.net'])
+	send_mail("Nuevo usuario registrado", "Contenido del mensaje", 'bdt@ecolocal.es',['tim.gaggstatter@gmx.net'], fail_silently=False)
 	return render_to_response('registroExito.html',{})
