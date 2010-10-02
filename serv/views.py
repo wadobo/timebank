@@ -301,7 +301,6 @@ def contactar(request):
 			#request.POST['serv_chkd']=""
 			#request.POST['group2']
 			return redirect(buscador)
-#			return HttpResponseRedirect('/bdt/buscador/')
 		if request.POST.has_key('creaContactoI'): #Si el usuario ha decidido establecer contacto.
 			if servicioI.oferta: #Si accedo a una oferta yo(request.user) soy el solicitante
 				id_oferente = servicioI.creador_id

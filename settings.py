@@ -1,5 +1,5 @@
 ﻿# -*- coding: utf-8 -*- 
-# Django settings for bdt1 project.
+# Django settings for bdt project.
 # Copyright (C) 2009 Tim Gaggstatter <Tim.Gaggstatter AT gmx DOT net>
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 #
@@ -83,7 +83,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'bdt.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -99,15 +99,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
 	'django.contrib.admin',
-	'bdt.aplicacion',
-	'bdt.serv',
+	'aplicacion',
+	'serv',
 	# 'django.contrib.databrowse',
 )
 
 # Más cosas
 
 # la página de inicio o '/' es la página donde se hará login
-LOGIN_URL = '/bdt'
+LOGIN_URL = '/'
 #Se debe pasar como parametro
 
 # una vez hecho login se redirigirá a la página personal
