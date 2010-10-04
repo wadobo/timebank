@@ -2,19 +2,19 @@
 {% block style %}"/site_media/mensajes.css"{% endblock %}
 {% block content %}
 <div id="tx">
-	{{ msj_exito }}
-	<form method="POST">
-		<h3><u>Solicitud de transferencia</u> </h3>
-		{% if msj_error %}
-			<p> <font color="red"> {{ msj_error }} </font></p>
-		{% endif %}
-		 <p>AL USUARI@: <input type="text" id="id_usuario" name="usuarioD" value="{{usuario_exacto}}"/> <input type="submit" name="buscarUsu" value="Buscar usuari@"/> <br/>
-		 {{ texto_usuario|default:"Puede buscar el nombre de usuari@ completo si sólo sabe parte de él, aún no se enviará su transferencia."}}</p>
-		POR:
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>OFRECERLE</b> <input type="radio" name="ofrecer" value="1" {{ ofrece_chkd }}>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>RECIBIR DE ÉL/ELLA</b> <input type="radio" name="ofrecer" value="0" {{ solicita_chkd }}> 
-		{{ form.as_p }}
-		<input type="submit" name="crearTx" value="Enviar solicitud de transferencia"/>
-	</form>
+    {{ msj_exito }}
+    <form method="POST">
+        <h3><u>Solicitud de transferencia</u> </h3>
+        {% if msj_error %}
+            <p> <font color="red"> {{ msj_error }} </font></p>
+        {% endif %}
+         <p>AL USUARI@: <input type="text" id="id_usuario" name="usuarioD" value="{{usuario_exacto}}"/> <input type="submit" name="buscarUsu" value="Buscar usuari@"/> <br/>
+         {{ texto_usuario|default:"Puede buscar el nombre de usuari@ completo si sólo sabe parte de él, aún no se enviará su transferencia."}}</p>
+        POR:
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>OFRECERLE</b> <input type="radio" name="ofrecer" value="1" {{ ofrece_chkd }}>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>RECIBIR DE ÉL/ELLA</b> <input type="radio" name="ofrecer" value="0" {{ solicita_chkd }}> 
+        {{ form.as_p }}
+        <input type="submit" name="crearTx" value="Enviar solicitud de transferencia"/>
+    </form>
 </div>
 {% endblock content %}

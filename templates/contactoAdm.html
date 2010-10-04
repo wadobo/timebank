@@ -2,14 +2,14 @@
 {% block style %}"/site_media/personal.css"{% endblock %}
 {% block content %}
 <div id="contactoadmin">
-	<form method="POST">
+    <form method="POST">
 
-		<p>Tema de contacto: <input type="text" name="tema" maxlength="20" value="{{ tema }}"/><p/>
-		<p>Cualquier duda, sugerencia o queja es bienvenida.<p/>
-		<textarea id="id_contenido" rows="10" cols="40" name="contenido">{{ cont }}</textarea>
-		<p> {{ msj_error }} </p>
-		<p><input type="submit" name="crearC" value="Enviar comentario a la administración"/></p>
+        <p>Tema de contacto: <input type="text" name="tema" maxlength="20" value="{{ tema }}"/><p/>
+        <p>Cualquier duda, sugerencia o queja es bienvenida.<p/>
+        <textarea id="id_contenido" rows="10" cols="40" name="contenido">{{ cont }}</textarea>
+        <p> {{ msj_error }} </p>
+        <p><input type="submit" name="crearC" value="Enviar comentario a la administración"/></p>
 
-	</form>
+    </form>
 </div>
 {% endblock content %}

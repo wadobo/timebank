@@ -6,8 +6,8 @@ Introduce tu nombre de usuari@ y el email con el que te registraste y te enviare
 
 <form method="post" action=".">
 <table>
-	<tr><td>Nombre de usuari@</td><td><input type="text" name="nom_usu"/></td></tr>
-	<tr><td>Dirección de correo electrónico</td><td><input type="text" name="email"/></td></tr>
+    <tr><td>Nombre de usuari@</td><td><input type="text" name="nom_usu"/></td></tr>
+    <tr><td>Dirección de correo electrónico</td><td><input type="text" name="email"/></td></tr>
 </table>
 {{ msj }}<br/>
 <input type="submit" name="recuerdo" value="Enviarme una nueva contraseña" />
@@ -18,8 +18,8 @@ Volver a la <a href="{% url django.contrib.auth.views.login %}">Página de inici
 Si tampoco recuerda su nombre de usuari@, introduzca su nombre real y su fecha de nacimiento. Le enviaremos tanto la clave cómo su nombre de usuari@ a la cuenta de email indicada en el registro.
 <form method="post" action=".">
 <table>
-	<tr><td>Nombre</td><td><input type="text" name="nom_real"/></td></tr>
-	<tr><td>Fecha de nacimiento</td><td><input type="text" name="fechaNac"/></td></tr>
+    <tr><td>Nombre</td><td><input type="text" name="nom_real"/></td></tr>
+    <tr><td>Fecha de nacimiento</td><td><input type="text" name="fechaNac"/></td></tr>
 </table>
 
 <input type="submit" name="recuerdoE" value="Enviarme una nueva contraseña" />

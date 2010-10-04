@@ -55,7 +55,7 @@ class MensajesAdmin(admin.ModelAdmin):
     date_hierarchy = 'pub_date'
     search_fields = ['contenido', ]
     list_per_page = 200
-	
+    
 admin.site.register(Servicio, ServicioAdmin)
 admin.site.register(Zona)
 admin.site.register(Categoria)

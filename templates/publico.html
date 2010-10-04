@@ -4,61 +4,61 @@
 
 
 <h2> {{ usu_m.username }} </h2>
-<div id="puntuacion">	
-	{% ifequal usu_m.get_profile.puntGlob "22" %}
-	<h4> Este usuari@ aún no tiene puntuaciones ni comentarios </h4>
-	{% else %}
-	<h4> su puntuación global es:<strong> {{ usu_m.get_profile.puntGlob }}</strong> </h4>
-	{% endifequal %}
+<div id="puntuacion">   
+    {% ifequal usu_m.get_profile.puntGlob "22" %}
+    <h4> Este usuari@ aún no tiene puntuaciones ni comentarios </h4>
+    {% else %}
+    <h4> su puntuación global es:<strong> {{ usu_m.get_profile.puntGlob }}</strong> </h4>
+    {% endifequal %}
 </div>
 
-	<form action="{% url aplicacion.views.comentar id_usu %}" method="POST"> <!-- Si sólo fueran botones o submit sin formulario nunca se realiza la acción de enviar los valores -->
-			<input id="botonCom" name="deseoC" type="submit" value="COMENTAR..."/>
-			<input type="hidden" name="id_usu" value="{{ id_usu }}" />
-	</form>
-	
+    <form action="{% url aplicacion.views.comentar id_usu %}" method="POST"> <!-- Si sólo fueran botones o submit sin formulario nunca se realiza la acción de enviar los valores -->
+            <input id="botonCom" name="deseoC" type="submit" value="COMENTAR..."/>
+            <input type="hidden" name="id_usu" value="{{ id_usu }}" />
+    </form>
+    
 {% if usu_m.get_profile.descr %}
 <div id="descr"/>
-	<div id="descr_tit">
-	Descripción de si mism@:
-	</div>
-	<div id="descr_cont">
-	{{ usu_m.get_profile.descr }}
-	</div>
+    <div id="descr_tit">
+    Descripción de si mism@:
+    </div>
+    <div id="descr_cont">
+    {{ usu_m.get_profile.descr }}
+    </div>
 </div>
 {% else %}
 <div id="descr_defecto"><p>Este usuari@ no ha publicado ninguna descripción sobre si mismo.</p></div>
 {% endif %}
-	<div id="msj">
-		{% if messages %}
-			<ul>
-			{% for message in messages %}
-				<li>{{ message }}</li>
-			{% endfor %}
-			</ul>
-		{% endif %}
-	</div>
+    <div id="msj">
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 
 <div id="coment_container">
-	<h3>Lo que otros usuari@s opinan sobre los <br/>
-	  servicios recibidos por {{ usu_m.username }}... </h3>
+    <h3>Lo que otros usuari@s opinan sobre los <br/>
+      servicios recibidos por {{ usu_m.username }}... </h3>
 
-	{% for comment in comentario_set.object_list %} {#Hay que tener en cuenta que comentario_set es parte del sistema de paginación#}
-		<div class="comment">
-			<fieldset>
-				<legend>De: {{ comment.autor }}</legend> 
-				<div class="c_punt">{{ comment.puntuacion }} </div><div class="c_text">{{ comment.contenido }}</div> <div class="c_fecha">{{ comment.pub_date|date:"d.m.Y, H:i" }}</div>
-				{% ifequal comment.autor usu_accede %}{# Si el usuari@ que lo visualiza es el autor, puede borrar el comentario #}
-					<form action="{% url aplicacion.views.publico id_usu %}" method="POST">
-						<input id="borrarC" name="borrarC" type="submit" value="Borrar comentario"/>
-						<input type="hidden" name="id_usu" value="{{ id_usu }}" />
-						<input type="hidden" name="id_comment" value="{{ comment.id }}" />
-					</form>
-				{% endifequal %}
-			
-			</fieldset>
-		</div>
-	{% endfor %}
+    {% for comment in comentario_set.object_list %} {#Hay que tener en cuenta que comentario_set es parte del sistema de paginación#}
+        <div class="comment">
+            <fieldset>
+                <legend>De: {{ comment.autor }}</legend> 
+                <div class="c_punt">{{ comment.puntuacion }} </div><div class="c_text">{{ comment.contenido }}</div> <div class="c_fecha">{{ comment.pub_date|date:"d.m.Y, H:i" }}</div>
+                {% ifequal comment.autor usu_accede %}{# Si el usuari@ que lo visualiza es el autor, puede borrar el comentario #}
+                    <form action="{% url aplicacion.views.publico id_usu %}" method="POST">
+                        <input id="borrarC" name="borrarC" type="submit" value="Borrar comentario"/>
+                        <input type="hidden" name="id_usu" value="{{ id_usu }}" />
+                        <input type="hidden" name="id_comment" value="{{ comment.id }}" />
+                    </form>
+                {% endifequal %}
+            
+            </fieldset>
+        </div>
+    {% endfor %}
 </div>
 <div class="pagination">
     <span class="step-links">

@@ -18,25 +18,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {% block style %}"/site_media/personal.css"{% endblock %}
 {% block content %}
 <div id="bajaU">
-		{% if messages %}
-			<ul>
-			{% for message in messages %}
-				<li>{{ message }}</li>
-			{% endfor %}
-			</ul>
-		{% endif %}
-	<fieldset>
-		<legend>Baja de usuari@</legend>
-		<form action="{% url aplicacion.views.baja %}" method="POST">
-			<p> Por favor introduzca el o los motivos por los que se dá de baja en nuestro sistema.	</p>	
-			<p> <textarea id="id_motivo" name="motivo" cols="40" rows="6" wrap="soft" "{{ disabled }}" >{{ motivo }}</textarea> </p>	
-			<input name="reBaja" type="{{ baja }}" value="Realizar Baja..."/>
-		</form>
-			<text> {{ msj }}  </text>
-		<form action="{% url aplicacion.views.baja %}" method="POST"> <!-- Si sólo fueran botones o submit sin formulario nunca se realiza la acción de enviar los valores -->
-			<input name="BajaSi" type="{{ pregunta }}" value="Confirmar baja"/>
-			<input name="BajaNo" type="{{ pregunta }}" value="Cancelar baja"/>
-		</form>
-	</fieldset>
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    <fieldset>
+        <legend>Baja de usuari@</legend>
+        <form action="{% url aplicacion.views.baja %}" method="POST">
+            <p> Por favor introduzca el o los motivos por los que se dá de baja en nuestro sistema. </p>    
+            <p> <textarea id="id_motivo" name="motivo" cols="40" rows="6" wrap="soft" "{{ disabled }}" >{{ motivo }}</textarea> </p>    
+            <input name="reBaja" type="{{ baja }}" value="Realizar Baja..."/>
+        </form>
+            <text> {{ msj }}  </text>
+        <form action="{% url aplicacion.views.baja %}" method="POST"> <!-- Si sólo fueran botones o submit sin formulario nunca se realiza la acción de enviar los valores -->
+            <input name="BajaSi" type="{{ pregunta }}" value="Confirmar baja"/>
+            <input name="BajaNo" type="{{ pregunta }}" value="Cancelar baja"/>
+        </form>
+    </fieldset>
 </div>
 {% endblock content  %}

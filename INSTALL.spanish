@@ -3,31 +3,31 @@ Manual rápido de instalación de Django:
 1. Instalar Python 2.5 o posterior, NO recomendable versión 3.0
 
 2. Instalar Apache 2.x y mod_python 3.x
-	Configurar Apache, añadir al archivo httpd.conf:
-		<Location "/mysite/">
-  			 SetHandler python-program
- 			 PythonHandler django.core.handlers.modpython
- 			 SetEnv DJANGO_SETTINGS_MODULE mysite.settings
-   			 PythonOption django.root /mysite
-   			 PythonDebug On
-		</Location>
-	reemplanzando mysite.settings con la ruta Python hacia el archivo settings.py del proyecto de Django. Si el proyecto no está en el PYTONPATH por defecto del equipo, hay que indicarle a mod_python dónde puede encontrar el proyecto añadiendo:
-			PythonPath "['/path/to/project'] + sys.path"
+    Configurar Apache, añadir al archivo httpd.conf:
+        <Location "/mysite/">
+             SetHandler python-program
+             PythonHandler django.core.handlers.modpython
+             SetEnv DJANGO_SETTINGS_MODULE mysite.settings
+             PythonOption django.root /mysite
+             PythonDebug On
+        </Location>
+    reemplanzando mysite.settings con la ruta Python hacia el archivo settings.py del proyecto de Django. Si el proyecto no está en el PYTONPATH por defecto del equipo, hay que indicarle a mod_python dónde puede encontrar el proyecto añadiendo:
+            PythonPath "['/path/to/project'] + sys.path"
 
 con la ruta hacia el proyecto, en a la lista anterior.
-	Para más detalles, servir archivos media (.css, .jpg,etc) y archivos de administrador: http://docs.djangoproject.com/en/dev/howto/deployment/modpython/#howto-deployment-modpython
+    Para más detalles, servir archivos media (.css, .jpg,etc) y archivos de administrador: http://docs.djangoproject.com/en/dev/howto/deployment/modpython/#howto-deployment-modpython
 
 
 3. Instalar gestor de base de datos: MySQL versión mínima: 3.23, mejor 4.1 o 5.0. .Usar el tipo de tablas: InnoDB (totalmente soportado por Django).
 
 4. Instalar MySQLdb interface Python para MySQl versión: 1.2.1p2 o posterior.
 
-5. Crear base de datos con CHARACTER SET utf8, la configuración debe corresponderse con la indicada en settings.py. NOTA: settings.py debe llevar la configuración específica de la 	BD, éste documento una vez que hayas puesto la configuración, yo haré un update,me crearé una BD con el mismo nombre,usuario y clave en mi equipo, así los posteriores commit de settings.py no te crearán una configuración no deseada. El problema es que el settings.py aparte de la configuración de la BD también tiene otros parámetros que seguramente si modificaré, si no fuera así sería tan simple cómo cada uno tener su propia copia de settings.py e ignorar al sincronizar con el repositorio. Espero que te parezca buena y compatible la 'idea'. De todas formas en éste fichero hay que hacer muy pocos cambios a lo largo del desarrollo asi que no creo que cree problemas.
+5. Crear base de datos con CHARACTER SET utf8, la configuración debe corresponderse con la indicada en settings.py. NOTA: settings.py debe llevar la configuración específica de la     BD, éste documento una vez que hayas puesto la configuración, yo haré un update,me crearé una BD con el mismo nombre,usuario y clave en mi equipo, así los posteriores commit de settings.py no te crearán una configuración no deseada. El problema es que el settings.py aparte de la configuración de la BD también tiene otros parámetros que seguramente si modificaré, si no fuera así sería tan simple cómo cada uno tener su propia copia de settings.py e ignorar al sincronizar con el repositorio. Espero que te parezca buena y compatible la 'idea'. De todas formas en éste fichero hay que hacer muy pocos cambios a lo largo del desarrollo asi que no creo que cree problemas.
 
 6. Instalar django:
-	6.1 Descargar la última versión oficial desde http://www.djangoproject.com/download/
-	6.2 Descomprimir el archivo
-	6.3 Ejecutar el comando 'sudo python setup.py install' desde el directorio dónde descomprimimos el archivo en el paso anterior
+    6.1 Descargar la última versión oficial desde http://www.djangoproject.com/download/
+    6.2 Descomprimir el archivo
+    6.3 Ejecutar el comando 'sudo python setup.py install' desde el directorio dónde descomprimimos el archivo en el paso anterior
 
 Finalizada la instalación y listo para lanzar el proyecto.
 

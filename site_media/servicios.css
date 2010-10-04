@@ -18,21 +18,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 @import url(/site_media/estilo_online.css);
 div#content{
-	display: block;
-	margin-left:25%;
+    display: block;
+    margin-left:25%;
 }
 fieldset{
-	margin-bottom: 2%;
-	width: 80%;
+    margin-bottom: 2%;
+    width: 80%;
 }
 
 textarea{
-	width:60%;
-	height:130px;
+    width:60%;
+    height:130px;
 }
 td.celdaservicios{
-	background-color: #FFCC33;
+    background-color: #FFCC33;
 }
 div#sidebar td.celdaservicios A{
-	color: #006600;
+    color: #006600;
 }

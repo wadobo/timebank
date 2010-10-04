@@ -1,39 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<!-- Nunca habrá nada porque no se le pasa la variable messages de la view -->
-	{% if messages %}
-		<ul>
-		{% for message in messages %}
-			<li>{{ message }}</li>
-		{% endfor %}
-		</ul>
-	{% endif %}
+    <!-- Nunca habrá nada porque no se le pasa la variable messages de la view -->
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 <div id="yaregistrado">
-	<h3> Si ya estás registrad@ accede a la aplicación: </h3>
-	{% if form.errors %}
-	<p>Su nombre de usuari@ y/o contraseña no es válido. Por favor, inténtelo de nuevo. </p>
-	{% endif %}
+    <h3> Si ya estás registrad@ accede a la aplicación: </h3>
+    {% if form.errors %}
+    <p>Su nombre de usuari@ y/o contraseña no es válido. Por favor, inténtelo de nuevo. </p>
+    {% endif %}
 
-	<form method="post" action="{% url django.contrib.auth.views.login %}">
-	<table>
-		<tr><td>{{ form.username.label_tag }}</td><td>{{ form.username }}</td></tr>
-		<tr><td>{{ form.password.label_tag }}</td><td>{{ form.password }}</td></tr>
-	</table>
+    <form method="post" action="{% url django.contrib.auth.views.login %}">
+    <table>
+        <tr><td>{{ form.username.label_tag }}</td><td>{{ form.username }}</td></tr>
+        <tr><td>{{ form.password.label_tag }}</td><td>{{ form.password }}</td></tr>
+    </table>
 
-	<input type="submit" value="Entrar al sistema" />
-	<input type="hidden" name="next" value="{{ next }}" />
-	</form>
+    <input type="submit" value="Entrar al sistema" />
+    <input type="hidden" name="next" value="{{ next }}" />
+    </form>
 
-	<div id="opcionesInicio">
-		<a href="{% url aplicacion.views.recuerdoClave %}"> He olvidado mi contraseña </a>
-	</div>
+    <div id="opcionesInicio">
+        <a href="{% url aplicacion.views.recuerdoClave %}"> He olvidado mi contraseña </a>
+    </div>
 </div>
 
 <div id="noregistrado">
-		<h3> ¿Aún no estás registrad@? </h3>
-	<a href="{% url aplicacion.views.registro %}">¡Registrate!</a> <br/>
-		 <br/><a href="{% url serv.views.buscador%}"> ¿O quieres probar a ver qué hay?</a><br/><br/>
-	<a href="./site_media/manual-bdt.pdf">¿O quizás te quieres descargar el manual de usuari@?</a>
+        <h3> ¿Aún no estás registrad@? </h3>
+    <a href="{% url aplicacion.views.registro %}">¡Registrate!</a> <br/>
+         <br/><a href="{% url serv.views.buscador%}"> ¿O quieres probar a ver qué hay?</a><br/><br/>
+    <a href="./site_media/manual-bdt.pdf">¿O quizás te quieres descargar el manual de usuari@?</a>
 </div>
 {% endblock %}

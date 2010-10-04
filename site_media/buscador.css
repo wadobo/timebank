@@ -18,33 +18,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 @import url(/site_media/estilo_online.css);
 form{
-	margin-left: 23%;
-	font-family: helvetica;
+    margin-left: 23%;
+    font-family: helvetica;
 }
 
 
 div#c_servicios{
-	margin-left: 23%;
-	width: 70%;
-	font-family: helvetica;
+    margin-left: 23%;
+    width: 70%;
+    font-family: helvetica;
 }
 
 .un_servicio{
-	border-bottom-style: dashed;
-	margin-bottom: 5%;
-	padding-bottom: 3%;
+    border-bottom-style: dashed;
+    margin-bottom: 5%;
+    padding-bottom: 3%;
 }
 .descr{
-	margin-top:0.5%;
-	text-indent: 2em;
+    margin-top:0.5%;
+    text-indent: 2em;
 }
 .pagination{
-	text-align: center;
+    text-align: center;
 }
 
 td.celdabuscador{
-	background-color: #FFCC33;
+    background-color: #FFCC33;
 }
 div#sidebar td.celdabuscador A{
-	color: #006600;
+    color: #006600;
 }

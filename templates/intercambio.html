@@ -3,57 +3,57 @@
 {% block content %}
 
 <div name="tema" align="center">
-	Servicio que será intercambiado: {{ serv.descripcion }} <br/>
-	<p> Zona: <strong> {{ serv.zona }} </strong> Categoría: <font color="teal">{{ serv.categoria }} </font> Fecha de publicación: <font color="navy">{{ serv.pub_date|date:"d.m.Y, H:i" }} </font></p>
-	{% if serv.oferta %} Oferta {% else %} Solicitud {% endif %}publicada por: {{ serv.creador }} y aceptada por: {% ifequal serv.creador inter.solicitante %}{{ inter.oferente }}{% else %}{{ inter.solicitante }}{% endifequal %}
-	
+    Servicio que será intercambiado: {{ serv.descripcion }} <br/>
+    <p> Zona: <strong> {{ serv.zona }} </strong> Categoría: <font color="teal">{{ serv.categoria }} </font> Fecha de publicación: <font color="navy">{{ serv.pub_date|date:"d.m.Y, H:i" }} </font></p>
+    {% if serv.oferta %} Oferta {% else %} Solicitud {% endif %}publicada por: {{ serv.creador }} y aceptada por: {% ifequal serv.creador inter.solicitante %}{{ inter.oferente }}{% else %}{{ inter.solicitante }}{% endifequal %}
+    
 </div>
 
 {%  for msj in set_mensajes %}
-	<div class="mensaje">
-		{% if msj.o_a_s %}
-			{{ inter.oferente }}
-		{% else %}
-			{{ inter.solicitante }}
-		{% endif %}		
-		escribe: {{ msj.contenido }} || {{ msj.pub_date|date:"d.m.Y, H:i" }} <br/>
-	</div>
-	<div id="lineaHorizontal"></div>
+    <div class="mensaje">
+        {% if msj.o_a_s %}
+            {{ inter.oferente }}
+        {% else %}
+            {{ inter.solicitante }}
+        {% endif %}     
+        escribe: {{ msj.contenido }} || {{ msj.pub_date|date:"d.m.Y, H:i" }} <br/>
+    </div>
+    <div id="lineaHorizontal"></div>
 {% endfor %}
 
 {% if activa %}
 {% comment %}
-	Si un usuari@ ha decidido borra la conversación ya no podrá acceder a ella,
-	aunque si la otra parte ha sido la que ha borrado la conversación, la podrá seguir,
-	visualizando hasta que decida cerrarla, cuando será borrada de la BD.
+    Si un usuari@ ha decidido borra la conversación ya no podrá acceder a ella,
+    aunque si la otra parte ha sido la que ha borrado la conversación, la podrá seguir,
+    visualizando hasta que decida cerrarla, cuando será borrada de la BD.
 {% endcomment %}
 <div class="botones">
-	<form method="POST">
-		{% if msj_estado %}
-		<font color="red">{{ msj_estado }}</font><br/><br/>
-		{% endif %}
-		<input type="submit" name="escribir" value="Escribir" {{ boton_dis }}/>
-		<input type="submit" name="ver_menos" value="Cerrar" {{ boton_dis }}/>
-		<input type="submit" name="borrar_conv" value="Borrar conversación" {{ boton_dis }}/>
-		
-		{% if boton_dis %}
-		<br/>
-		<textarea name="contenido"></textarea><br/>
-		<input type="submit" name="enviar" value="Enviar mensaje"/>
-		<input type="submit" name="atras" value="Atrás"/>
-		{% endif %}
-		
-	</form>
+    <form method="POST">
+        {% if msj_estado %}
+        <font color="red">{{ msj_estado }}</font><br/><br/>
+        {% endif %}
+        <input type="submit" name="escribir" value="Escribir" {{ boton_dis }}/>
+        <input type="submit" name="ver_menos" value="Cerrar" {{ boton_dis }}/>
+        <input type="submit" name="borrar_conv" value="Borrar conversación" {{ boton_dis }}/>
+        
+        {% if boton_dis %}
+        <br/>
+        <textarea name="contenido"></textarea><br/>
+        <input type="submit" name="enviar" value="Enviar mensaje"/>
+        <input type="submit" name="atras" value="Atrás"/>
+        {% endif %}
+        
+    </form>
 </div>
 {% else %}
-	El otro usuari@ implicado en la conversación ha decidido borrarla, por lo que ya no podrá <br/>
-	escribir más mensajes. Aunque si podrá seguir visualizandola, cuando pulse en "Borrar definitivamente" <br/>
-	ya no habrá forma de recuperar la conversación.
-	<form method="POST">
-		<input type="submit" name="borrar_def" value="Borrar la conversación definitivamente"/>
-		<input type="submit" name="back" value="Volver atrás"/>
-			
-	</form>
+    El otro usuari@ implicado en la conversación ha decidido borrarla, por lo que ya no podrá <br/>
+    escribir más mensajes. Aunque si podrá seguir visualizandola, cuando pulse en "Borrar definitivamente" <br/>
+    ya no habrá forma de recuperar la conversación.
+    <form method="POST">
+        <input type="submit" name="borrar_def" value="Borrar la conversación definitivamente"/>
+        <input type="submit" name="back" value="Volver atrás"/>
+            
+    </form>
 {% endif %}
 
 {% endblock content %}

@@ -18,78 +18,78 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 @import url(/site_media/estilo_online.css);
 /* div#descrBien{
-	display: block;
-	width: 45%;
-	float: left;
+    display: block;
+    width: 45%;
+    float: left;
 
 
 } */
 div#bienvenida, div#descripcion{
-	display: block;
-	width: 45%;
-	margin-left: 22%;
+    display: block;
+    width: 45%;
+    margin-left: 22%;
 }
 
 
 div#historial{
-	float: right;
-	margin-right: 3%;
-	width:275px; 
-	height:300px; 
-	overflow:auto;
- 	border: solid;
-	
+    float: right;
+    margin-right: 3%;
+    width:275px; 
+    height:300px; 
+    overflow:auto;
+    border: solid;
+    
 }
 div#historial TD {
-	text-align: center;
+    text-align: center;
 }
 div#opciones{
-	display:block;
-	float: right;
-	margin-right: 3%;
-	width:20%;
-	margin-top: -400px;
+    display:block;
+    float: right;
+    margin-right: 3%;
+    width:20%;
+    margin-top: -400px;
 }
 
 div#datospersonales{
-	display:block;
-	margin-left:220px;
-	margin-top: 2%;
-	width: 50%;
-	margin-bottom: 2%;
-	
+    display:block;
+    margin-left:220px;
+    margin-top: 2%;
+    width: 50%;
+    margin-bottom: 2%;
+    
 }
 
 /* Los links de opciones */
 div#contactoadmin{
-	margin-left:30%;
+    margin-left:30%;
 }
 div#msjadm{
-	margin-left:30%;
-	width: 60%;
+    margin-left:30%;
+    width: 60%;
 }
 div#cambiopwd input, label {
-	margin-bottom: 5%;
-	vertical-align: top;
+    margin-bottom: 5%;
+    vertical-align: top;
 }
 div#cambiopwd th{
-	vertical-align: top;
-	text-align: right;
+    vertical-align: top;
+    text-align: right;
 }
 input#botonPwd{
-	margin-left: 25%;
+    margin-left: 25%;
 }
 div#cambiopwd{
-	margin-left: 20%;
+    margin-left: 20%;
 }
 div#bajaU{
-	margin-left: 30%;
-	width: 50%;
+    margin-left: 30%;
+    width: 50%;
 }
 
 td.celdapersonal{
-	background-color: #FFCC33;
+    background-color: #FFCC33;
 }
 div#sidebar td.celdapersonal A{
-	color: #006600;
+    color: #006600;
 }

@@ -17,99 +17,99 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 body{
-	color: #006600;
-	background-color: #FFCC00;
-	font-family: helvetica;
+    color: #006600;
+    background-color: #FFCC00;
+    font-family: helvetica;
 }
 div#sectiontitle {
-	margin-top: 0px;/*-35px*/
-	color: #006600;
-	font-size: 18px;
-	text-align: center;
+    margin-top: 0px;/*-35px*/
+    color: #006600;
+    font-size: 18px;
+    text-align: center;
 }
 
 .lineavertical {
-	height: 400px;
-	border-right: 2px ridge black;
-	display:block;
+    height: 400px;
+    border-right: 2px ridge black;
+    display:block;
 }
 
 /* div#content{
-	display: block;
-	margin-left: 25%;
-	margin-top: 5%
+    display: block;
+    margin-left: 25%;
+    margin-top: 5%
 
 } */
 
 div#descripcioncontenidos{
-	padding-left: 70%;
-	display: block;
+    padding-left: 70%;
+    display: block;
 }
 textarea#id_descr{
-	/* background-color: red; */
-	width: 240px; 
-	height: 70px;
+    /* background-color: red; */
+    width: 240px; 
+    height: 70px;
 }
 /* input#id_puntuacion{
-	width: 320px; 
-	height: 75px;
+    width: 320px; 
+    height: 75px;
 } */
 TH { vertical-align: middle }
 TD { vertical-align: middle }
 
 .errorlist{
-	  color: red;
-	  list-style: none;
-	  vertical-align: middle;
-	  } 
+      color: red;
+      list-style: none;
+      vertical-align: middle;
+      } 
 li {
-	list-style:none;
-	display: block;
-	padding: 45px 0 0 180px;
-	vertical-align: text-bottom;
+    list-style:none;
+    display: block;
+    padding: 45px 0 0 180px;
+    vertical-align: text-bottom;
 }
-	
+    
 ul{
-	list-style-image:none;
-	list-style-position:outside;
-	list-style-type:none;
-	margin:-5px;
-	padding:0;
-	line-height: 2px
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    margin:-5px;
+    padding:0;
+    line-height: 2px
 
 }
 
 input, textarea {
-	margin-top: 10px;
-	background-color:#FFCC33;
-	color:#006600;
-	font-family:Helvetica,Arial,sans-serif;
-	font-weight:bold;
+    margin-top: 10px;
+    background-color:#FFCC33;
+    color:#006600;
+    font-family:Helvetica,Arial,sans-serif;
+    font-weight:bold;
 }
 
 div#yaregistrado{
-	margin-left: 20%;
-	width: 30%;
-	float:left;
+    margin-left: 20%;
+    width: 30%;
+    float:left;
 }
 div#noregistrado{
-	margin-left: 10%;
-	width: 30%;
-	float:left;
+    margin-left: 10%;
+    width: 30%;
+    float:left;
 }
 div#opcionesInicio{
-	margin-left: 30%;
-	margin-top: 20px;
+    margin-left: 30%;
+    margin-top: 20px;
 }
 input[type="submit"]{
-	margin-left: 30%;
-	margin-top: 20px;
+    margin-left: 30%;
+    margin-top: 20px;
 }
 input#boton{
-	margin-left: 270px;
-	margin-top: 20px;
+    margin-left: 270px;
+    margin-top: 20px;
 }
 
 div#regexito{
-	text-align: center;
+    text-align: center;
 }

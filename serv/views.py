@@ -237,7 +237,7 @@ def buscador(request):
                 request.session['serv_chkd'] = ""
                 request.session['usu_chkd'] = "checked"
             # Siguiente paso de filtración sólo si se ha elegido la opción
-            # solicitado u ofrecido, si es ambos no realizamos nada	
+            # solicitado u ofrecido, si es ambos no realizamos nada 
         request.session['ambos'] = ""
         request.session['ofrecido'] = ""
         # Tb podríamos marcarlo con un número p.ej. 0,1,2 y compararlo en el template
@@ -294,7 +294,7 @@ def buscador(request):
         ofrecido = request.session['ofrecido']
     if request.session.has_key('solicitado'):
         solicitado = request.session['solicitado']
-    if request.session.has_key('c'):	
+    if request.session.has_key('c'):    
         c = request.session['c']
     if request.session.has_key('z'):
         z = request.session['z']
@@ -351,311 +351,311 @@ def buscador(request):
 
 @login_required
 def contactar(request):
-	formI = ContactoIForm()
-	form = MensajeIForm()
-	msj_error = ""
-	if request.method == 'POST' and request.POST['id_servicio'] <> "":
-		id_servicio = request.POST['id_servicio']
-		servicioI = Servicio.objects.get(id=id_servicio)#Distinto de filter que siempre devuelve un queryset
-		
-		if servicioI.creador_id == request.user.id: #Un usuario no puede contactar consigo mismo!!!
-			request.user.message_set.create(message="No puedes contactar contigo mismo!")
-			#Estos es un workaround que con el otro return no haría falta
-			#request2=request
-			#request2.POST['palabras']=""
-			#request.POST['group1']=""
-			#request.POST['usu_chkd']=""
-			#request.POST['serv_chkd']=""
-			#request.POST['group2']
-			return redirect(buscador)
-		if request.POST.has_key('creaContactoI'): #Si el usuario ha decidido establecer contacto.
-			if servicioI.oferta: #Si accedo a una oferta yo(request.user) soy el solicitante
-				id_oferente = servicioI.creador_id
-				id_solicitante = request.user.id
-				ofertante_a_solicitante = False #El mensaje va de solicitante a ofertante
-			else: #Si accedo a una demanda yo soy el ofertante
-				id_oferente = request.user.id
-				id_solicitante = servicioI.creador_id
-				ofertante_a_solicitante = True
-			dataContacto = { 'servicio': id_servicio,
-							'oferente': id_oferente,
-							'solicitante': id_solicitante,
-								}
-			formI = ContactoIForm(dataContacto)
+    formI = ContactoIForm()
+    form = MensajeIForm()
+    msj_error = ""
+    if request.method == 'POST' and request.POST['id_servicio'] <> "":
+        id_servicio = request.POST['id_servicio']
+        servicioI = Servicio.objects.get(id=id_servicio)#Distinto de filter que siempre devuelve un queryset
+        
+        if servicioI.creador_id == request.user.id: #Un usuario no puede contactar consigo mismo!!!
+            request.user.message_set.create(message="No puedes contactar contigo mismo!")
+            #Estos es un workaround que con el otro return no haría falta
+            #request2=request
+            #request2.POST['palabras']=""
+            #request.POST['group1']=""
+            #request.POST['usu_chkd']=""
+            #request.POST['serv_chkd']=""
+            #request.POST['group2']
+            return redirect(buscador)
+        if request.POST.has_key('creaContactoI'): #Si el usuario ha decidido establecer contacto.
+            if servicioI.oferta: #Si accedo a una oferta yo(request.user) soy el solicitante
+                id_oferente = servicioI.creador_id
+                id_solicitante = request.user.id
+                ofertante_a_solicitante = False #El mensaje va de solicitante a ofertante
+            else: #Si accedo a una demanda yo soy el ofertante
+                id_oferente = request.user.id
+                id_solicitante = servicioI.creador_id
+                ofertante_a_solicitante = True
+            dataContacto = { 'servicio': id_servicio,
+                            'oferente': id_oferente,
+                            'solicitante': id_solicitante,
+                                }
+            formI = ContactoIForm(dataContacto)
 
-			if formI.is_valid():
-				if len(request.POST['contenido']) > 0:
-					form = MensajeIForm(request.POST) #Para que no se borre el msj en caso de que sea demasiado largo
-					if len(request.POST['contenido']) < 400:
-						instanciaI = formI.save()
-						mandarMsj(request, instanciaI, ofertante_a_solicitante) #Mandamos el primer mensaje de la toma de contacto
-						#Además le mandamos un msj corto al usuario que ha publicado eñ servicio para que sepa del contacto
-						msjotro="El usuario: %s le ha contactado por un servicio que habia publicado. Verifiquelo en 'Conversaciones y transferencias'."%request.user.username
-						servicioI.creador.message_set.create(message=msjotro)
-						return redirect(mensajesTransf)
-						#return HttpResponseRedirect('/mensajes/') #Aquí también podríamos decir que se ha realizado la operación con éxito
-					else:
-						pass
-				else:
-					msj_error = "Escriba un primer mensaje para toma de contacto con el usuario"
-				
-			else:
-				msj_error = "Ya ha establecido contacto con este usuario por éste servicio, consulte su sección de conversaciones."
-	else:
-		id_servicio = ""
-		servicioI = ""
-		msj_error = "Lo sentimos no se ha podido establecer el contacto, vuelva a intentarlo."
-	return render_to_response('contactar.html', {
-										'sectiontitle': 'Está estableciendo contacto con un usuario para un intercambio de un servicio',
-										'nombre_usuario': request.user.username,
-										'form': form,
-										'serv': servicioI,
-										'id_servicio': id_servicio,
-										'formI': formI,
-										'msj_error': msj_error,
-								})
-								
+            if formI.is_valid():
+                if len(request.POST['contenido']) > 0:
+                    form = MensajeIForm(request.POST) #Para que no se borre el msj en caso de que sea demasiado largo
+                    if len(request.POST['contenido']) < 400:
+                        instanciaI = formI.save()
+                        mandarMsj(request, instanciaI, ofertante_a_solicitante) #Mandamos el primer mensaje de la toma de contacto
+                        #Además le mandamos un msj corto al usuario que ha publicado eñ servicio para que sepa del contacto
+                        msjotro="El usuario: %s le ha contactado por un servicio que habia publicado. Verifiquelo en 'Conversaciones y transferencias'."%request.user.username
+                        servicioI.creador.message_set.create(message=msjotro)
+                        return redirect(mensajesTransf)
+                        #return HttpResponseRedirect('/mensajes/') #Aquí también podríamos decir que se ha realizado la operación con éxito
+                    else:
+                        pass
+                else:
+                    msj_error = "Escriba un primer mensaje para toma de contacto con el usuario"
+                
+            else:
+                msj_error = "Ya ha establecido contacto con este usuario por éste servicio, consulte su sección de conversaciones."
+    else:
+        id_servicio = ""
+        servicioI = ""
+        msj_error = "Lo sentimos no se ha podido establecer el contacto, vuelva a intentarlo."
+    return render_to_response('contactar.html', {
+                                        'sectiontitle': 'Está estableciendo contacto con un usuario para un intercambio de un servicio',
+                                        'nombre_usuario': request.user.username,
+                                        'form': form,
+                                        'serv': servicioI,
+                                        'id_servicio': id_servicio,
+                                        'formI': formI,
+                                        'msj_error': msj_error,
+                                })
+                                
 @login_required
 def mensajesTransf(request):
-	set_intercambios = ContactoIntercambio.objects.filter(Q(oferente=request.user)|Q(solicitante=request.user))#Todos los intercambios en los que tu estés implicado
-	set_tx = Transferencia.objects.filter(Q(deudor=request.user)|Q(beneficiario=request.user)) #Todas las transferencias en las que estés implicado 
-	set_tx = set_tx.filter(realizada = False)#y que no hayan sido realizadas ya(estas estarán archivadas en el historial)
-	msj = ""
-	if request.method == 'POST': #Si hemos decidido actuar sobre una Tx
-		tx = Transferencia.objects.get(id = request.POST['id_tx'])
-		#pdb.set_trace()
-		if request.POST.has_key('borrar'):
-			msjotro="El usuario: %s ha decidido borrar la solicitud que te habia mandado."%request.user.username
-			otroTxMsj(msjotro, tx, request.user)
-			tx.delete()
-		elif request.POST.has_key('rechazar'):
-			tx.rechazada = True
-			tx.save()
-			msjotro="El usuario: %s ha decidido rechazar la solicitud que le has enviado."%request.user.username
-			otroTxMsj(msjotro, tx, request.user)	
-		else: #Hemos decidido aceptar
-			#Realizamos los cambios en las cuentas de los usuarios
-			cant = float(tx.cantidad.replace(",",".")) #Convertimos float para operar
+    set_intercambios = ContactoIntercambio.objects.filter(Q(oferente=request.user)|Q(solicitante=request.user))#Todos los intercambios en los que tu estés implicado
+    set_tx = Transferencia.objects.filter(Q(deudor=request.user)|Q(beneficiario=request.user)) #Todas las transferencias en las que estés implicado 
+    set_tx = set_tx.filter(realizada = False)#y que no hayan sido realizadas ya(estas estarán archivadas en el historial)
+    msj = ""
+    if request.method == 'POST': #Si hemos decidido actuar sobre una Tx
+        tx = Transferencia.objects.get(id = request.POST['id_tx'])
+        #pdb.set_trace()
+        if request.POST.has_key('borrar'):
+            msjotro="El usuario: %s ha decidido borrar la solicitud que te habia mandado."%request.user.username
+            otroTxMsj(msjotro, tx, request.user)
+            tx.delete()
+        elif request.POST.has_key('rechazar'):
+            tx.rechazada = True
+            tx.save()
+            msjotro="El usuario: %s ha decidido rechazar la solicitud que le has enviado."%request.user.username
+            otroTxMsj(msjotro, tx, request.user)    
+        else: #Hemos decidido aceptar
+            #Realizamos los cambios en las cuentas de los usuarios
+            cant = float(tx.cantidad.replace(",",".")) #Convertimos float para operar
 
-			if tx.beneficiario == request.user:
-				perfB = request.user.get_profile()#Obtenemos el perfil
-				perfD = tx.deudor.get_profile()
-			else: #perfilBeneficiario y perfilDeudor según el caso
-				perfD = request.user.get_profile()
-				perfB = tx.beneficiario.get_profile()
-			#Ajuste de cuentas; básicamente convertir a float, operar(restar y sumar) y reconvertir a string para que la BD lo pueda adaptar al tipo decimal
-			saldoB = float(perfB.saldo) + cant #Nunca se debió usar el tipo COMMASEPARETEDINTEGERFIELD en el modelo, no da más q problemas
-			saldoD = float(perfD.saldo) - cant
-			#Hay que tener en cuenta que el saldo está en DecimalField y la cantidad en COMMASEPARETEDINTEGERFIELD.
-			if saldoB > 10.5 or saldoD < -10.5: #Comprobamos que ninguno de los implicados sobrepase los limites establecidos.
-				msj = "No puedes aceptar esta transferencia, dado que si la aceptas la cuenta de uno de los implicados quedaría en un estado incoherente: fuera del rango {-10, 10}."
-			else:
-				perfB.saldo = str(saldoB)
-				perfD.saldo = str(saldoD)
-				perfB.save()
-				perfD.save()
-				tx.realizada = True
-				tx.save()
-				msj = "La transferencia se ha realizado con éxito, verifica tu saldo y tu historial en tu página personal."
-				#También un mensaje para el otro usuario
-				msjotro = "Su solicitud de transferencia a:%s ha sido aceptada. Verifiquelo en su historial de servicios."%request.user.username
-				otroTxMsj(msjotro, tx, request.user)	
+            if tx.beneficiario == request.user:
+                perfB = request.user.get_profile()#Obtenemos el perfil
+                perfD = tx.deudor.get_profile()
+            else: #perfilBeneficiario y perfilDeudor según el caso
+                perfD = request.user.get_profile()
+                perfB = tx.beneficiario.get_profile()
+            #Ajuste de cuentas; básicamente convertir a float, operar(restar y sumar) y reconvertir a string para que la BD lo pueda adaptar al tipo decimal
+            saldoB = float(perfB.saldo) + cant #Nunca se debió usar el tipo COMMASEPARETEDINTEGERFIELD en el modelo, no da más q problemas
+            saldoD = float(perfD.saldo) - cant
+            #Hay que tener en cuenta que el saldo está en DecimalField y la cantidad en COMMASEPARETEDINTEGERFIELD.
+            if saldoB > 10.5 or saldoD < -10.5: #Comprobamos que ninguno de los implicados sobrepase los limites establecidos.
+                msj = "No puedes aceptar esta transferencia, dado que si la aceptas la cuenta de uno de los implicados quedaría en un estado incoherente: fuera del rango {-10, 10}."
+            else:
+                perfB.saldo = str(saldoB)
+                perfD.saldo = str(saldoD)
+                perfB.save()
+                perfD.save()
+                tx.realizada = True
+                tx.save()
+                msj = "La transferencia se ha realizado con éxito, verifica tu saldo y tu historial en tu página personal."
+                #También un mensaje para el otro usuario
+                msjotro = "Su solicitud de transferencia a:%s ha sido aceptada. Verifiquelo en su historial de servicios."%request.user.username
+                otroTxMsj(msjotro, tx, request.user)    
 
-	return render_to_response('msjTx.html', {
-										'sectiontitle': 'Conversaciones y transferencias',
-										'nombre_usuario': request.user.username,
-										'usu': request.user,
-										'set_intercambios': set_intercambios,
-										'set_tx': set_tx,
-										'msj': msj,
-								})
-								
+    return render_to_response('msjTx.html', {
+                                        'sectiontitle': 'Conversaciones y transferencias',
+                                        'nombre_usuario': request.user.username,
+                                        'usu': request.user,
+                                        'set_intercambios': set_intercambios,
+                                        'set_tx': set_tx,
+                                        'msj': msj,
+                                })
+                                
 def otroTxMsj(msj, tx, usu):
-	"""
-	Crea un mensaje al usuario pasivo(quizás no conectado) indicandole el estado de su transferencia
-	que podrá ser aceptada, rechazada o borrada.
-	msj: El mensaje que se le enviará al otro; tx: La transferencia; usu: El usuario activo
-	"""
-	if tx.beneficiario == usu:
-		tx.deudor.message_set.create(message=msj)
-	else:
-		tx.beneficiario.message_set.create(message=msj)
-		
-	return True
-	
+    """
+    Crea un mensaje al usuario pasivo(quizás no conectado) indicandole el estado de su transferencia
+    que podrá ser aceptada, rechazada o borrada.
+    msj: El mensaje que se le enviará al otro; tx: La transferencia; usu: El usuario activo
+    """
+    if tx.beneficiario == usu:
+        tx.deudor.message_set.create(message=msj)
+    else:
+        tx.beneficiario.message_set.create(message=msj)
+        
+    return True
+    
 @login_required
 def intercambio(request, id_inter=1):
-	msj = ""
-	convers_activa = True
-	intercambio = ContactoIntercambio.objects.get(id=id_inter)
-	servicio = Servicio.objects.get(id = intercambio.servicio_id)
-	set_mensajes = MensajeI.objects.filter(contactoint = intercambio)
-	boton_dis = ""
-	
-	if request.user.id == intercambio.solicitante.id: #Si tú eres el solicitante
-		ofertante_a_solicitante = False
-		if intercambio.solicitante_borrar:
-			return redirect(mensajesTransf) #Hemos decidido borrar la conversación anteriormente, estos casos no deben darse sino si el usuario introduce el número del intercambio manualmente
-		if intercambio.oferente_borrar:#El otro ha decidido borrar la conversación
-			convers_activa = False
-		
-	elif request.user.id == intercambio.oferente.id:
-		ofertante_a_solicitante = True
-		if intercambio.oferente_borrar:
-			#assert False
-			return redirect(mensajesTransf)
-		if intercambio.solicitante_borrar:#El otro ha decidido borra la conversación
-			convers_activa = False
-	else:
-		return redirect(mensajesTransf)#No intervienes en el intercambio indicado y no tienes permiso para acceder.
-		
-	if request.method == 'POST':
-		if request.POST.has_key('escribir'):#Hemos pulsado el botón de escribir
-			boton_dis = "disabled"
-		elif request.POST.has_key('enviar'):
-			msj = mandarMsj(request, intercambio, ofertante_a_solicitante)
-			#También notificación corta al otro usuario(pasivo)
-			if ofertante_a_solicitante:
-				msjotro = "Tiene un mensaje nuevo de: %s. Verifiquelo bajo 'Conversaciones y transferencias'."%intercambio.oferente
-				intercambio.solicitante.message_set.create(message=msjotro)
-				# XXX: Pablo added this
-				destinatario = User.objects.get(id=intercambio.solicitante.id)
-				msg_email = "Tienes un mensaje nuevo de %s que espera respuesta.\n\nAccede a la web del Banco del Tiempo del Ecolocal y consulta 'Conversaciones y transferencias'.\n\n¡No lo dejes pasar!\n\nhttp://www.ecolocal.es\n"%intercambio.oferente
-				send_mail("BdT Ecolocal: Nuevo mensaje espera respuesta", msg_email, 'ecolocal@gmail.com', [destinatario.email], fail_silently=False)
-			else:
-				msjotro = "Tiene un mensaje nuevo de: %s. Verifiquelo bajo 'Conversaciones y transferencias'."%intercambio.solicitante
-				intercambio.oferente.message_set.create(message=msjotro)
-				# XXX: Pablo added this
-				destinatario = User.objects.get(id=intercambio.oferente.id)
-				msg_email = "Tienes un mensaje nuevo de %s que espera respuesta.\n\nAccede a la web del Banco del Tiempo del Ecolocal y consulta 'Conversaciones y transferencias'.\n\n¡No lo dejes pasar!\n\nhttp://www.ecolocal.es\n"%intercambio.solicitante
-				send_mail("BdT Ecolocal: Nuevo mensaje espera respuesta", msg_email, 'ecolocal@gmail.com', [destinatario.email], fail_silently=False)
-		elif request.POST.has_key('ver_menos'):
-			return redirect(mensajesTransf)
-		elif request.POST.has_key('atras'):
-			boton_dis = ""
-		elif request.POST.has_key('borrar_conv'):
-			if ofertante_a_solicitante:#Si eres el ofertante
-				intercambio.oferente_borrar = True
-			else:
-				intercambio.solicitante_borrar = True
-			intercambio.save()
-			return redirect(mensajesTransf)#Pues esta conversación ya no debe ser visible para el usuario.
-		elif request.POST.has_key('borrar_def'):
-			if not convers_activa: #Se supone que la otra parte ya ha borrado.
-				intercambio.delete() #Cómo efecto de cascada se borrarán todos los mensajes dependientes de éste contacto de intercambio
-				return redirect(mensajesTransf)
-		elif request.POST.has_key('back'):#Ver menos con conversación inactiva
-			return redirect(mensajesTransf)
-		else:
-			pass
-		
-	return render_to_response('intercambio.html', {
-										'sectiontitle': 'Conversación sobre un intercambio',
-										'nombre_usuario': request.user.username,
-										'serv': servicio,
-										'inter': intercambio,
-										'set_mensajes': set_mensajes,
-										'boton_dis': boton_dis,
-										'activa': convers_activa,
-										'msj_estado': msj,
-								})
-								
+    msj = ""
+    convers_activa = True
+    intercambio = ContactoIntercambio.objects.get(id=id_inter)
+    servicio = Servicio.objects.get(id = intercambio.servicio_id)
+    set_mensajes = MensajeI.objects.filter(contactoint = intercambio)
+    boton_dis = ""
+    
+    if request.user.id == intercambio.solicitante.id: #Si tú eres el solicitante
+        ofertante_a_solicitante = False
+        if intercambio.solicitante_borrar:
+            return redirect(mensajesTransf) #Hemos decidido borrar la conversación anteriormente, estos casos no deben darse sino si el usuario introduce el número del intercambio manualmente
+        if intercambio.oferente_borrar:#El otro ha decidido borrar la conversación
+            convers_activa = False
+        
+    elif request.user.id == intercambio.oferente.id:
+        ofertante_a_solicitante = True
+        if intercambio.oferente_borrar:
+            #assert False
+            return redirect(mensajesTransf)
+        if intercambio.solicitante_borrar:#El otro ha decidido borra la conversación
+            convers_activa = False
+    else:
+        return redirect(mensajesTransf)#No intervienes en el intercambio indicado y no tienes permiso para acceder.
+        
+    if request.method == 'POST':
+        if request.POST.has_key('escribir'):#Hemos pulsado el botón de escribir
+            boton_dis = "disabled"
+        elif request.POST.has_key('enviar'):
+            msj = mandarMsj(request, intercambio, ofertante_a_solicitante)
+            #También notificación corta al otro usuario(pasivo)
+            if ofertante_a_solicitante:
+                msjotro = "Tiene un mensaje nuevo de: %s. Verifiquelo bajo 'Conversaciones y transferencias'."%intercambio.oferente
+                intercambio.solicitante.message_set.create(message=msjotro)
+                # XXX: Pablo added this
+                destinatario = User.objects.get(id=intercambio.solicitante.id)
+                msg_email = "Tienes un mensaje nuevo de %s que espera respuesta.\n\nAccede a la web del Banco del Tiempo del Ecolocal y consulta 'Conversaciones y transferencias'.\n\n¡No lo dejes pasar!\n\nhttp://www.ecolocal.es\n"%intercambio.oferente
+                send_mail("BdT Ecolocal: Nuevo mensaje espera respuesta", msg_email, 'ecolocal@gmail.com', [destinatario.email], fail_silently=False)
+            else:
+                msjotro = "Tiene un mensaje nuevo de: %s. Verifiquelo bajo 'Conversaciones y transferencias'."%intercambio.solicitante
+                intercambio.oferente.message_set.create(message=msjotro)
+                # XXX: Pablo added this
+                destinatario = User.objects.get(id=intercambio.oferente.id)
+                msg_email = "Tienes un mensaje nuevo de %s que espera respuesta.\n\nAccede a la web del Banco del Tiempo del Ecolocal y consulta 'Conversaciones y transferencias'.\n\n¡No lo dejes pasar!\n\nhttp://www.ecolocal.es\n"%intercambio.solicitante
+                send_mail("BdT Ecolocal: Nuevo mensaje espera respuesta", msg_email, 'ecolocal@gmail.com', [destinatario.email], fail_silently=False)
+        elif request.POST.has_key('ver_menos'):
+            return redirect(mensajesTransf)
+        elif request.POST.has_key('atras'):
+            boton_dis = ""
+        elif request.POST.has_key('borrar_conv'):
+            if ofertante_a_solicitante:#Si eres el ofertante
+                intercambio.oferente_borrar = True
+            else:
+                intercambio.solicitante_borrar = True
+            intercambio.save()
+            return redirect(mensajesTransf)#Pues esta conversación ya no debe ser visible para el usuario.
+        elif request.POST.has_key('borrar_def'):
+            if not convers_activa: #Se supone que la otra parte ya ha borrado.
+                intercambio.delete() #Cómo efecto de cascada se borrarán todos los mensajes dependientes de éste contacto de intercambio
+                return redirect(mensajesTransf)
+        elif request.POST.has_key('back'):#Ver menos con conversación inactiva
+            return redirect(mensajesTransf)
+        else:
+            pass
+        
+    return render_to_response('intercambio.html', {
+                                        'sectiontitle': 'Conversación sobre un intercambio',
+                                        'nombre_usuario': request.user.username,
+                                        'serv': servicio,
+                                        'inter': intercambio,
+                                        'set_mensajes': set_mensajes,
+                                        'boton_dis': boton_dis,
+                                        'activa': convers_activa,
+                                        'msj_estado': msj,
+                                })
+                                
 def mandarMsj(request, intercambio, ofertante_a_solicitante):
-	form = MensajeIForm({'contenido': request.POST['contenido'],})#Tb podríamos haber usado request.POST sólo,pero esto es más explicito
+    form = MensajeIForm({'contenido': request.POST['contenido'],})#Tb podríamos haber usado request.POST sólo,pero esto es más explicito
 
-	if form.is_valid():#En caso de no ser válido lanza una excepción conocida y manejada. Debería...
-		msj="Mensaje enviado con éxito."
-		instanciaM = form.save(commit=False) #Directamente save da error de contactoint_id = 0
-		instanciaM.contactoint_id = intercambio.id
-		instanciaM.o_a_s = ofertante_a_solicitante
-		instanciaM.save()
-	else:
-		msj="Mensaje demasiado largo, intente ser más breve."
-		#TODO: Mostrar mensaje del formulario de error
-		#for error in form.errors:
-		#	msj+=str(error)
-		#assert False
+    if form.is_valid():#En caso de no ser válido lanza una excepción conocida y manejada. Debería...
+        msj="Mensaje enviado con éxito."
+        instanciaM = form.save(commit=False) #Directamente save da error de contactoint_id = 0
+        instanciaM.contactoint_id = intercambio.id
+        instanciaM.o_a_s = ofertante_a_solicitante
+        instanciaM.save()
+    else:
+        msj="Mensaje demasiado largo, intente ser más breve."
+        #TODO: Mostrar mensaje del formulario de error
+        #for error in form.errors:
+        #   msj+=str(error)
+        #assert False
 
-	return msj
-	
-@login_required	
+    return msj
+    
+@login_required 
 def contAdm(request):
-	msj_error =""
-	cont = ""
-	tema = ""
-	adm = ""
-	if request.method == 'POST':
-		if request.POST['contenido'] == "" or request.POST['tema'] == "":
-			cont = request.POST['contenido']
-			tema = request.POST['tema']
-			msj_error = "Por favor indique el tema y el contenido."
-			
-		else:
-			adm = User.objects.filter(is_staff = True)[0]#La primera ocurrencia de administrador
-			try:
-				instancia = ContactoAdministracion.objects.create( tema = request.POST['tema'], usuario_normal = request.user, administrador = adm)#Creado nuevo contacto con la adminsitración
-				MensajeA.objects.create(contactoadm = instancia, a_a_u = False, contenido = request.POST['contenido']) #Y creado primer mensaje del usuario
-				return redirect(msjAdm)
-				#return HttpResponseRedirect('/personal/mensajesadmin')#El usuario ya verá su conversación creada aquí
-			except: #Esta excepción sólo se dará si el usuario tiene una conversación ya creada con la administración, pues sólo se puede crear una única conversación con la admin.
-				msj_error = "Ya has establecido contacto con la administración, verifica tu página personal, bajo mensajes administración, sino mandanos un email."
-			
-			
-	return render_to_response('contactoAdm.html', {
-										'sectiontitle': 'Contacto con la administración',
-										'nombre_usuario': request.user.username,
-										'usu': request.user,
-										'msj_error': msj_error,
-										'cont': cont,
-										'tema': tema,
-										'adm': adm,
-								})
-@login_required								
+    msj_error =""
+    cont = ""
+    tema = ""
+    adm = ""
+    if request.method == 'POST':
+        if request.POST['contenido'] == "" or request.POST['tema'] == "":
+            cont = request.POST['contenido']
+            tema = request.POST['tema']
+            msj_error = "Por favor indique el tema y el contenido."
+            
+        else:
+            adm = User.objects.filter(is_staff = True)[0]#La primera ocurrencia de administrador
+            try:
+                instancia = ContactoAdministracion.objects.create( tema = request.POST['tema'], usuario_normal = request.user, administrador = adm)#Creado nuevo contacto con la adminsitración
+                MensajeA.objects.create(contactoadm = instancia, a_a_u = False, contenido = request.POST['contenido']) #Y creado primer mensaje del usuario
+                return redirect(msjAdm)
+                #return HttpResponseRedirect('/personal/mensajesadmin')#El usuario ya verá su conversación creada aquí
+            except: #Esta excepción sólo se dará si el usuario tiene una conversación ya creada con la administración, pues sólo se puede crear una única conversación con la admin.
+                msj_error = "Ya has establecido contacto con la administración, verifica tu página personal, bajo mensajes administración, sino mandanos un email."
+            
+            
+    return render_to_response('contactoAdm.html', {
+                                        'sectiontitle': 'Contacto con la administración',
+                                        'nombre_usuario': request.user.username,
+                                        'usu': request.user,
+                                        'msj_error': msj_error,
+                                        'cont': cont,
+                                        'tema': tema,
+                                        'adm': adm,
+                                })
+@login_required                             
 def msjAdm(request):
-	"""
-	Debe mostrar los mensajes con la administración y permitirnos  escribir cómo usuarios normales,
-	si aún no hemos establecido contacto debe redirigirnos a la página de establecer contacto.
-	"""
-	msj_error =""
-	contacto_establecido = False
-	convers_activa = True
-	contacto = ""
-	set_msj = ""
-	
-	if request.user.is_staff:#Los usuarios administradores tienen una interfaz específica para controlar la aplicación.
-		msj_error = "Por favor cómo administrador debes acceder a través de la interfaz administrativa a esta sección."
-	else:
-		try:
-			contacto = ContactoAdministracion.objects.get(usuario_normal = request.user)
-			if contacto:#Si ya se ha establecido contacto.
-				contacto_establecido = True
-				set_msj = MensajeA.objects.filter(contactoadm = contacto)#Filtramos todos los msjs de este contacto
-				if contacto.administrador_borrar:#Si el administrador ha decidido borrar la conversación
-					msj_error = "El administrador ya ha dado esta conversación por cerrada, si tiene una nueva duda. Borre la actual conversación y contactenos de nuevo."
-					convers_activa = False
-					if request.POST.has_key('borrar_def'):
-						contacto.delete()
-						return redirect(personal)
-				else:
-					if request.POST.has_key('borrar_conv'):
-						contacto.usuario_borrar = True
-						contacto.save()
-					if request.POST.has_key('escribir'):
-						if request.POST['contenido'] == "":
-						 msj_error = "Primero escriba un mensaje"
-						else:
-							MensajeA.objects.create(contenido = request.POST['contenido'], contactoadm = contacto, a_a_u = False)
-		except:
-			msj_error = "Primero establece contacto"
-			
-	return render_to_response('mensajesAdm.html', {
-										'sectiontitle': 'Mensajes con la administración',
-										'nombre_usuario': request.user.username,
-										'usu': request.user,
-										'msj_error': msj_error,
-										'contacto_establecido': contacto_establecido,
-										'contacto': contacto,
-										'msj_error': msj_error,
-										'set_msj': set_msj,
-										'activa': convers_activa,
-								})
+    """
+    Debe mostrar los mensajes con la administración y permitirnos  escribir cómo usuarios normales,
+    si aún no hemos establecido contacto debe redirigirnos a la página de establecer contacto.
+    """
+    msj_error =""
+    contacto_establecido = False
+    convers_activa = True
+    contacto = ""
+    set_msj = ""
+    
+    if request.user.is_staff:#Los usuarios administradores tienen una interfaz específica para controlar la aplicación.
+        msj_error = "Por favor cómo administrador debes acceder a través de la interfaz administrativa a esta sección."
+    else:
+        try:
+            contacto = ContactoAdministracion.objects.get(usuario_normal = request.user)
+            if contacto:#Si ya se ha establecido contacto.
+                contacto_establecido = True
+                set_msj = MensajeA.objects.filter(contactoadm = contacto)#Filtramos todos los msjs de este contacto
+                if contacto.administrador_borrar:#Si el administrador ha decidido borrar la conversación
+                    msj_error = "El administrador ya ha dado esta conversación por cerrada, si tiene una nueva duda. Borre la actual conversación y contactenos de nuevo."
+                    convers_activa = False
+                    if request.POST.has_key('borrar_def'):
+                        contacto.delete()
+                        return redirect(personal)
+                else:
+                    if request.POST.has_key('borrar_conv'):
+                        contacto.usuario_borrar = True
+                        contacto.save()
+                    if request.POST.has_key('escribir'):
+                        if request.POST['contenido'] == "":
+                         msj_error = "Primero escriba un mensaje"
+                        else:
+                            MensajeA.objects.create(contenido = request.POST['contenido'], contactoadm = contacto, a_a_u = False)
+        except:
+            msj_error = "Primero establece contacto"
+            
+    return render_to_response('mensajesAdm.html', {
+                                        'sectiontitle': 'Mensajes con la administración',
+                                        'nombre_usuario': request.user.username,
+                                        'usu': request.user,
+                                        'msj_error': msj_error,
+                                        'contacto_establecido': contacto_establecido,
+                                        'contacto': contacto,
+                                        'msj_error': msj_error,
+                                        'set_msj': set_msj,
+                                        'activa': convers_activa,
+                                })

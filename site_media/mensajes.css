@@ -18,56 +18,56 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 @import url(/site_media/estilo_online.css);
 .mensajes, .transferencias{
-	margin-left:25%;
+    margin-left:25%;
 }
 /* Perteneciente hilo de mensajes */
 .mensaje{
-	margin-left:25%;
-	width: 60%;
-	margin-top:2%;
+    margin-left:25%;
+    width: 60%;
+    margin-top:2%;
 }
 div#lineaHorizontal{
-	margin-left:25%;
-	width: 50%;
-	border-bottom-style: solid;
-	border-width: thin;
-	margin-bottom: 1%;
-	margin-top:1%;
-	color:#006600;
+    margin-left:25%;
+    width: 50%;
+    border-bottom-style: solid;
+    border-width: thin;
+    margin-bottom: 1%;
+    margin-top:1%;
+    color:#006600;
 }
 .botones{
-	margin-left:40%;
-	margin-bottom: 3%;
+    margin-left:40%;
+    margin-bottom: 3%;
 }
 .botones textarea{
-	height:100px;
-	width:350px;
+    height:100px;
+    width:350px;
 }
 .botones input[type = submit]{
-	margin-bottom:3%;
-	margin-top: 3%;
+    margin-bottom:3%;
+    margin-top: 3%;
 }
 /* Perteneciente a transferencia */
 textarea{
-	width: 200px;
-	height: 40px;
+    width: 200px;
+    height: 40px;
 
 }
 
 input#id_cantidad{
-	width:40px;
-	font-size: 130%;
+    width:40px;
+    font-size: 130%;
 }
 input#id_usuario{
-	font-size: 120%
+    font-size: 120%
 }
 div#tx{
-	margin-left: 22%;
+    margin-left: 22%;
 }
 
 td.celdamensajes{
-	background-color: #FFCC33;
+    background-color: #FFCC33;
 }
 div#sidebar td.celdamensajes A{
-	color: #006600;
+    color: #006600;
 }
