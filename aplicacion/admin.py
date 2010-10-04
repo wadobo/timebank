@@ -16,6 +16,7 @@
 
 from aplicacion.models import PerfilUsuario, Comentario, Transferencia
 from django.contrib.auth.models import User, Message, Group
+from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
 admin.site.unregister(User)
 admin.site.unregister(Group)
@@ -30,13 +31,13 @@ class TransferenciaAdmin(admin.ModelAdmin):
 class PerfilInline(admin.StackedInline):
     model = PerfilUsuario
 
-class UsuarioAdmin(admin.ModelAdmin):
+class UsuarioAdmin(UserAdmin):
     inlines = [
         PerfilInline,
     ]
     fieldsets = (
         ('Datos personales', {
-            'fields': ('first_name', 'last_name', 'email', 'is_active')
+            'fields': ('first_name', 'password', 'last_name', 'email', 'is_active')
         }),
         ('Opciones avanzadas', {
             'classes': ('collapse',),
