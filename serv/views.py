@@ -53,9 +53,9 @@ def misservicios(request):
             # servicio
             form = ServicioForm()
     # Queremos modificar cualquiera de los servicios presentes
-    elif request.method == 'GET':
+    elif request.method == 'POST':
         id_elemento = request.POST['id_elemento']
-        set_elementos = funcAccion(request,id_elemento)
+        set_elementos = funcAccion(request, id_elemento)
         if request.POST.has_key('Modificar'):
             return set_elementos
         if set_elementos.has_key('msj'):

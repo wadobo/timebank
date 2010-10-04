@@ -36,7 +36,7 @@ class UsuarioAdmin(admin.ModelAdmin):
     ]
     fieldsets = (
         ('Datos personales', {
-            'fields': ('first_name', 'last_name', 'email', 'is_active')
+            'fields': ('first_name', 'last_name', 'email', 'is_active', 'password')
         }),
         ('Opciones avanzadas', {
             'classes': ('collapse',),
