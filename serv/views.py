@@ -15,15 +15,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response, redirect
-from serv.models import ServicioForm, Servicio, Zona, Categoria, ContactoIForm, MensajeIForm, ContactoIntercambio, MensajeI, ContactoAdministracion, MensajeA
-from aplicacion.models import Transferencia
-from django.db.models import Q
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from django.db.models import Q
 from django.db.models.query import QuerySet, EmptyQuerySet
 from django.http import HttpResponseRedirect
-from django.core.paginator import Paginator
+from django.shortcuts import render_to_response, redirect
+from django.views.generic.create_update import update_object
+
+from serv.models import (Servicio, Zona, Categoria,
+                         ContactoIntercambio, MensajeI,
+                         ContactoAdministracion, MensajeA)
+from serv.forms import ServicioForm, ContactoIForm, MensajeIForm
+
+from aplicacion.models import Transferencia
 from aplicacion.views import *
+
 
 @login_required
 def misservicios(request):
@@ -82,21 +89,25 @@ def misservicios(request):
         'id_modifica': id_elemento
     })
 
+
 def servSets (usu):
     """
     Una función que nos devuelve un diccionario con los diferentes
     sets de servicios existentes de un usuario determinado.
     """
+
     set_completo = dict()
     set_completo['ofrece_set'] = Servicio.objects.filter(creador=usu, oferta=True, activo=True).order_by('-pub_date')
     set_completo['solicita_set'] = Servicio.objects.filter(creador=usu, oferta=False, activo=True).order_by('-pub_date')
     set_completo['inactivo_set'] = Servicio.objects.filter(creador=usu, activo=False).order_by('-pub_date')
     return set_completo
 
+
 def funcAccion(request, id_elemento):
     """
     Según la acción(que nos indica el request)actua sobre el elemento cuyo id nos pasan como parámetro
     """
+
     form = ServicioForm()
     if request.POST.has_key('Eliminar'):
         Servicio.objects.get(pk = id_elemento).delete()
@@ -104,7 +115,6 @@ def funcAccion(request, id_elemento):
     elif request.POST.has_key('Modificar'):
         msj = "has decidido modificar un servicio."
         valCreaServ = "Guardar cambios"
-        from django.views.generic.create_update import update_object
         return update_object(request, 
             form_class=ServicioForm,
             object_id=id_elemento,
@@ -349,6 +359,7 @@ def buscador(request):
 
 # END buscador
 
+
 @login_required
 def contactar(request):
     formI = ContactoIForm()
@@ -414,7 +425,8 @@ def contactar(request):
                                         'formI': formI,
                                         'msj_error': msj_error,
                                 })
-                                
+
+
 @login_required
 def mensajesTransf(request):
     set_intercambios = ContactoIntercambio.objects.filter(Q(oferente=request.user)|Q(solicitante=request.user))#Todos los intercambios en los que tu estés implicado
@@ -469,7 +481,8 @@ def mensajesTransf(request):
                                         'set_tx': set_tx,
                                         'msj': msj,
                                 })
-                                
+
+
 def otroTxMsj(msj, tx, usu):
     """
     Crea un mensaje al usuario pasivo(quizás no conectado) indicandole el estado de su transferencia
@@ -482,7 +495,8 @@ def otroTxMsj(msj, tx, usu):
         tx.beneficiario.message_set.create(message=msj)
         
     return True
-    
+
+
 @login_required
 def intercambio(request, id_inter=1):
     msj = ""
@@ -559,7 +573,8 @@ def intercambio(request, id_inter=1):
                                         'activa': convers_activa,
                                         'msj_estado': msj,
                                 })
-                                
+
+
 def mandarMsj(request, intercambio, ofertante_a_solicitante):
     form = MensajeIForm({'contenido': request.POST['contenido'],})#Tb podríamos haber usado request.POST sólo,pero esto es más explicito
 
@@ -577,7 +592,8 @@ def mandarMsj(request, intercambio, ofertante_a_solicitante):
         #assert False
 
     return msj
-    
+
+
 @login_required 
 def contAdm(request):
     msj_error =""
@@ -610,6 +626,8 @@ def contAdm(request):
                                         'tema': tema,
                                         'adm': adm,
                                 })
+
+
 @login_required                             
 def msjAdm(request):
     """
