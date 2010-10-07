@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+{% load i18n %}
+
+    <div id="regexito" align="center">
+        <p>{% blocktrans %}Gracias por haberte registrado en {{ SITE_NAME }}, te hemos enviado un email confirmándote tu solicitud de inscripción. Tan pronto como nuestros administradores hayan revisado dicha solicitud te avisaremos de nuevo por email y podrás empezar a disfrutar de este sistema.{% endblocktrans %}
+        </p>
+        <p>
+        <a href="{% url django.contrib.auth.views.login %}">{% trans "Volver a la página de inicio" %}</a>
+        </p>
+    </div>
+    
+{% endblock content %}

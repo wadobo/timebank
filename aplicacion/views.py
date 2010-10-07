@@ -17,56 +17,57 @@
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, redirect
-from models import UserForm, PerfilForm, PerfilUsuario, UpdatePerfUsuForm, ComentarioForm, Comentario, Transferencia, TxForm
+from models import PerfilUsuario, Comentario, Transferencia
+from forms import UserForm, ProfileForm, UpdatePerfUsuForm, ComentarioForm,\
+    TxForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.utils.translation import ugettext as _
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.mail import send_mail
 from serv.views import *
+from settings import SITE_NAME, DEFAULT_FROM_EMAIL
 
-def registro(request):
+def register(request):
     """
-    Devuelve un formulario vacío en caso de que se haya solicitado la página por primera vez
-    o un formulario con los datos anteriores y sus errores
-    o procesa los datos de un usuario proporcionados a través del formulario
+    Registers an user
     """
-    if request.method == 'POST': # Si el formulario ha sido enviado...
-        form = UserForm(request.POST) # Un formulario conteniendo el postData
-        form2 = PerfilForm(request.POST) #Crea un conjunto de datos que contendrá todos los datos extraídos de POST relacionados con el form.
-        if form.is_valid(): # Pasa todas las validaciones
-            if form2.is_valid():
-                instanciaUsuario = form.save(commit=False) #Guardamos la primera parte de datos del usuario, instanciaUsuario es necesario porque aqui ya tenemos al nuevo usuario(parte de sus datos con su id) que nos hará falta para asociarlo al perfil
-                instanciaUsuario.is_active = False #Comentar esta linea para evitar la validacion de los datos por administradores en el registro.
-                instanciaUsuario.save()
-                extraform2 = form2.save(commit=False) #Guardamos los datos en una instancia para que los podamos editar, pero aun no en la BD porque no hemos dicho a que usuario pertenece este perfil
-                extraform2.user = instanciaUsuario
-                extraform2.save()
-                #pdb.set_trace()
-                msjAdm = "Se ha registrado un nuevo usuario con nombre de usuario: %s . Revise sus datos y delo de alta."%instanciaUsuario.username
-                #send_mail("Nuevo usuario registrado", msjAdm, 'ORIGEN',['DESTINATARIO'], fail_silently=False)
-                return redirect(regExito) # Redirigimos tras POST
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        profileForm = ProfileForm(request.POST)
+        if form.is_valid() and profileForm.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            userProfile = profileForm.save(commit=False)
+            userProfile.user = user
+            userProfile.save()
+
+            title = _("[%s] Usuario %s registrado") %\
+                (SITE_NAME, user.username)
+            message = _("Se ha registrado un nuevo usuario con nombre de"
+                " usuario: %s . Revise sus datos y delo de alta.") %\
+                user.username
+            send_mail(title, message, DEFAULT_FROM_EMAIL,
+                [user.email], fail_silently=True)
+            return redirect("user-register-done")
     else:
-        form = UserForm() # Un formulario vacío
-        form2 = PerfilForm()
+        form = UserForm()
+        profileForm = ProfileForm()
 
-    return render_to_response('registro.html', {
-                                        'form': form,
-                                        'formP': form2,
-                                        'sectiontitle': 'Página de registro'
-                            })
+    return render_to_response('register.html', {
+        'form': form,
+        'profileForm': profileForm,
+        'sectiontitle': _(u'Página de registro')
+    })
 
-def regExito(request):
-    """
-    Página de redirección cuando se ha completado el registro con éxito
-    """
-    return render_to_response('registroExito.html',{})
-                                
 @login_required
 def personal(request):
     """
-    Comprueba si se ha actualizado los datos del usuario y permite cambiarle su contraseña
+    Comprueba si se ha actualizado los datos del usuario y permite cambiarle
+    su contraseña
     """
     usu = request.user
     if float(usu.get_profile().saldo) < 0:
@@ -76,10 +77,11 @@ def personal(request):
             color="teal"
         else:
             color="blue"
-    
-    set_tx = Transferencia.objects.filter(Q(deudor=request.user)|Q(beneficiario=request.user))
-    set_tx = set_tx.filter(realizada = True).order_by('-fechaTx') #Filtro todas las transferencias realizadas en las que he intervenido
 
+    # Filtramos todas las transferencias realizadas en las que he intervenido
+    set_tx = Transferencia.objects.filter(Q(deudor=request.user) |
+        Q(beneficiario=request.user))
+    set_tx = set_tx.filter(realizada = True).order_by('-fechaTx')
     
     #No puedo usar el método predefinido "update_object" dado que tengo dos modelos, con dos formularios distintos ¿por qué? porque un formulario (desgraciadamente) no puede heredar de dos modelos simultaneamente.
     # El formulario debe manejar dos atributos con el mismo nombre 'id' tanto de perfil cómo de usuario.

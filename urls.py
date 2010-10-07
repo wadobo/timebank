@@ -38,8 +38,11 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
     (r'^$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
-    (r'^registro/$', 'aplicacion.views.registro'),
-    (r'^gracias/$', 'aplicacion.views.regExito'),
+    (r'^user/register/$', 'aplicacion.views.register'),
+    (r'^user/registerdone/$', 'django.views.generic.simple.direct_to_template',
+        {'template': 'registerdone.html',
+        'extra_context': {"SITE_NAME": settings.SITE_NAME}}
+    ),
     (r'^personal/$', 'aplicacion.views.personal'),#django.views.generic.create_update.update_object
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', #Para servir archivos estáticos
         {'document_root': settings.STATIC_DOC_ROOT, 'show_indexes': True}),

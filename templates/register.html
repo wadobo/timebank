@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
+{% load i18n %}
 
 <form action="." method="POST">
     <table>
         {{ form.as_table }}
-        {{ formP.as_table }}
+        {{ profileForm.as_table }}
     </table>
-    <input id="boton" type="submit" value="Enviar datos" />
+    <input id="boton" type="submit" value="{% trans 'Enviar datos' %}" />
 </form>
 
 
