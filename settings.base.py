@@ -20,19 +20,19 @@ import os
 
 curdir = os.path.abspath(os.path.dirname(__file__))
 
-### Django configuration
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+SITE_NAME="Banco del Tiempo Ecolocal"
 
 ADMINS = (
     ('admin', 'admin@localhost'),
 )
 
+DEFAULT_FROM_EMAIL="admin@localhost"
+
 MANAGERS = ADMINS
 
-# Possible values are 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3', 'oracle'. Only
-# 'mysql' and 'sqlite3' have been tested.
 DATABASE_ENGINE = 'sqlite3'
 
 # Database name or path to database file if using sqlite3.
@@ -123,17 +123,12 @@ LOGIN_REDIRECT_URL = 'personal/'
 # The site-specific user profile model used by this site.
 AUTH_PROFILE_MODULE = 'aplicacion.perfilusuario'
 
-#La ruta para servir documentos estáticos (básicamente los css).
+# Path for static docs (css, images, etc)
 STATIC_DOC_ROOT = os.path.join(curdir, 'site_media')
 
 DATE_FORMAT = 'd/m/Y'
 DATETIME_FORMAT = 'd/m/Y, H:i'
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
-
-# Specified in seconds. After this time of inactivity, next action which
-# requires user to be logged will redirect to login page. Default is two weeks,
-# or 1209600 seconds.
-#SESSION_COOKIE_AGE=1209600
 
 # Email configuration. Configure appropiately if emails are not directly sent by localhost
 #EMAIL_HOST = ''
