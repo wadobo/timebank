@@ -23,6 +23,9 @@ curdir = os.path.abspath(os.path.dirname(__file__))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# To remove timebank.fcgi from urls
+FORCE_SCRIPT_NAME = ""
+
 SITE_NAME="Banco del Tiempo Ecolocal"
 
 ADMINS = (
