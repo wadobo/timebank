@@ -22,6 +22,7 @@ from django import forms
 from django.contrib.localflavor.generic.forms import DateField
 from django.utils.encoding import smart_unicode
 from models import PerfilUsuario, Comentario, Transferencia
+from django.utils.translation import ugettext as _
 
 class UserForm(forms.ModelForm):
     pwd1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
@@ -90,7 +91,21 @@ class ProfileForm(forms.ModelForm):
         exclude = ('user', 'saldo', 'puntGlob')
 
 
-class UpdatePerfUsuForm(forms.ModelForm):
+class RemoveUserForm(forms.Form):
+    reason = forms.CharField(label=_(u"¿Porqué razón quieres darte de baja?"),
+        widget=forms.Textarea, required=True)
+
+    def __init__(self, data=None):
+        '''
+        Convenience method, this way you can always call to
+        RemoveUserForm(request.POST) even if it's None.
+        '''
+        if data == None:
+            super(forms.Form, self).__init__()
+        else:
+            super(forms.Form, self).__init__(data)
+
+class UpdateUserProfileForm(forms.ModelForm):
     '''
     Esta clase debe representar un formulario para actualizar todos los datos
     del usuario, tanto los que provienen del modelo predefinido User cómo los

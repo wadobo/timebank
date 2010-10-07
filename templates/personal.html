@@ -35,7 +35,7 @@
         tu último login ha sido el {{ usu.last_login.date|date:_("l, j \de F \de Y") }} a las {{ usu.last_login.time|time:"H:i" }} horas. <br/>
         Tu saldo de créditos de tiempo actual es de <strong> 
 
-        <font size="5" color="{{ color }}">{{ usu.get_profile.saldo }}</font> 
+        <font size="5" color="blue">{{ usu.get_profile.saldo }}</font> 
 
         </strong> horas</p><br/><br/>
     </div>
@@ -135,21 +135,6 @@
         </div>
     
 </div>
-
-
-
-<!-- 
-<table style="width: 800px;">
-   <tr>
-      <td style="width: 400px;">
-      <div style="overflow:auto; width:400px; height: 200px;">
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus facilisis, risus at tempor volutpat, eros nulla malesuada augue, vitae consectetuer quam quam eu nibh. Suspendisse laoreet dignissim neque. Sed semper. Nullam facilisis. Nam tristique sapien. Sed turpis justo, lobortis sit amet, posuere at, tristique id, nunc. Vestibulum rutrum dui at lectus. Sed enim. Ut eros eros, pulvinar a, vestibulum sit amet, ornare ac, eros. Suspendisse imperdiet.
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus facilisis, risus at tempor volutpat, eros nulla malesuada augue, vitae consectetuer quam quam eu nibh. Suspendisse laoreet dignissim neque. Sed semper. Nullam facilisis. Nam tristique sapien. Sed turpis justo, lobortis sit amet, posuere at, tristique id, nunc. Vestibulum rutrum dui at lectus. Sed enim. Ut eros eros, pulvinar a, vestibulum sit amet, ornare ac, eros. Suspendisse imperdiet.
-      </div>
-      </td>
-      <td style="width: 400px;"></td>
-   </tr>
-</table> -->
 
 
 {% endblock %}

@@ -18,8 +18,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, redirect
 from models import PerfilUsuario, Comentario, Transferencia
-from forms import UserForm, ProfileForm, UpdatePerfUsuForm, ComentarioForm,\
-    TxForm
+from forms import UserForm, ProfileForm, UpdateUserProfileForm,\
+    ComentarioForm, TxForm, RemoveUserForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -28,7 +28,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.mail import send_mail
 from serv.views import *
-from settings import SITE_NAME, DEFAULT_FROM_EMAIL
+from settings import SITE_NAME, DEFAULT_FROM_EMAIL, ADMINS
 
 def register(request):
     """
@@ -52,7 +52,7 @@ def register(request):
                 user.username
             send_mail(title, message, DEFAULT_FROM_EMAIL,
                 [user.email], fail_silently=True)
-            return redirect("user-register-done")
+            return redirect("/user/registerdone/")
     else:
         form = UserForm()
         profileForm = ProfileForm()
@@ -69,127 +69,117 @@ def personal(request):
     Comprueba si se ha actualizado los datos del usuario y permite cambiarle
     su contraseña
     """
-    usu = request.user
-    if float(usu.get_profile().saldo) < 0:
-        color="red"
-    else:
-        if float(usu.get_profile().saldo) == 0:
-            color="teal"
-        else:
-            color="blue"
+    user = request.user
 
-    # Filtramos todas las transferencias realizadas en las que he intervenido
-    set_tx = Transferencia.objects.filter(Q(deudor=request.user) |
-        Q(beneficiario=request.user))
-    set_tx = set_tx.filter(realizada = True).order_by('-fechaTx')
-    
-    #No puedo usar el método predefinido "update_object" dado que tengo dos modelos, con dos formularios distintos ¿por qué? porque un formulario (desgraciadamente) no puede heredar de dos modelos simultaneamente.
-    # El formulario debe manejar dos atributos con el mismo nombre 'id' tanto de perfil cómo de usuario.
+    transfers = Transferencia.objects.filter(Q(deudor=user)
+        | Q(beneficiario=user)).filter(realizada=True).order_by('-fechaTx')
+
+    # No puedo usar el método predefinido "update_object" dado que tengo dos
+    # modelos, con dos formularios distintos ¿por qué? porque un formulario
+    # (desgraciadamente) no puede heredar de dos modelos simultaneamente.
+    # El formulario debe manejar dos atributos con el mismo nombre 'id' tanto
+    # de perfil cómo de usuario.
     if request.method == 'POST':
-        form = UpdatePerfUsuForm(request.POST)  #Todos los datos enviados
-        if request.POST.__contains__('changeData'):#Cambio datos personales
-            
-            if form.is_valid(): #Actualizar datos
-                msjAntiguo = "Datos antiguos del usuario:%s  : Nombre: %s, Apellidos: %s, Direccion: %s, Fecha nacimiento: %s, Email: %s"%(usu.username,usu.first_name,usu.last_name,usu.get_profile().direccion,usu.get_profile().fecha_de_nacimiento,usu.email)
-                usu.first_name = request.POST.get('first_name','')
-                usu.last_name = request.POST.get('last_name','')
-                usu.email = request.POST.get('email','')
-                usu.save() #NO-Guarda todos los nuevos datos de usuario ya que nuestro form hereda del model usuario, pero no los de PerfilUsuario
-                data = {    'id': usu.get_profile().id,
-                    'user_id': usu.id,
-                    'direccion': request.POST.get('direccion',''),
-                    'fecha_de_nacimiento': request.POST.get('fecha_de_nacimiento',''),
-                    'descr': usu.get_profile().descr,
+        form = UpdateUserProfileForm(request.POST)
+        if request.POST.__contains__('changeData'):
+            if form.is_valid():
+                user.first_name = request.POST.get('first_name', '')
+                user.last_name = request.POST.get('last_name', '')
+                user.email = request.POST.get('email', '')
+                #NO-Guarda todos los nuevos datos de usuario ya que nuestro
+                #form hereda del modelo usuario, pero no los de PerfilUsuario
+                user.save()
+                data = {
+                    'id': user.get_profile().id,
+                    'user_id': user.id,
+                    'direccion': request.POST.get('direccion', ''),
+                    'fecha_de_nacimiento': request.POST.get(
+                        'fecha_de_nacimiento', ''),
+                    'descr': user.get_profile().descr,
                 }
-                
-                perf = PerfilForm(data)
-                if perf.is_valid():
-                    instancia = perf.save(commit=False)
-                    instancia.user_id = request.user.id
-                    instancia.id = usu.get_profile().id
-                    instancia.save()
 
-                msj = "Datos personales actualizados con éxito."
-                
-                #send_mail("Usuario cambio datos personales", msjAntiguo, 'ORIGEN',['DESTINATARIO'], fail_silently=False)
-                # * Enviar email a la administración comunicando los datos nuevos(se pueden verificar en la BD) y antiguos, sino un usuario podría cambiar todos sus datos y noquedaría rastro
+                profile = ProfileForm(data)
+                if profile.is_valid():
+                    profile = profile.save(commit=False)
+                    profile.user_id = request.user.id
+                    profile.id = user.get_profile().id
+                    profile.save()
+
+                message = _(u"Datos personales actualizados con éxito.")
+
+                # Enviar email a la administración comunicando los datos
+                # nuevos (se pueden verificar en la BD) y antiguos, sino un
+                # usuario podría cambiar todos sus datos y no quedaría rastro
+                title = _(u"[%s] Usuario %s cambió su perfil") %\
+                    (SITE_NAME, user.username)
+                mail_content = _(u"Datos antiguos del usuario %s: Nombre: %s,"
+                    u"Apellidos: %s, Dirección: %s, Fecha nacimiento: %s,"
+                    u" Email %s") % (
+                        user.username, user.first_name, user.last_name, user.get_profile().direccion,
+                        user.get_profile().fecha_de_nacimiento, user.email
+                    )
+                send_mail(title, mail_content, DEFAULT_FROM_EMAIL, ADMINS,
+                    fail_silently=True)
             else:
-                msj = "Datos personales NO actualizados, corrija los datos erróneos."
+                message = _(u"Datos personales NO actualizados, corrija los"
+                    u" datos erróneos.")
             
-        else: #Cambió la descripción
+        else:
             descripcion = request.POST.get('descr','')
             if len(descripcion) < 150:
-                perf = PerfilUsuario.objects.get(id = usu.get_profile().id)
-                perf.descr = descripcion
-                perf.save()
-                msj = "Descripción de si mismo actualizada con éxito."
+                profile = PerfilUsuario.objects.get(id = user.get_profile().id)
+                profile.descr = descripcion
+                profile.save()
+                message = _(u"Descripción de si mismo actualizada con éxito.")
             else:
-                msj = "Error, la descripción no debe contener más de 150 caracteres y la actual contiene %s."%len(descripcion)
-        usu.message_set.create(message=msj)
-            
-    else: #si aun no he enviado datos nuevos (es la primera vez que accedo a la página)
-            # Saco los datos del usuario para presentarlos
-        data = {    'first_name': usu.first_name,
-                    'last_name': usu.last_name,
-                    'email': usu.email,
-                    'fecha_de_nacimiento': usu.get_profile().fecha_de_nacimiento,
-                    'direccion': usu.get_profile().direccion,
-                    'descr': usu.get_profile().descr,
-                }
-        form = UpdatePerfUsuForm(data)
+                message = _(u"Error, la descripción no debe contener más de"
+                    " 150 caracteres y la actual contiene %s.") %\
+                    len(descripcion)
+        user.message_set.create(message=message)
+
+    # Si aun no he enviado datos nuevos (es la primera vez que accedo a la
+    # página) saco los datos del usuario para presentarlos
+    else:
+        data = {
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email,
+            'fecha_de_nacimiento': user.get_profile().fecha_de_nacimiento,
+            'direccion': user.get_profile().direccion,
+            'descr': user.get_profile().descr
+        }
+        form = UpdateUserProfileForm(data)
     
     return render_to_response('personal.html', {
-                                        'form': form,
-                                        'sectiontitle': 'Página personal',
-                                        'nombre_usuario': usu.username,
-                                        'color': color,
-                                        'messages': usu.get_and_delete_messages()[:5],
-                                        'usu': usu,
-                                        'set_tx': set_tx,
-                            })
-    
-                                
+        'form': form,
+        'sectiontitle': _(u'Página personal'),
+        'nombre_usuario': user.username,
+        'messages': user.get_and_delete_messages()[:5],
+        'usu': user,
+        'set_tx': transfers
+    })
+
 @login_required
-def baja(request):
-    pregunta = 'hidden'
-    baja = 'submit'
-    msj = ""
-    motivo = ''
-    disabled = ''
-    if request.method == 'POST':
-        if request.POST.__contains__('BajaSi'):
-            usu=request.user
-            usu.is_active = False
-            usu.save()
-            msjAdmin = "El usuario:%s se ha dado de baja."%usu.username
-            #send_mail("Usuario de baja", msjAdmin, 'ORIGEN',['DESTINATARIO'], fail_silently=False)
-            from django.contrib.auth import views as m
-            #return m.login(request, 'login.html')
-            return redirect(m.login)
-        
-        elif request.POST.__contains__('BajaNo'):
-            pregunta = 'hidden'
-            baja = 'submit'
-        else:
-            motivo = request.POST.get('motivo','')
-            if len(motivo) < 2:
-                msj = "Por favor introduzca el motivo de su baja"
-            else:
-                disabled = 'disabled'
-                msj = "¿Está seguro que desea darse de baja?"
-                pregunta = 'submit'
-                baja = 'hidden'
-        
+def baja(request):    
+    form = RemoveUserForm(request.POST)
+
+    if request.method == 'POST' and form.is_valid():
+        # User is only marked as inactive, not really removed
+        user = request.user
+        user.is_active = False
+        user.save()
+        title = _(u"[%s] Usuario %s se dió de baja") %\
+            (SITE_NAME, user.username)
+        send_mail(title, form.reason, DEFAULT_FROM_EMAIL, ADMINS,
+            fail_silently=True)
+        from django.contrib.auth import views
+        return redirect(views.login)
+  
     return render_to_response('baja.html', {
-                                        'sectiontitle': 'Se está dando de baja...',
-                                        'nombre_usuario': request.user.username,
-                                        'messages': request.user.get_and_delete_messages(),
-                                        'pregunta': pregunta,
-                                        'baja': baja,
-                                        'msj':msj,
-                                        'motivo': motivo,
-                                        'disabled': disabled,
-                                })
+        'sectiontitle': _(u'Se está dando de baja...'),
+        'messages': request.user.get_and_delete_messages(),
+        'form': form
+    })
                                 
 @login_required
 def publico(request, id_usu=1):
