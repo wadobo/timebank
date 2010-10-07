@@ -17,17 +17,8 @@
 
 from django.conf.urls.defaults import *
 from django.conf import settings
-
-# from django.contrib import databrowse
-# from serv.models import Servicio
-# from aplicacion.models import PerfilUsuario
-
-# databrowse.site.register(Servicio)
-# databrowse.site.register(PerfilUsuario)
-
-
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -64,6 +55,7 @@ urlpatterns = patterns('',
     (r'^recordar/$', 'aplicacion.views.recuerdoClave'),
     # (r'^databrowse/(.*)', databrowse.site.root),
     (r'^dummy-mail/$', 'aplicacion.views.dummy_mail'),
+    (r'^main/', include('main.urls')),
 
 )
         

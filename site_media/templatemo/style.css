@@ -1,0 +1,409 @@
+html
+{
+    background:none repeat scroll 0 0 #fff;
+}
+
+body
+{
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:12px;
+    line-height:1.5em;
+    width:100%;
+    display:table;
+    background:url("templatemo_bg.jpg") repeat-x scroll 0 0 #fff;
+    margin:0;
+    padding:0;
+}
+
+a:link, a:visited
+{
+    color:#494949;
+    text-decoration:underline;
+}
+
+a:active, a:hover
+{
+    color:#494949;
+    text-decoration:none;
+}
+
+p
+{
+    font-family:Tahoma;
+    font-size:13px;
+    color:#484848;
+    text-align:justify;
+    margin:0 0 10px;
+}
+
+h1
+{
+    font-family:Tahoma;
+    font-size:18px;
+    color:#676767;
+    font-weight:400;
+    margin:0 0 15px;
+}
+
+h2
+{
+    font-family:Tahoma;
+    font-size:16px;
+    color:#0895d6;
+    font-weight:400;
+    margin:0 0 10px;
+}
+
+h3
+{
+    font-family:Tahoma;
+    font-size:11px;
+    color:#2780e4;
+    font-weight:400;
+    margin:0 0 5px;
+}
+
+#container
+{
+    width:960px;
+    margin:auto;
+}
+
+#header
+{
+    width:960px;
+    height:157px;
+    margin:0 0 0 -15px;
+    padding:1px 0 0;
+}
+
+#logo_area
+{
+    width:175px;
+    height:60px;
+    float:left;
+    margin:25px 0 0 50px;
+}
+
+#logo
+{
+    background-image: url(../imgs/timebank.png);
+    height: 100px;
+    width: 315px;
+    margin-top: -20px;
+    margin-left: -50px;
+}
+
+#slogan
+{
+    float:left;
+    font-family:Tahoma;
+    font-size:12px;
+    color:#000;
+    font-style:italic;
+    margin:5px 0 0;
+}
+
+#social
+{
+    width:195px;
+    height:80px;
+    float:right;
+    margin:30px 0 0;
+}
+
+#social form
+{
+    float:right;
+    width:185px;
+    height:36px;
+    background:url("templatemo_search.jpg") repeat scroll 0 0 transparent;
+}
+
+.field
+{
+    float:left;
+    width:132px;
+    height:21px;
+    background:none repeat scroll 0 0 transparent;
+    border:medium none;
+    font-family:Tahoma;
+    color:#686868;
+    margin:8px 0 0 10px;
+}
+
+.button
+{
+    float:right;
+    width:35px;
+    height:22px;
+    border:medium none;
+    background:url("templatemo_botton.jpg") no-repeat scroll 0 0 transparent;
+    cursor:pointer;
+    margin:8px 5px 0 0;
+}
+
+#social img
+{
+    float:right;
+    border:medium none;
+    margin:0 20px 0 0;
+}
+
+#menu
+{
+    float:right;
+    width:960px;
+    height:40px;
+    margin:5px 0 0;
+    padding:0;
+}
+
+#menu ul
+{
+    float:right;
+    width:600px;
+    list-style:none outside none;
+    margin:0;
+    padding:0;
+}
+
+#menu ul li
+{
+    display:inline;
+}
+
+#menu ul li a
+{
+    float:left;
+    text-align:center;
+    text-decoration:none;
+    background:url("templatemo_menu_divider.png") no-repeat scroll right center transparent;
+    color:#2a5f00;
+    font-family:Tahoma;
+    font-size:12px;
+    outline:medium none;
+    padding:11px 20px;
+}
+
+#menu li a:hover,#menu li .current
+{
+    color:#fff;
+}
+
+#menu li .last
+{
+    background:none repeat scroll 0 0 transparent;
+}
+
+#content_area
+{
+    width:960px;
+    margin:20px 0 0;
+}
+
+#left
+{
+    float:left;
+    width:250px;
+}
+
+#right
+{
+    float:right;
+    width:685px;
+}
+
+.section_1
+{
+    width:250px;
+    margin:0 0 10px;
+}
+
+.section_1 .top
+{
+    width:250px;
+    height:33px;
+    background:url("templatemo_section_1_top.jpg") no-repeat scroll left center transparent;
+}
+
+.top h1
+{
+    display:block;
+    float:left;
+    margin:15px 0 0 15px;
+}
+
+.top span.title
+{
+    float:right;
+    display:block;
+    font-family:Tahoma;
+    font-size:10px;
+    color:#000;
+    margin:15px 25px 0 0;
+}
+
+.section_1 .middle
+{
+    width:250px;
+    background:url("templatemo_section_1_mid.jpg") repeat-y scroll left center transparent;
+}
+
+.section_1 .bottom
+{
+    width:210px;
+    background:url("templatemo_section_1_bottom.jpg") no-repeat scroll left bottom transparent;
+    padding:10px 20px 5px 15px;
+}
+
+.templaemo_h_line
+{
+    width:100%;
+    clear:both;
+    height:1px;
+    background:url("templatemo_h_line.jpg") repeat scroll 0 0 transparent;
+    margin:0 0 10px;
+}
+
+.templaemo_v_line
+{
+    width:1px;
+    float:left;
+    height:260px;
+    background:url("templatemo_v_line.jpg") repeat scroll 0 0 transparent;
+}
+
+.section_2
+{
+    width:220px;
+    margin:0 0 10px;
+    padding:15px 15px 5px;
+}
+
+.section_2 .green
+{
+    border-left:8px solid #64d608;
+    margin:0 0 15px;
+    padding:0 0 0 5px;
+}
+
+.section_2 .blue
+{
+    border-left:8px solid #0895d6;
+    margin:0 0 15px;
+    padding:0 0 0 5px;
+}
+
+.section_2 .yellow
+{
+    border-left:8px solid #fc6;
+    margin:0 0 15px;
+    padding:0 0 0 5px;
+}
+
+.section_3
+{
+    width:685px;
+    background:url("templatemo_section_3_bg.jpg") no-repeat scroll 105px -5px transparent;
+    margin:0 0 20px;
+}
+
+.section_3 h1
+{
+    margin:0 0 5px;
+}
+
+span.blue_title
+{
+    font-family:Arial;
+    font-size:20px;
+    color:#0895d6;
+    display:block;
+    margin:0 0 25px 20px;
+}
+
+.section_4
+{
+    width:685px;
+    margin:0 0 15px;
+}
+
+.section_5
+{
+    width:685px;
+    background:url("templatemo_section_5.jpg") no-repeat scroll center top transparent;
+    margin:0 0 20px;
+    padding:15px 0 0;
+}
+
+.two_col
+{
+    width:310px;
+    margin:0 0 20px;
+    padding:0 15px 15px;
+}
+
+.two_col img
+{
+    margin:0 0 10px;
+}
+
+.gallery
+{
+    margin:0;
+    padding:0;
+}
+
+.gallery img
+{
+    float:left;
+    margin:0 0 20px;
+}
+
+.gallery img.mid
+{
+    float:left;
+    margin:0 27px;
+}
+
+.right
+{
+    float:right;
+}
+
+.left
+{
+    float:left;
+}
+
+#footer
+{
+    width:100%;
+    height:52px;
+    background:url("templatemo_footer_bg.jpg") repeat scroll 0 0 transparent;
+    color:#fff;
+    text-align:center;
+    margin:0;
+    padding:36px 0 0;
+}
+
+#footer a
+{
+    color:#fff;
+    text-decoration:underline;
+}
+
+#footer a:hover
+{
+    color:#fff;
+    text-decoration:none;
+}
+
+.cleaner
+{
+    clear:both;
+    height:0;
+    margin:0;
+    padding:0;
+}
