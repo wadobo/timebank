@@ -16,5 +16,5 @@ class ViewClass:
             return HttpResponseNotAllowed(self.methods)
 
     def context_response(self, *args, **kwargs):
-        return render_to_response(*args,
-            context_instance=RequestContext(self.request), **kwargs)
+        kwargs['context_instance'] = RequestContext(self.request)
+        return render_to_response(*args, **kwargs)
