@@ -92,11 +92,15 @@ h3
 
 #logo
 {
-    background-image: url(../imgs/timebank.png);
     height: 100px;
     width: 315px;
     margin-top: -20px;
     margin-left: -50px;
+}
+
+#logo img
+{
+    border: none;
 }
 
 #slogan
