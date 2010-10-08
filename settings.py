@@ -144,6 +144,6 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 #EMAIL_HOST_PASSWORD = ''
 
 try:
-    from settings.local import *
+    from local_settings import *
 except ImportError:
     pass
