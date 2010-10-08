@@ -18,6 +18,7 @@ from django.shortcuts import redirect
 from django.conf import settings
 from utils import ViewClass
 from forms import RegisterForm
+from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
 from settings import SITE_NAME, DEFAULT_FROM_EMAIL, ADMINS
 
@@ -27,7 +28,7 @@ class Register(ViewClass):
         return self.context_response('user/register.html', {'form': form})
 
     def POST(self):
-        form = RegisterForm(self.request)
+        form = RegisterForm(self.request.POST)
         if not form.is_valid():
             return self.context_response('user/register.html', {'form': form})
 
@@ -37,11 +38,11 @@ class Register(ViewClass):
         new_user.save()
 
         # Send email
-        title = _("[%s] Usuario %s registrado") % (SITE_NAME, user.username)
+        title = _("[%s] Usuario %s registrado") % (SITE_NAME, new_user.username)
         message = _("Se ha registrado un nuevo usuario con nombre de usuario:"\
-        " %s . Revise sus datos y delo de alta.") % user.username
+        " %s . Revise sus datos y delo de alta.") % new_user.username
         send_mail(title, message, DEFAULT_FROM_EMAIL,
-            [user.email], fail_silently=True)
+            [new_user.email], fail_silently=True)
 
         return self.context_response('user/registerdone.html', {
             'new_user': new_user})
