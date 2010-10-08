@@ -28,35 +28,34 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-    (r'^$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
-    (r'^user/register/$', 'aplicacion.views.register'),
-    (r'^user/registerdone/$', 'django.views.generic.simple.direct_to_template',
-        {'template': 'registerdone.html',
-        'extra_context': {"SITE_NAME": settings.SITE_NAME}}
-    ),
-    (r'^personal/$', 'aplicacion.views.personal'),#django.views.generic.create_update.update_object
+    #(r'^$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+    #(r'^user/register/$', 'aplicacion.views.register'),
+    #(r'^user/registerdone/$', 'django.views.generic.simple.direct_to_template',
+        #{'template': 'registerdone.html',
+        #'extra_context': {"SITE_NAME": settings.SITE_NAME}}
+    #),
+    #(r'^personal/$', 'aplicacion.views.personal'),#django.views.generic.create_update.update_object
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', #Para servir archivos estáticos
         {'document_root': settings.STATIC_DOC_ROOT, 'show_indexes': True}),
-    (r'^publico/(?P<id_usu>[0-9]*)$', 'aplicacion.views.publico'),
-    (r'^servicios/$', 'serv.views.misservicios'),
-    (r'^buscador/$', 'serv.views.buscador'),
-    (r'^mensajes/$', 'serv.views.mensajesTransf'),
-    (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
-    (r'^personal/cambiopwd/$', 'aplicacion.views.cambioPwd'),
-    (r'^personal/cambiopwd/hecho$', 'aplicacion.views.pwdCambiado'),
-    (r'^personal/baja$', 'aplicacion.views.baja'),
-    (r'^publico/comentar/(?P<id_usu>[0-9]*)$', 'aplicacion.views.comentar'),
-    (r'^contactar/$', 'serv.views.contactar'),
-    (r'^mensajes/intercambio/(?P<id_inter>[0-9]+)$', 'serv.views.intercambio'),
-    (r'^mensajes/transferencia/$', 'aplicacion.views.transferencia'),
-    (r'^personal/contactoadmin/$', 'serv.views.contAdm'),
-    (r'^personal/mensajesadmin/$', 'serv.views.msjAdm'),
-    (r'^probando/$', 'serv.views.buscador'),
-    (r'^recordar/$', 'aplicacion.views.recuerdoClave'),
-    # (r'^databrowse/(.*)', databrowse.site.root),
-    (r'^dummy-mail/$', 'aplicacion.views.dummy_mail'),
-    (r'^main/', include('main.urls')),
-
+    #(r'^publico/(?P<id_usu>[0-9]*)$', 'aplicacion.views.publico'),
+    #(r'^servicios/$', 'serv.views.misservicios'),
+    #(r'^buscador/$', 'serv.views.buscador'),
+    #(r'^mensajes/$', 'serv.views.mensajesTransf'),
+    #(r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
+    #(r'^personal/cambiopwd/$', 'aplicacion.views.cambioPwd'),
+    #(r'^personal/cambiopwd/hecho$', 'aplicacion.views.pwdCambiado'),
+    #(r'^personal/baja$', 'aplicacion.views.baja'),
+    #(r'^publico/comentar/(?P<id_usu>[0-9]*)$', 'aplicacion.views.comentar'),
+    #(r'^contactar/$', 'serv.views.contactar'),
+    #(r'^mensajes/intercambio/(?P<id_inter>[0-9]+)$', 'serv.views.intercambio'),
+    #(r'^mensajes/transferencia/$', 'aplicacion.views.transferencia'),
+    #(r'^personal/contactoadmin/$', 'serv.views.contAdm'),
+    #(r'^personal/mensajesadmin/$', 'serv.views.msjAdm'),
+    #(r'^probando/$', 'serv.views.buscador'),
+    #(r'^recordar/$', 'aplicacion.views.recuerdoClave'),
+    ## (r'^databrowse/(.*)', databrowse.site.root),
+    #(r'^dummy-mail/$', 'aplicacion.views.dummy_mail'),
+    (r'^user/', include('user.urls')),
+    (r'^.*', 'main.views.index'),
 )
-        
-# 'django.contrib.auth.views.login' es un método de django que nos provee de un formulario de login estándar
+

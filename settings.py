@@ -116,19 +116,17 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'aplicacion',
-    'serv',
-    'main'
+    #'aplicacion',
+    #'serv',
+    'main',
+    'user'
 )
 
 LOGIN_URL = '/'
 
 # The URL where requests are redirected after login when the
 # contrib.auth.login view gets no next parameter.
-LOGIN_REDIRECT_URL = 'personal/'
-
-# The site-specific user profile model used by this site.
-AUTH_PROFILE_MODULE = 'aplicacion.perfilusuario'
+LOGIN_REDIRECT_URL = '/'
 
 # Path for static docs (css, images, etc)
 STATIC_DOC_ROOT = os.path.join(curdir, 'site_media')
@@ -136,6 +134,11 @@ STATIC_DOC_ROOT = os.path.join(curdir, 'site_media')
 DATE_FORMAT = 'd/m/Y'
 DATETIME_FORMAT = 'd/m/Y, H:i'
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
+AUTHENTICATION_BACKENDS = (
+    'user.auth_backends.CustomUserModelBackend',
+)
+CUSTOM_USER_MODEL = 'user.Profile'
 
 # Email configuration. Configure appropiately if emails are not directly sent by localhost
 #EMAIL_HOST = ''
