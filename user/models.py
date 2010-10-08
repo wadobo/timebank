@@ -37,7 +37,7 @@ class Profile(User):
     '''
     User with time bank settings.
     '''
-    birth_date = models.DateField()
+    birth_date = models.DateField(_(u"Fecha de Nacimiento"))
 
     address = models.CharField(_(u"Dirección"), max_length=100)
 

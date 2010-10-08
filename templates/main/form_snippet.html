@@ -1,0 +1,13 @@
+<ul>
+{% for field in form %}
+    <li>
+        {{ field.label_tag }} {{ field }}
+        {% if field.help_text %}
+            <small class="help">{{ field.help_text }}</small>
+        {% endif %}
+        {% if field.errors %}
+            <small class="error">{{ field.errors }}</small>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>

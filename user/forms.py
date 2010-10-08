@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -14,12 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.shortcuts import render_to_response, redirect
-from django.conf import settings
-from utils import ViewClass
+from models import Profile
+from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import ugettext_lazy as _
 
-class Index(ViewClass):
-    def GET(self):
-        return self.context_response('main/index.html')
-
-index = Index()
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model = Profile
+        fields = ('username', 'email', 'address', 'birth_date', 'description')

@@ -1,0 +1,14 @@
+{% extends "template_base.html" %}
+{% load i18n %}
+{% block title %} {% trans 'Registro hecho' %} {% endblock %}
+
+{% block content %}
+    <div class="section_3">
+        <h1>{% trans 'Registro hecho' %}</h1>
+        <p>{% blocktrans with new_user.username as username and new_user.email as email %}Gracias por haberte registrado en {{ SITE_NAME }}, {{ username }}. Te hemos enviado un email a {{ email }} confirmándote tu solicitud de inscripción. Tan pronto como nuestros administradores hayan revisado dicha solicitud te avisaremos de nuevo por email y podrás empezar a disfrutar de este sistema.{% endblocktrans %}
+        </p>
+        <p>
+        <a href="/">{% trans "Volver a la página de inicio" %}</a>
+        </p>
+    </div>
+{% endblock %}
