@@ -2,6 +2,5 @@
 *.mo
 *.swp
 sessions
-settings.py
 database.sqlite
 .kdev4

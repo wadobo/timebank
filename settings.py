@@ -73,7 +73,8 @@ MEDIA_ROOT = ''
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '
+'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -96,6 +97,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'main.context_processor.base',
+)
+
 ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
@@ -114,7 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'aplicacion',
     'serv',
-    # 'django.contrib.databrowse',
+    'main'
 )
 
 LOGIN_URL = '/'
@@ -138,3 +143,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 #EMAIL_PORT = 0
 #EMAIL_HOST_USER = ''
 #EMAIL_HOST_PASSWORD = ''
+
+try:
+    from settings.local import *
+except ImportError:
+    pass
