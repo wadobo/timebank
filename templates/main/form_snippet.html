@@ -5,9 +5,7 @@
         {% if field.help_text %}
             <small class="help">{{ field.help_text }}</small>
         {% endif %}
-        {% if field.errors %}
-            <small class="error">{{ field.errors }}</small>
-        {% endif %}
+        {{ field.errors }}
     </li>
 {% endfor %}
 </ul>
