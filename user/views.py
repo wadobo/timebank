@@ -16,6 +16,7 @@
 
 from django.shortcuts import redirect
 from django.conf import settings
+from django.contrib.sites.models import Site
 from utils import ViewClass
 from forms import RegisterForm
 from django.utils.translation import ugettext as _
@@ -37,12 +38,25 @@ class Register(ViewClass):
         new_user.is_active = False
         new_user.save()
 
-        # Send email
-        title = _("[%s] Usuario %s registrado") % (SITE_NAME, new_user.username)
-        message = _("Se ha registrado un nuevo usuario con nombre de usuario:"\
+        # Send an email to admins and another to the user
+        title = _("[%s] Usuario %s registrado") % (SITE_NAME,
+            new_user.username)
+        message = _("Se ha registrado un nuevo usuario con nombre de usuario "\
         " %s . Revise sus datos y delo de alta.") % new_user.username
-        send_mail(title, message, DEFAULT_FROM_EMAIL,
-            [new_user.email], fail_silently=True)
+        send_mail(title, message, DEFAULT_FROM_EMAIL, ADMINS,
+            fail_silently=True)
+
+        current_site = Site.objects.get_current()
+        title = _("Te has registrado como %s en %s") % (new_user.username,
+            SITE_NAME)
+        message = _(u"Hola %s!\n Te acabas de registrar en http://%s/."
+            u"Próximamente la creación de tu usuario será revisada por"
+            u"nuestros administradores y si todo está correcto, activaremos tu"
+            u" usuario y podrás comenzar a participar en nuestra comunidad."
+            u"\n\n- El Equipo de %s.") %\
+            (new_user.username, current_site.domain, SITE_NAME)
+        send_mail(title, message, DEFAULT_FROM_EMAIL, ADMINS,
+            fail_silently=True)
 
         return self.context_response('user/registerdone.html', {
             'new_user': new_user})

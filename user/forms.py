@@ -15,10 +15,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from models import Profile
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
 class RegisterForm(UserCreationForm):
+    birth_date = forms.DateField(label=_("Fecha de Nacimiento"),
+        input_formats=("%d/%m/%Y",),
+        help_text=_("Ejemplo: 31/12/1980"))
+
+    first_name = forms.CharField(label=_("Nombre propio"), required=True, max_length=30)
+    last_name = forms.CharField(label=_("Apellidos"), required=True, max_length=30)
+    email = forms.EmailField(label=_(u"Dirección de email"), required=True)
+
     class Meta:
         model = Profile
-        fields = ('username', 'email', 'address', 'birth_date', 'description')
+        fields = ('username', 'first_name', 'last_name', 'email', 'address', 'birth_date', 'description')
