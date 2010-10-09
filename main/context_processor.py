@@ -1,5 +1,6 @@
 from django.conf import settings
 from user.models import Profile
+from news.models import New
 from django.contrib.auth.forms import AuthenticationForm
 
 def base(request):
@@ -15,6 +16,7 @@ def base(request):
         'SITE_NAME': settings.SITE_NAME,
         'MEDIA_URL': settings.MEDIA_URL,
         'user': request.user,
+        'front_news': New.objects.all().order_by("-published")[:3],
         'session': request.session,
         'login_form': login_form
     }

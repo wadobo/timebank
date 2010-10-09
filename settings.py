@@ -121,6 +121,8 @@ INSTALLED_APPS = (
     #'serv',
     'main',
     'flashmsg',
+    'news',
+    'tinymce',
     'user'
 )
 
