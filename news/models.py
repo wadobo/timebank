@@ -25,8 +25,13 @@ from django.contrib.sites.models import Site
 class New(models.Model):
 
     title = models.CharField(_(u"Título"), max_length=300, blank=True)
-    published = models.DateTimeField(_(u"Fecha de publicación"),
-                                     auto_now=True)
+    creation_date = models.DateTimeField(_(u"Fecha de creación"),
+        auto_now=True)
+    last_modified_date = models.DateTimeField(_(u"Última fecha de modificación"),
+        auto_now=True)
+    publish_date = models.DateTimeField(_(u"Fecha de publicación"),
+        auto_now=True)
+    hidden = models.BooleanField(_(u"Ocultar"), default=False)
     body = models.TextField(_(u"Cuerpo de la noticia"))
     author = models.ForeignKey(User)
     author.verbose_name = _(u"Autor")

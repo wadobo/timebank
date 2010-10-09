@@ -20,31 +20,35 @@ from utils import ViewClass
 from news.models import New
 from django.utils.translation import ugettext as _
 from django.contrib.sites.models import Site
-
+from django.conf import settings
+from django.http import Http404
 
 class NewView(ViewClass):
     def GET(self, new_id):
+        import ipdb; ipdb.set_trace()
         new = get_object_or_404(New, pk=new_id)
+        if new.hidden:
+            raise Http404
         return self.context_response('news/new.html', {'new': new})
 
 
 class Index(ViewClass):
     def GET(self):
-        news = New.objects.all()[:20]
+        news = New.objects.filter(hidden=False)[:20]
         context = dict(news=news)
         return self.context_response('news/list.html', context)
 
 
 class Feed(ViewClass):
     def GET(self):
-        entries = New.objects.all()[:20]
+        entries = New.objects.filter(hidden=False)[:20]
         current_site = Site.objects.get_current()
         link = "http://%s%s" % (current_site.domain,
-                                reverse('news.views.index'))
+            reverse('news.views.index'))
         context = dict(entries=entries,
-                       title=_("Noticias del banco del tiempo"),
-                       link=link,
-                       description=_("Noticias del banco del tiempo"))
+            title=_("Novedades en %s" % settings.SITE_NAME),
+            link=link,
+            description=_("Novedades en %s" % settings.SITE_NAME))
         return self.context_response('news/feed.xml', context)
 
 

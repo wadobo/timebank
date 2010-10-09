@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^login/$', 'user.views.login', name="user-login"),
     url(r'^logout/$', 'django.contrib.auth.views.logout',
         {'next_page': 'main/index.html'}, name="user-logout"),
+    url(r'^profile/(?P<user_id>\d+)$', 'main.views.index', name="user-profile"),
     url(r'^register/$', 'user.views.register', name="user-register"),
     url(r'^remember/$', 'django.contrib.auth.views.password_reset', {
         'template_name': 'user/password_reset.html',

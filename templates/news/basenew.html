@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<div class="new">
+    <h2><a href="{% url news-view new.id %}">{{ new.title }}</a></h2>
+    <h3 class="info">
+    {% blocktrans with new.publish_date|timesince as date and new.author as author %}
+    publicado hace {{ date }} por{% endblocktrans %} <a href="{% url user-profile new.author.id %}">{{ new.author }}</a>
+
+    </h3>
+    <p>
+    {% block newbody %}
+    {{ new.body|safe }}
+    {% endblock %}
+    </p>
+</div>

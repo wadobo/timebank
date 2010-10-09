@@ -16,7 +16,7 @@ def base(request):
         'SITE_NAME': settings.SITE_NAME,
         'MEDIA_URL': settings.MEDIA_URL,
         'user': request.user,
-        'front_news': New.objects.all().order_by("-published")[:3],
+        'front_news': New.objects.filter(hidden=False).order_by("-publish_date")[:3],
         'session': request.session,
         'login_form': login_form
     }

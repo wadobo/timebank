@@ -19,7 +19,7 @@ from django.conf import settings
 
 urlpatterns = patterns('news.views',
     url(r'^$', 'index', name="news"),
-    url(r'^view/(?P<new_id>\d+)$', 'view', name="new"),
-    url(r'^feed$', 'feed', name="new_feed"),
+    url(r'^view/(\d+)$', 'view', name="news-view"),
+    url(r'^feed$', 'feed', name="news-feed"),
 )
 

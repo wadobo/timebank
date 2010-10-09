@@ -26,7 +26,7 @@ class NewsAdmin(admin.ModelAdmin):
         models.TextField: {'widget': AdminTinyMCE},
     }
     exclude = ('author', )
-    list_display = ('title', 'published', 'author')
+    list_display = ('title', 'publish_date', 'hidden', 'author')
 
     def save_model(self, request, obj, form, change):
         obj.author = request.user

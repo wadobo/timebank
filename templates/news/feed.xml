@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <rss version="2.0">
     <channel>
-        <title>{{ title }}</title>
-        <link>{{ link }}</link> 
-        <description>{{ description }}</description>
-        <language>es-es</language>
+        <title>{{ title }}</title>
+        <link>{{ link }}</link>
+        <description>{{ description }}</description>
+        <language>es-es</language>
 
         {% for entry in entries %}
             <item>
-                <title>{{ entry.title }}</title>
+                <title>{{ entry.title }}</title>
                 <link>{{ entry.get_url }}</link>
                 <description>{{ entry.body }}</description>
-                <pubDate>{{ entry.published}}</pubDate>
+                <pubDate>{{ entry.publish_date}}</pubDate>
             </item>
         {% endfor %}
     </channel>

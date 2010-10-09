@@ -12,7 +12,7 @@
         <link href="{{ MEDIA_URL }}flashmsg.css" rel="stylesheet" type="text/css">
         <link href="{{ MEDIA_URL }}templatemo/style.css" rel="stylesheet" type="text/css"> 
         <link href="{{ MEDIA_URL }}templatemo/fullsize.css" media="screen" rel="stylesheet" type="text/css">
-        <link rel="alternate" title="RSS" href="{% url news.views.feed %}" type="application/rss+xml">
+        <link rel="alternate" title="RSS" href="{% url news-feed %}" type="application/rss+xml">
         <script type="text/javascript" src="{{ MEDIA_URL }}templatemo/jquery.js"></script>
     </head>
     <body>
@@ -85,7 +85,7 @@
                 <div class="section_2">
                     <h1>{% trans 'Novedades' %}</h1>
                     {% for new in front_news %}
-                    <div class="new {% cycle 'yellow' 'green' 'blue' %}">
+                    <div class="new {% cycle 'blue' 'green' 'yellow' %}">
                     {% include "news/truncnewfront.html" %}
                     </div>
                     {% endfor %}
