@@ -25,7 +25,6 @@ from django.http import Http404
 
 class NewView(ViewClass):
     def GET(self, new_id):
-        import ipdb; ipdb.set_trace()
         new = get_object_or_404(New, pk=new_id)
         if new.hidden:
             raise Http404
