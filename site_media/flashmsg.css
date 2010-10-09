@@ -1,0 +1,14 @@
+#flash_messages li {
+    border: 1px solid green;
+    background: #9dff77;
+    padding: 5px;
+    margin: 2px;
+    list-style: none;
+}
+
+#flash_messages li.error {
+    border: 1px solid red;
+    background: #ff7777;
+    color: white;
+    font-weight: bold;
+}

@@ -13,7 +13,7 @@ Introduce tu nombre de usuari@ y el email con el que te registraste y te enviare
 <input type="submit" name="recuerdo" value="Enviarme una nueva contraseña" />
 
 </form>
-Volver a la <a href="{% url django.contrib.auth.views.login %}">Página de inicio</a>.
+Volver a la <a href="{% url login %}">Página de inicio</a>.
 {% comment %}
 Si tampoco recuerda su nombre de usuari@, introduzca su nombre real y su fecha de nacimiento. Le enviaremos tanto la clave cómo su nombre de usuari@ a la cuenta de email indicada en el registro.
 <form method="post" action=".">

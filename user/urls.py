@@ -18,8 +18,7 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 
 urlpatterns = patterns('',
-    (r'^login/$', 'django.contrib.auth.views.login',
-        {'template_name': 'main/index.html'}),
+    url(r'^login/$', 'user.views.login', name="login"),
     (r'^logout/$', 'django.contrib.auth.views.logout',
         {'next_page': 'main/index.html'}),
     (r'^register/$', 'user.views.register'),

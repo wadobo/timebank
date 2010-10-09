@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load flashmsg %}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="es">
@@ -8,6 +9,7 @@
         <title>{{ SITE_NAME }} / {% block title %} {% trans 'Portada' %}  {% endblock %}</title>
         <meta name="keywords" content="timebank,banco del tiempo,ecolocal"/>
         <meta name="description" content="timebank"/>
+        <link href="{{ MEDIA_URL }}flashmsg.css" rel="stylesheet" type="text/css">
         <link href="{{ MEDIA_URL }}templatemo/style.css" rel="stylesheet" type="text/css"> 
         <link href="{{ MEDIA_URL }}templatemo/fullsize.css" media="screen" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="{{ MEDIA_URL }}templatemo/jquery.js"></script>
@@ -66,7 +68,7 @@
                         </div>
                         <div class="middle">
                             <div class="bottom">
-                                <form method="post" action="{% url django.contrib.auth.views.login %}">
+                                <form method="post" action="{% url login %}">
                                     {{ login_form.as_p }}
                                     <input type="submit" value="{% trans 'Entrar' %}" />
                                 </form>
@@ -108,6 +110,7 @@
             </div><!-- End of left -->
             
             <div id="right">
+                <div id="flash_messages">{% flash %}</div>
                 {% block content %}
                 {% endblock %}
                 

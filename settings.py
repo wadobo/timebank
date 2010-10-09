@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     #'aplicacion',
     #'serv',
     'main',
+    'flashmsg',
     'user'
 )
 
