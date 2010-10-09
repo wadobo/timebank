@@ -1,3 +1,9 @@
+Dependencias:
+    
+python >= 2.5
+django >= 1.2
+python-recaptcha-client >= 1.0
+
 Manual rápido de instalación de Django:
 
 1. Instalar Python 2.5 o posterior, NO recomendable versión 3.0

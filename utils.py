@@ -23,6 +23,11 @@ from django.utils.translation import gettext as _
 from django import forms
 from datetime import datetime
 from django.utils import formats
+from django.conf import settings
+from django.utils.encoding import smart_unicode
+from django.utils.safestring import mark_safe
+from django.core.mail import send_mail
+from recaptcha.client import captcha
 
 from flashmsg import flash
 
@@ -139,4 +144,45 @@ class FormDateField(forms.DateField):
         self._auto_help_text +=  ', '.join([date.strftime(format) for format in self.input_formats or formats.get_format('DATE_INPUT_FORMATS')])
 
     help_text = property(get_help_text, set_help_text)
+
+class FormCaptchaWidget(forms.widgets.Widget):
+    def render(self, name, value, attrs=None):
+        return mark_safe(u'%s' % captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY))
+
+    def value_from_datadict(self, data, files, name):
+        return [data.get('recaptcha_challenge_field', None),
+            data.get('recaptcha_response_field', None)]
+
+class FormCaptchaField(forms.CharField):
+    def __init__(self, *args, **kwargs):
+        self.widget = FormCaptchaWidget
+        self.required = True
+        super(FormCaptchaField, self).__init__(*args, **kwargs)
+
+    def clean(self, values):
+        super(FormCaptchaField, self).clean(values[1])
+        recaptcha_challenge_value = smart_unicode(values[0])
+        recaptcha_response_value = smart_unicode(values[1])
+        check_captcha = captcha.submit(recaptcha_challenge_value,
+            recaptcha_response_value, settings.RECAPTCHA_PRIVATE_KEY, {})
+        if not check_captcha.is_valid:
+            raise forms.util.ValidationError(_(u'Captcha inválido'))
+        return values[0]
+
+from django import template
+register = template.Library()
+
+def send_mail_to_admins(subject, message, sender=settings.DEFAULT_FROM_EMAIL):
+    '''
+    Just a convenience function
+    '''
+    recipients = ["%s <%s>" % (admin[0], admin[1]) for admin in settings.ADMINS]
+    send_mail(subject, message, sender, recipients)
+
+@register.simple_tag
+def gravatar(email, size=48):
+    import urllib, hashlib
+    gravatar_url = "http://www.gravatar.com/avatar.php?"
+    gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(email.lower()).hexdigest(), 'size':str(size)})
+    return gravatar_url
 

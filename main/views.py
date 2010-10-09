@@ -16,10 +16,51 @@
 
 from django.shortcuts import render_to_response, redirect
 from django.conf import settings
-from utils import ViewClass
+from django.core.mail import send_mail
+from django.utils.translation import gettext as _
+
+from utils import ViewClass, send_mail_to_admins
+from forms import AnonymousContactForm, ContactForm
 
 class Index(ViewClass):
     def GET(self):
         return self.context_response('main/index.html')
 
+
+class Contact(ViewClass):
+    def GET(self):
+        if self.request.user.is_authenticated():
+            form = ContactForm()
+        else:
+            form = AnonymousContactForm()
+        return self.context_response('main/contact.html', {'form': form})
+
+    def POST(self):
+        if self.request.user.is_authenticated():
+            form = ContactForm(self.request.POST)
+        else:
+            form = AnonymousContactForm(self.request.POST)
+        if not form.is_valid():
+            return self.context_response('main/contact.html', {'form': form})
+
+        # Send an email to admins
+        if self.request.user.is_authenticated():
+            user = self.request.user
+            subject = _("[%s] %s: %s") % (settings.SITE_NAME, user.username,
+                form.cleaned_data["subject"])
+            message = _(u"El usuario registrado %s llamado envía el siguiente"\
+            " mensaje:\n%s") % (user.username, form.cleaned_data["message"])
+        else:
+            subject = _("[%s] %s: %s") % (settings.SITE_NAME,
+                form.cleaned_data["email"], form.cleaned_data["subject"])
+            message = _("El usuario no registrado %s cuyo email es %s"\
+            "envía el siguiente mensaje:\n%s") % (\
+                form.cleaned_data["name"], form.cleaned_data["email"],
+                form.cleaned_data["message"])
+        send_mail_to_admins(subject, message)
+
+        self.flash(_("Mensaje enviado, te responderemos lo antes posible"))
+        return redirect('main.views.index')
+
 index = Index()
+contact = Contact()

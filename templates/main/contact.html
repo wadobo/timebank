@@ -1,0 +1,15 @@
+{% extends "template_base.html" %}
+{% load i18n %}
+{% block title %} {% trans 'Contacta' %} {% endblock %}
+
+{% block content %}
+    <div class="section_3">
+        <h1>{% trans 'Contacta' %}</h1>
+        <form action="" method="post">
+            <fieldset>
+                {% include "main/form_snippet.html" %}
+            </fieldset>
+            <input class="submit" type="submit" value="{% trans 'Enviar mensaje' %}"/>
+        </form>
+    </div>
+{% endblock %}

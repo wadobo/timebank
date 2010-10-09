@@ -142,6 +142,10 @@ AUTHENTICATION_BACKENDS = (
 )
 CUSTOM_USER_MODEL = 'user.Profile'
 
+# reCAPTCHA fill in local_settings.py, not here
+RECAPTCHA_PUBLIC_KEY = ""
+RECAPTCHA_PRIVATE_KEY = ""
+
 # Email configuration. Configure appropiately if emails are not directly sent by localhost
 #EMAIL_HOST = ''
 #EMAIL_PORT = 0
