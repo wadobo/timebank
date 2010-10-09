@@ -21,6 +21,8 @@ from utils import ViewClass
 from forms import RegisterForm
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
+from django.contrib.auth import authenticate, login as django_login
+
 from settings import SITE_NAME, DEFAULT_FROM_EMAIL, ADMINS
 
 class Register(ViewClass):
@@ -61,4 +63,26 @@ class Register(ViewClass):
         return self.context_response('user/registerdone.html', {
             'new_user': new_user})
 
+
+class Login(ViewClass):
+    def GET(self):
+        return redirect('main.views.index')
+
+    def POST(self, *args):
+        username = self.request.POST['username']
+        password = self.request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                django_login(self.request, user)
+                self.flash(_("Bienvenido %s") % user.username)
+            else:
+                self.flash(_("Tu cuenta está deshabilitada, "
+                             "contacta con los administradores"), "error")
+        else:
+            self.flash(_("Nombre de usuario o contrase&ntilde;a invalidos"), "error")
+        return redirect('main.views.index')
+
+
+login = Login()
 register = Register()

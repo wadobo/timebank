@@ -15,5 +15,6 @@ def base(request):
         'SITE_NAME': settings.SITE_NAME,
         'MEDIA_URL': settings.MEDIA_URL,
         'user': request.user,
+        'session': request.session,
         'login_form': login_form
     }

@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*- 
-# Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
+# -*- coding: utf-8 -*-
+# Copyright (C) 2010 Daniel Garcia Moreno <edulix AT gmail DOT com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -14,11 +14,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls.defaults import *
-from django.conf import settings
 
-urlpatterns = patterns('',
-    url(r'^login/$', 'user.views.login', name="login"),
-    (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
-    (r'^register/$', 'user.views.register'),
-)
+class Msg:
+
+    def __init__(self, msg, msg_class):
+        self.msg = msg
+        self.klass = msg_class
+
+    def render(self):
+        return '<li class="%s">%s</li>' % (self.klass, self.msg)
+
+class Stack(list):
+
+    def render(self):
+        ret = '<ul>'
+        while self:
+            ret += self.pop().render()
+        ret += '</ul>'
+        return ret

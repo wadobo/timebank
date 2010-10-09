@@ -22,6 +22,8 @@ from django.template import RequestContext
 from django.utils.translation import gettext as _
 from django import forms
 
+from flashmsg import flash
+
 class ViewClass:
     '''
     Used to create views with classes with GET and POST methods instead of
@@ -41,6 +43,19 @@ class ViewClass:
     def context_response(self, *args, **kwargs):
         kwargs['context_instance'] = RequestContext(self.request)
         return render_to_response(*args, **kwargs)
+
+    def flash(self, msg, msg_class='info'):
+        '''
+        Add msg to session flash stack
+        '''
+
+        stack = self.request.session.get('flash', None)
+        if not stack:
+            stack = flash.Stack()
+        msg = flash.Msg(msg, msg_class)
+        stack.insert(0, msg)
+        self.request.session['flash'] = stack
+
 
 class FormCharField(forms.CharField):
     '''
