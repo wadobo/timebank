@@ -18,7 +18,18 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 
 urlpatterns = patterns('',
-    (r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'main/index.html'}),
-    (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
+    (r'^login/$', 'django.contrib.auth.views.login',
+        {'template_name': 'main/index.html'}),
+    (r'^logout/$', 'django.contrib.auth.views.logout',
+        {'next_page': 'main/index.html'}),
     (r'^register/$', 'user.views.register'),
+    (r'^remember/$', 'django.contrib.auth.views.password_reset', {
+        'template_name': 'user/password_reset.html',
+        'email_template_name': 'user/password_reset_email.html'}),
+    (r'^remember/sent$', 'django.contrib.auth.views.password_reset_done',
+        {'template_name': 'user/password_reset_done.html'}),
+    (r'^remember/confirm/([^/]+)/(.+)$', 'django.contrib.auth.views.password_reset_confirm',
+        {'template_name': 'user/password_reset_confirm.html'}),
+    (r'^remember/complete$', 'django.contrib.auth.views.password_reset_complete',
+        {'template_name': 'user/password_reset_complete.html'}),
 )
