@@ -19,8 +19,14 @@ from django.http import HttpResponse as response
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.utils.translation import gettext as _
+from django import forms
 
 class ViewClass:
+    '''
+    Used to create views with classes with GET and POST methods instead of
+    using functions.
+    '''
     def __call__(self, request, *args, **kwargs):
         self.request = request
         self.methods = [method for method in dir(self)\
@@ -35,3 +41,31 @@ class ViewClass:
     def context_response(self, *args, **kwargs):
         kwargs['context_instance'] = RequestContext(self.request)
         return render_to_response(*args, **kwargs)
+
+class FormCharField(forms.CharField):
+    '''
+    FormCharField with automatic help_text which shows the restrictions imposed
+    in the field. Do not use yet, still in development.
+    '''
+    def __init__(self, *args, **kwargs):
+        super(forms.CharField, self).__init__(*args, **kwargs)
+        self.update_auto_help_text()
+
+    def get_help_text(self):
+        return self._auto_help_text + self._help_text
+
+    def update_auto_help_text(self):
+        self._auto_help_text = u''
+        if self.required:
+            self._auto_help_text += _(u"Requerido. ")
+        if self.max_length and self.min_length:
+            self._auto_help_text += _(u"Debe contener entre %d y %d caracteres. ")\
+                % (self.min_length, self.max_length)
+        elif self.max_length:
+            self._auto_help_text += _(u"Debe contener un máximo de %d caracteres. ")\
+                % self.max_length
+        elif self.min_length:
+            self._auto_help_text += _(u"Debe contener un mínimo de %d caracteres. ")\
+                % self.min_length
+
+    help_text = property(get_help_text)
