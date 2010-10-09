@@ -33,7 +33,7 @@
                 {% if user.is_authenticated %}
                     <ul id="login">
                         <li><span>{% blocktrans with user.username as username %}¡Hola, {{ username }}!{% endblocktrans %}</span></li>
-                        <li><a href="/user/logout/"  class="last">{% trans 'Logout' %}</a></li>
+                        <li><a href="{% url user-logout %}"  class="last">{% trans 'Logout' %}</a></li>
                     </ul>
                     <ul>
                         <li><a href="/people/" class="current">{% trans 'Gente' %}</a></li>
@@ -44,8 +44,8 @@
                     </ul>
                 {% else %}
                     <ul id="login">
-                        <li><a href="/user/login/">{% trans 'Entrar' %}</a></li>
-                        <li><a href="/user/register/" class="last">{% trans 'Registrarse' %}</a></li>
+                        <li><a href="{% url user-login %}">{% trans 'Entrar' %}</a></li>
+                        <li><a href="{% url user-register %}" class="last">{% trans 'Registrarse' %}</a></li>
                     </ul>
                     <ul>
                         <li><a href="/" class="current">{% trans 'Inicio' %}</a></li>
@@ -63,12 +63,12 @@
                         <div class="top">
                             <h1>{% trans 'Entrar' %}</h1>
                             <span class="title">
-                                <a href="/user/remember/">{% trans '¿Olvidaste la contraseña?' %}</a>
+                                <a href="{% url user-remember %}">{% trans '¿Olvidaste la contraseña?' %}</a>
                             </span>
                         </div>
                         <div class="middle">
                             <div class="bottom">
-                                <form method="post" action="{% url login %}">
+                                <form method="post" action="{% url user-login %}">
                                     {{ login_form.as_p }}
                                     <input type="submit" value="{% trans 'Entrar' %}" />
                                 </form>
