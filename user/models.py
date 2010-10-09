@@ -43,7 +43,7 @@ class Profile(User):
 
     balance = models.IntegerField(default=0)
 
-    description = models.TextField(_(u"Descripción personal"), max_length=150,
+    description = models.TextField(_(u"Descripción personal"), max_length=300,
         blank=True)
 
     karma = models.CommaSeparatedIntegerField(_("Karma"), default=0,

@@ -21,6 +21,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import gettext as _
 from django import forms
+from datetime import datetime
+from django.utils import formats
 
 class ViewClass:
     '''
@@ -44,28 +46,82 @@ class ViewClass:
 
 class FormCharField(forms.CharField):
     '''
-    FormCharField with automatic help_text which shows the restrictions imposed
-    in the field. Do not use yet, still in development.
+    Like forms.CharField with automatic help_text which shows the restrictions
+    imposed in the field.
     '''
     def __init__(self, *args, **kwargs):
-        super(forms.CharField, self).__init__(*args, **kwargs)
+        super(FormCharField, self).__init__(*args, **kwargs)
         self.update_auto_help_text()
 
     def get_help_text(self):
-        return self._auto_help_text + self._help_text
+        return unicode(self._auto_help_text) + unicode(self._help_text)
+        
+    def set_help_text(self, help_text):
+        self._help_text = help_text
 
     def update_auto_help_text(self):
         self._auto_help_text = u''
         if self.required:
             self._auto_help_text += _(u"Requerido. ")
         if self.max_length and self.min_length:
-            self._auto_help_text += _(u"Debe contener entre %d y %d caracteres. ")\
+            self._auto_help_text += _(u"De %d a %d caracteres. ")\
                 % (self.min_length, self.max_length)
         elif self.max_length:
-            self._auto_help_text += _(u"Debe contener un máximo de %d caracteres. ")\
+            self._auto_help_text += _(u"Hasta %d caracteres. ")\
                 % self.max_length
         elif self.min_length:
-            self._auto_help_text += _(u"Debe contener un mínimo de %d caracteres. ")\
+            self._auto_help_text += _(u"Mínimo de %d caracteres. ")\
                 % self.min_length
 
-    help_text = property(get_help_text)
+    help_text = property(get_help_text, set_help_text)
+
+class FormEmailField(forms.EmailField):
+    '''
+    Like forms.EmailField with automatic help_text which shows the restrictions
+    imposed in the field.
+    '''
+    def __init__(self, *args, **kwargs):
+        super(FormEmailField, self).__init__(*args, **kwargs)
+        self.update_auto_help_text()
+
+    def get_help_text(self):
+        return unicode(self._auto_help_text) + unicode(self._help_text)
+        
+    def set_help_text(self, help_text):
+        self._help_text = help_text
+
+    def update_auto_help_text(self):
+        self._auto_help_text = u''
+        if self.required:
+            self._auto_help_text += _(u"Requerido. ")
+        self._auto_help_text += _(u" Ejemplo: nombre@ejemplo.com")
+
+    help_text = property(get_help_text, set_help_text)
+
+
+class FormDateField(forms.DateField):
+    '''
+    Like forms.DateField with automatic help_text which shows the restrictions
+    imposed in the field.
+    '''
+    def __init__(self, *args, **kwargs):
+        super(FormDateField, self).__init__(*args, **kwargs)
+        self.update_auto_help_text()
+
+    def get_help_text(self):
+        return unicode(self._auto_help_text) + unicode(self._help_text)
+        
+    def set_help_text(self, help_text):
+        self._help_text = help_text
+
+    def update_auto_help_text(self):
+        self._auto_help_text = u''
+        if self.required:
+            self._auto_help_text += _(u"Requerido. Ejemplo(s): ")
+
+        date = datetime(1986, 9, 17).date()
+
+        self._auto_help_text +=  ', '.join([date.strftime(format) for format in self.input_formats or formats.get_format('DATE_INPUT_FORMATS')])
+
+    help_text = property(get_help_text, set_help_text)
+

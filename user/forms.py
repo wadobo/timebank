@@ -18,15 +18,19 @@ from models import Profile
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
+from utils import FormCharField, FormEmailField, FormDateField
 
 class RegisterForm(UserCreationForm):
-    birth_date = forms.DateField(label=_("Fecha de Nacimiento"),
-        input_formats=("%d/%m/%Y",),
-        help_text=_("Ejemplo: 31/12/1980"))
+    birth_date = FormDateField(label=_("Fecha de Nacimiento"),
+        input_formats=("%d/%m/%Y",))
 
-    first_name = forms.CharField(label=_("Nombre propio"), required=True, max_length=30)
-    last_name = forms.CharField(label=_("Apellidos"), required=True, max_length=30)
-    email = forms.EmailField(label=_(u"Dirección de email"), required=True)
+    first_name = FormCharField(label=_("Nombre propio"), required=True, max_length=30)
+    last_name = FormCharField(label=_("Apellidos"), required=True, max_length=30)
+    email = FormEmailField(label=_(u"Dirección de email"), required=True)
+    address = FormCharField(label=_(u"Dirección física"), required=True,
+        max_length=100, help_text=_(u"Ejemplo: Avda. Molina, 12, Sevilla"))
+    description = FormCharField(label=_(u"Descripción personal"), required=True,
+        max_length=300, widget=forms.Textarea())
 
     class Meta:
         model = Profile
