@@ -21,7 +21,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
-from settings import SITE_NAME, DEFAULT_FROM_EMAIL, ADMINS
+from django.conf import settings
 
 class ExtraProfileInline(admin.StackedInline):
     model = Profile
@@ -47,14 +47,15 @@ class ProfileAdmin(UserAdmin):
         if model.is_active == True and old_model.is_active == False:
             # user activated, send activation email
             current_site = Site.objects.get_current()
-            title = _("Bienvenido a %s, %s") % (SITE_NAME, model.username)
+            title = _("Bienvenido a %s, %s") % (settings.SITE_NAME,
+                model.username)
             message = _(u"Enhorabuena %s!\n"
             u"Los adminitradores han aceptado tu solicitud de registro, "
             u"¡ahora ya puedes comenzar a colaborar con los demás en "
             u"http://%s/.\n\n- El equipo de %s.") %\
-                (model.username, current_site.domain, SITE_NAME)
-            send_mail(title, message, DEFAULT_FROM_EMAIL, ADMINS,
-                fail_silently=True)
+                (model.username, current_site.domain, settings.SITE_NAME)
+            send_mail(title, message, settings.DEFAULT_FROM_EMAIL,
+                [model.email])
 
         model.save()
 
