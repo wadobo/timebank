@@ -1,0 +1,5 @@
+{% extends "news/basenew.html" %}
+
+{% block newbody %}
+{{ new.body|truncatewords_html:20|safe }}
+{% endblock %}

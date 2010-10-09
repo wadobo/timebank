@@ -56,6 +56,7 @@ urlpatterns = patterns('',
     ## (r'^databrowse/(.*)', databrowse.site.root),
     #(r'^dummy-mail/$', 'aplicacion.views.dummy_mail'),
     (r'^user/', include('user.urls')),
+    (r'^news/', include('news.urls')),
     (r'^.*', 'main.views.index'),
 )
 

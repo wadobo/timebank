@@ -12,6 +12,7 @@
         <link href="{{ MEDIA_URL }}flashmsg.css" rel="stylesheet" type="text/css">
         <link href="{{ MEDIA_URL }}templatemo/style.css" rel="stylesheet" type="text/css"> 
         <link href="{{ MEDIA_URL }}templatemo/fullsize.css" media="screen" rel="stylesheet" type="text/css">
+        <link rel="alternate" title="RSS" href="{% url news.views.feed %}" type="application/rss+xml">
         <script type="text/javascript" src="{{ MEDIA_URL }}templatemo/jquery.js"></script>
     </head>
     <body>
@@ -21,7 +22,7 @@
                 <div id="logo"><a href="/"><img src="{{ MEDIA_URL }}imgs/timebank.png"></a></div>
           </div>
             <div id="social">
-                <a href="#"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_3.jpg" alt="RSS"></a>
+                <a href="{% url news.views.feed %}"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_3.jpg" alt="RSS"></a>
                 <a href="#"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_2.jpg" alt="Twitter"></a>
                 <a href="#"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_1.jpg" alt="Delicious"></a>
                 <form action="#" method="post">
@@ -83,21 +84,11 @@
                 
                 <div class="section_2">
                     <h1>{% trans 'Novedades' %}</h1>
-                    <div class="green">
-                        <h3>18 December 2024</h3>
-                        <p>Pellen tesque dolor nulla, con gue vitae, frin gilla in, varius a, orci ma uris con.</p>
+                    {% for new in front_news %}
+                    <div class="new {% cycle 'yellow' 'green' 'blue' %}">
+                    {% include "news/truncnewfront.html" %}
                     </div>
-                    
-                     <div class="blue">
-                        <h3>22 November 2024</h3>
-                        <p>Proin vel libero id erat venen atis accu msan. Nunc blan dit orci sit amet risus.</p>
-                    </div>
-                    
-                     <div class="yellow">
-                        <h3>30 October 2024</h3>
-
-                        <p>Duis pul vinar scele risque ante. Mor bit risti  que, risus quis congue pul vinar.</p>
-                    </div>
+                    {% endfor %}
                 </div>
                 
                 <div class="templaemo_h_line"></div>
