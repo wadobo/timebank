@@ -77,10 +77,10 @@ class Login(ViewClass):
                 django_login(self.request, user)
                 self.flash(_("Bienvenido %s") % user.username)
             else:
-                self.flash(_("Tu cuenta está deshabilitada, "
-                             "contacta con los administradores"), "error")
+                self.flash(_(u"Tu cuenta está deshabilitada, "
+                             u"contacta con los administradores"), "error")
         else:
-            self.flash(_("Nombre de usuario o contrase&ntilde;a invalidos"), "error")
+            self.flash(_(u"Nombre de usuario o contrase&ntilde;a inválidos"), "error")
         return redirect('main.views.index')
 
 
