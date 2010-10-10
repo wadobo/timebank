@@ -57,6 +57,7 @@ urlpatterns = patterns('',
     #(r'^dummy-mail/$', 'aplicacion.views.dummy_mail'),
     (r'^user/', include('user.urls')),
     (r'^news/', include('news.urls')),
+    (r'^messages/', include('messages.urls')),
     (r'^', include('main.urls')),
 )
 

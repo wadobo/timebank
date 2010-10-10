@@ -124,7 +124,8 @@ INSTALLED_APPS = (
     'news',
     'tinymce',
     'user',
-    'globaltags'
+    'globaltags',
+    'messages'
 )
 
 LOGIN_URL = '/'
