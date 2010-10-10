@@ -36,10 +36,13 @@ class ViewClass:
     Used to create views with classes with GET and POST methods instead of
     using functions.
     '''
+    available_methods = ['POST', 'GET', 'PUT', 'DELETE']
+
     def __call__(self, request, *args, **kwargs):
         self.request = request
         self.methods = [method for method in dir(self)\
-            if callable(getattr(self, method))]
+            if callable(getattr(self, method)) and\
+               method in self.available_methods]
 
         if request.method in self.methods:
             view = getattr(self, request.method)
@@ -62,6 +65,13 @@ class ViewClass:
         msg = flash.Msg(msg, msg_class, title)
         stack.insert(0, msg)
         self.request.session['flash'] = stack
+
+    def __getattr__(self, value):
+        # we work as request to make django decorators happy.
+        if value != 'request':
+            return getattr(self.request, value)
+        else:
+            raise AttributeError, value
 
 
 class FormCharField(forms.CharField):
