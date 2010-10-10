@@ -1,5 +1,13 @@
-{% extends "news/basenew.html" %}
+{% load i18n %}
+<div class="new">
+    <h2><a href="{% url news-view new.id %}">{{ new.title }}</a></h2>
+    <p>
+    {% block newbody %}
+    {{ new.body|truncatewords_html:20|safe }}
+    {% endblock %}
 
-{% block newbody %}
-{{ new.body|truncatewords_html:20|safe }}
-{% endblock %}
+    <small class="info">{% blocktrans with new.publish_date|timesince as date %}
+    hace {{ date }}
+    {% endblocktrans %}</small>
+    </p>
+</div>

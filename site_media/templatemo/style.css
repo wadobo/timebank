@@ -340,6 +340,36 @@ h3
     padding:0 0 0 5px;
 }
 
+div.new h2 a, div.new h3 a
+{
+    color: #0895D6;
+    text-decoration: none;
+    border: none;
+}
+
+div.new h2 a:hover, div.new h3 a:hover
+{
+    text-decoration: underline;
+}
+
+div.new small.info
+{
+    color: #aaa;
+}
+
+.section_2 > a
+{
+    display: block;
+    text-align: right;
+}
+
+.section_2 h1 a img
+{
+    border: none;
+    height: 16px;
+    width: 16px;
+}
+
 .section_3
 {
     width:685px;

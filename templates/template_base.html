@@ -94,12 +94,16 @@
                 <div class="templaemo_h_line"></div>
                 
                 <div class="section_2">
-                    <h1>{% trans 'Novedades' %}</h1>
+                    <h1>
+                        <a href="{% url news.views.feed %}"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_3.jpg" alt="RSS"></a>
+                        {% trans 'Novedades' %}
+                    </h1>
                     {% for new in front_news %}
-                    <div class="new {% cycle 'blue' 'green' 'yellow' %}">
-                    {% include "news/truncnewfront.html" %}
-                    </div>
+                        <div class="new {% cycle 'blue' 'green' 'yellow' %}">
+                        {% include "news/truncnewfront.html" %}
+                        </div>
                     {% endfor %}
+                    <a href="{% url news %}">{% trans "+ noticias" %}</a>
                 </div>
                 
                 <div class="templaemo_h_line"></div>
