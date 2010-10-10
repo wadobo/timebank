@@ -76,3 +76,9 @@ class EditProfileForm(UserChangeForm):
         model = Profile
         fields = ('username', 'first_name', 'last_name', 'email', 'address',
         'birth_date', 'description')
+
+class RemoveForm(forms.Form):
+    reason = FormCharField(label=_(u"Razón"), required=True,
+        min_length=10, max_length=300, widget=forms.Textarea(),
+        help_text=_(u"¿Hemos hecho algo mal? Por favor díganos la razón por"
+            u"la que quiere darse de baja."))

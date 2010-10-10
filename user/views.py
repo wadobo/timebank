@@ -24,7 +24,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 
 from utils import ViewClass, send_mail_to_admins
-from forms import RegisterForm, EditProfileForm
+from forms import RegisterForm, EditProfileForm, RemoveForm
 
 class Register(ViewClass):
     @csrf_protect
@@ -79,7 +79,6 @@ class Login(ViewClass):
     def GET(self):
         return redirect('main.views.index')
 
-    @csrf_protect
     def POST(self, *args):
         username = self.request.POST['username']
         password = self.request.POST['password']
@@ -163,8 +162,72 @@ class EditProfile(ViewClass):
 
         return self.context_response('user/profile.html', {'form': form})
 
+
+class Preferences(ViewClass):
+    @login_required
+    def GET(self):
+        return self.context_response('user/preferences.html')
+
+
+class PasswordChangeDone(ViewClass):
+    @login_required
+    def GET(self):
+        self.flash(_(u"Contraseña cambiada."))
+        return redirect('user-preferences')
+
+
+
+class Remove(ViewClass):
+    @csrf_protect
+    @login_required
+    def GET(self):
+        form = RemoveForm()
+        return self.context_response('user/remove.html', {'form': form})
+
+    @csrf_protect
+    @login_required
+    def POST(self):
+        form = RemoveForm(self.request.POST)
+        if not form.is_valid():
+            return self.context_response('user/remove.html', {'form': form})
+
+        # TODO: do not remove user, only marks it as inactive
+        user = self.request.user
+        user.is_active = False
+        user.save()
+
+        # Send an email to admins and another to the user
+        subject = _("[%s] Usuario %s desactivado") % (settings.SITE_NAME,
+            user.username)
+        message = _(u"El usuario %s ha solicitado set eliminado del sitio web."
+            u"La razón que ha expuesto es:\n\n%s") % (user.username,
+            form.cleaned_data["reason"])
+        send_mail_to_admins(subject, message)
+
+        current_site = Site.objects.get_current()
+        subject = _("Has borrado tu perfil %s de %s") % (user.username,
+            settings.SITE_NAME)
+        message = _(u"Hola %s!\n Has borrado tu perfil de http://%s/."
+            u"Sentimos que hayas decidido dar este paso. Leeremos la razón"
+            u" que nos proporcionaste por la cual te has borrado y la tendremos"
+            u" en cuenta para mejorar en el futuro."
+            u"\n\n- El Equipo de %s.") %\
+            (user.username, current_site.domain, settings.SITE_NAME)
+        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+
+        self.flash(_( u"Sentimos que hayas decidido dar este paso. Leeremos la"
+            u" razón que nos proporcionaste por la cual te has borrado y la"
+            u" tendremos en cuenta para mejorar en el futuro."),
+            title=_(u"Usuario borrado"))
+
+        return redirect("user-logout")
+
+
 login = Login()
 register = Register()
 password_reset_done = PasswordResetDone()
 password_reset_complete = PasswordResetComplete()
 edit_profile = EditProfile()
+preferences = Preferences()
+password_change_done = PasswordChangeDone()
+remove = Remove()

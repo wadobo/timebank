@@ -70,6 +70,7 @@
                         <div class="middle">
                             <div class="bottom">
                                 <form method="post" action="{% url user-login %}">
+                                    {% csrf_token %}
                                     {{ login_form.as_p }}
                                     <input type="submit" value="{% trans 'Entrar' %}" />
                                 </form>
@@ -80,7 +81,7 @@
                         <div class="top">
                             <h1>{{ user.username }}</h1>
                             <span class="title">
-                                <a href="{% url user-logout %}">{% trans 'Preferencias' %}</a>
+                                <a href="{% url user-preferences %}">{% trans 'Preferencias' %}</a>
                             </span>
                         </div>
                         <div class="middle">

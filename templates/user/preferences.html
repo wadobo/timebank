@@ -1,0 +1,17 @@
+{% extends "template_base.html" %}
+{% load i18n %}
+{% block title %} {% trans 'Preferencias' %} {% endblock %}
+
+{% block content %}
+    <div class="section_3">
+        <h1>{% trans 'Preferencias' %}</h1>
+        <ul class="preferences">
+            <li>
+                <a href="{% url user-password-change %}">{% trans "Cambiar contraseña" %}</a>
+            </li>
+            <li>
+                <a href="{% url user-remove %}">{% trans "Eliminar usuario" %}</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

@@ -58,6 +58,5 @@ urlpatterns = patterns('',
     (r'^user/', include('user.urls')),
     (r'^news/', include('news.urls')),
     (r'^', include('main.urls')),
-    (r'^.*', 'main.views.index'),
 )
 

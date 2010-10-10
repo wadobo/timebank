@@ -22,6 +22,7 @@ from django.core.urlresolvers import reverse
 base_url = '/user/'
 remember_sent_url = 'remember/sent/'
 remember_complete_url = 'remember/complete/'
+password_change_done_url =  'password_change/done/'
 
 urlpatterns = patterns('',
     url(r'^login/$', 'user.views.login', name="user-login"),
@@ -34,6 +35,10 @@ urlpatterns = patterns('',
     url(r'^%s$' % remember_complete_url, 'user.views.password_reset_complete',
         name="user-remember-complete"),
     url(r'^profile/$', 'user.views.edit_profile', name="user-profile"),
+    url(r'^preferences/$', 'user.views.preferences', name="user-preferences"),
+    url(r'^%s$' % password_change_done_url, 'user.views.password_change_done',
+        name="user-password-change-done"),
+    url(r'^remove/$', 'user.views.remove', name="user-remove"),
 )
 
 urlpatterns += patterns('',
@@ -47,4 +52,8 @@ urlpatterns += patterns('',
         {'template_name': 'user/password_reset_confirm.html',
         'post_reset_redirect': base_url + remember_complete_url},
         name="user-remember-confirm"),
+    url(r'^password_change/$', 'django.contrib.auth.views.password_change', {
+        'template_name': 'user/password_change.html',
+        'post_change_redirect': base_url + password_change_done_url},
+        name="user-password-change"),
 )
