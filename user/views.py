@@ -58,8 +58,15 @@ class Register(ViewClass):
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
             [new_user.email])
 
-        return self.context_response('user/registerdone.html', {
-            'new_user': new_user})
+        self.flash(_(u"Te acabas de registrar en nuestro sitio web,"
+            u" <strong>%s</strong>. Te hemos enviado un email a"
+            u" <strong>%s</strong> confirmándote tu solicitud de inscripción."
+            u" Tan pronto como nuestros administradores hayan revisado dicha"
+            u" solicitud te avisaremos de nuevo por email y podrás empezar a"
+            u" disfrutar de este sistema." % (settings.SITE_NAME,
+            new_user.username, new_user.email)))
+
+        return redirect('main.views.index')
 
 
 class Login(ViewClass):
@@ -82,5 +89,26 @@ class Login(ViewClass):
         return redirect('main.views.index')
 
 
+class PasswordResetDone(ViewClass):
+    def GET(self):
+        self.flash(_(u"<h3>Recuperación de contraseña en proceso</h3><p>Te"
+            u" hemos enviado un correo a tu dirección de email con"
+            u" instrucciones para poder recuperar tu contraseña. Puede tardar"
+            u" un poco; se paciente. Si parece que no te llega, comprueba la"
+            u" carpeta de correos no deseados.</p>"))
+        return redirect('main.views.index')
+
+
+class PasswordResetComplete(ViewClass):
+    def GET(self):
+        self.flash(_(u"<h3>'Contraseña cambiada exitosamente</h3><p>Has"
+            u" cambiado tu contraseña exitosamente, ahora puedes entrar"
+            u" introduciendo tu usuario y contraseña en el recuadro gris"
+            u" de la izquierda.'</p>"))
+        return redirect('main.views.index')
+
+
 login = Login()
 register = Register()
+password_reset_done = PasswordResetDone()
+password_reset_complete = PasswordResetComplete()
