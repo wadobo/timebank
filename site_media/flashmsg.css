@@ -12,3 +12,8 @@
     color: white;
     font-weight: bold;
 }
+
+#flash_messages li h3 {
+    color: #2A5F00;
+    font-weight:bold;
+}

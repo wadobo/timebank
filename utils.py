@@ -51,7 +51,7 @@ class ViewClass:
         kwargs['context_instance'] = RequestContext(self.request)
         return render_to_response(*args, **kwargs)
 
-    def flash(self, msg, msg_class='info'):
+    def flash(self, msg, msg_class='info', title=None):
         '''
         Add msg to session flash stack
         '''
@@ -59,7 +59,7 @@ class ViewClass:
         stack = self.request.session.get('flash', None)
         if not stack:
             stack = flash.Stack()
-        msg = flash.Msg(msg, msg_class)
+        msg = flash.Msg(msg, msg_class, title)
         stack.insert(0, msg)
         self.request.session['flash'] = stack
 

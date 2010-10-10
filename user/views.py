@@ -91,20 +91,20 @@ class Login(ViewClass):
 
 class PasswordResetDone(ViewClass):
     def GET(self):
-        self.flash(_(u"<h3>Recuperación de contraseña en proceso</h3><p>Te"
-            u" hemos enviado un correo a tu dirección de email con"
+        self.flash(_(u"Te hemos enviado un correo a tu dirección de email con"
             u" instrucciones para poder recuperar tu contraseña. Puede tardar"
             u" un poco; se paciente. Si parece que no te llega, comprueba la"
-            u" carpeta de correos no deseados.</p>"))
+            u" carpeta de correos no deseados."),
+            title=_(u"Recuperación de contraseña en proceso"))
         return redirect('main.views.index')
 
 
 class PasswordResetComplete(ViewClass):
     def GET(self):
-        self.flash(_(u"<h3>'Contraseña cambiada exitosamente</h3><p>Has"
-            u" cambiado tu contraseña exitosamente, ahora puedes entrar"
-            u" introduciendo tu usuario y contraseña en el recuadro gris"
-            u" de la izquierda.'</p>"))
+        self.flash(_(u"Has cambiado tu contraseña exitosamente, ahora puedes"
+            u" entrar introduciendo tu usuario y contraseña en el recuadro"
+            u" gris de la izquierda."),
+            title=_(u"Contraseña cambiada exitosamente"))
         return redirect('main.views.index')
 
 

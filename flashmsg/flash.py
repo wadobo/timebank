@@ -17,12 +17,17 @@
 
 class Msg:
 
-    def __init__(self, msg, msg_class):
+    def __init__(self, msg, msg_class, title):
         self.msg = msg
+        self.title = title
         self.klass = msg_class
 
     def render(self):
-        return '<li class="%s">%s</li>' % (self.klass, self.msg)
+        if self.title:
+            return '<li class="%s"><h3>%s</h3><p>%s</p></li>' % (self.klass,
+                self.title, self.msg)
+        else:
+            return '<li class="%s">%s</li>' % (self.klass, self.msg)
 
 class Stack(list):
 
