@@ -40,7 +40,7 @@
                         <li><a href="/people/" class="current">{% trans 'Gente' %}</a></li>
                         <li><a href="/services/">{% trans 'Servicios' %}</a></li>
                         <li><a href="/user/transfers/">{% trans 'Transferencias' %}</a></li>
-                        <li><a href="/user/messages/">{% trans 'Mensajes' %}</a></li>
+                        <li><a href="{% url messages_inbox %}">{% trans 'Mensajes' %}</a></li>
                         <li><a href="/user/profile/" class="last">{% trans 'Perfil' %}</a></li>
                     </ul>
                 {% else %}

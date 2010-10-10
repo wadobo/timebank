@@ -1,14 +1,12 @@
 {% extends "messages/base.html" %} 
-{% load i18n %} 
-{% block content %}
-<h1>{% trans "View Message" %}</h1>
+{% load i18n %}
+{% block subtitle %} {% trans "View Message" %} {% endblock %}
+{% block subcontent %}
 <dl class="message-headers">
-    <dt>{% trans "Subject" %}</dt>
-    <dd><strong>{{ message.subject }}</strong></dd>
     <dt>{% trans "Sender" %}</dt>
     <dd>{{ message.sender }}</dd>
     <dt>{% trans "Date" %} </dt>
-    <dd>{{ message.sent_at|date:_("DATETIME_FORMAT")}}</dd>
+    <dd>{{ message.sent_at|timesince }}</dd>
     <dt>{% trans "Recipient" %}</dt>
     <dd>{{ message.recipient }}</dd>
 </dl>
