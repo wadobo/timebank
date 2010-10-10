@@ -21,9 +21,10 @@ import urllib, hashlib
 register = template.Library()
 
 @register.simple_tag
-def gravatar(email, size=48):
+def gravatar(email, size=48, d='identicon'):
     gravatar_url = "http://www.gravatar.com/avatar.php?"
     gravatar_url += urllib.urlencode({
         'gravatar_id': hashlib.md5(email.lower()).hexdigest(),
-        'size': str(size)})
+        'size': str(size),
+        'd': d})
     return gravatar_url

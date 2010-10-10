@@ -49,7 +49,7 @@ class Profile(User):
     karma = models.CommaSeparatedIntegerField(_("Karma"), default=0,
         max_length=4)
     
-    class meta:
+    class Meta:
         verbose_name = _("Usuario")
         verbose_name_plural = _("Usuarios")
 

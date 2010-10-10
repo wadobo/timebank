@@ -18,28 +18,29 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+
+base_url = '/user/'
+remember_sent_url = 'remember/sent/'
+remember_complete_url = 'remember/complete/'
+
 urlpatterns = patterns('',
     url(r'^login/$', 'user.views.login', name="user-login"),
     url(r'^logout/$', 'django.contrib.auth.views.logout',
         {'next_page': 'main/index.html'}, name="user-logout"),
     url(r'^profile/(?P<user_id>\d+)$', 'main.views.index', name="user-profile"),
     url(r'^register/$', 'user.views.register', name="user-register"),
-    url(r'^remember/sent/$', 'user.views.password_reset_done',
+    url(r'^%s$' % remember_sent_url, 'user.views.password_reset_done',
         name="user-remember-sent"),
-    url(r'^remember/complete/$',
-        'user.views.password_reset_complete',
+    url(r'^%s$' % remember_complete_url, 'user.views.password_reset_complete',
         name="user-remember-complete"),
-)
-
-urlpatterns += patterns('',
     url(r'^remember/$', 'django.contrib.auth.views.password_reset', {
         'template_name': 'user/password_reset.html',
         'email_template_name': 'user/password_reset_email.html',
-        'post_reset_redirect': '/user/remember/sent/'},
+        'post_reset_redirect': base_url + remember_sent_url},
         name="user-remember"),
     url(r'^remember/confirm/([^/]+)/([^/]+)/$', 
         'django.contrib.auth.views.password_reset_confirm',
         {'template_name': 'user/password_reset_confirm.html',
-        'post_reset_redirect': '/user/remember/complete/'},
+        'post_reset_redirect': base_url + remember_complete_url},
         name="user-remember-confirm"),
 )
