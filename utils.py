@@ -31,21 +31,40 @@ from recaptcha.client import captcha
 
 from flashmsg import flash
 
-class ViewClass:
+class ViewClass(object):
     '''
     Used to create views with classes with GET and POST methods instead of
     using functions.
     '''
     available_methods = ['POST', 'GET', 'PUT', 'DELETE']
 
+    def request_post(self):
+        if self.request:
+            return self.request.POST
+        else:
+            return None
+
+    def __init__(self, *args, **kwargs):
+        # GET and POST now are __GET__ and __POST__ to avoid confusion with
+        # request.GET and request.POST
+        if hasattr(self, 'POST'):
+            self.__POST__ = self.POST
+            self.POST = property(lambda x: x.__getattr__('POST'))
+        if hasattr(self, 'GET'):
+            self.__GET__ = self.GET
+            self.GET = property(lambda x: x.__getattr__('GET'))
+
     def __call__(self, request, *args, **kwargs):
         self.request = request
-        self.methods = [method for method in dir(self)\
+        self.methods = [method.replace('_', '') for method in dir(self)\
             if callable(getattr(self, method)) and\
-               method in self.available_methods]
+               method.replace('_', '') in self.available_methods]
 
         if request.method in self.methods:
-            view = getattr(self, request.method)
+            try:
+                view = getattr(self, '__' + request.method + '__')
+            except AttributeError:
+                view = getattr(self, request.method)
             return view(*args, **kwargs)
         else:
             return HttpResponseNotAllowed(self.methods)

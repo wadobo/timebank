@@ -79,6 +79,7 @@ class Login(ViewClass):
     def GET(self):
         return redirect('main.views.index')
 
+    @csrf_protect
     def POST(self, *args):
         username = self.request.POST['username']
         password = self.request.POST['password']

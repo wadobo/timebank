@@ -16,7 +16,6 @@
 
 from django.conf.urls.defaults import *
 from django.conf import settings
-from django.core.urlresolvers import reverse
 
 
 base_url = '/user/'
@@ -27,7 +26,7 @@ password_change_done_url =  'password_change/done/'
 urlpatterns = patterns('',
     url(r'^login/$', 'user.views.login', name="user-login"),
     url(r'^logout/$', 'django.contrib.auth.views.logout',
-        {'next_page': 'main/index.html'}, name="user-logout"),
+        {'next_page': '/'}, name="user-logout"),
     url(r'^profile/(?P<user_id>\d+)$', 'main.views.index', name="user-profile"),
     url(r'^register/$', 'user.views.register', name="user-register"),
     url(r'^%s$' % remember_sent_url, 'user.views.password_reset_done',
