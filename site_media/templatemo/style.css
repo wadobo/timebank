@@ -215,6 +215,11 @@ h3
     padding:11px 20px;
 }
 
+#menu ul li a.messages_inbox small
+{
+    color: #FFFF00;
+}
+
 #menu li .current
 {
     color:#2a5f00;
@@ -567,4 +572,68 @@ div.new .info
     height:0;
     margin:0;
     padding:0;
+}
+
+/*Messages*/
+
+.subnavilist {
+    list-style:none;
+    margin-left: -20px;
+}
+
+.subnavilist li {
+    display: inline;
+}
+
+.subnavilist li a {
+    text-decoration: none;
+}
+
+.subnavilist li a:hover {
+    text-decoration: underline;
+}
+
+.subnavilist li small {
+    color: #2A5F00;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#subcontent > table
+{
+    width: 100%;
+    padding: 0;
+}
+
+#subcontent > table > thead
+{
+    text-align: left;
+}
+
+#subcontent > table > thead th
+{
+    border-bottom:1px solid #bbb;
+}
+
+#subcontent > table > thead th.date
+{
+    width: 150px;
+}
+
+#subcontent > table > thead th, #subcontent > table td
+{
+    margin: 0; padding: 0;
+    
+}
+
+#subcontent > table tbody tr.new td.date
+{
+    font-weight: bold;
+}
+
+#subcontent > table tbody tr:hover
+{
+    background-color: #efefdf;
 }

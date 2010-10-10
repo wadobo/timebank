@@ -3,9 +3,10 @@
 {% block subtitle %} {% trans "Compose" %} {% endblock %}
 {% block subcontent %} 
 <form action="" method="post">
+{% csrf_token %}
 <table>
 {{ form.as_table }}
 </table>
-<input type="submit" value="{% trans "Send" %} &raquo;"/>
+<input class="submit" type="submit" value="{% trans "Send" %}"/>
 </form>
 {% endblock %}
