@@ -54,6 +54,7 @@ class AddService(ViewClass):
         return self.context_response('serv/edit_service.html', context)
 
     @login_required
+    @csrf_protect
     def POST(self):
         form = ServiceForm(self.request.POST)
         if form.is_valid():
@@ -79,6 +80,7 @@ class EditService(ViewClass):
         return self.context_response('serv/edit_service.html', context)
 
     @login_required
+    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if not instance.creador == self.request.user:
@@ -96,6 +98,7 @@ class EditService(ViewClass):
 
 class DeleteService(ViewClass):
     @login_required
+    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if instance.creador == self.request.user:
@@ -109,6 +112,7 @@ class DeleteService(ViewClass):
 
 class ActiveService(ViewClass):
     @login_required
+    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if instance.creador == self.request.user:
@@ -123,6 +127,7 @@ class ActiveService(ViewClass):
 
 class DeactiveService(ViewClass):
     @login_required
+    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if instance.creador == self.request.user:

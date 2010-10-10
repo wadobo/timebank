@@ -19,15 +19,15 @@
         </p>
         <div class="buttons">
             <a class="action" href="{%url serv-edit serv.id %}">{% trans "Modificar" %}</a>
-            <form method="POST" action="{% url serv-del serv.id %}">
+            <form method="POST" action="{% url serv-del serv.id %}"> {% csrf_token %}
                 <input class="action" name="delete" type="submit" value="{% trans "Eliminar" %}"/>
             </form>
             {% if serv.activo %}
-            <form method="POST" action="{% url serv-deactive serv.id %}">
+            <form method="POST" action="{% url serv-deactive serv.id %}"> {% csrf_token %}
                 <input class="action" name="deactive" type="submit" value="{% trans "Desactivar" %}"/>
             </form>
             {% else %}
-            <form method="POST" action="{% url serv-active serv.id %}">
+            <form method="POST" action="{% url serv-active serv.id %}"> {% csrf_token %}
                 <input class="action" name="active" type="submit" value="{% trans "Activar" %}"/>
             </form>
             {% endif %}

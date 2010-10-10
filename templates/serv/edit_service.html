@@ -18,6 +18,7 @@
     {% endif %}
     </h2>
     <form method="POST">
+        {% csrf_token %}
         <fieldset>
             {% include "main/form_snippet.html" %}
         </fieldset>
