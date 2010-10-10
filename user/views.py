@@ -111,12 +111,12 @@ class PasswordResetComplete(ViewClass):
 
 
 class EditProfile(ViewClass):
-    #@login_required
+    @login_required
     def GET(self):
         form = EditProfileForm(request=self.request, instance=self.request.user)
         return self.context_response('user/profile.html', {'form': form})
 
-    #@login_required
+    @login_required
     def POST(self):
         form = EditProfileForm(self.request.POST, self.request)
         if not form.is_valid():
