@@ -34,7 +34,7 @@
                 {% if user.is_authenticated %}
                     <ul id="login">
                         <li><span>{% blocktrans with user.username as username %}¡Hola, {{ username }}!{% endblocktrans %}</span></li>
-                        <li><a href="{% url user-logout %}"  class="last">{% trans 'Logout' %}</a></li>
+                        <li><a href="{% url user-logout %}"  class="last">{% trans 'Salir' %}</a></li>
                     </ul>
                     <ul>
                         <li><a href="/people/" class="current">{% trans 'Gente' %}</a></li>
@@ -76,7 +76,18 @@
                             </div>
                         </div>
                     {% else %}
-                    <!-- TODO: Show transfers, or info about the user.. gravatars..? -->
+                    <!-- TODO: Show transfers, or info about the user... -->
+                        <div class="top">
+                            <h1>{{ user.username }}</h1>
+                            <span class="title">
+                                <a href="{% url user-logout %}">{% trans 'Preferencias' %}</a>
+                            </span>
+                        </div>
+                        <div class="middle">
+                            <div class="bottom">
+                                <img src="{% gravatar user.email 80 %}" alt="{{ user.username }}" title="{{ user.username }}"/>
+                            </div>
+                        </div>
                     {% endif %}
                 </div>
                 

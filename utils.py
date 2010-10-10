@@ -169,20 +169,10 @@ class FormCaptchaField(forms.CharField):
             raise forms.util.ValidationError(_(u'Captcha inválido'))
         return values[0]
 
-from django import template
-register = template.Library()
-
 def send_mail_to_admins(subject, message, sender=settings.DEFAULT_FROM_EMAIL):
     '''
     Just a convenience function
     '''
     recipients = ["%s <%s>" % (admin[0], admin[1]) for admin in settings.ADMINS]
     send_mail(subject, message, sender, recipients)
-
-@register.simple_tag
-def gravatar(email, size=48):
-    import urllib, hashlib
-    gravatar_url = "http://www.gravatar.com/avatar.php?"
-    gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(email.lower()).hexdigest(), 'size':str(size)})
-    return gravatar_url
 

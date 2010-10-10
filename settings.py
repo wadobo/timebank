@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*- 
+﻿# -*- coding: utf-8 -*-
 # Django settings for timebank project.
 # Copyright (C) 2009 Tim Gaggstatter <Tim.Gaggstatter AT gmx DOT net>
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
@@ -123,7 +123,8 @@ INSTALLED_APPS = (
     'flashmsg',
     'news',
     'tinymce',
-    'user'
+    'user',
+    'globaltags'
 )
 
 LOGIN_URL = '/'
