@@ -58,6 +58,7 @@ urlpatterns = patterns('',
     (r'^user/', include('user.urls')),
     (r'^news/', include('news.urls')),
     (r'^messages/', include('messages.urls')),
+    (r'^services/', include('serv.urls')),
     (r'^', include('main.urls')),
 )
 

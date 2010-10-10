@@ -18,42 +18,39 @@
 
 
 from serv.models import Servicio, ContactoIntercambio, MensajeI
+from django.utils.translation import ugettext as _
 from django import forms
 
 
-class ServicioForm(forms.ModelForm):
+class CustomCharField(forms.CharField):
 
-    OFERTA_CHOICES = (
-        ('0', 'DEMANDA'),
-        ('1', 'OFERTA'),
+    def prepare_value(self, data):
+        if data:
+            return str(int(data))
+        else:
+            return '0'
+
+
+class ServiceForm(forms.ModelForm):
+
+    OFFER_CHOICES = (
+        ('0', _('demanda')),
+        ('1', _('oferta')),
     )
 
-    oferta = forms.CharField(label="Crear una",
-                             help_text=", debe elegir si es una oferta "
-                                       "(ofrece algo) o una demanda(solicita "
-                                       "algo)",
-                             widget=forms.Select(choices=OFERTA_CHOICES))
+    oferta = CustomCharField(label=_("Tipo de servicio"),
+                             help_text=_("debe elegir si es una oferta "
+                                       "(ofrece algo) o una demanda (solicita "
+                                       "algo)"),
+                             widget=forms.Select(choices=OFFER_CHOICES))
 
     class Meta:
         model = Servicio
         exclude = ('creador', 'pub_date', 'activo')
 
-    def clean_oferta(self):
-        oferta = self.cleaned_data.get("oferta", "0")
-        if int(oferta):
-            oferta = 1
-        else:
-            oferta = 0
-
-        return oferta
-
-    def clean_descripcion(self):
-        descr = self.cleaned_data.get("descripcion", "")
-        if len(descr) > 400:
-            raise forms.ValidationError("La descripcion no debe pasar de "
-                                        "400caracteres, la actual tiene %s" %
-                                        len(descr))
-        return descr
+    def clean_offer(self):
+        offer = self.cleaned_data.get("oferta", "0")
+        return bool(offer)
 
 
 class ContactoIForm(forms.ModelForm):

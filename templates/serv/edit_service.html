@@ -1,0 +1,27 @@
+{% extends "template_base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% if instance %}
+        {% trans "Editar servicio" %}
+    {% else %}
+        {% trans "Añadir servicio" %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+<div class="section_3">
+    <h2>
+    {% if instance %}
+        {% trans "Editar servicio" %}
+    {% else %}
+        {% trans "Añadir servicio" %}
+    {% endif %}
+    </h2>
+    <form method="POST">
+        <fieldset>
+            {% include "main/form_snippet.html" %}
+        </fieldset>
+        <input type="submit" value="{% trans "Guardar" %}"/>
+    </form>
+</div>
+{% endblock %}

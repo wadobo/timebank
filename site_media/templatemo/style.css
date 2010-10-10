@@ -637,3 +637,40 @@ div.new .info
 {
     background-color: #efefdf;
 }
+
+/* Services */
+
+.buttons .action {
+    text-decoration: none;
+    margin: 0px;
+    padding: 5px;
+    cursor:pointer;
+    float:left;
+    background:none;
+    border:0;
+    color:#ff0000;
+}
+
+.buttons .action:hover {
+    text-decoration: underline;
+}
+
+.services h3 {
+    border-bottom: 1px solid #2780e4;
+    margin-top: 10px;
+}
+
+.services .odd {
+    background-color: #ddd;
+    padding: 5px;
+}
+
+.services .even {
+    background-color: #eee;
+    padding: 5px;
+}
+
+.serv {
+    border-top: 1px solid gray;
+    margin-top: 10px;
+}

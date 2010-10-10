@@ -64,6 +64,9 @@ class Servicio(models.Model):
     def cortaServicio(self):
         return "%s..." % self.descripcion[:50]
 
+    class Meta:
+        ordering = ('-pub_date', )
+
 
 class ContactoIntercambio(models.Model):
 

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*- 
 # Copyright (C) 2010 Daniel Garcia Moreno <dani@danigm.net>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -14,26 +14,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.conf.urls.defaults import *
 
-class Msg:
 
-    def __init__(self, msg, msg_class, title):
-        self.msg = msg
-        self.title = title
-        self.klass = msg_class
+urlpatterns = patterns('serv.views2',
+    url(r'^$', 'myservices', name='serv-myservices'),
+    url(r'^add/$', 'add', name='serv-add'),
+    url(r'^edit/(\d+)/$', 'edit', name='serv-edit'),
+    url(r'^delete/(\d+)/$', 'delete', name='serv-del'),
+    url(r'^active/(\d+)/$', 'active', name='serv-active'),
+    url(r'^deactive/(\d+)/$', 'deactive', name='serv-deactive'),
+)
 
-    def render(self):
-        if self.title:
-            return u'<li class="%s"><h3>%s</h3><p>%s</p></li>' % (self.klass,
-                self.title, self.msg)
-        else:
-            return u'<li class="%s">%s</li>' % (self.klass, self.msg)
-
-class Stack(list):
-
-    def render(self):
-        ret = u'<ul>'
-        while self:
-            ret += self.pop().render()
-        ret += u'</ul>'
-        return ret

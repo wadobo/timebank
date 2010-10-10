@@ -118,7 +118,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     #'aplicacion',
-    #'serv',
+    'serv',
     'main',
     'flashmsg',
     'news',
