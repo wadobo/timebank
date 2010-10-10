@@ -20,9 +20,10 @@ from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login as django_login
+from django.contrib.auth.decorators import login_required
 
 from utils import ViewClass, send_mail_to_admins
-from forms import RegisterForm
+from forms import RegisterForm, EditProfileForm
 
 class Register(ViewClass):
     def GET(self):
@@ -109,7 +110,54 @@ class PasswordResetComplete(ViewClass):
         return redirect('main.views.index')
 
 
+class EditProfile(ViewClass):
+    #@login_required
+    def GET(self):
+        form = EditProfileForm(request=self.request, instance=self.request.user)
+        return self.context_response('user/profile.html', {'form': form})
+
+    #@login_required
+    def POST(self):
+        form = EditProfileForm(self.request.POST, self.request)
+        if not form.is_valid():
+            return self.context_response('user/profile.html', {'form': form})
+
+        # Send an email to admins with old data
+        old_user = self.request.user
+        subject = _("[%s] %s ha modificado sus datos") % (settings.SITE_NAME,
+            old_user.username)
+        message = _("El usuario %s ha modificado su perfil. Datos antiguos:\n\n"
+            " - Nombre de usuario: %s\n"
+            " - Nombre: %s\n"
+            " - Apellidos: %s\n"
+            " - Dirección de email: %s\n"
+            " - Dirección física: %s\n"
+            " - Fecha de nacimiento: %s\n"
+            " - Descripción: %s\n\n"
+            "Nuevos datos:\n\n"
+            " - Nombre de usuario: %s\n"
+            " - Nombre: %s\n"
+            " - Apellidos: %s\n"
+            " - Dirección de email: %s\n"
+            " - Dirección física: %s\n"
+            " - Fecha de nacimiento: %s\n"
+            " - Descripción: %s\n\n") % (old_user.username, old_user.first_name,
+                old_user.last_name, old_user.email, old_user.address,
+                old_user.birth_date, old_user.description,
+                form.cleaned_data["username"], form.cleaned_data["first_name"],
+                form.cleaned_data["last_name"], form.cleaned_data["email"],
+                form.cleaned_data["address"], form.cleaned_data["birth_date"],
+                form.cleaned_data["description"]
+            )
+        send_mail_to_admins(subject, message)
+        form.save()
+
+        self.flash(_("Perfil actualizado"))
+
+        return self.context_response('user/profile.html', {'form': form})
+
 login = Login()
 register = Register()
 password_reset_done = PasswordResetDone()
 password_reset_complete = PasswordResetComplete()
+edit_profile = EditProfile()

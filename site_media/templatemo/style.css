@@ -352,7 +352,7 @@ div.new h2 a:hover, div.new h3 a:hover
     text-decoration: underline;
 }
 
-div.new small.info
+div.new .info
 {
     color: #aaa;
 }

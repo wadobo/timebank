@@ -33,6 +33,10 @@ urlpatterns = patterns('',
         name="user-remember-sent"),
     url(r'^%s$' % remember_complete_url, 'user.views.password_reset_complete',
         name="user-remember-complete"),
+    url(r'^profile/$', 'user.views.edit_profile', name="user-profile"),
+)
+
+urlpatterns += patterns('',
     url(r'^remember/$', 'django.contrib.auth.views.password_reset', {
         'template_name': 'user/password_reset.html',
         'email_template_name': 'user/password_reset_email.html',

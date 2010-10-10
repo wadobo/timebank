@@ -21,7 +21,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import gettext as _
 from django import forms
-from datetime import datetime
+from datetime import datetime, date
 from django.utils import formats
 from django.conf import settings
 from django.utils.encoding import smart_unicode
@@ -128,6 +128,13 @@ class FormDateField(forms.DateField):
         super(FormDateField, self).__init__(*args, **kwargs)
         self.update_auto_help_text()
 
+    def prepare_value(self, value):
+        if isinstance(value, date):
+            format = self.input_formats[0] or formats.get_format('DATE_INPUT_FORMATS')[0]
+            return value.strftime(format)
+        else:
+            return value
+
     def get_help_text(self):
         return unicode(self._auto_help_text) + unicode(self._help_text)
         
@@ -139,9 +146,11 @@ class FormDateField(forms.DateField):
         if self.required:
             self._auto_help_text += _(u"Requerido. Ejemplo(s): ")
 
-        date = datetime(1986, 9, 17).date()
+        the_date = datetime(1986, 9, 17).date()
 
-        self._auto_help_text +=  ', '.join([date.strftime(format) for format in self.input_formats or formats.get_format('DATE_INPUT_FORMATS')])
+        self._auto_help_text +=  ', '.join([the_date.strftime(format)
+            for format in self.input_formats or
+                formats.get_format('DATE_INPUT_FORMATS')])
 
     help_text = property(get_help_text, set_help_text)
 
