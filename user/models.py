@@ -58,3 +58,6 @@ class Profile(User):
 
     # Use UserManager to get the create_user method, etc.
     objects = UserManager() 
+
+    def __eq__(self, value):
+        return self.id == value.id

@@ -70,7 +70,7 @@ class EditService(ViewClass):
     @login_required
     def GET(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
-        if not instance.creador.id == self.request.user.id:
+        if not instance.creador == self.request.user:
             self.flash(_(u"No puedes modificar un servicio que no es tuyo"),
                        "error")
             return redirect('serv-myservices')
@@ -81,7 +81,7 @@ class EditService(ViewClass):
     @login_required
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
-        if not instance.creador.id == self.request.user.id:
+        if not instance.creador == self.request.user:
             self.flash(_(u"No puedes modificar un servicio que no es tuyo"),
                        "error")
             return redirect('serv-myservices')
@@ -98,7 +98,7 @@ class DeleteService(ViewClass):
     @login_required
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
-        if instance.creador.id == self.request.user.id:
+        if instance.creador == self.request.user:
             instance.delete()
             self.flash(_(u"Servicio eliminado correctamente"))
         else:
@@ -111,7 +111,7 @@ class ActiveService(ViewClass):
     @login_required
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
-        if instance.creador.id == self.request.user.id:
+        if instance.creador == self.request.user:
             instance.activo = True
             instance.save()
             self.flash(_(u"Servicio activado correctamente"))
@@ -125,7 +125,7 @@ class DeactiveService(ViewClass):
     @login_required
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
-        if instance.creador.id == self.request.user.id:
+        if instance.creador == self.request.user:
             instance.activo = False
             instance.save()
             self.flash(_(u"Servicio desactivado correctamente"))
