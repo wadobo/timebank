@@ -6,6 +6,7 @@
     <div class="section_3">
         <h1>{% trans 'Contacta' %}</h1>
         <form action="" method="post">
+            {% csrf_token %}
             <fieldset>
                 {% include "main/form_snippet.html" %}
             </fieldset>

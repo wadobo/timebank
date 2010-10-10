@@ -21,15 +21,18 @@ from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login as django_login
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
 
 from utils import ViewClass, send_mail_to_admins
 from forms import RegisterForm, EditProfileForm
 
 class Register(ViewClass):
+    @csrf_protect
     def GET(self):
         form = RegisterForm()
         return self.context_response('user/register.html', {'form': form})
 
+    @csrf_protect
     def POST(self):
         form = RegisterForm(self.request.POST)
         if not form.is_valid():
@@ -72,9 +75,11 @@ class Register(ViewClass):
 
 
 class Login(ViewClass):
+    @csrf_protect
     def GET(self):
         return redirect('main.views.index')
 
+    @csrf_protect
     def POST(self, *args):
         username = self.request.POST['username']
         password = self.request.POST['password']
@@ -112,11 +117,13 @@ class PasswordResetComplete(ViewClass):
 
 class EditProfile(ViewClass):
     @login_required
+    @csrf_protect
     def GET(self):
         form = EditProfileForm(request=self.request, instance=self.request.user)
         return self.context_response('user/profile.html', {'form': form})
 
     @login_required
+    @csrf_protect
     def POST(self):
         form = EditProfileForm(self.request, self.request.POST)
         if not form.is_valid():

@@ -18,6 +18,7 @@ from django.shortcuts import render_to_response, redirect
 from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
+from django.views.decorators.csrf import csrf_protect
 
 from utils import ViewClass, send_mail_to_admins
 from forms import AnonymousContactForm, ContactForm
@@ -28,6 +29,7 @@ class Index(ViewClass):
 
 
 class Contact(ViewClass):
+    @csrf_protect
     def GET(self):
         if self.request.user.is_authenticated():
             form = ContactForm()
@@ -35,6 +37,7 @@ class Contact(ViewClass):
             form = AnonymousContactForm()
         return self.context_response('main/contact.html', {'form': form})
 
+    @csrf_protect
     def POST(self):
         if self.request.user.is_authenticated():
             form = ContactForm(self.request.POST)
