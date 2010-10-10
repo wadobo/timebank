@@ -16,6 +16,7 @@
 
 from utils import ViewClass
 
+from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
