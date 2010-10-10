@@ -16,6 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django import template
+from django.template import RequestContext
+from messages.models import Message
 import urllib, hashlib
 
 register = template.Library()
@@ -28,3 +30,26 @@ def gravatar(email, size=48, d='identicon'):
         'size': str(size),
         'd': d})
     return gravatar_url
+
+@register.filter
+def truncate_chars(string, max_pos=75, ellipsis=True):
+    if ellipsis:
+        suffix = '...'
+    else:
+        suffix = ''
+    length = len(string)
+    if length >= max_pos:
+        return string[:max_pos] + suffix
+    else:
+        return string
+
+# Even if this is a "simple tag", we need to create an inclusion_tag because
+# those are the only ones with context support at the moment
+@register.inclusion_tag("main/simple_context_tag.html",\
+    takes_context=True)
+def num_unread_messages(context):
+    user = context['user']
+    unread_messages_count = Message.objects.filter(recipient=user,
+        recipient_deleted_at__isnull=True, read_at__isnull=True).count()
+    value = "<small>%s</small>" % unread_messages_count
+    return {"value": value}
