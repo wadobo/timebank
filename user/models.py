@@ -48,7 +48,11 @@ class Profile(User):
 
     karma = models.CommaSeparatedIntegerField(_("Karma"), default=0,
         max_length=4)
-    
+
+    land_line = models.CharField(_(u"Teléfono fijo"), max_length=20)
+
+    mobile_tlf = models.CharField(_(u"Teléfono móvil"), max_length=20)
+
     class Meta:
         verbose_name = _("Usuario")
         verbose_name_plural = _("Usuarios")

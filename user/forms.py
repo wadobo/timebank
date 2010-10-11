@@ -31,10 +31,14 @@ class RegisterForm(UserCreationForm):
         max_length=100, help_text=_(u"Ejemplo: Avda. Molina, 12, Sevilla"))
     description = FormCharField(label=_(u"Descripción personal"), required=True,
         max_length=300, widget=forms.Textarea())
+    land_line = FormCharField(label=_(u"Teléfono fijo"), max_length=20,
+        required=False, help_text="Ejemplo: 954 123 111")
+    mobile_tlf = FormCharField(label=_(u"Teléfono móvil"), max_length=20,
+        required=False, help_text="Ejemplo: 651 333 111")
 
     class Meta:
         model = Profile
-        fields = ('username', 'first_name', 'last_name', 'email', 'address', 'birth_date', 'description')
+        fields = ('username', 'first_name', 'last_name', 'email', 'address', 'birth_date', 'description', 'land_line', 'mobile_tlf')
 
 class EditProfileForm(UserChangeForm):
     birth_date = FormDateField(label=_("Fecha de Nacimiento"),
@@ -52,6 +56,10 @@ class EditProfileForm(UserChangeForm):
         widget=forms.PasswordInput, required=True,
         help_text=_(u"Introduce tu contraseña actual para comprobar tu"
             " identidad."))
+    land_line = FormCharField(label=_(u"Teléfono fijo"), max_length=20,
+        required=False, help_text="Ejemplo: 954 123 111")
+    mobile_tlf = FormCharField(label=_(u"Teléfono móvil"), max_length=20,
+        required=False, help_text="Ejemplo: 651 333 111")
 
     def __init__(self, request, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -75,7 +83,7 @@ class EditProfileForm(UserChangeForm):
     class Meta:
         model = Profile
         fields = ('username', 'first_name', 'last_name', 'email', 'address',
-        'birth_date', 'description')
+        'birth_date', 'description', 'land_line', 'mobile_tlf')
 
 class RemoveForm(forms.Form):
     reason = FormCharField(label=_(u"Razón"), required=True,
