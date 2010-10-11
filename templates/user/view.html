@@ -1,0 +1,70 @@
+{% extends "template_base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Ver perfil' %}
+    {% if user != profile and not profile.is_anonymous %}
+        / {{ user.username }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="section_3">
+        <h1>
+            {% trans 'Ver perfil' %}
+            {% if user != profile and not profile.is_anonymous %}
+                / {{ user.username }}
+            {% endif %}
+        </h1>
+        <ul class="view-profile">
+            <li>
+                <em>{% trans "Nombre de usuario" %}:</em>
+                <div>{{ profile.username }}</div>
+            </li>
+            <li>
+                <em>{% trans "Nombre" %}:</em>
+                <div>{{ profile.first_name }}</div>
+            </li>
+            <li>
+                <em>{% trans "Apellidos" %}:</em>
+                <div>{{ profile.username }}</div>
+            </li>
+            <li>
+                <em>{% trans "Cŕeditos" %}:</em>
+                <div>{{ profile.balance }}</div>
+            </li>
+            <li>
+                <em>{% trans "Descripción" %}:</em>
+                <div>{{ profile.description }}</div>
+            </li>
+            <li>
+                <em>{% trans "Karma" %}:</em>
+                <div>{{ profile.karma }}</div>
+            </li>
+            {% if not user.is_anonymous %}
+                <li>
+                    <em>{% trans "Edad" %}:</em>
+                    <div>{{ profile.username|timesince }}</div>
+                </li>
+                <li>
+                    <em>{% trans "Dirección física" %}:</em>
+                    <div>{{ profile.address }}</div>
+                </li>
+                <li>
+                    <em>{% trans "Email" %}:</em>
+                    <div>{{ profile.email }}</div>
+                </li>
+                <li>
+                    <em>{% trans "Teléfono fijo" %}:</em>
+                    <div>{{ profile.land_line }}</div>
+                </li>
+                <li>
+                    <em>{% trans "Teléfono móvil" %}:</em>
+                    <div>{{ profile.mobile_tlf }}</div>
+                </li>
+            {% endif %}
+<!--      TODO: Add services, recent transfers with this user or of this user,
+    add support for adding comments too        -->
+        </ul>
+    </div>
+{% endblock %}

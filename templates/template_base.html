@@ -41,7 +41,7 @@
                         <li><a href="/services/">{% trans 'Servicios' %}</a></li>
                         <li><a href="/user/transfers/">{% trans 'Transferencias' %}</a></li>
                         <li><a class="messages_inbox" href="{% url messages_inbox %}">{% num_unread_messages %} {% trans 'Mensajes' %}</a></li>
-                        <li><a href="/user/profile/" class="last">{% trans 'Perfil' %}</a></li>
+                        <li><a href="{% url user-edit-profile %}" class="last">{% trans 'Perfil' %}</a></li>
                     </ul>
                 {% else %}
                     <ul id="login">

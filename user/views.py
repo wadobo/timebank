@@ -25,6 +25,7 @@ from django.views.decorators.csrf import csrf_protect
 
 from utils import ViewClass, send_mail_to_admins
 from forms import RegisterForm, EditProfileForm, RemoveForm
+from models import Profile
 
 class Register(ViewClass):
     @csrf_protect
@@ -224,6 +225,11 @@ class Remove(ViewClass):
         return redirect("user-logout")
 
 
+class ViewProfile(ViewClass):
+    def GET(self, user_id=None):
+        user = user_id and Profile.objects.get(id=user_id) or self.request.user
+        return self.context_response('user/view.html', {'profile': user})
+
 login = Login()
 register = Register()
 password_reset_done = PasswordResetDone()
@@ -232,3 +238,4 @@ edit_profile = EditProfile()
 preferences = Preferences()
 password_change_done = PasswordChangeDone()
 remove = Remove()
+view_profile = ViewProfile()

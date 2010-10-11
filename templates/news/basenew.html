@@ -5,7 +5,7 @@
     <h3 class="info">
     {% block newinfo %}
     {% blocktrans with new.publish_date|timesince as date and new.author as author %}
-    hace {{ date }} por{% endblocktrans %} <a href="{% url user-profile new.author.id %}">{{ new.author }}</a>
+    hace {{ date }} por{% endblocktrans %} <a href="{% url user-view new.author.id %}">{{ new.author }}</a>
     {% endblock %}
 
     </h3>
