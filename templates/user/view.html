@@ -44,7 +44,7 @@
             {% if not user.is_anonymous %}
                 <li>
                     <em>{% trans "Edad" %}:</em>
-                    <div>{{ profile.username|timesince }}</div>
+                    <div>{{ profile.birth_date|timesince }}</div>
                 </li>
                 <li>
                     <em>{% trans "Dirección física" %}:</em>
