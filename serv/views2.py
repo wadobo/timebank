@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Copyright (C) 2010 Daniel Garcia Moreno <dani@danigm.net>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -33,6 +33,7 @@ from serv.forms import ServiceForm, ContactoIForm, MensajeIForm
 
 class MyServices(ViewClass):
     @login_required
+    @csrf_protect
     def GET(self):
         user = self.request.user
         created_services = Servicio.objects.filter(creador=user)
@@ -49,6 +50,7 @@ class MyServices(ViewClass):
 
 class AddService(ViewClass):
     @login_required
+    @csrf_protect
     def GET(self):
         form = ServiceForm()
         context = dict(form=form, instance=None)
@@ -70,6 +72,7 @@ class AddService(ViewClass):
 
 class EditService(ViewClass):
     @login_required
+    @csrf_protect
     def GET(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if not instance.creador == self.request.user:
