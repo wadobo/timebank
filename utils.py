@@ -31,28 +31,28 @@ from recaptcha.client import captcha
 
 from flashmsg import flash
 
+import types
+
+class SlashGETPOST(type):
+    def __init__(cls, name, bases, dct):
+        # GET and POST now are __GET__ and __POST__ to avoid confusion with
+        # request.GET and request.POST
+        type.__init__(cls, name, bases, dct)
+        av_methods = ['GET', 'POST', 'PUT', 'DELETE']
+        methods = [x for x in dct if isinstance(dct[x], types.FunctionType) and x in av_methods]
+        for m in methods:
+            setattr(cls, '__%s__' % m, dct[m])
+            delattr(cls, m)
+
+
 class ViewClass(object):
     '''
     Used to create views with classes with GET and POST methods instead of
     using functions.
     '''
+    __metaclass__ = SlashGETPOST
+
     available_methods = ['POST', 'GET', 'PUT', 'DELETE']
-
-    def request_post(self):
-        if self.request:
-            return self.request.POST
-        else:
-            return None
-
-    def __init__(self, *args, **kwargs):
-        # GET and POST now are __GET__ and __POST__ to avoid confusion with
-        # request.GET and request.POST
-        if hasattr(self, 'POST'):
-            self.__POST__ = self.POST
-            self.POST = property(lambda x: x.__getattr__('POST'))
-        if hasattr(self, 'GET'):
-            self.__GET__ = self.GET
-            self.GET = property(lambda x: x.__getattr__('GET'))
 
     def __call__(self, request, *args, **kwargs):
         self.request = request
@@ -87,7 +87,7 @@ class ViewClass(object):
 
     def __getattr__(self, value):
         # we work as request to make django decorators happy.
-        if value != 'request':
+        if value != 'request' and hasattr(self, 'request'):
             return getattr(self.request, value)
         else:
             raise AttributeError, value

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -24,6 +24,7 @@ from utils import ViewClass, send_mail_to_admins
 from forms import AnonymousContactForm, ContactForm
 
 class Index(ViewClass):
+    @csrf_protect
     def GET(self):
         return self.context_response('main/index.html')
 
