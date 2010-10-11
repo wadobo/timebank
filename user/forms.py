@@ -40,7 +40,7 @@ class RegisterForm(UserCreationForm):
         model = Profile
         fields = ('username', 'first_name', 'last_name', 'email', 'address', 'birth_date', 'description', 'land_line', 'mobile_tlf')
 
-class EditProfileForm(UserChangeForm):
+class EditProfileForm(forms.ModelForm):
     birth_date = FormDateField(label=_("Fecha de Nacimiento"),
         input_formats=("%d/%m/%Y",))
 
@@ -65,15 +65,6 @@ class EditProfileForm(UserChangeForm):
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.request = request
 
-    def clean_username(self):
-        username = self.cleaned_data["username"]
-        try:
-            Profile.objects.filter(username=username)\
-                .filter(id=self.request.user.id)
-        except:
-            return username
-        raise forms.ValidationError(_("A user with that username already exists."))
-
     def clean_password1(self):
         password1 = self.cleaned_data["password1"]
         if not self.request.user.check_password(password1):
@@ -82,7 +73,8 @@ class EditProfileForm(UserChangeForm):
 
     class Meta:
         model = Profile
-        fields = ('username', 'first_name', 'last_name', 'email', 'address',
+        hidden = ()
+        fields = ('first_name', 'last_name', 'email', 'address',
         'birth_date', 'description', 'land_line', 'mobile_tlf')
 
 class RemoveForm(forms.Form):

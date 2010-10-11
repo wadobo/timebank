@@ -674,3 +674,29 @@ div.new .info
     border-top: 1px solid gray;
     margin-top: 10px;
 }
+
+ul.view-profile {
+    list-style:none outside none;
+}
+
+ul.view-profile li > em {
+    display: block;
+    text-decoration: none;
+    float: left;
+    clear: both;
+    text-align: right;
+    width: 150px;
+    font-weight: bold;
+    margin-right: 6px;
+    margin-bottom: 12px;
+}
+
+ul.view-profile li > div {
+    float: left;
+    text-align: left;
+    display: block;
+    width: auto;
+    clear: right;
+    min-width: 200px;
+    min-height: 20px;
+}

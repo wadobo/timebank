@@ -22,6 +22,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login as django_login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
+from django.core.urlresolvers import reverse
 
 from utils import ViewClass, send_mail_to_admins
 from forms import RegisterForm, EditProfileForm, RemoveForm
@@ -126,7 +127,8 @@ class EditProfile(ViewClass):
     @login_required
     @csrf_protect
     def POST(self):
-        form = EditProfileForm(self.request, self.request.POST)
+        form = EditProfileForm(self.request, self.request.POST,
+            instance=self.request.user)
         if not form.is_valid():
             return self.context_response('user/profile.html', {'form': form})
 
@@ -134,33 +136,32 @@ class EditProfile(ViewClass):
         old_user = self.request.user
         subject = _("[%s] %s ha modificado sus datos") % (settings.SITE_NAME,
             old_user.username)
-        message = _("El usuario %s ha modificado su perfil. Datos antiguos:\n\n"
-            " - Nombre de usuario: %s\n"
-            " - Nombre: %s\n"
-            " - Apellidos: %s\n"
-            " - Dirección de email: %s\n"
-            " - Dirección física: %s\n"
-            " - Fecha de nacimiento: %s\n"
-            " - Descripción: %s\n\n"
-            "Nuevos datos:\n\n"
-            " - Nombre de usuario: %s\n"
-            " - Nombre: %s\n"
-            " - Apellidos: %s\n"
-            " - Dirección de email: %s\n"
-            " - Dirección física: %s\n"
-            " - Fecha de nacimiento: %s\n"
-            " - Descripción: %s\n\n") % (old_user.username, old_user.first_name,
+        message = _(u"El usuario %s ha modificado su perfil. Datos antiguos:\n\n"
+            u" - Nombre: %s\n"
+            u" - Apellidos: %s\n"
+            u" - Dirección de email: %s\n"
+            u" - Dirección física: %s\n"
+            u" - Fecha de nacimiento: %s\n"
+            u" - Descripción: %s\n\n"
+            u"Nuevos datos:\n\n"
+            u" - Nombre: %s\n"
+            u" - Apellidos: %s\n"
+            u" - Dirección de email: %s\n"
+            u" - Dirección física: %s\n"
+            u" - Fecha de nacimiento: %s\n"
+            u" - Descripción: %s\n\n") % (old_user.username, old_user.first_name,
                 old_user.last_name, old_user.email, old_user.address,
                 old_user.birth_date, old_user.description,
-                form.cleaned_data["username"], form.cleaned_data["first_name"],
-                form.cleaned_data["last_name"], form.cleaned_data["email"],
-                form.cleaned_data["address"], form.cleaned_data["birth_date"],
+                form.cleaned_data["first_name"], form.cleaned_data["last_name"], 
+                form.cleaned_data["email"], form.cleaned_data["address"], 
+                form.cleaned_data["birth_date"],
                 form.cleaned_data["description"]
             )
         send_mail_to_admins(subject, message)
         form.save()
 
-        self.flash(_("Perfil actualizado"))
+        self.flash(_(u"Perfil actualizado: <a href=\"%s\">ver tu perfil</a>.") %
+            reverse("user-view-current"))
 
         return self.context_response('user/profile.html', {'form': form})
 

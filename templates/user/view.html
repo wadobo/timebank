@@ -16,6 +16,13 @@
                 / {{ user.username }}
             {% endif %}
         </h1>
+
+        <ul class="subnavilist">
+        {% if not user.is_anonymous and user == profile %}
+            <li><a href="{% url user-edit-profile %}">{% trans "Editar perfil"%}</a><small>/</small></li>
+        {% endif %}
+            <li><a href="{% url messages_compose_to user.id %}">{% trans "Enviar mensaje"%}</a></li>
+        </ul>
         <ul class="view-profile">
             <li>
                 <em>{% trans "Nombre de usuario" %}:</em>
@@ -27,7 +34,7 @@
             </li>
             <li>
                 <em>{% trans "Apellidos" %}:</em>
-                <div>{{ profile.username }}</div>
+                <div>{{ profile.last_name }}</div>
             </li>
             <li>
                 <em>{% trans "Cŕeditos" %}:</em>

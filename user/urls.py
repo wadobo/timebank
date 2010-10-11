@@ -38,7 +38,7 @@ urlpatterns = patterns('',
         name="user-password-change-done"),
     url(r'^remove/$', 'user.views.remove', name="user-remove"),
     url(r'^view/$', 'user.views.view_profile', name="user-view-current"),
-    url(r'^view/(?P<user_id>\d+)$', 'user.views.view_profile',
+    url(r'^view/(?P<user_id>\d+)/$', 'user.views.view_profile',
         name="user-view"),
 )
 
