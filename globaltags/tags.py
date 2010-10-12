@@ -54,14 +54,13 @@ def num_unread_messages(context):
     value = "<small>%s</small>" % unread_messages_count
     return {"value": value}
 
-
 @register.inclusion_tag("main/simple_context_tag.html",\
     takes_context=True)
-def current_tab(context, tab):
+def current_tab(context, tab, var="current_tab"):
     '''
     Prints "current" if current_tab context var is the one given
     '''
-    if context["current_tab"] == tab:
+    if context.has_key(var) and context[var] == tab:
         return {"value": "current"}
     else:
         return {"value": ""}

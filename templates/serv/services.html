@@ -1,23 +1,21 @@
-{% extends "template_base.html" %}
+{% extends "serv/base.html" %}
 {% load i18n %}
-{% block title %} {% trans 'Servicios' %} {% endblock %}
+{% block subtitle %} {% trans 'Mis servicios' %} {% endblock %}
 
-{% block content %}
-<div class="services">
-    <a href="{% url serv-add %}">{% trans "Crear un nuevo servicio" %}</a>
-    <h3>{% trans "Servicios que ofertas actualmente:" %}</h3>
-    {% with serv_offer as servs %}
-    {% include "serv/listservs.html" %}
-    {% endwith %}
+{% block subcontent %}
+        <h3>{% trans "Servicios que ofertas actualmente:" %}</h3>
+        {% with serv_offer as servs %}
+        {% include "serv/listservs.html" %}
+        {% endwith %}
 
-    <h3>{% trans "Servicios que solicitas actualmente:" %}</h3>
-    {% with serv_request as servs %}
-    {% include "serv/listservs.html" %}
-    {% endwith %}
+        <h3>{% trans "Servicios que solicitas actualmente:" %}</h3>
+        {% with serv_request as servs %}
+        {% include "serv/listservs.html" %}
+        {% endwith %}
 
-    <h3>{% trans "Servicios que tienes inactivos:" %}</h3>
-    {% with serv_inactive as servs %}
-    {% include "serv/listservs.html" %}
-    {% endwith %}
-</div>
+        <h3>{% trans "Servicios que tienes inactivos:" %}</h3>
+        {% with serv_inactive as servs %}
+        {% include "serv/listservs.html" %}
+        {% endwith %}
 {% endblock %}
+ 

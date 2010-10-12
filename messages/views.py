@@ -28,7 +28,8 @@ def inbox(request, template_name='messages/inbox.html'):
     message_list = Message.objects.inbox_for(request.user)
     return render_to_response(template_name, {
         'message_list': message_list,
-        'current_tab': 'messages'
+        'current_tab': 'messages',
+        'subtab': 'inbox'
     }, context_instance=RequestContext(request))
 inbox = login_required(inbox)
 
@@ -41,7 +42,8 @@ def outbox(request, template_name='messages/outbox.html'):
     message_list = Message.objects.outbox_for(request.user)
     return render_to_response(template_name, {
         'message_list': message_list,
-        'current_tab': 'messages'
+        'current_tab': 'messages',
+        'subtab': 'outbox'
     }, context_instance=RequestContext(request))
 outbox = login_required(outbox)
 
@@ -56,7 +58,8 @@ def trash(request, template_name='messages/trash.html'):
     message_list = Message.objects.trash_for(request.user)
     return render_to_response(template_name, {
         'message_list': message_list,
-        'current_tab': 'messages'
+        'current_tab': 'messages',
+        'subtab': 'trash'
     }, context_instance=RequestContext(request))
 trash = login_required(trash)
 
@@ -93,7 +96,8 @@ def compose(request, recipient=None, form_class=ComposeForm,
             form.fields['recipient'].initial = recipients
     return render_to_response(template_name, {
         'form': form,
-        'current_tab': 'messages'
+        'current_tab': 'messages',
+        'subtab': 'new'
     }, context_instance=RequestContext(request))
 compose = login_required(compose)
 
@@ -131,7 +135,8 @@ def reply(request, message_id, form_class=ComposeForm,
             })
     return render_to_response(template_name, {
         'form': form,
-        'current_tab': 'messages'
+        'current_tab': 'messages',
+        'subtab': 'new'
     }, context_instance=RequestContext(request))
 reply = login_required(reply)
 

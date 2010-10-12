@@ -1,0 +1,19 @@
+{% extends "template_base.html" %}
+{% load i18n %}
+{% block title %} {% trans 'Servicios' %} {% endblock %}
+
+{% block content %}
+<div class="section_3">
+    <h2>{% trans "Servicios" %} / {% block subtitle %} {% endblock %}</h2>
+    <ul class="subnavilist">
+        <li><a href="{% url serv-myservices %} " class="{% current_tab 'my-services' 'subtab' %}">{% trans "Mis servicios" %}</a><small>/</small></li>
+        <li><a href="{% url serv-add %}"  class="{% current_tab 'add' 'subtab' %}">{% trans "Crear un nuevo servicio" %}</a><small>/</small></li>
+        <li><a href="" class="{% current_tab 'offers' 'subtab' %}">{% trans "Ofertas" %}</a><small>/</small></li>
+        <li><a href="" class="{% current_tab 'demand' 'subtab' %}">{% trans "Demandas" %}</a></li>
+    </ul>
+    <div class="subcontent services">
+        {% block subcontent %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

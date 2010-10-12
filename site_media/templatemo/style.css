@@ -601,6 +601,10 @@ div.new .info
     text-decoration: none;
 }
 
+.subnavilist li a.current {
+    font-weight: bold;
+}
+
 .subnavilist li a:hover {
     text-decoration: underline;
 }

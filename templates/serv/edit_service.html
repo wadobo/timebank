@@ -1,22 +1,14 @@
-{% extends "template_base.html" %}
+{% extends "serv/base.html" %}
 {% load i18n %}
-
-{% block title %}
+{% block subtitle %}
     {% if instance %}
         {% trans "Editar servicio" %}
     {% else %}
         {% trans "Añadir servicio" %}
     {% endif %}
 {% endblock %}
-{% block content %}
-<div class="section_3">
-    <h2>
-    {% if instance %}
-        {% trans "Editar servicio" %}
-    {% else %}
-        {% trans "Añadir servicio" %}
-    {% endif %}
-    </h2>
+
+{% block subcontent %}
     <form method="POST">
         {% csrf_token %}
         <fieldset>
