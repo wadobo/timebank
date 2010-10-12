@@ -25,6 +25,12 @@
         </ul>
         <ul class="view-profile">
             <li>
+                <em>{% trans "Gravatar" %}:</em>
+                <div>
+                    <img src="{% gravatar profile.email 80 %}" alt="{{ profile.username }}" title="{{ profile.username }}"/>
+                </div>
+            </li>
+            <li>
                 <em>{% trans "Nombre de usuario" %}:</em>
                 <div>{{ profile.username }}</div>
             </li>
