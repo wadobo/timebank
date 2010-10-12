@@ -700,3 +700,23 @@ ul.view-profile li > div {
     min-width: 200px;
     min-height: 20px;
 }
+
+.message-headers {
+    display: block;
+    clear: both;
+    width: 100%;
+    min-height: 70px;
+}
+
+.message-headers dt {
+    width: 50px;
+    display: block;
+    float: left;
+    clear: both;
+}
+
+.message-headers dd {
+    display: block;
+    float: left;
+    font-weight: bold;
+}
