@@ -35,5 +35,6 @@ def base(request):
         'user': request.user,
         'front_news': New.objects.filter(hidden=False).order_by("-publish_date")[:3],
         'session': request.session,
-        'login_form': login_form
+        'login_form': login_form,
+        'current_tab': 'default'
     }

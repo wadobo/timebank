@@ -36,7 +36,8 @@ class Contact(ViewClass):
             form = ContactForm()
         else:
             form = AnonymousContactForm()
-        return self.context_response('main/contact.html', {'form': form})
+        return self.context_response('main/contact.html', {'form': form,
+            'current_tab': 'contact'})
 
     @csrf_protect
     def POST(self):
@@ -45,7 +46,8 @@ class Contact(ViewClass):
         else:
             form = AnonymousContactForm(self.request.POST)
         if not form.is_valid():
-            return self.context_response('main/contact.html', {'form': form})
+            return self.context_response('main/contact.html', {'form': form,
+            'current_tab': 'contact'})
 
         # Send an email to admins
         if self.request.user.is_authenticated():

@@ -37,21 +37,21 @@
                         <li><a href="{% url user-logout %}"  class="last">{% trans 'Salir' %}</a></li>
                     </ul>
                     <ul>
-                        <li><a href="/people/" class="current">{% trans 'Gente' %}</a></li>
-                        <li><a href="/services/">{% trans 'Servicios' %}</a></li>
-                        <li><a href="/user/transfers/">{% trans 'Transferencias' %}</a></li>
-                        <li><a class="messages_inbox" href="{% url messages_inbox %}">{% num_unread_messages %} {% trans 'Mensajes' %}</a></li>
-                        <li><a href="{% url user-edit-profile %}" class="last">{% trans 'Perfil' %}</a></li>
+                        <li><a href="/people/" class="{% current_tab 'people' %}">{% trans 'Gente' %}</a></li>
+                        <li><a href="/services/" class="{% current_tab 'services' %}">{% trans 'Servicios' %}</a></li>
+                        <li><a href="/user/transfers/" class="{% current_tab 'transfers' %}">{% trans 'Transferencias' %}</a></li>
+                        <li><a class="messages_inbox {% current_tab 'messages' %}" href="{% url messages_inbox %}">{% num_unread_messages %} {% trans 'Mensajes' %}</a></li>
+                        <li><a href="{% url user-edit-profile %}" class="last {% current_tab 'profile' %}">{% trans 'Perfil' %}</a></li>
                     </ul>
                 {% else %}
                     <ul id="login">
-                        <li><a href="{% url user-login %}">{% trans 'Entrar' %}</a></li>
-                        <li><a href="{% url user-register %}" class="last">{% trans 'Registrarse' %}</a></li>
+                        <li><a href="{% url user-login %}" class="{% current_tab 'login' %}">{% trans 'Entrar' %}</a></li>
+                        <li><a href="{% url user-register %}" class="last {% current_tab 'register' %}">{% trans 'Registrarse' %}</a></li>
                     </ul>
                     <ul>
-                        <li><a href="/" class="current">{% trans 'Inicio' %}</a></li>
-                        <li><a href="/people/">{% trans 'Gente' %}</a></li>
-                        <li><a href="/services/" class="last">{% trans 'Servicios' %}</a></li>
+                        <li><a href="/" class="current {% current_tab 'default' %}">{% trans 'Inicio' %}</a></li>
+                        <li><a href="/people/" class="{% current_tab 'people' %}">{% trans 'Gente' %}</a></li>
+                        <li><a href="/services/" class="last {% current_tab 'services' %}">{% trans 'Servicios' %}</a></li>
                     </ul>
                 {% endif %}
             </div>
@@ -64,7 +64,7 @@
                         <div class="top">
                             <h1>{% trans 'Entrar' %}</h1>
                             <span class="title">
-                                <a href="{% url user-remember %}">{% trans '¿Olvidaste la contraseña?' %}</a>
+                                <a href="{% url user-remember %}" class="{% current_tab 'user-remember' %}">{% trans '¿Olvidaste la contraseña?' %}</a>
                             </span>
                         </div>
                         <div class="middle">
@@ -81,7 +81,7 @@
                         <div class="top">
                             <h1>{{ user.username }}</h1>
                             <span class="title">
-                                <a href="{% url user-preferences %}">{% trans 'Preferencias' %}</a>
+                                <a href="{% url user-preferences %}" class="{% current_tab 'user-preferences' %}">{% trans 'Preferencias' %}</a>
                             </span>
                         </div>
                         <div class="middle">
@@ -131,13 +131,13 @@
     <div class="cleaner"></div>
      <div id="footer">
             <ul class="footer_menu">
-                <li><a href="/" class="current">{% trans "Home" %}</a></li>
-                <li><a href="/faq">{% trans "Preguntas Frecuentes" %}</a></li>
-                <li><a href="/blog">{% trans "Blog" %}</a></li>
-                <li><a href="/about">{% trans "Acerca de" %}</a></li>
-                <li><a href="{% url contact %}">{% trans "Contacta" %}</a></li>
-                <li><a href="/dev">{% trans "Desarrollo" %}</a></li>
-                <li class="last_menu"><a href="/tos">{% trans "Condiciones de Uso" %}</a></li>
+                <li><a href="/" class="{% current_tab 'default' %}">{% trans "Home" %}</a></li>
+                <li><a href="/faq" class="{% current_tab 'faq' %}">{% trans "Preguntas Frecuentes" %}</a></li>
+                <li><a href="/blog" class="{% current_tab 'blog' %}">{% trans "Blog" %}</a></li>
+                <li><a href="/about" class="{% current_tab 'about' %}">{% trans "Acerca de" %}</a></li>
+                <li><a href="{% url contact %}" class="{% current_tab 'contact' %}">{% trans "Contacta" %}</a></li>
+                <li><a href="/dev" class="{% current_tab 'dev' %}">{% trans "Desarrollo" %}</a></li>
+                <li class="last_menu"><a href="/tos" class="{% current_tab 'tos' %}">{% trans "Condiciones de Uso" %}</a></li>
             </ul>
         </div>
     </body>

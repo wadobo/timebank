@@ -282,9 +282,16 @@ h3
     color:#000;
     margin:15px 10px 0 0;
 }
+
 .top span.title a
 {
     color: black;
+}
+
+.top span.title a.current
+{
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .section_1 .middle
@@ -560,6 +567,11 @@ div.new .info
 
 .footer_menu li a {
     color: #fff;
+}
+
+.footer_menu li a.current {
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .footer_menu .last_menu {

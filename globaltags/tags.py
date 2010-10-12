@@ -53,3 +53,15 @@ def num_unread_messages(context):
         recipient_deleted_at__isnull=True, read_at__isnull=True).count()
     value = "<small>%s</small>" % unread_messages_count
     return {"value": value}
+
+
+@register.inclusion_tag("main/simple_context_tag.html",\
+    takes_context=True)
+def current_tab(context, tab):
+    '''
+    Prints "current" if current_tab context var is the one given
+    '''
+    if context["current_tab"] == tab:
+        return {"value": "current"}
+    else:
+        return {"value": ""}

@@ -44,7 +44,8 @@ class MyServices(ViewClass):
 
         context = dict(serv_offer=serv_offer,
                        serv_request=serv_request,
-                       serv_inactive=serv_inactive)
+                       serv_inactive=serv_inactive,
+                       current_tab="services")
         return self.context_response('serv/services.html', context)
 
 
@@ -53,7 +54,7 @@ class AddService(ViewClass):
     @csrf_protect
     def GET(self):
         form = ServiceForm()
-        context = dict(form=form, instance=None)
+        context = dict(form=form, instance=None, current_tab="services")
         return self.context_response('serv/edit_service.html', context)
 
     @login_required
@@ -66,7 +67,7 @@ class AddService(ViewClass):
             service.save()
             self.flash(_(u"Servicio añadido correctamente"))
             return redirect('serv-myservices')
-        context = dict(form=form, instance=None)
+        context = dict(form=form, instance=None, current_tab="services")
         return self.context_response('serv/edit_service.html', context)
 
 
@@ -80,7 +81,7 @@ class EditService(ViewClass):
                        "error")
             return redirect('serv-myservices')
         form = ServiceForm(instance=instance)
-        context = dict(form=form, instance=instance)
+        context = dict(form=form, instance=instance, current_tab="services")
         return self.context_response('serv/edit_service.html', context)
 
     @login_required
@@ -96,7 +97,7 @@ class EditService(ViewClass):
             form.save()
             self.flash(_(u"Servicio modificado correctamente"))
             return redirect('serv-myservices')
-        context = dict(form=form, instance=instance)
+        context = dict(form=form, instance=instance, current_tab="services")
         return self.context_response('serv/edit_service.html', context)
 
 

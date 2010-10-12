@@ -169,7 +169,8 @@ class EditProfile(ViewClass):
 class Preferences(ViewClass):
     @login_required
     def GET(self):
-        return self.context_response('user/preferences.html')
+        return self.context_response('user/preferences.html',
+            {'current_tab': 'user-preferences'})
 
 
 class PasswordChangeDone(ViewClass):
