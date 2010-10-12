@@ -14,8 +14,7 @@
             <span class="zone">{{ serv.zona }}</span>
             {% trans "Categoría" %}:
             <span class="categorie">{{ serv.categoria }} </span>
-            {% trans "Fecha" %}:
-            <span class="date"> {{ serv.pub_date|date:"d.m.Y, H:i" }} </span>
+            <span class="date"> {% trans "Publicado hace" %} {{ serv.pub_date|timesince }} </span>
         </p>
         <div class="buttons">
             <a class="action" href="{%url serv-edit serv.id %}">{% trans "Modificar" %}</a>
