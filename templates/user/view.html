@@ -93,7 +93,7 @@
                     <div class="message">
                         <div class="body">{{ message.body|linebreaks }}</div>
                         <div class="info">
-                            {% trans "Enviado por" %} <a href="{% url user-view message.sender.id %}">{{ profile.sender.username }}</a> {% trans "hace" %} {{ message.sent_at|timesince }}
+                            {% trans "Enviado por" %} <a href="{% url user-view message.sender.id %}">{{ message.sender.username }}</a> {% trans "hace" %} {{ message.sent_at|timesince }}
                         </div>
                     </div>
                 {% endfor %}

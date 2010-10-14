@@ -237,7 +237,6 @@ class ViewProfile(ViewClass):
             send_message_form = PublicMessageForm()
 
         messages = Message.objects.public_inbox_for(user)
-        #import ipdb; ipdb.set_trace()
 
         return self.context_response('user/view.html', {'profile': user,
             'form': send_message_form, 'message_list': messages})
