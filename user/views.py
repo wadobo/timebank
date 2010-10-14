@@ -33,13 +33,15 @@ class Register(ViewClass):
     @csrf_protect
     def GET(self):
         form = RegisterForm()
-        return self.context_response('user/register.html', {'form': form})
+        return self.context_response('user/register.html', {'form': form,
+            'current_tab': 'register'})
 
     @csrf_protect
     def POST(self):
         form = RegisterForm(self.request.POST)
         if not form.is_valid():
-            return self.context_response('user/register.html', {'form': form})
+            return self.context_response('user/register.html', {'form': form,
+            'current_tab': 'register'})
 
         # Register user
         new_user = form.save(commit=False)
