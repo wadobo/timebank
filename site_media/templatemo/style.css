@@ -1,3 +1,4 @@
+
 html
 {
     background:none repeat scroll 0 0 #fff;
@@ -702,13 +703,13 @@ ul.view-profile li > em {
     clear: both;
     text-align: right;
     width: 150px;
-    font-weight: bold;
     margin-right: 6px;
     margin-bottom: 12px;
 }
 
 ul.view-profile li > div {
     float: left;
+    font-weight: bold;
     text-align: left;
     display: block;
     width: auto;
@@ -735,4 +736,21 @@ ul.view-profile li > div {
     display: block;
     float: left;
     font-weight: bold;
+}
+
+.public_messages form {
+    background-color: #eee;
+}
+
+.public_messages label {
+    visibility: none;
+}
+
+.public_messages .description {
+    padding: 20px;
+}
+
+.public_messages #user_message_list .message .info {
+    margin-bottom: 20px;
+    background-color: #eee;
 }

@@ -26,7 +26,7 @@ from forms import AnonymousContactForm, ContactForm
 class Index(ViewClass):
     @csrf_protect
     def GET(self):
-        return self.context_response('main/index.html')
+        return self.context_response('main/index.html', {'show_news': True})
 
 
 class Contact(ViewClass):

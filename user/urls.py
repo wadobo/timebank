@@ -40,6 +40,8 @@ urlpatterns = patterns('',
     url(r'^view/$', 'user.views.view_profile', name="user-view-current"),
     url(r'^view/(?P<user_id>\d+)/$', 'user.views.view_profile',
         name="user-view"),
+    url(r'^view/(?P<recipient_id>\d+)/sendmessage$', 'user.views.send_message',
+        name="user-send-public-message"),
 )
 
 urlpatterns += patterns('',

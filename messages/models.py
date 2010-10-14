@@ -16,6 +16,18 @@ class MessageManager(models.Manager):
         return self.filter(
             recipient=user,
             recipient_deleted_at__isnull=True,
+            is_public=False,
+        )
+
+    def public_inbox_for(self, user):
+        """
+        Returns all messages that were received by the given user and are not
+        marked as deleted.
+        """
+        return self.filter(
+            recipient=user,
+            recipient_deleted_at__isnull=True,
+            is_public=True,
         )
 
     def outbox_for(self, user):
@@ -26,6 +38,7 @@ class MessageManager(models.Manager):
         return self.filter(
             sender=user,
             sender_deleted_at__isnull=True,
+            is_public=False,
         )
 
     def trash_for(self, user):
@@ -36,9 +49,11 @@ class MessageManager(models.Manager):
         return self.filter(
             recipient=user,
             recipient_deleted_at__isnull=False,
+            is_public=False,
         ) | self.filter(
             sender=user,
             sender_deleted_at__isnull=False,
+            is_public=False,
         )
 
 
@@ -56,6 +71,7 @@ class Message(models.Model):
     replied_at = models.DateTimeField(_("replied at"), null=True, blank=True)
     sender_deleted_at = models.DateTimeField(_("Sender deleted at"), null=True, blank=True)
     recipient_deleted_at = models.DateTimeField(_("Recipient deleted at"), null=True, blank=True)
+    is_public = models.BooleanField(_("Public message"), default=False)
     
     objects = MessageManager()
     

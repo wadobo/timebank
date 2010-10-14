@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from models import Profile
+from messages.models import Message
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext_lazy as _
@@ -82,3 +83,8 @@ class RemoveForm(forms.Form):
         min_length=10, max_length=300, widget=forms.Textarea(),
         help_text=_(u"¿Hemos hecho algo mal? Por favor díganos la razón por"
             u"la que quiere darse de baja."))
+
+class PublicMessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ("body",)

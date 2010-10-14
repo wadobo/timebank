@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*- 
 # Django settings for timebank project.
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
@@ -49,8 +50,7 @@ def truncate_chars(string, max_pos=75, ellipsis=True):
     takes_context=True)
 def num_unread_messages(context):
     user = context['user']
-    unread_messages_count = Message.objects.filter(recipient=user,
-        recipient_deleted_at__isnull=True, read_at__isnull=True).count()
+    unread_messages_count = Message.objects.inbox_for(user).count()
     value = "<small>%s</small>" % unread_messages_count
     return {"value": value}
 

@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
@@ -25,8 +25,9 @@ from django.views.decorators.csrf import csrf_protect
 from django.core.urlresolvers import reverse
 
 from utils import ViewClass, send_mail_to_admins
-from forms import RegisterForm, EditProfileForm, RemoveForm
+from forms import RegisterForm, EditProfileForm, RemoveForm, PublicMessageForm
 from models import Profile
+from messages.models import Message
 
 class Register(ViewClass):
     @csrf_protect
@@ -81,7 +82,7 @@ class Login(ViewClass):
     def GET(self):
         return redirect('main.views.index')
 
-    @csrf_protect
+    #@csrf_protect
     def POST(self, *args):
         username = self.request.POST['username']
         password = self.request.POST['password']
@@ -229,8 +230,33 @@ class Remove(ViewClass):
 
 class ViewProfile(ViewClass):
     def GET(self, user_id=None):
-        user = user_id and Profile.objects.get(id=user_id) or self.request.user
-        return self.context_response('user/view.html', {'profile': user})
+        user = user_id and get_object_or_404(Profile, id=user_id) or self.request.user
+
+        send_message_form = None
+        if self.request.user.is_authenticated():
+            send_message_form = PublicMessageForm()
+
+        messages = Message.objects.public_inbox_for(user)
+        #import ipdb; ipdb.set_trace()
+
+        return self.context_response('user/view.html', {'profile': user,
+            'form': send_message_form, 'message_list': messages})
+
+
+class SendMessage(ViewClass):
+    #@csrf_protect
+    @login_required
+    def POST(self, recipient_id=None):
+        recipient = get_object_or_404(Profile, id=recipient_id)
+        form = PublicMessageForm(self.request.POST)
+        new_message = form.save(commit=False)
+        new_message.sender = self.request.user
+        new_message.recipient = recipient
+        new_message.is_public = True
+        new_message.save()
+        self.flash(_(u"Mensaje añadido al perfil público de %s") %\
+            recipient.username)
+        return redirect("user-view", user_id=recipient_id)
 
 login = Login()
 register = Register()
@@ -241,3 +267,4 @@ preferences = Preferences()
 password_change_done = PasswordChangeDone()
 remove = Remove()
 view_profile = ViewProfile()
+send_message = SendMessage()
