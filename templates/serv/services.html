@@ -3,8 +3,13 @@
 {% block subtitle %} {% trans 'Mis servicios' %} {% endblock %}
 
 {% block subcontent %}
-        {% with my_services as services %}
-        {% include "serv/listservs.html" %}
+        <form action="." method="get" class="find_services">
+            <fieldset>
+                {% include "main/form_snippet.html" %}
+            </fieldset>
+            <input class="submit" type="submit" value="{% trans 'Encontrar servicios' %}"/>
+        </form>
+        {% with services as services %}
+            {% include "serv/listservs.html" %}
         {% endwith %}
 {% endblock %}
- 

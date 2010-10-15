@@ -3,14 +3,14 @@
     <div class="serv {% if serv.oferta %}offer{% else %}demand{% endif %} {% if not serv.activo %}inactive{% endif %}">
         <div class="information">
             {% trans "Tipo" %}:
-            <span class="type">{% if serv.oferta %}<a href="/services/list/mine/offers/">{% trans "oferta" %}{% else %}<a href="/services/list/mine/demands/">{% trans "demanda" %}{% endif %}</a></span> /
+            <span class="type">{% if serv.oferta %}<a href="{% url serv-list %}?the_type=1">{% trans "oferta" %}{% else %}<a href="{% url serv-list %}?the_type=2">{% trans "demanda" %}{% endif %}</a></span> /
             {% if not serv.activo %}
                 <span class="inactive">{% trans "Inactiva"  %}</span> /
             {% endif %}
             {% trans "Zona" %}:
-            <span class="zone"><a href="/services/list/mine/by_area/{{ serv.zona.id }}">{{ serv.zona }}</a></span> /
+            <span class="zone"><a href="{% url serv-list %}?area={{ serv.zona.id }}">{{ serv.zona }}</a></span> /
             {% trans "Categoría" %}:
-            <span class="category"><a href="/services/list/mine/by_category/{{ serv.categoria.id }}">{{ serv.categoria }}</a></span> /
+            <span class="category"><a href="{% url serv-list %}?category={{ serv.categoria.id }}">{{ serv.categoria }}</a></span> /
             <span class="date"> {% trans "Publicado hace" %} {{ serv.pub_date|timesince }} </span>
         </div>
         <div class="gravatar">
@@ -42,5 +42,5 @@
     </div>
     <div class="cleaner"></div>
 {% empty %}
-    {% trans "Ninguno" %}
+    <p>{% trans "Ningún servicio" %}</p>
 {% endfor %}

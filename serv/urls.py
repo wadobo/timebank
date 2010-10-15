@@ -16,14 +16,14 @@
 
 from django.conf.urls.defaults import *
 from django.views.generic.simple import redirect_to
+from views2 import list_services, add, edit, delete, active, deactive
 
-urlpatterns = patterns('serv.views2',
-    url(r'^$', redirect_to, {'url': 'list/mine/'}),
-    url(r'^list/mine/$', 'myservices', name='serv-myservices'),
-    url(r'^add/$', 'add', name='serv-add'),
-    url(r'^edit/(\d+)/$', 'edit', name='serv-edit'),
-    url(r'^delete/(\d+)/$', 'delete', name='serv-del'),
-    url(r'^active/(\d+)/$', 'active', name='serv-active'),
-    url(r'^deactive/(\d+)/$', 'deactive', name='serv-deactive'),
+urlpatterns = patterns('',
+    url(r'^$', redirect_to, {'url': 'list/?mine=true'}),
+    url(r'^list/.*$', list_services, name='serv-list'),
+    url(r'^add/$', add, name='serv-add'),
+    url(r'^edit/(\d+)/$', edit, name='serv-edit'),
+    url(r'^delete/(\d+)/$', delete, name='serv-del'),
+    url(r'^active/(\d+)/$', active, name='serv-active'),
+    url(r'^deactive/(\d+)/$', deactive, name='serv-deactive'),
 )
-

@@ -24,22 +24,51 @@ from django.http import Http404
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from django.db.models import Q
 
 from serv.models import (Servicio, Zona, Categoria,
                          ContactoIntercambio, MensajeI,
                          ContactoAdministracion, MensajeA)
-from serv.forms import ServiceForm, ContactoIForm, MensajeIForm
+from serv.forms import ServiceForm, ContactoIForm, MensajeIForm, ListServicesForm
+from user.models import Profile
 
 
-class MyServices(ViewClass):
+class ListServices(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self):
-        user = self.request.user
-        my_services = Servicio.objects.filter(creador=user)
+        form = ListServicesForm(self.request.GET)
 
-        context = dict(my_services=my_services, current_tab="services",
-            subtab="my-services")
+        if form.data.get("mine", ''):
+            services = Servicio.objects.filter(creador=self.request.user)
+            subtab = "my"
+        else:
+            services = Servicio.objects.all()
+            subtab = "find"
+
+        if form.data.get("the_type", '') == "1":
+            services = services.filter(oferta=True)
+        elif form.data.get("the_type", '') == "2":
+            services = services.filter(oferta=False)
+
+        if form.data.get("category", ''):
+            category = get_object_or_404(Categoria, id=int(form.data["category"]))
+            services = services.filter(categoria=category)
+
+        if form.data.get("area", ''):
+            area = get_object_or_404(Zona,
+                id=int(form.data["area"]))
+            services = services.filter(zona=area)
+
+        if form.data.get("username", ''):
+            username = form.data["username"]
+            services = services.filter(creador__username__contains=username)
+
+        context = dict(
+            services=services,
+            current_tab="services",
+            subtab=subtab,
+            form=form
+        )
         return self.context_response('serv/services.html', context)
 
 
@@ -143,7 +172,7 @@ class DeactiveService(ViewClass):
         return redirect('serv-myservices')
 
 
-myservices = MyServices()
+list_services = ListServices()
 add = AddService()
 edit = EditService()
 delete = DeleteService()
