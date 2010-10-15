@@ -19,6 +19,7 @@
 from serv.models import Servicio, ContactoIntercambio, MensajeI, Zona, Categoria
 from django.utils.translation import ugettext as _
 from django import forms
+import urllib
 from django.forms.widgets import RadioSelect, CheckboxSelectMultiple
 
 class CustomCharField(forms.CharField):
@@ -81,6 +82,8 @@ class ListServicesForm(forms.Form):
         self.fields['category'].queryset = Categoria.objects.all()
         self.fields['area'].queryset = Zona.objects.all()
 
+    def as_url_args(self):
+        return urllib.urlencode(self.data)
 
 class ContactoIForm(forms.ModelForm):
 

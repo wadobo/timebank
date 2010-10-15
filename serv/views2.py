@@ -25,6 +25,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.db.models import Q
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 from serv.models import (Servicio, Zona, Categoria,
                          ContactoIntercambio, MensajeI,
@@ -38,11 +39,16 @@ class ListServices(ViewClass):
     def GET(self):
         form = ListServicesForm(self.request.GET)
 
+        try:
+            page = int(self.request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+
         if form.data.get("mine", ''):
             services = Servicio.objects.filter(creador=self.request.user)
             subtab = "my"
         else:
-            services = Servicio.objects.all()
+            services = Servicio.objects.filter(activo=True)
             subtab = "find"
 
         if form.data.get("the_type", '') == "1":
@@ -62,6 +68,12 @@ class ListServices(ViewClass):
         if form.data.get("username", ''):
             username = form.data["username"]
             services = services.filter(creador__username__contains=username)
+
+        paginator = Paginator(services, 25)
+        try:
+            services = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+            services = paginator.page(paginator.num_pages)
 
         context = dict(
             services=services,

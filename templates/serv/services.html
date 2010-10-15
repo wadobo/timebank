@@ -9,7 +9,22 @@
             </fieldset>
             <input class="submit" type="submit" value="{% trans 'Encontrar servicios' %}"/>
         </form>
-        {% with services as services %}
-            {% include "serv/listservs.html" %}
-        {% endwith %}
+        {% include "serv/listservs.html" %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if services.has_previous %}
+                    <a href="?&page={{ form.as_url_args }}{{ services.previous_page_number }}">{% trans "anterior" %}</a>
+                {% endif %}
+
+                <span class="current">
+                    {% blocktrans with services.number as number and services.paginator.num_pages as num_pages %}
+                    Página {{ number }} de {{ num_pages }}
+                    {% endblocktrans %}
+                </span>
+
+                {% if contacts.has_next %}
+                    <a href="?&page={{ form.as_url_args }}{{ contacts.next_page_number }}">{% trans "siguiente" %}</a>
+                {% endif %}
+            </span>
+        </div>
 {% endblock %}

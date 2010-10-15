@@ -1,5 +1,5 @@
 {% load i18n %}
-{% for serv in services %}
+{% for serv in services.object_list %}
     <div class="serv {% if serv.oferta %}offer{% else %}demand{% endif %} {% if not serv.activo %}inactive{% endif %}">
         <div class="information">
             {% trans "Tipo" %}:

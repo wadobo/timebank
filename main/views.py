@@ -19,14 +19,20 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_protect
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 from utils import ViewClass, send_mail_to_admins
 from forms import AnonymousContactForm, ContactForm
+from serv.models import Servicio
 
 class Index(ViewClass):
     @csrf_protect
     def GET(self):
-        return self.context_response('main/index.html', {'show_news': True})
+        services = Servicio.objects.filter(activo=True)
+        paginator = Paginator(services, 25)
+        services = paginator.page(1)
+        return self.context_response('main/index.html', {'show_news': True,
+        'services': services})
 
 
 class Contact(ViewClass):
