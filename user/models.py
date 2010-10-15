@@ -41,6 +41,7 @@ class Profile(User):
 
     address = models.CharField(_(u"Dirección"), max_length=100)
 
+    # credits in minutes
     balance = models.IntegerField(default=0)
 
     description = models.TextField(_(u"Descripción personal"), max_length=300,
@@ -65,3 +66,36 @@ class Profile(User):
 
     def __eq__(self, value):
         return self.id == value.id
+
+
+TRANSFER_STATUS = (
+    ('q', _('Transferencia solicitada')), # q for reQuest
+    ('r', _('Transferencia rechazada')), # r for Rejected
+    ('d', _('Transferencia realizada')), # d for Done
+)
+
+class Transfer(models.Model):
+    # Person receiving the credits (and giving the service)
+    credits_payee = models.ForeignKey(Profile, related_name="credits_payee",
+        verbose_name=_("Benefeciario"))
+
+    # Person giving the credits (and receiving the service)
+    credits_debtor = models.ForeignKey(Profile, related_name="credits_debtor",
+        verbose_name=_("Deudor"))
+
+    request_date = models.DateTimeField(_("Fecha de solicitud de transferencia"), auto_now=True,
+        auto_now_add=True)
+
+    confirmation_date = models.DateTimeField(_(u"Fecha de confirmación de"
+        " transferencia"))
+
+    status = models.CharField(_(u"Estado"), max_length=1, choices=TRANSFER_STATUS)
+
+    # credits in minutes
+    credits = models.PositiveIntegerField(_(u"Créditos"))
+
+    #TODO: Add here a rating of the service, set by the payee of course
+
+    class meta:
+        ordering = ['-request_date']
+
