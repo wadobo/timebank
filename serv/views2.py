@@ -36,17 +36,10 @@ class MyServices(ViewClass):
     @csrf_protect
     def GET(self):
         user = self.request.user
-        created_services = Servicio.objects.filter(creador=user)
+        my_services = Servicio.objects.filter(creador=user)
 
-        serv_offer = created_services.filter(oferta=True, activo=True)
-        serv_request = created_services.filter(oferta=False, activo=True)
-        serv_inactive = created_services.filter(activo=False)
-
-        context = dict(serv_offer=serv_offer,
-                       serv_request=serv_request,
-                       serv_inactive=serv_inactive,
-                       current_tab="services",
-                       subtab="my-services")
+        context = dict(my_services=my_services, current_tab="services",
+            subtab="my-services")
         return self.context_response('serv/services.html', context)
 
 

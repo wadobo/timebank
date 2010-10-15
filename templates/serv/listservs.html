@@ -1,34 +1,42 @@
 {% load i18n %}
-{% for serv in servs %}
-    <div class="serv {% cycle "odd" "even" %}">
-        {% if not serv.activo %}
-            {% if serv.oferta %}
-                oferta:
-            {% else %}
-                demanda:
+{% for serv in services %}
+    <div class="serv {% if serv.oferta %}offer{% else %}demand{% endif %} {% if not serv.activo %}inactive{% endif %}">
+        <div class="information">
+            {% trans "Tipo" %}:
+            <span class="type">{% if serv.oferta %}<a href="/services/list/mine/offers/">{% trans "oferta" %}{% else %}<a href="/services/list/mine/demands/">{% trans "demanda" %}{% endif %}</a></span> /
+            {% if not serv.activo %}
+                <span class="inactive">{% trans "Inactiva"  %}</span> /
             {% endif %}
-        {% endif %}
-        <p class="description"> {{ serv.descripcion }} </p>
-        <p>
             {% trans "Zona" %}:
-            <span class="zone">{{ serv.zona }}</span>
+            <span class="zone"><a href="/services/list/mine/by_area/{{ serv.zona.id }}">{{ serv.zona }}</a></span> /
             {% trans "Categoría" %}:
-            <span class="categorie">{{ serv.categoria }} </span>
+            <span class="category"><a href="/services/list/mine/by_category/{{ serv.categoria.id }}">{{ serv.categoria }}</a></span> /
             <span class="date"> {% trans "Publicado hace" %} {{ serv.pub_date|timesince }} </span>
-        </p>
+        </div>
+        <div class="gravatar">
+            <a href="{% url user-view user.id %}">
+                <img src="{% gravatar user.email 48 %}" alt="{{ user.username }}" title="{{ user.username }}"/>
+                {{ user.username }}
+            </a>
+        </div>
+        <a href="/services/view/{{ serv.id }}"><div class="description">{{ serv.descripcion|truncatewords:50|linebreaks }}</div></a>
+        <div class="cleaner"></div>
         <div class="buttons">
-            <a class="action" href="{%url serv-edit serv.id %}">{% trans "Modificar" %}</a>
-            <form method="POST" action="{% url serv-del serv.id %}"> {% csrf_token %}
-                <input class="action" name="delete" type="submit" value="{% trans "Eliminar" %}"/>
-            </form>
-            {% if serv.activo %}
-            <form method="POST" action="{% url serv-deactive serv.id %}"> {% csrf_token %}
-                <input class="action" name="deactive" type="submit" value="{% trans "Desactivar" %}"/>
-            </form>
+            {% if user.is_authenticated and serv.creador == user %}
+                <a class="action" href="{%url serv-edit serv.id %}">{% trans "Modificar" %}</a>
+                <form method="POST" action="{% url serv-del serv.id %}"> {% csrf_token %}
+                    <input class="action" name="delete" type="submit" value="{% trans "Eliminar" %}"/>
+                </form>
+                {% if serv.activo %}
+                    <form method="POST" action="{% url serv-deactive serv.id %}"> {% csrf_token %}
+                        <input class="action" name="deactive" type="submit" value="{% trans "Desactivar" %}"/>
+                    </form>
+                {% else %}
+                    <form method="POST" action="{% url serv-active serv.id %}"> {% csrf_token %}
+                        <input class="action" name="active" type="submit" value="{% trans "Activar" %}"/>
+                    </form>
+                {% endif %}
             {% else %}
-            <form method="POST" action="{% url serv-active serv.id %}"> {% csrf_token %}
-                <input class="action" name="active" type="submit" value="{% trans "Activar" %}"/>
-            </form>
             {% endif %}
         </div>
     </div>

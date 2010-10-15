@@ -3,18 +3,7 @@
 {% block subtitle %} {% trans 'Mis servicios' %} {% endblock %}
 
 {% block subcontent %}
-        <h3>{% trans "Servicios que ofertas actualmente:" %}</h3>
-        {% with serv_offer as servs %}
-        {% include "serv/listservs.html" %}
-        {% endwith %}
-
-        <h3>{% trans "Servicios que solicitas actualmente:" %}</h3>
-        {% with serv_request as servs %}
-        {% include "serv/listservs.html" %}
-        {% endwith %}
-
-        <h3>{% trans "Servicios que tienes inactivos:" %}</h3>
-        {% with serv_inactive as servs %}
+        {% with my_services as services %}
         {% include "serv/listservs.html" %}
         {% endwith %}
 {% endblock %}

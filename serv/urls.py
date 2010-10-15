@@ -15,10 +15,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls.defaults import *
-
+from django.views.generic.simple import redirect_to
 
 urlpatterns = patterns('serv.views2',
-    url(r'^$', 'myservices', name='serv-myservices'),
+    url(r'^$', redirect_to, {'url': 'list/mine/'}),
+    url(r'^list/mine/$', 'myservices', name='serv-myservices'),
     url(r'^add/$', 'add', name='serv-add'),
     url(r'^edit/(\d+)/$', 'edit', name='serv-edit'),
     url(r'^delete/(\d+)/$', 'delete', name='serv-del'),
