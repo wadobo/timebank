@@ -6,56 +6,9 @@
 
 {% block subcontent %}
     <h2>{% trans "Servicio" %}</h2>
-    <div class="serv {% if transfer.service.oferta %}offer{% else %}demand{% endif %} {% if not transfer.service.activo %}inactive{% endif %}">
-        <div class="information">
-            {% trans "Tipo" %}:
-            <span class="type">{% if transfer.service.oferta %}<a href="{% url serv-list %}?the_type=1">{% trans "oferta" %}{% else %}<a href="{% url serv-list %}?the_type=2">{% trans "demanda" %}{% endif %}</a></span> /
-            {% if not transfer.service.activo %}
-                <span class="inactive">{% trans "Inactiva"  %}</span> /
-            {% endif %}
-            {% trans "Zona" %}:
-            <span class="zone"><a href="{% url serv-list %}?area={{ transfer.service.zona.id }}">{{ transfer.service.zona }}</a></span> /
-            {% trans "Categoría" %}:
-            <span class="category"><a href="{% url serv-list %}?category={{ transfer.service.categoria.id }}">{{ transfer.service.categoria }}</a></span> /
-            <span class="date"> {% trans "Publicado hace" %} {{ transfer.service.pub_date|timesince }} </span>
-        </div>
-        <div class="gravatar">
-            <a href="{% url user-view transfer.service.creador.id %}">
-                <img src="{% gravatar transfer.service.creador.email 48 %}" alt="{{ transfer.service.creador.username }}" title="{{ transfer.service.creador.username }}"/>
-                {{ transfer.service.creador.username }}
-            </a>
-        </div>
-        <a href="/services/view/{{ transfer.service.id }}"><div class="description">{{ transfer.service.descripcion|truncatewords:50|linebreaks }}</div></a>
-        <div class="cleaner"></div>
-        <div class="information2">
-            <a href="{% url serv-list %}?the_type=2">{{ transfer.service.transfers_count }} {% trans "transferencias" %}</a> / {{ transfer.service.messages_count }} {% trans "comentarios" %} / {{ transfer.service.credits_transfered }} {% trans "créditos transferidos" %}
-        </div>
-        <div class="cleaner"></div>
-        <div class="buttons">
-            {% if user.is_authenticated and transfer.service.creador == user %}
-                <a class="action" href="{ % url serv-talk transfer.service.id % }">{% trans "Comentar" %}</a>
-                <a class="action" href="{% url serv-edit transfer.service.id %}">{% trans "Modificar" %}</a>
-                <form method="POST" action="{% url serv-del transfer.service.id %}"> {% csrf_token %}
-                    <input class="action" name="delete" type="submit" value="{% trans "Eliminar" %}"/>
-                </form>
-                {% if transfer.service.activo %}
-                    <form method="POST" action="{% url serv-deactive transfer.service.id %}"> {% csrf_token %}
-                        <input class="action" name="deactive" type="submit" value="{% trans "Desactivar" %}"/>
-                    </form>
-                {% else %}
-                    <form method="POST" action="{% url serv-active transfer.service.id %}"> {% csrf_token %}
-                        <input class="action" name="active" type="submit" value="{% trans "Activar" %}"/>
-                    </form>
-                {% endif %}
-            {% endif %}
-            {% if user.is_authenticated and transfer.service.creador != user %}
-                {% transfer_actions transfer.service %}
-                <a class="action" href="{ % url serv-talk transfer.service.id % }">{% trans "Comentar" %}</a>
-                <a class="action" href="{% url messages_compose_to transfer.service.creador.username %}">{% trans "Enviar mensaje privado a" %} {{ transfer.service.creador.username }}</a>
-            {% endif %}
-        </div>
-    </div>
-    <div class="cleaner"></div>
+    {% with transfer.service as serv %}
+        {% include "serv/single_service_view.html" %}
+    {% endwith %}
     <h2 style="margin-top: 30px">{% trans "Editar transferencia" %}</h2>
     <form method="POST">
         {% csrf_token %}

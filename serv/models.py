@@ -74,6 +74,10 @@ class Servicio(models.Model):
         from messages.models import Message
         return Message.objects.filter(service=self).count()
 
+    def messages(self):
+        from messages.models import Message
+        return Message.objects.filter(service=self)
+
     def credits_transfered(self):
         ret = self.transfers.filter(status='d').aggregate(models.Sum('credits'))
         return ret['credits__sum'] and ret['credits__sum'] or 0

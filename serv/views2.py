@@ -344,9 +344,19 @@ class CancelTransfer(ViewClass):
         self.flash(_("Transferencia cancelada"))
         return redirect('/')
 
+
+class ViewService(ViewClass):
+    @login_required
+    @csrf_protect
+    def GET(self, service_id):
+        service = get_object_or_404(Servicio, pk=service_id)
+        context = dict(service=service)
+        return self.context_response('serv/view_service.html', context)
+
 list_services = ListServices()
 add = AddService()
 edit = EditService()
+view = ViewService()
 delete = DeleteService()
 active = ActiveService()
 deactive = DeactiveService()

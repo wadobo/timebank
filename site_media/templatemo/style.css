@@ -743,6 +743,7 @@ div.new .info
 
 .services .serv .description:hover {
     background-color: #64D507;
+    color: white;
 }
 
 .services .serv.inactive .description:hover, .services .serv.demand.inactive .description:hover {
