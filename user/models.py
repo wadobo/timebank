@@ -65,4 +65,4 @@ class Profile(User):
     objects = UserManager() 
 
     def __eq__(self, value):
-        return self.id == value.id
+        return value and self.id == value.id or False

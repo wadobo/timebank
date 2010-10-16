@@ -72,8 +72,8 @@ class Register(ViewClass):
             u" <strong>%s</strong> confirmándote tu solicitud de inscripción."
             u" Tan pronto como nuestros administradores hayan revisado dicha"
             u" solicitud te avisaremos de nuevo por email y podrás empezar a"
-            u" disfrutar de este sistema." % (settings.SITE_NAME,
-            new_user.username, new_user.email)),
+            u" disfrutar de este sistema." % (new_user.username,
+                new_user.email)),
             title=_(u"Usuario creado correctamente"))
 
         return redirect('main.views.index')
