@@ -13,7 +13,7 @@
         <div class="pagination">
             <span class="step-links">
                 {% if services.has_previous %}
-                    <a href="?&page={{ form.as_url_args }}{{ services.previous_page_number }}">{% trans "anterior" %}</a>
+                    <a href="?{{ form.as_url_args }}&amp;page={{ services.previous_page_number }}">{% trans "anterior" %}</a>
                 {% endif %}
 
                 <span class="current">
@@ -22,8 +22,8 @@
                     {% endblocktrans %}
                 </span>
 
-                {% if contacts.has_next %}
-                    <a href="?&page={{ form.as_url_args }}{{ contacts.next_page_number }}">{% trans "siguiente" %}</a>
+                {% if services.has_next %}
+                    <a href="?{{ form.as_url_args }}&amp;page={{ services.next_page_number }}">{% trans "siguiente" %}</a>
                 {% endif %}
             </span>
         </div>

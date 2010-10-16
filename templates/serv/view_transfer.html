@@ -1,0 +1,21 @@
+{% extends "serv/base_transfer.html" %}
+{% load i18n %}
+{% block subtitle %}
+        {% trans "Ver transferencia" %}
+{% endblock %}
+
+{% block subcontent %}
+    {% include "serv/single_transfer_view.html" %}
+    <h2 style="margin-top: 30px">{% trans "Servicio que se transfiere" %}</h2>
+    {% with transfer.service as serv %}
+        {% include "serv/single_service_view.html" %}
+    {% endwith %}
+    <h2 style="margin-top: 30px">{% trans "Comentarios sobre el servicio" %}</h2>
+    {% for comment in transfer.service.comments %}
+        {% if comment.is_public or user.is_authenticated and comment.sender == user or user.is_authenticated and comment.recipient == user %}
+    <!--         { % include "serv/single_comment_view.html" % } -->
+        {% endif %}
+    {% empty %}
+        {% trans "Ningún comentario por ahora." %}
+    {% endfor %}
+{% endblock %}

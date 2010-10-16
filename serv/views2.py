@@ -222,11 +222,11 @@ class AddTransfer(ViewClass):
         if self.request.user.balance < settings.MIN_CREDIT and\
             service.oferta:
             self.flash(_(u"No tienes suficiente crédito"), 'error')
-            return redirect('/')
+            return redirect('serv-transfers-mine')
 
         if service.creador == self.request.user:
             self.flash(_(u"No puedes solicitarte un servicio a tí mismo"))
-            return redirect('/')
+            return redirect('serv-transfers-mine')
 
         if form.is_valid():
             transfer = form.save(commit=False)
@@ -244,14 +244,14 @@ class AddTransfer(ViewClass):
             if transfer.credits_payee.balance + transfer.credits > settings.MAX_CREDIT:
                 self.flash(_(u"La transferencia superaría el límite de"
                     u" crédito del receptor de créditos"), 'error')
-                return redirect('/')
+                return redirect('serv-transfers-mine')
 
             # Check user would not minimum min balance
             if transfer.credits_debtor.balance - transfer.credits < settings.MIN_CREDIT:
                 self.flash(_(u"La transferencia superaría el límite mínimo "
                     u"de crédito de la persona que recibiría el servicio"),
                     'error')
-                return redirect('/')
+                return redirect('serv-transfers-mine')
 
             # Check there's no current ongoing transfer for this service and
             # self.request.user
@@ -260,11 +260,11 @@ class AddTransfer(ViewClass):
                 service=service, status__in=['q', 'a']).count() > 0:
                 self.flash(_(u"Ya tienes una transferencia en curso para"
                     u" este servicio"),'error')
-                return redirect('/')
+                return redirect('serv-transfers-mine')
 
             transfer.save()
             self.flash(_(u"Transferencia creada correctamente"))
-            return redirect('/') #TODO transfers-list-mine
+            return redirect('serv-transfers-mine') #TODO transfers-list-mine
 
         context = dict(form=form, instance=None, current_tab="transfers",
             subtab="add", service=service)
@@ -279,11 +279,11 @@ class EditTransfer(ViewClass):
         if transfer.creator() != self.request.user:
             self.flash(_(u"No puedes modificar una transferencia que no sea tuya"),
                 "error")
-            return redirect('/')
+            return redirect('serv-transfers-mine')
         if transfer.status != "q":
             self.flash(_(u"Sólo se pueden modificar transferencias aun no aceptadas"),
                 "error")
-            return redirect('/')
+            return redirect('serv-transfers-mine')
         form = AddTransferForm(instance=transfer)
         context = dict(form=form, transfer=transfer, current_tab="transfers",
             subtab="mine")
@@ -296,11 +296,11 @@ class EditTransfer(ViewClass):
         if transfer.creator() != self.request.user:
             self.flash(_(u"No puedes modificar una transferencia que no sea"
                 " tuya"), "error")
-            return redirect('/')
+            return redirect('serv-transfers-mine')
         if transfer.status != "q":
             self.flash(_(u"Sólo se pueden modificar transferencias aun no"
                 " aceptadas"), "error")
-            return redirect('/')
+            return redirect('serv-transfers-mine')
 
         form = AddTransferForm(self.request.POST, instance=transfer)
         if form.is_valid():
@@ -309,18 +309,18 @@ class EditTransfer(ViewClass):
             if transfer.credits_payee.balance + transfer.credits > settings.MAX_CREDIT:
                 self.flash(_(u"La transferencia superaría el límite de"
                     u" crédito del receptor de créditos"), 'error')
-                return redirect('/')
+                return redirect('serv-transfers-mine')
 
             # Check user would not minimum min balance
             if transfer.credits_debtor.balance - transfer.credits < settings.MIN_CREDIT:
                 self.flash(_(u"La transferencia superaría el límite mínimo "
                     u"de crédito de la persona que recibiría el servicio"),
                     'error')
-                return redirect('/')
+                return redirect('serv-transfers-mine')
 
             transfer.save()
             self.flash(_(u"Transferencia modificada correctamente"))
-            return redirect('/')
+            return redirect('serv-transfers-mine')
         context = dict(form=form, transfer=transfer, current_tab="transfer",
             subtab="mine")
         return self.context_response('serv/edit_transfer.html', context)
@@ -334,15 +334,15 @@ class CancelTransfer(ViewClass):
             transfer.credits_payee != self.request.user:
             self.flash(_(u"No puedes cancelar una transferencia que no sea tuya"),
                 "error")
-            return redirect('/')
+            return redirect('serv-transfers-mine')
         if not transfer.status in ["q", "a"]:
             self.flash(_(u"Sólo se pueden modificar transferencias aun no realizadas"),
                 "error")
-            return redirect('/')
+            return redirect('serv-transfers-mine')
         transfer.status = "r"
         transfer.save()
         self.flash(_("Transferencia cancelada"))
-        return redirect('/')
+        return redirect('serv-transfers-mine')
 
 
 class ViewService(ViewClass):
@@ -352,6 +352,42 @@ class ViewService(ViewClass):
         service = get_object_or_404(Servicio, pk=service_id)
         context = dict(service=service)
         return self.context_response('serv/view_service.html', context)
+
+
+class ViewTransfer(ViewClass):
+    @csrf_protect
+    def GET(self, transfer_id):
+        transfer = get_object_or_404(Transfer, id=int(transfer_id))
+        if transfer.credits_debtor != self.request.user and\
+            transfer.credits_payee != self.request.user and\
+            not transfer.is_public:
+            self.flash(_(u"No tienes permisos para ver esta transferencia"))
+
+        context = dict(transfer=transfer, subtab="view")
+        return self.context_response('serv/view_transfer.html', context)
+
+class MyTransfers(ViewClass):
+    @login_required
+    @csrf_protect
+    def GET(self):
+        transfers = Transfer.objects.filter(
+            Q(credits_debtor=self.request.user)
+            |Q(credits_payee=self.request.user))
+
+        try:
+            page = int(self.request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+
+        paginator = Paginator(transfers, 25)
+        try:
+            transfers = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+            transfers = paginator.page(paginator.num_pages)
+
+        context = dict(transfers=transfers, subtab="mine")
+        return self.context_response('serv/view_transfers.html', context)
+
 
 list_services = ListServices()
 add = AddService()
@@ -363,3 +399,5 @@ deactive = DeactiveService()
 add_transfer = AddTransfer()
 edit_transfer = EditTransfer()
 cancel_transfer = CancelTransfer()
+view_transfer = ViewTransfer()
+my_transfers = MyTransfers()

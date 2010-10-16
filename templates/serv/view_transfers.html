@@ -1,0 +1,32 @@
+{% extends "serv/base_transfer.html" %}
+{% load i18n %}
+{% block subtitle %}
+        {% trans "Mis transferencias" %}
+{% endblock %}
+
+{% block subcontent %}
+    {% for transfer in transfers.object_list %}
+        {% if transfer.is_public or user.is_authenticated and transfer.credits_debtor == user or user.is_authenticated and transfer.credits_payee == user %}
+            {% include "serv/single_transfer_view.html" %}
+        {% endif %}
+    {% empty %}
+        {% trans "Ninguna transferencia por ahora." %}
+    {% endfor %}
+    <div class="pagination">
+            <span class="step-links">
+                {% if transfers.has_previous %}
+                    <a href="?page={{ transfers.previous_page_number }}">{% trans "anterior" %}</a>
+                {% endif %}
+
+                <span class="current">
+                    {% blocktrans with transfers.number as number and transfers.paginator.num_pages as num_pages %}
+                    Página {{ number }} de {{ num_pages }}
+                    {% endblocktrans %}
+                </span>
+
+                {% if transfers.has_next %}
+                    <a href="?page={{ transfers.next_page_number }}">{% trans "siguiente" %}</a>
+                {% endif %}
+            </span>
+        </div>
+{% endblock %}

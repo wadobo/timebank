@@ -8,7 +8,7 @@
                 {{ transfer.creator.username }}
             </a>
         </div>
-        <a href="{% url serv-transfer-edit transfer.id %}"><div class="description"><p>{{ transfer.description|linebreaks }}</p></div></a>
+        <a href="{% url serv-transfer-view transfer.id %}"><div class="description"><p>{{ transfer.description|linebreaks }}</p></div></a>
         <div class="cleaner"></div>
         <div class="information2">
             {{ transfer.credits }} {% trans "créditos" %} /

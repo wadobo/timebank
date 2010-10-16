@@ -18,10 +18,10 @@
                 {{ serv.creador.username }}
             </a>
         </div>
-        <a href="/services/view/{{ serv.id }}"><div class="description">{{ serv.descripcion|truncatewords:50|linebreaks }}</div></a>
+        <a href="{% url serv-view serv.id %}"><div class="description">{{ serv.descripcion|truncatewords:50|linebreaks }}</div></a>
         <div class="cleaner"></div>
         <div class="information2">
-            <a href="{% url serv-list %}?the_type=2">{{ serv.transfers_count }} {% trans "transferencias" %}</a> / {{ serv.messages_count }} {% trans "comentarios" %} / {{ serv.credits_transfered }} {% trans "créditos transferidos" %}
+            {{ serv.transfers_count }} {% trans "transferencias" %} / {{ serv.messages_count }} {% trans "comentarios" %} / {{ serv.credits_transfered }} {% trans "créditos transferidos" %}
         </div>
         <div class="cleaner"></div>
         <div class="buttons">
