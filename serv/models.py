@@ -23,6 +23,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
 from user.models import Profile
+from django.db.models import Q
 
 class Zona(models.Model):
 
@@ -66,6 +67,18 @@ class Servicio(models.Model):
 
     def cortaServicio(self):
         return "%s..." % self.descripcion[:50]
+
+    def transfers_count(self):
+        return self.transfers.count()
+
+    def messages_count(self):
+        from messages.models import Message
+        return Message.objects.filter(Q(service=self) |
+            Q(transfer__service=self)).count()
+
+    def credits_transfered(self):
+        ret = self.transfers.filter(status='d').aggregate(models.Sum('credits'))
+        return ret['credits__sum'] and ret['credits__sum'] or 0
 
     class Meta:
         ordering = ('-pub_date', )
@@ -190,12 +203,12 @@ TRANSFER_STATUS = (
 
 class Transfer(models.Model):
     # Person receiving the credits (and giving the service)
-    credits_payee = relation(Profile, backref='transfers_received',
-        order_by=id)
+    credits_payee = models.ForeignKey(Profile, related_name='transfers_received')
 
     # Person giving the credits (and receiving the service)
-    credits_debtor = relation(Profile, backref='transfers_given',
-        order_by=id)
+    credits_debtor = models.ForeignKey(Profile, related_name='transfers_given')
+
+    service = models.ForeignKey(Servicio, related_name='transfers')
 
     # Small description for the received service
     description = models.TextField(_(u"Descripción"), max_length=300)
@@ -207,6 +220,8 @@ class Transfer(models.Model):
         " transferencia"))
 
     status = models.CharField(_(u"Estado"), max_length=1, choices=TRANSFER_STATUS)
+
+    is_public = models.BooleanField(_(u"Transferencia pública"), default=False)
 
     # credits in minutes
     credits = models.PositiveIntegerField(_(u"Créditos"))

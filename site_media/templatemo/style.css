@@ -658,7 +658,7 @@ div.new .info
 /* Services */
 
 .services .serv .buttons {
-    border-top: 1px dotted #ddd;
+/*     border-top: 1px dotted #ddd; */
     margin-top: 0;
 }
 
@@ -670,6 +670,17 @@ div.new .info
 }
 
 .services .serv .information a:hover, .services .serv .buttons .action:hover {
+    text-decoration: underline;
+}
+
+.services .serv .information2 a {
+    text-decoration: none;
+    color: #4061C2;
+    font: 100% verdana,arial,sans-serif;
+    font-weight: none;
+}
+
+.services .serv .information2 a:hover {
     text-decoration: underline;
 }
 
@@ -780,7 +791,13 @@ div.new .info
 .services .serv .information {
     text-align: right;
     border-bottom: 1px solid #ddd;
+/*     border-top: 1px solid #ddd; */
     margin-bottom: 7px;
+}
+
+.services .serv .information2 {
+    border-top: 1px solid #ddd;
+    float: left;
 }
 
 ul.view-profile {

@@ -21,6 +21,9 @@
         </div>
         <a href="/services/view/{{ serv.id }}"><div class="description">{{ serv.descripcion|truncatewords:50|linebreaks }}</div></a>
         <div class="cleaner"></div>
+        <div class="information2">
+            <a href="{% url serv-list %}?the_type=2">{{ serv.transfers_count }} {% trans "transferencias" %}</a> / {{ serv.messages_count }} {% trans "comentarios" %} / {{ serv.credits_transfered }} {% trans "créditos transferidos" %}
+        </div>
         <div class="buttons">
             {% if user.is_authenticated and serv.creador == user %}
                 <a class="action" href="{%url serv-edit serv.id %}">{% trans "Modificar" %}</a>
