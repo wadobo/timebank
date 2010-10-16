@@ -78,6 +78,14 @@ class Servicio(models.Model):
         ret = self.transfers.filter(status='d').aggregate(models.Sum('credits'))
         return ret['credits__sum'] and ret['credits__sum'] or 0
 
+    def ongoing_transfers(self, user):
+        if self.oferta:
+            return Transfer.objects.filter(credits_debtor=user, service=self,
+                status__in=["q", "a"])
+        else:
+            return Transfer.objects.filter(credits_payee=user, service=self,
+                status__in=["q", "a"])
+
     class Meta:
         ordering = ('-pub_date', )
 

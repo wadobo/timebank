@@ -202,6 +202,9 @@ class AddTransfer(ViewClass):
     @csrf_protect
     def GET(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
+        ongoing_transfers = service.ongoing_transfers(self.request.user)
+        if ongoing_transfers:
+            return redirect("serv-transfer-edit", ongoing_transfers[0].id)
         form = AddTransferForm()
         context = dict(form=form, current_tab="transfers", subtab="add",
             service=service)
@@ -211,6 +214,9 @@ class AddTransfer(ViewClass):
     @csrf_protect
     def POST(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
+        ongoing_transfers = service.ongoing_transfers(self.request.user)
+        if ongoing_transfers:
+            return redirect("serv-transfer-edit", ongoing_transfers[0].id)
         form = AddTransferForm(data=self.request.POST)
         # Check user would not surpass min balance
         if self.request.user.balance < settings.MIN_CREDIT and\
@@ -319,6 +325,25 @@ class EditTransfer(ViewClass):
             subtab="mine")
         return self.context_response('serv/edit_transfer.html', context)
 
+class CancelTransfer(ViewClass):
+    @login_required
+    @csrf_protect
+    def GET(self, transfer_id):
+        transfer = get_object_or_404(Transfer, pk=transfer_id)
+        if transfer.credits_debtor != self.request.user and\
+            transfer.credits_payee != self.request.user:
+            self.flash(_(u"No puedes cancelar una transferencia que no sea tuya"),
+                "error")
+            return redirect('/')
+        if not transfer.status in ["q", "a"]:
+            self.flash(_(u"Sólo se pueden modificar transferencias aun no realizadas"),
+                "error")
+            return redirect('/')
+        transfer.status = "r"
+        transfer.save()
+        self.flash(_("Transferencia cancelada"))
+        return redirect('/')
+
 list_services = ListServices()
 add = AddService()
 edit = EditService()
@@ -327,3 +352,4 @@ active = ActiveService()
 deactive = DeactiveService()
 add_transfer = AddTransfer()
 edit_transfer = EditTransfer()
+cancel_transfer = CancelTransfer()

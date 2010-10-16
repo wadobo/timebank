@@ -1,3 +1,4 @@
+
 {% load i18n %}
 {% for serv in services.object_list %}
     <div class="serv {% if serv.oferta %}offer{% else %}demand{% endif %} {% if not serv.activo %}inactive{% endif %}">
@@ -24,9 +25,11 @@
         <div class="information2">
             <a href="{% url serv-list %}?the_type=2">{{ serv.transfers_count }} {% trans "transferencias" %}</a> / {{ serv.messages_count }} {% trans "comentarios" %} / {{ serv.credits_transfered }} {% trans "créditos transferidos" %}
         </div>
+        <div class="cleaner"></div>
         <div class="buttons">
             {% if user.is_authenticated and serv.creador == user %}
-                <a class="action" href="{%url serv-edit serv.id %}">{% trans "Modificar" %}</a>
+                <a class="action" href="{ % url serv-talk serv.id % }">{% trans "Comentar" %}</a>
+                <a class="action" href="{% url serv-edit serv.id %}">{% trans "Modificar" %}</a>
                 <form method="POST" action="{% url serv-del serv.id %}"> {% csrf_token %}
                     <input class="action" name="delete" type="submit" value="{% trans "Eliminar" %}"/>
                 </form>
@@ -39,7 +42,11 @@
                         <input class="action" name="active" type="submit" value="{% trans "Activar" %}"/>
                     </form>
                 {% endif %}
-            {% else %}
+            {% endif %}
+            {% if user.is_authenticated and serv.creador != user %}
+                {% transfer_actions serv %}
+                <a class="action" href="{ % url serv-talk serv.id % }">{% trans "Comentar" %}</a>
+                <a class="action" href="{% url messages_compose_to serv.creador.username %}">{% trans "Enviar mensaje privado a" %} {{ serv.creador.username }}</a>
             {% endif %}
         </div>
     </div>

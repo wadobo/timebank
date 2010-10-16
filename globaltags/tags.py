@@ -64,3 +64,15 @@ def current_tab(context, tab, var="current_tab"):
         return {"value": "current"}
     else:
         return {"value": ""}
+
+@register.inclusion_tag("serv/service_transfer_actions.html",\
+    takes_context=True)
+def transfer_actions(context, service):
+    '''
+    Renders actions for a given service if any. Assumes user is authenticated
+    '''
+    ongoing_transfers = service.ongoing_transfers(context["user"])
+    if ongoing_transfers:
+        return {"transfer": ongoing_transfers[0]}
+    else:
+        return {"service": service}

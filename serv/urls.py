@@ -17,7 +17,7 @@
 from django.conf.urls.defaults import *
 from django.views.generic.simple import redirect_to
 from views2 import (list_services, add, edit, delete, active, deactive,
-    add_transfer, edit_transfer)
+    add_transfer, edit_transfer, cancel_transfer)
 
 urlpatterns = patterns('',
     url(r'^$', redirect_to, {'url': 'list/?mine=true'}, name="serv-myservices"),
@@ -29,5 +29,6 @@ urlpatterns = patterns('',
     url(r'^deactive/(\d+)/$', deactive, name='serv-deactive'),
     url(r'^transfer/add/(\d+)/$', add_transfer, name='serv-transfer-add'),
     url(r'^transfer/edit/(\d+)/$', edit_transfer, name='serv-transfer-edit'),
+    url(r'^transfer/cancel/(\d+)/$', cancel_transfer, name='serv-transfer-cancel'),
     #url(r'^talk/(\d+)/$', talk, name='serv-talk'),
 )
