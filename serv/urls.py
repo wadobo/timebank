@@ -19,7 +19,7 @@ from django.views.generic.simple import redirect_to
 from views2 import list_services, add, edit, delete, active, deactive
 
 urlpatterns = patterns('',
-    url(r'^$', redirect_to, {'url': 'list/?mine=true'}),
+    url(r'^$', redirect_to, {'url': 'list/?mine=true'}, name="serv-myservices"),
     url(r'^list/.*$', list_services, name='serv-list'),
     url(r'^add/$', add, name='serv-add'),
     url(r'^edit/(\d+)/$', edit, name='serv-edit'),
