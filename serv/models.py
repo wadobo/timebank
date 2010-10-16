@@ -18,8 +18,11 @@
 
 
 from django.db import models
+from sqlalchemy.orm import relation, backref
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext as _
 
+from user.models import Profile
 
 class Zona(models.Model):
 
@@ -177,3 +180,38 @@ class MensajeA(Mensaje):
 
         verbose_name = "Mensaje con la administración"
         verbose_name_plural = "Mensajes con la administración"
+
+
+TRANSFER_STATUS = (
+    ('q', _('Transferencia solicitada')), # q for reQuest
+    ('r', _('Transferencia rechazada')), # r for Rejected
+    ('d', _('Transferencia realizada')), # d for Done
+)
+
+class Transfer(models.Model):
+    # Person receiving the credits (and giving the service)
+    credits_payee = relation(Profile, backref='transfers_received',
+        order_by=id)
+
+    # Person giving the credits (and receiving the service)
+    credits_debtor = relation(Profile, backref='transfers_given',
+        order_by=id)
+
+    # Small description for the received service
+    description = models.TextField(_(u"Descripción"), max_length=300)
+
+    request_date = models.DateTimeField(_("Fecha de solicitud de transferencia"), auto_now=True,
+        auto_now_add=True)
+
+    confirmation_date = models.DateTimeField(_(u"Fecha de confirmación de"
+        " transferencia"))
+
+    status = models.CharField(_(u"Estado"), max_length=1, choices=TRANSFER_STATUS)
+
+    # credits in minutes
+    credits = models.PositiveIntegerField(_(u"Créditos"))
+
+    #TODO: Add here a rating of the service, set by the payee of course
+
+    class meta:
+        ordering = ['-request_date']
