@@ -14,9 +14,9 @@
             <span class="date"> {% trans "Publicado hace" %} {{ serv.pub_date|timesince }} </span>
         </div>
         <div class="gravatar">
-            <a href="{% url user-view user.id %}">
-                <img src="{% gravatar user.email 48 %}" alt="{{ user.username }}" title="{{ user.username }}"/>
-                {{ user.username }}
+            <a href="{% url user-view serv.creador.id %}">
+                <img src="{% gravatar serv.creador.email 48 %}" alt="{{ serv.creador.username }}" title="{{ serv.creador.username }}"/>
+                {{ serv.creador.username }}
             </a>
         </div>
         <a href="/services/view/{{ serv.id }}"><div class="description">{{ serv.descripcion|truncatewords:50|linebreaks }}</div></a>
