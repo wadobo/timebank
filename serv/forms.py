@@ -16,11 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from serv.models import Servicio, ContactoIntercambio, MensajeI, Zona, Categoria
+
 from django.utils.translation import ugettext as _
 from django import forms
 import urllib
 from django.forms.widgets import RadioSelect, CheckboxSelectMultiple
+from django.shortcuts import get_object_or_404
+from django.conf import settings
+
+from serv.models import (Servicio, ContactoIntercambio, MensajeI, Zona,
+    Categoria, Transfer)
+from utils import FormCharField
 
 class CustomCharField(forms.CharField):
 
@@ -84,6 +90,25 @@ class ListServicesForm(forms.Form):
 
     def as_url_args(self):
         return urllib.urlencode(self.data)
+
+class AddTransferForm(forms.ModelForm):
+    credits = FormCharField(label=_(u"Créditos"), required=True, max_length=3,
+        help_text=_(u"En minutos. Ejemplo: 60, 30, 120"))
+
+    class Meta:
+        model = Transfer
+        fields = ['description', 'is_public', 'credits']
+
+    def clean_credits(self):
+        credits = self.cleaned_data["credits"]
+        try:
+            credits = int(credits)
+        except ValueError:
+            raise forms.ValidationError(_(u"Número inválido"))
+        if credits < 0 or credits > settings.MAX_CREDITS_PER_TRANSFER:
+            raise forms.ValidationError(u"Límite de créditos sobrepasado")
+        return credits
+
 
 class ContactoIForm(forms.ModelForm):
 

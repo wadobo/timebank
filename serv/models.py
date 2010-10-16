@@ -23,7 +23,6 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
 from user.models import Profile
-from django.db.models import Q
 
 class Zona(models.Model):
 
@@ -47,7 +46,7 @@ class Categoria(models.Model):
 
 class Servicio(models.Model):
 
-    creador = models.ForeignKey(User, related_name="creador")
+    creador = models.ForeignKey(Profile, related_name="creador")
     #Si es una oferta=true, si es demanda=false
     oferta = models.BooleanField()
     pub_date = models.DateTimeField("Fecha de publicación",
@@ -73,8 +72,7 @@ class Servicio(models.Model):
 
     def messages_count(self):
         from messages.models import Message
-        return Message.objects.filter(Q(service=self) |
-            Q(transfer__service=self)).count()
+        return Message.objects.filter(service=self).count()
 
     def credits_transfered(self):
         ret = self.transfers.filter(status='d').aggregate(models.Sum('credits'))
@@ -197,6 +195,7 @@ class MensajeA(Mensaje):
 
 TRANSFER_STATUS = (
     ('q', _('Transferencia solicitada')), # q for reQuest
+    ('a', _('Transferencia aceptada')), # a for Accepted
     ('r', _('Transferencia rechazada')), # r for Rejected
     ('d', _('Transferencia realizada')), # d for Done
 )
@@ -217,7 +216,7 @@ class Transfer(models.Model):
         auto_now_add=True)
 
     confirmation_date = models.DateTimeField(_(u"Fecha de confirmación de"
-        " transferencia"))
+        " transferencia"),null=True)
 
     status = models.CharField(_(u"Estado"), max_length=1, choices=TRANSFER_STATUS)
 
@@ -230,3 +229,11 @@ class Transfer(models.Model):
 
     class meta:
         ordering = ['-request_date']
+
+    def creator(self):
+        '''
+        Transfers are related to services. IF a service is an offer, then the
+        person creating the transfer is the debtor of credits, else it's the
+        payee.
+        '''
+        return self.service.oferta and self.credits_debtor or self.credits_payee
