@@ -1,0 +1,70 @@
+[
+  {
+    "fields": {
+      "domain": "1984.lsi.us.es/bdt", 
+      "name": "Ecolocal"
+    }, 
+    "model": "sites.site", 
+    "pk": 1
+  },
+  {
+    "fields": {
+      "content": "<p>Acerca del <strong>banco del tiempo</strong></p>", 
+      "enable_comments": false, 
+      "registration_required": false, 
+      "sites": [
+        1
+      ], 
+      "template_name": "", 
+      "title": "Acerca de", 
+      "url": "/about/"
+    }, 
+    "model": "flatpages.flatpage", 
+    "pk": 1
+  }, 
+  {
+    "fields": {
+      "content": "", 
+      "enable_comments": false, 
+      "registration_required": false, 
+      "sites": [
+        1
+      ], 
+      "template_name": "", 
+      "title": "Desarrollo", 
+      "url": "/dev/"
+    }, 
+    "model": "flatpages.flatpage", 
+    "pk": 3
+  }, 
+  {
+    "fields": {
+      "content": "", 
+      "enable_comments": false, 
+      "registration_required": false, 
+      "sites": [
+        1
+      ], 
+      "template_name": "", 
+      "title": "Preguntas frequentes", 
+      "url": "/faq/"
+    }, 
+    "model": "flatpages.flatpage", 
+    "pk": 4
+  }, 
+  {
+    "fields": {
+      "content": "", 
+      "enable_comments": false, 
+      "registration_required": false, 
+      "sites": [
+        1
+      ], 
+      "template_name": "", 
+      "title": "Condiciones de uso", 
+      "url": "/tos/"
+    }, 
+    "model": "flatpages.flatpage", 
+    "pk": 2
+  }, 
+]

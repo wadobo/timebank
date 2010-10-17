@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load flashmsg %}
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="es">
@@ -128,12 +129,11 @@
      <div id="footer">
             <ul class="footer_menu">
                 <li><a href="/" class="{% current_tab 'default' %}">{% trans "Home" %}</a></li>
-                <li><a href="{% url static-faq %}" class="{% current_tab 'faq' %}">{% trans "Preguntas Frecuentes" %}</a></li>
                 <li><a href="{% url news %}" class="{% current_tab 'news' %}">{% trans "Blog" %}</a></li>
-                <li><a href="{% url static-about %}" class="{% current_tab 'about' %}">{% trans "Acerca de" %}</a></li>
                 <li><a href="{% url contact %}" class="{% current_tab 'contact' %}">{% trans "Contacta" %}</a></li>
-                <li><a href="{% url static-dev %}" class="{% current_tab 'dev' %}">{% trans "Desarrollo" %}</a></li>
-                <li class="last_menu"><a href="{% url static-tos %}" class="{% current_tab 'tos' %}">{% trans "Condiciones de Uso" %}</a></li>
+                {% for page in flatpages %}
+                    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                {% endfor %}
             </ul>
         </div>
     </body>

@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*- 
-# Copyright (C) 2009 Tim Gaggstatter <Tim.Gaggstatter AT gmx DOT net>
-# Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
+# -*- coding: utf-8 -*-
+# Copyright (C) 2010 Daniel Garcia Moreno <dani@danigm.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,10 +14,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls.defaults import *
-from django.conf import settings
 
-urlpatterns = patterns('main.views',
-    url(r'^contact/$', 'contact', name="contact"),
-    (r'^/?$', 'index'),
-)
+from django.contrib import admin
+from django.contrib.flatpages.models import FlatPage
+from django.db import models
+from tinymce.widgets import AdminTinyMCE
+
+
+class FlatPageAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.TextField: {'widget': AdminTinyMCE},
+    }
+
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, FlatPageAdmin)

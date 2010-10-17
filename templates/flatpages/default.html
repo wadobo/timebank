@@ -1,0 +1,18 @@
+{% extends "template_base.html" %}
+{% load i18n %}
+
+{% block title %}
+{{ flatpage.title }}
+{% endblock %}
+
+{% block content %}
+<h1>
+{{ flatpage.title }}
+</h1>
+
+{% if user.is_staff %}
+<a href="{% url admin:flatpages_flatpage_change flatpage.id %}">{% trans "Editar" %}</a>
+{% endif %}
+
+{{ flatpage.content }}
+{% endblock %}

@@ -19,6 +19,8 @@ from django.conf import settings
 from user.models import Profile
 from news.models import New
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.flatpages.models import FlatPage
+
 
 def base(request):
     '''
@@ -37,5 +39,6 @@ def base(request):
         'session': request.session,
         'login_form': login_form,
         'current_tab': 'default',
+        'flatpages': FlatPage.objects.all(),
         'show_news': False
     }
