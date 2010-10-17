@@ -26,6 +26,7 @@ from django.conf import settings
 
 from serv.models import (Servicio, ContactoIntercambio, MensajeI, Zona,
     Categoria, Transfer)
+from messages.models import Message
 from utils import FormCharField
 
 class CustomCharField(forms.CharField):
@@ -109,6 +110,10 @@ class AddTransferForm(forms.ModelForm):
             raise forms.ValidationError(u"Límite de créditos sobrepasado")
         return credits
 
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['body', 'is_public']
 
 class ContactoIForm(forms.ModelForm):
 

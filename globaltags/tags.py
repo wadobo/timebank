@@ -76,3 +76,10 @@ def transfer_actions(context, service):
         return {"transfer": ongoing_transfers[0]}
     else:
         return {"service": service}
+
+@register.filter
+def limit_results(objects_list, limit=10):
+    if not objects_list:
+        return objects_list
+
+    return objects_list[:limit]

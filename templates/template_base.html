@@ -77,7 +77,6 @@
                             </div>
                         </div>
                     {% else %}
-                    <!-- TODO: Show transfers, or info about the user... -->
                         <div class="top">
                             <h1>{{ user.username }}</h1>
                             <span class="title">
@@ -87,6 +86,7 @@
                         <div class="middle">
                             <div class="bottom">
                                 <img src="{% gravatar user.email 80 %}" alt="{{ user.username }}" title="{{ user.username }}"/>
+                                {% trans "Crédito" %}: <strong>{% user.balance %}</strong>
                             </div>
                         </div>
                     {% endif %}

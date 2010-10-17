@@ -11,11 +11,21 @@
         {% include "serv/single_service_view.html" %}
     {% endwith %}
     <h2 style="margin-top: 30px">{% trans "Comentarios sobre el servicio" %}</h2>
-    {% for comment in transfer.service.comments %}
+    {% for comment in transfer.service.messages.all|limit_results %}
         {% if comment.is_public or user.is_authenticated and comment.sender == user or user.is_authenticated and comment.recipient == user %}
-    <!--         { % include "serv/single_comment_view.html" % } -->
+            {% include "serv/single_comment_view.html" %}
         {% endif %}
     {% empty %}
         {% trans "Ningún comentario por ahora." %}
+    {% endfor %}
+    <h2 style="margin-top: 30px">{% trans "Otras transferencias del servicio" %}</h2>
+    {% for transfer2 in transfer.service.transfers.all|limit_results %}
+        {% if transfer2 != transfer %}{% with transfer2 as transfer %}
+            {% if transfer.is_public or user.is_authenticated and transfer.credits_debtor == user or user.is_authenticated and transfer.credits_payee == user %}
+                {% include "serv/single_transfer_view2.html" %}
+            {% endif %}
+        {% endwith %}{% endif %}
+    {% empty %}
+        {% trans "Ninguna transferencia por ahora." %}
     {% endfor %}
 {% endblock %}

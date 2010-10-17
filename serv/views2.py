@@ -31,9 +31,9 @@ from serv.models import (Servicio, Zona, Categoria,
                          ContactoIntercambio, MensajeI,
                          ContactoAdministracion, MensajeA, Transfer)
 from serv.forms import (ServiceForm, ContactoIForm, MensajeIForm,
-    ListServicesForm, AddTransferForm)
+    ListServicesForm, AddTransferForm, AddCommentForm)
 from user.models import Profile
-
+from messages.models import Message
 
 class ListServices(ViewClass):
     @login_required
@@ -362,9 +362,11 @@ class ViewTransfer(ViewClass):
             transfer.credits_payee != self.request.user and\
             not transfer.is_public:
             self.flash(_(u"No tienes permisos para ver esta transferencia"))
+            return redirect('/')
 
         context = dict(transfer=transfer, subtab="view")
         return self.context_response('serv/view_transfer.html', context)
+
 
 class MyTransfers(ViewClass):
     @login_required
@@ -389,6 +391,57 @@ class MyTransfers(ViewClass):
         return self.context_response('serv/view_transfers.html', context)
 
 
+class AddComment(ViewClass):
+    @login_required
+    @csrf_protect
+    def GET(self, service_id):
+        service = get_object_or_404(Servicio, pk=service_id)
+        form = AddCommentForm()
+        context = dict(form=form, service=service, current_tab="services",
+            subtab="comment")
+        return self.context_response('serv/service_add_comment.html', context)
+
+    @login_required
+    @csrf_protect
+    def POST(self, service_id):
+        service = get_object_or_404(Servicio, pk=service_id)
+        if not service.activo:
+            self.flash(_(u"No se pueden comentar servicios inactivos"))
+            return redirect('/')
+
+        form = AddCommentForm(self.request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = self.request.user
+            message.recipient = service.creador
+            message.service = service
+            message.save()
+            self.flash(_(u"Comentario añadido correctamente"))
+            return redirect('serv-view', message.service.id)
+        context = dict(form=form, current_tab="services",
+            subtab="comment")
+        return self.context_response('serv/service_add_comment.html', context)
+
+
+class DeleteComment(ViewClass):
+    @login_required
+    @csrf_protect
+    def GET(self, comment_id):
+        message = get_object_or_404(Message, pk=comment_id)
+        if not message.service:
+            self.flash(_(u"El mensaje que intenta borrar no es un comentario"))
+            return redirect('/')
+
+        service = message.service
+        if message.sender.id != self.request.user.id:
+            self.flash(_(u"No puedes borrar un mensaje que no sea tuyo"))
+        else:
+            message.delete()
+            self.flash(_(u"Comentario borrado correctamente"))
+
+        return redirect('serv-view', service.id)
+
+
 list_services = ListServices()
 add = AddService()
 edit = EditService()
@@ -401,3 +454,5 @@ edit_transfer = EditTransfer()
 cancel_transfer = CancelTransfer()
 view_transfer = ViewTransfer()
 my_transfers = MyTransfers()
+add_comment = AddComment()
+delete_comment = DeleteComment()
