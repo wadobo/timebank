@@ -70,6 +70,9 @@ class Servicio(models.Model):
     def transfers_count(self):
         return self.transfers.count()
 
+    def sorted_transfers(self):
+        return self.transfers.order_by('-request_date')
+
     def messages_count(self):
         from messages.models import Message
         return Message.objects.filter(service=self).count()

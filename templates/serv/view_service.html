@@ -9,7 +9,7 @@
     {% include "serv/single_service_view.html" %}
 {% endwith %}
 <h2 style="margin-top: 30px">{% trans "Transferencias del servicio" %}</h2>
-{% for transfer in service.transfers.all|limit_results %}
+{% for transfer in service.sorted_transfers|limit_results %}
     {% if transfer.is_public or user.is_authenticated and transfer.credits_debtor == user or user.is_authenticated and transfer.credits_payee == user %}
         {% include "serv/single_transfer_view2.html" %}
     {% endif %}

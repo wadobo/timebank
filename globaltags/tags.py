@@ -50,7 +50,8 @@ def truncate_chars(string, max_pos=75, ellipsis=True):
     takes_context=True)
 def num_unread_messages(context):
     user = context['user']
-    unread_messages_count = Message.objects.inbox_for(user).count()
+    unread_messages_count = Message.objects.inbox_for(user)\
+        .filter(read_at__isnull=True).count()
     value = "<small>%s</small>" % unread_messages_count
     return {"value": value}
 

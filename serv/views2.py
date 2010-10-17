@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from utils import ViewClass
+from datetime import datetime
 
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404
@@ -325,6 +326,7 @@ class EditTransfer(ViewClass):
             subtab="mine")
         return self.context_response('serv/edit_transfer.html', context)
 
+
 class CancelTransfer(ViewClass):
     @login_required
     @csrf_protect
@@ -345,6 +347,79 @@ class CancelTransfer(ViewClass):
         return redirect('serv-transfers-mine')
 
 
+class AcceptTransfer(ViewClass):
+    @login_required
+    @csrf_protect
+    def GET(self, transfer_id):
+        transfer = get_object_or_404(Transfer, pk=transfer_id)
+
+        # Check user would not surpass max balance
+        if transfer.credits_payee.balance + transfer.credits > settings.MAX_CREDIT:
+            self.flash(_(u"La transferencia superaría el límite de"
+                u" crédito del receptor de créditos"), 'error')
+            return redirect('serv-transfers-mine')
+
+        # Check user would not minimum min balance
+        if transfer.credits_debtor.balance - transfer.credits < settings.MIN_CREDIT:
+            self.flash(_(u"La transferencia superaría el límite mínimo "
+                u"de crédito de la persona que recibiría el servicio"),
+                'error')
+            return redirect('serv-transfers-mine')
+
+        if transfer.service.creador != self.request.user:
+            self.flash(_(u"No puedes aceptar una transferencia de un servicio"
+                " que no sea tuyo"), "error")
+            return redirect('serv-transfers-mine')
+
+        if transfer.status != "q":
+            self.flash(_(u"Sólo se pueden modificar transferencias aun no realizadas"),
+                "error")
+            return redirect('serv-transfers-mine')
+        transfer.status = "a"
+        transfer.save()
+        self.flash(_("Transferencia aceptada"))
+        return redirect('serv-transfers-mine')
+
+
+class ConfirmTransfer(ViewClass):
+    @login_required
+    @csrf_protect
+    def GET(self, transfer_id):
+        transfer = get_object_or_404(Transfer, pk=transfer_id)
+
+        # Check user would not surpass max balance
+        if transfer.credits_payee.balance + transfer.credits > settings.MAX_CREDIT:
+            self.flash(_(u"La transferencia superaría el límite de"
+                u" crédito del receptor de créditos"), 'error')
+            return redirect('serv-transfers-mine')
+
+        # Check user would not minimum min balance
+        if transfer.credits_debtor.balance - transfer.credits < settings.MIN_CREDIT:
+            self.flash(_(u"La transferencia superaría el límite mínimo "
+                u"de crédito de la persona que recibiría el servicio"),
+                'error')
+            return redirect('serv-transfers-mine')
+
+        if transfer.service.creador != self.request.user:
+            self.flash(_(u"No puedes confirmar una transferencia de un"
+                " servicio que no sea tuyo"), "error")
+            return redirect('serv-transfers-mine')
+
+        if transfer.status != "a":
+            self.flash(_(u"Sólo se pueden confirmar transferencias aceptadas"),
+                "error")
+            return redirect('serv-transfers-mine')
+        transfer.status = "d"
+        transfer.confirmation_date = datetime.now()
+        transfer.credits_debtor.balance -= transfer.credits
+        transfer.credits_payee.balance += transfer.credits
+        transfer.credits_debtor.save()
+        transfer.credits_payee.save()
+        transfer.save()
+        self.flash(_("Transferencia aceptada"))
+        return redirect('serv-transfers-mine')
+
+
 class ViewService(ViewClass):
     @login_required
     @csrf_protect
@@ -361,7 +436,8 @@ class ViewTransfer(ViewClass):
         if transfer.credits_debtor != self.request.user and\
             transfer.credits_payee != self.request.user and\
             not transfer.is_public:
-            self.flash(_(u"No tienes permisos para ver esta transferencia"))
+            self.flash(_(u"No tienes permisos para ver esta transferencia"),
+                "error")
             return redirect('/')
 
         context = dict(transfer=transfer, subtab="view")
@@ -374,7 +450,7 @@ class MyTransfers(ViewClass):
     def GET(self):
         transfers = Transfer.objects.filter(
             Q(credits_debtor=self.request.user)
-            |Q(credits_payee=self.request.user))
+            |Q(credits_payee=self.request.user)).order_by('-request_date')
 
         try:
             page = int(self.request.GET.get('page', '1'))
@@ -406,7 +482,8 @@ class AddComment(ViewClass):
     def POST(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         if not service.activo:
-            self.flash(_(u"No se pueden comentar servicios inactivos"))
+            self.flash(_(u"No se pueden comentar servicios inactivos"),
+                "error")
             return redirect('/')
 
         form = AddCommentForm(self.request.POST)
@@ -429,12 +506,14 @@ class DeleteComment(ViewClass):
     def GET(self, comment_id):
         message = get_object_or_404(Message, pk=comment_id)
         if not message.service:
-            self.flash(_(u"El mensaje que intenta borrar no es un comentario"))
+            self.flash(_(u"El mensaje que intenta borrar no es un comentario"),
+                "error")
             return redirect('/')
 
         service = message.service
         if message.sender.id != self.request.user.id:
-            self.flash(_(u"No puedes borrar un mensaje que no sea tuyo"))
+            self.flash(_(u"No puedes borrar un mensaje que no sea tuyo"),
+                "error")
         else:
             message.delete()
             self.flash(_(u"Comentario borrado correctamente"))
@@ -452,6 +531,8 @@ deactive = DeactiveService()
 add_transfer = AddTransfer()
 edit_transfer = EditTransfer()
 cancel_transfer = CancelTransfer()
+accept_transfer = AcceptTransfer()
+confirm_transfer = ConfirmTransfer()
 view_transfer = ViewTransfer()
 my_transfers = MyTransfers()
 add_comment = AddComment()

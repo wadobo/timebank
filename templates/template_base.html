@@ -86,7 +86,7 @@
                         <div class="middle">
                             <div class="bottom">
                                 <img src="{% gravatar user.email 80 %}" alt="{{ user.username }}" title="{{ user.username }}"/>
-                                {% trans "Crédito" %}: <strong>{% user.balance %}</strong>
+                                {% trans "Crédito" %}: <strong>{{ user.balance }}</strong>
                             </div>
                         </div>
                     {% endif %}

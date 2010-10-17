@@ -19,6 +19,7 @@ class MessageManager(models.Manager):
             recipient=user,
             recipient_deleted_at__isnull=True,
             is_public=False,
+            service__isnull=True,
         )
 
     def public_inbox_for(self, user):
@@ -30,6 +31,7 @@ class MessageManager(models.Manager):
             recipient=user,
             recipient_deleted_at__isnull=True,
             is_public=True,
+            service__isnull=True,
         )
 
     def outbox_for(self, user):
@@ -41,6 +43,7 @@ class MessageManager(models.Manager):
             sender=user,
             sender_deleted_at__isnull=True,
             is_public=False,
+            service__isnull=True,
         )
 
     def trash_for(self, user):
@@ -52,10 +55,12 @@ class MessageManager(models.Manager):
             recipient=user,
             recipient_deleted_at__isnull=False,
             is_public=False,
+            service__isnull=True,
         ) | self.filter(
             sender=user,
             sender_deleted_at__isnull=False,
             is_public=False,
+            service__isnull=True,
         )
 
 
