@@ -1,0 +1,36 @@
+{% extends "template_base.html" %}
+{% load i18n %}
+{% block title %} {% trans 'Gente' %} {% endblock %}
+
+{% block content %}
+        <form action="." method="get" class="find_services find_people">
+            <fieldset>
+                {% include "main/form_snippet.html" %}
+            </fieldset>
+            <input class="submit" type="submit" value="{% trans 'Encontrar gente' %}"/>
+        </form>
+        <div class="services people">
+            {% for person in people.object_list %}
+                {% include "user/single_person_view.html" %}
+            {% empty %}
+                <p>{% trans "No se encontró a nadie" %}.</p>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if people.has_previous %}
+                    <a href="?{{ form.as_url_args }}&amp;page={{ people.previous_page_number }}">{% trans "anterior" %}</a>
+                {% endif %}
+
+                <span class="current">
+                    {% blocktrans with people.number as number and people.paginator.num_pages as num_pages %}
+                    Página {{ number }} de {{ num_pages }}
+                    {% endblocktrans %}
+                </span>
+
+                {% if people.has_next %}
+                    <a href="?{{ form.as_url_args }}&amp;page={{ people.next_page_number }}">{% trans "siguiente" %}</a>
+                {% endif %}
+            </span>
+        </div>
+{% endblock %}

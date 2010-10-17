@@ -25,6 +25,7 @@ password_change_done_url =  'password_change/done/'
 
 urlpatterns = patterns('',
     url(r'^login/$', 'user.views.login', name="user-login"),
+    url(r'^find/$', 'user.views.find_people', name="user-find-people"),
     url(r'^logout/$', 'django.contrib.auth.views.logout',
         {'next_page': '/'}, name="user-logout"),
     url(r'^register/$', 'user.views.register', name="user-register"),

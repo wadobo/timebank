@@ -669,6 +669,13 @@ div.new .info
     font-weight: bold;
 }
 
+.services .person .information span {
+    text-decoration: none;
+    color: black;
+    font: 100% verdana,arial,sans-serif;
+    font-weight: bold;
+}
+
 .services .serv .information a:hover, .services .serv .buttons .action:hover {
     text-decoration: underline;
 }

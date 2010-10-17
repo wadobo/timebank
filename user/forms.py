@@ -14,12 +14,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from models import Profile
-from messages.models import Message
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext_lazy as _
+
+
+from models import Profile
+from messages.models import Message
 from utils import FormCharField, FormEmailField, FormDateField
+from  serv.forms import CustomCharField
 
 class RegisterForm(UserCreationForm):
     birth_date = FormDateField(label=_("Fecha de Nacimiento"),
@@ -88,3 +91,21 @@ class PublicMessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ("body",)
+
+class FindPeopleForm(forms.Form):
+    USER_CHOICES = (
+        ('0', _('cualquiera')),
+        ('1', _('online')),
+        ('2', _(u'se conectó hoy')),
+        ('3', _(u'se conectó esta semana')),
+        ('4', _(u'se conectó este mes')),
+        ('5', _(u'se conectó este año')),
+    )
+
+    user_status = CustomCharField(label=_("Estado del usuario"),
+        widget=forms.Select(choices=USER_CHOICES), required=False)
+    username = forms.CharField(label=_("Nombre de usuario"), required=False)
+
+    def as_url_args(self):
+        return urllib.urlencode(self.data)
+

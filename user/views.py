@@ -23,9 +23,11 @@ from django.contrib.auth import authenticate, login as django_login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator
 
 from utils import ViewClass, send_mail_to_admins
-from forms import RegisterForm, EditProfileForm, RemoveForm, PublicMessageForm
+from forms import (RegisterForm, EditProfileForm, RemoveForm,
+    PublicMessageForm, FindPeopleForm)
 from models import Profile
 from messages.models import Message
 
@@ -244,6 +246,35 @@ class ViewProfile(ViewClass):
             'form': send_message_form, 'message_list': messages})
 
 
+class FindPeople(ViewClass):
+    def GET(self):
+        form = FindPeopleForm(self.request.GET)
+
+        people = Profile.objects.all()
+
+        try:
+            page = int(self.request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+
+        if form.data.get("username", ''):
+            username = form.data["username"]
+            people = people.filter(creador__username__contains=username)
+
+        paginator = Paginator(people, 25)
+        try:
+            people = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+            people = paginator.page(paginator.num_pages)
+
+        context = dict(
+            people=people,
+            current_tab="people",
+            form=form
+        )
+        return self.context_response('user/find_people.html', context)
+
+
 class SendMessage(ViewClass):
     #@csrf_protect
     @login_required
@@ -269,3 +300,4 @@ password_change_done = PasswordChangeDone()
 remove = Remove()
 view_profile = ViewProfile()
 send_message = SendMessage()
+find_people = FindPeople()
