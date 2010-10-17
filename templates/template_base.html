@@ -128,12 +128,12 @@
      <div id="footer">
             <ul class="footer_menu">
                 <li><a href="/" class="{% current_tab 'default' %}">{% trans "Home" %}</a></li>
-                <li><a href="/faq" class="{% current_tab 'faq' %}">{% trans "Preguntas Frecuentes" %}</a></li>
-                <li><a href="/blog" class="{% current_tab 'blog' %}">{% trans "Blog" %}</a></li>
-                <li><a href="/about" class="{% current_tab 'about' %}">{% trans "Acerca de" %}</a></li>
+                <li><a href="{% url static-faq %}" class="{% current_tab 'faq' %}">{% trans "Preguntas Frecuentes" %}</a></li>
+                <li><a href="{% url news %}" class="{% current_tab 'news' %}">{% trans "Blog" %}</a></li>
+                <li><a href="{% url static-about %}" class="{% current_tab 'about' %}">{% trans "Acerca de" %}</a></li>
                 <li><a href="{% url contact %}" class="{% current_tab 'contact' %}">{% trans "Contacta" %}</a></li>
-                <li><a href="/dev" class="{% current_tab 'dev' %}">{% trans "Desarrollo" %}</a></li>
-                <li class="last_menu"><a href="/tos" class="{% current_tab 'tos' %}">{% trans "Condiciones de Uso" %}</a></li>
+                <li><a href="{% url static-dev %}" class="{% current_tab 'dev' %}">{% trans "Desarrollo" %}</a></li>
+                <li class="last_menu"><a href="{% url static-tos %}" class="{% current_tab 'tos' %}">{% trans "Condiciones de Uso" %}</a></li>
             </ul>
         </div>
     </body>

@@ -23,3 +23,10 @@ urlpatterns = patterns('main.views',
     (r'^/?$', 'index'),
 )
 
+urlpatterns += patterns('django.views.generic.simple',
+    url(r'^faq/$', 'direct_to_template', {'template': 'static/faq.html'}, name="static-faq"),
+    url(r'^tos/$', 'direct_to_template', {'template': 'static/tos.html'}, name="static-tos"),
+    url(r'^dev/$', 'direct_to_template', {'template': 'static/dev.html'}, name="static-dev"),
+    url(r'^about/$', 'direct_to_template', {'template': 'static/about.html'}, name="static-about"),
+)
+
