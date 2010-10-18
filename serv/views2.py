@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from utils import ViewClass
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404
@@ -66,6 +66,18 @@ class ListServices(ViewClass):
             area = get_object_or_404(Zona,
                 id=int(form.data["area"]))
             services = services.filter(zona=area)
+
+        user_status = form.data.get("user_status", '0')
+        if user_status != '0':
+            if user_status == '1': # today
+                last_date = datetime.now() - timedelta(days=1)
+            elif user_status == '2': # this week
+                last_date = datetime.now() - timedelta(days=7)
+            elif user_status == '3': # this month
+                last_date = datetime.now() - timedelta(months=1)
+            elif user_status == '4': # this year
+                last_date = datetime.now() - timedelta(years=1)
+            services = services.filter(creador__last_login__gt=last_date)
 
         if form.data.get("username", ''):
             username = form.data["username"]

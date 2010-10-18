@@ -94,12 +94,11 @@ class PublicMessageForm(forms.ModelForm):
 
 class FindPeopleForm(forms.Form):
     USER_CHOICES = (
-        ('0', _('cualquiera')),
-        ('1', _('online')),
-        ('2', _(u'se conectó hoy')),
-        ('3', _(u'se conectó esta semana')),
-        ('4', _(u'se conectó este mes')),
-        ('5', _(u'se conectó este año')),
+        ('0', _('---------')),
+        ('1', _(u'se conectó hoy')),
+        ('2', _(u'se conectó esta semana')),
+        ('3', _(u'se conectó este mes')),
+        ('4', _(u'se conectó este año')),
     )
 
     user_status = CustomCharField(label=_("Estado del usuario"),

@@ -25,6 +25,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator
 
+from datetime import datetime, timedelta
+
 from utils import ViewClass, send_mail_to_admins
 from forms import (RegisterForm, EditProfileForm, RemoveForm,
     PublicMessageForm, FindPeopleForm)
@@ -259,7 +261,19 @@ class FindPeople(ViewClass):
 
         if form.data.get("username", ''):
             username = form.data["username"]
-            people = people.filter(creador__username__contains=username)
+            people = people.filter(username__contains=username)
+
+        user_status = form.data.get("user_status", '0')
+        if user_status != '0':
+            if user_status == '1': # today
+                last_date = datetime.now() - timedelta(days=1)
+            elif user_status == '2': # this week
+                last_date = datetime.now() - timedelta(days=7)
+            elif user_status == '3': # this month
+                last_date = datetime.now() - timedelta(months=1)
+            elif user_status == '4': # this year
+                last_date = datetime.now() - timedelta(years=1)
+            people = people.filter(last_login__gt=last_date)
 
         paginator = Paginator(people, 25)
         try:
