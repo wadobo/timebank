@@ -94,6 +94,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -117,6 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'django.contrib.flatpages',
     #'aplicacion',
     'serv',
     'main',
@@ -125,7 +128,8 @@ INSTALLED_APPS = (
     'tinymce',
     'user',
     'globaltags',
-    'messages'
+    'messages',
+    'djangoratings'
 )
 
 LOGIN_URL = '/'
@@ -155,6 +159,10 @@ RECAPTCHA_PRIVATE_KEY = ""
 #EMAIL_PORT = 0
 #EMAIL_HOST_USER = ''
 #EMAIL_HOST_PASSWORD = ''
+
+MIN_CREDIT = -10*60
+MAX_CREDIT = 20*60
+MAX_CREDITS_PER_TRANSFER = 10*60
 
 try:
     from local_settings import *

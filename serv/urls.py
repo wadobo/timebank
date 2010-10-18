@@ -15,14 +15,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls.defaults import *
+from django.views.generic.simple import redirect_to
+from views2 import (list_services, view, add, edit, delete, active, deactive,
+    add_transfer, edit_transfer, cancel_transfer, view_transfer, my_transfers,
+    add_comment, delete_comment, accept_transfer, confirm_transfer)
 
-
-urlpatterns = patterns('serv.views2',
-    url(r'^$', 'myservices', name='serv-myservices'),
-    url(r'^add/$', 'add', name='serv-add'),
-    url(r'^edit/(\d+)/$', 'edit', name='serv-edit'),
-    url(r'^delete/(\d+)/$', 'delete', name='serv-del'),
-    url(r'^active/(\d+)/$', 'active', name='serv-active'),
-    url(r'^deactive/(\d+)/$', 'deactive', name='serv-deactive'),
+urlpatterns = patterns('',
+    url(r'^$', redirect_to, {'url': 'list/?mine=true'}, name="serv-myservices"),
+    url(r'^list/.*$', list_services, name='serv-list'),
+    url(r'^add/$', add, name='serv-add'),
+    url(r'^edit/(\d+)/$', edit, name='serv-edit'),
+    url(r'^view/(\d+)/$', view, name='serv-view'),
+    url(r'^delete/(\d+)/$', delete, name='serv-del'),
+    url(r'^active/(\d+)/$', active, name='serv-active'),
+    url(r'^deactive/(\d+)/$', deactive, name='serv-deactive'),
+    url(r'^transfer/add/(\d+)/$', add_transfer, name='serv-transfer-add'),
+    url(r'^transfer/edit/(\d+)/$', edit_transfer, name='serv-transfer-edit'),
+    url(r'^transfer/cancel/(\d+)/$', cancel_transfer, name='serv-transfer-cancel'),
+    url(r'^transfer/accept/(\d+)/$', accept_transfer, name='serv-transfer-accept'),
+    url(r'^transfer/confirm/(\d+)/$', confirm_transfer, name='serv-transfer-confirm'),
+    url(r'^transfer/view/(\d+).*$', view_transfer, name='serv-transfer-view'),
+    url(r'^transfer/list/.*$', my_transfers, name='serv-transfers-mine'),
+    url(r'^comment/add/(\d+)/$', add_comment, name='serv-comment-add'),
+    url(r'^comment/delete/(\d+)/$', delete_comment, name='serv-comment-delete'),
 )
-

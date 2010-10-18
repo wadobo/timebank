@@ -19,14 +19,20 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_protect
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 from utils import ViewClass, send_mail_to_admins
 from forms import AnonymousContactForm, ContactForm
+from serv.models import Servicio
 
 class Index(ViewClass):
     @csrf_protect
     def GET(self):
-        return self.context_response('main/index.html')
+        services = Servicio.objects.filter(activo=True)
+        paginator = Paginator(services, 25)
+        services = paginator.page(1)
+        return self.context_response('main/index.html', {'show_news': True,
+        'services': services})
 
 
 class Contact(ViewClass):
@@ -36,7 +42,8 @@ class Contact(ViewClass):
             form = ContactForm()
         else:
             form = AnonymousContactForm()
-        return self.context_response('main/contact.html', {'form': form})
+        return self.context_response('main/contact.html', {'form': form,
+            'current_tab': 'contact'})
 
     @csrf_protect
     def POST(self):
@@ -45,7 +52,8 @@ class Contact(ViewClass):
         else:
             form = AnonymousContactForm(self.request.POST)
         if not form.is_valid():
-            return self.context_response('main/contact.html', {'form': form})
+            return self.context_response('main/contact.html', {'form': form,
+            'current_tab': 'contact'})
 
         # Send an email to admins
         if self.request.user.is_authenticated():

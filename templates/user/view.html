@@ -1,0 +1,109 @@
+{% extends "template_base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Ver perfil' %}
+    {% if user != profile and not profile.is_anonymous %}
+        / {{ user.username }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="section_3">
+        <h1>
+            {% trans 'Ver perfil' %}
+            {% if user != profile and not profile.is_anonymous %}
+                / {{ user.username }}
+            {% endif %}
+        </h1>
+
+        <ul class="subnavilist">
+        {% if not user.is_anonymous and user == profile %}
+            <li><a href="{% url user-edit-profile %}">{% trans "Editar perfil"%}</a><small>/</small></li>
+        {% endif %}{% if not user.is_anonymous %}
+            <li><a href="{% url messages_compose_to user.id %}">{% trans "Enviar mensaje privado"%}</a><small>/</small></li>
+            <li><a href="{% url serv-list %}?username={{ profile.username }}">{% trans "Ver sus servicios"%}</a></li>
+        {% endif %}
+        </ul>
+        <ul class="view-profile">
+            <li>
+                <em>{% trans "Gravatar" %}:</em>
+                <div>
+                    <img src="{% gravatar profile.email 80 %}" alt="{{ profile.username }}" title="{{ profile.username }}"/>
+                </div>
+            </li>
+            <li>
+                <em>{% trans "Nombre de usuario" %}:</em>
+                <div>{{ profile.username }}</div>
+            </li>
+            <li>
+                <em>{% trans "Nombre" %}:</em>
+                <div>{{ profile.first_name }}</div>
+            </li>
+            <li>
+                <em>{% trans "Apellidos" %}:</em>
+                <div>{{ profile.last_name }}</div>
+            </li>
+            <li>
+                <em>{% trans "Cŕeditos" %}:</em>
+                <div>{{ profile.balance }}</div>
+            </li>
+            <li>
+                <em>{% trans "Descripción" %}:</em>
+                <div>{{ profile.description }}</div>
+            </li>
+            <li>
+                <em>{% trans "Karma" %}:</em>
+                <div>{{ profile.karma }}</div>
+            </li>
+            {% if not user.is_anonymous %}
+                <li>
+                    <em>{% trans "Edad" %}:</em>
+                    <div>{{ profile.birth_date|timesince }}</div>
+                </li>
+                <li>
+                    <em>{% trans "Dirección física" %}:</em>
+                    <div>{{ profile.address }}</div>
+                </li>
+                <li>
+                    <em>{% trans "Email" %}:</em>
+                    <div>{{ profile.email }}</div>
+                </li>
+                <li>
+                    <em>{% trans "Teléfono fijo" %}:</em>
+                    <div>{{ profile.land_line }}</div>
+                </li>
+                <li>
+                    <em>{% trans "Teléfono móvil" %}:</em>
+                    <div>{{ profile.mobile_tlf }}</div>
+                </li>
+            {% endif %}
+        </ul>
+        <div class="cleaner"></div>
+        {% if form %}
+        <div class="public_messages">
+            <form action="{% url user-send-public-message profile.id %}" method="post">
+                {% csrf_token %}
+                <fieldset>
+                    {% include "main/form_snippet.html" %}
+                </fieldset>
+                <input class="submit" type="submit" value="{% trans 'Publicar comentario en su tablón' %}"/>
+            </form>
+            <div id="user_message_list">
+                <div class="description">{% trans "Mensajes publicados en su tablón:" %}</div>
+                {% for message in message_list %}
+                    <div class="message">
+                        <div class="body">{{ message.body|linebreaks }}</div>
+                        <div class="info">
+                            {% trans "Enviado por" %} <a href="{% url user-view message.sender.id %}">{{ message.sender.username }}</a> {% trans "hace" %} {{ message.sent_at|timesince }}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if not message_list %}
+                    {% trans "Este usuario no ha recibido ningún mensaje" %}
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

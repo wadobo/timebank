@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*- 
 # Django settings for timebank project.
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
@@ -49,7 +50,37 @@ def truncate_chars(string, max_pos=75, ellipsis=True):
     takes_context=True)
 def num_unread_messages(context):
     user = context['user']
-    unread_messages_count = Message.objects.filter(recipient=user,
-        recipient_deleted_at__isnull=True, read_at__isnull=True).count()
+    unread_messages_count = Message.objects.inbox_for(user)\
+        .filter(read_at__isnull=True).count()
     value = "<small>%s</small>" % unread_messages_count
     return {"value": value}
+
+@register.inclusion_tag("main/simple_context_tag.html",\
+    takes_context=True)
+def current_tab(context, tab, var="current_tab"):
+    '''
+    Prints "current" if current_tab context var is the one given
+    '''
+    if context.has_key(var) and context[var] == tab:
+        return {"value": "current"}
+    else:
+        return {"value": ""}
+
+@register.inclusion_tag("serv/service_transfer_actions.html",\
+    takes_context=True)
+def transfer_actions(context, service):
+    '''
+    Renders actions for a given service if any. Assumes user is authenticated
+    '''
+    ongoing_transfers = service.ongoing_transfers(context["user"])
+    if ongoing_transfers:
+        return {"transfer": ongoing_transfers[0]}
+    else:
+        return {"service": service}
+
+@register.filter
+def limit_results(objects_list, limit=10):
+    if not objects_list:
+        return objects_list
+
+    return objects_list[:limit]

@@ -1,3 +1,4 @@
+
 html
 {
     background:none repeat scroll 0 0 #fff;
@@ -282,9 +283,16 @@ h3
     color:#000;
     margin:15px 10px 0 0;
 }
+
 .top span.title a
 {
     color: black;
+}
+
+.top span.title a.current
+{
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .section_1 .middle
@@ -562,6 +570,11 @@ div.new .info
     color: #fff;
 }
 
+.footer_menu li a.current {
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .footer_menu .last_menu {
     border: none;
 }
@@ -587,6 +600,10 @@ div.new .info
 
 .subnavilist li a {
     text-decoration: none;
+}
+
+.subnavilist li a.current {
+    font-weight: bold;
 }
 
 .subnavilist li a:hover {
@@ -640,15 +657,57 @@ div.new .info
 
 /* Services */
 
-.buttons .action {
+.services .serv .buttons {
+/*     border-top: 1px dotted #ddd; */
+    margin-top: 0;
+}
+
+.services .serv .information a {
+    text-decoration: none;
+    color: black;
+    font: 100% verdana,arial,sans-serif;
+    font-weight: bold;
+}
+
+.services .person .information span {
+    text-decoration: none;
+    color: black;
+    font: 100% verdana,arial,sans-serif;
+    font-weight: bold;
+}
+
+.services .serv .information a:hover, .services .serv .buttons .action:hover {
+    text-decoration: underline;
+}
+
+.services .serv .information2 a {
+    text-decoration: none;
+    color: #4061C2;
+    font: 100% verdana,arial,sans-serif;
+    font-weight: none;
+}
+
+.services .serv .information2 a:hover {
+    text-decoration: underline;
+}
+
+.services .serv form input {
+    margin-top: -5px;
+}
+
+.services .serv .buttons .action {
     text-decoration: none;
     margin: 0px;
+    margin-top: -5px;
     padding: 5px;
     cursor:pointer;
-    float:left;
+    float:right;
     background:none;
     border:0;
-    color:#ff0000;
+    font-weight: bold;
+    font-size: 12px;
+    color: green;
+    font: 100% verdana,arial,sans-serif;
 }
 
 .buttons .action:hover {
@@ -660,17 +719,154 @@ div.new .info
     margin-top: 10px;
 }
 
-.services .odd {
-    background-color: #ddd;
+.services .offer, .services .serv {
     padding: 5px;
 }
 
-.services .even {
-    background-color: #eee;
+.services .serv .description {
+    min-height: 60px;
+    margin-left: 5px;
     padding: 5px;
+    padding-top: 0;
+    border-left: 3px solid #64D507;
+    display: block;
+    float: left;
+    width: 600px;
+}
+
+.services .serv.inactive .description, .services .serv.demand.inactive .description {
+    border-color: #fc6;
+}
+
+.services .serv.demand .description {
+    border-color: #0895d6;
+}
+
+.services .serv .description a {
+    text-decoration: none;
+    color: black;
+    display: block;
+}
+
+.services .serv .description:hover {
+    background-color: #64D507;
+    color: white;
+}
+
+.services .serv.inactive .description:hover, .services .serv.demand.inactive .description:hover {
+    background-color: #fc6;
+}
+
+.services .serv.demand .description:hover {
+    background-color: #0895d6;
+}
+
+.services .serv .description:hover p {
+    color: white;
 }
 
 .serv {
-    border-top: 1px solid gray;
     margin-top: 10px;
+}
+
+.services .serv .gravatar {
+    text-align: center;
+    width: 48px;
+    display: block;
+    float: left;
+    padding: 2px;
+    font-weight: bold;
+}
+
+.services .serv .gravatar:hover {
+    background-color: #64D507;
+}
+
+.services .serv .gravatar:hover a {
+    color: white;
+}
+
+.services .serv .gravatar a {
+    text-decoration: none;
+}
+
+.services .serv .gravatar a img {
+    clear: both;
+    display: block;
+    border: 0;
+}
+
+.services .serv .information {
+    text-align: right;
+    border-bottom: 1px solid #ddd;
+/*     border-top: 1px solid #ddd; */
+    margin-bottom: 7px;
+}
+
+.services .serv .information2 {
+    border-top: 1px solid #ddd;
+    float: left;
+}
+
+ul.view-profile {
+    list-style:none outside none;
+}
+
+ul.view-profile li > em {
+    display: block;
+    text-decoration: none;
+    float: left;
+    clear: both;
+    text-align: right;
+    width: 150px;
+    margin-right: 6px;
+    margin-bottom: 12px;
+}
+
+ul.view-profile li > div {
+    float: left;
+    font-weight: bold;
+    text-align: left;
+    display: block;
+    width: auto;
+    clear: right;
+    min-width: 200px;
+    min-height: 20px;
+}
+
+.message-headers {
+    display: block;
+    clear: both;
+    width: 100%;
+    min-height: 70px;
+}
+
+.message-headers dt {
+    width: 50px;
+    display: block;
+    float: left;
+    clear: both;
+}
+
+.message-headers dd {
+    display: block;
+    float: left;
+    font-weight: bold;
+}
+
+.public_messages form {
+    background-color: #eee;
+}
+
+.public_messages label {
+    visibility: none;
+}
+
+.public_messages .description {
+    padding: 20px;
+}
+
+.public_messages #user_message_list .message .info {
+    margin-bottom: 20px;
+    background-color: #eee;
 }

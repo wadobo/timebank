@@ -6,6 +6,8 @@ from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+from serv.models import Servicio, Transfer
+
 class MessageManager(models.Manager):
 
     def inbox_for(self, user):
@@ -16,6 +18,20 @@ class MessageManager(models.Manager):
         return self.filter(
             recipient=user,
             recipient_deleted_at__isnull=True,
+            is_public=False,
+            service__isnull=True,
+        )
+
+    def public_inbox_for(self, user):
+        """
+        Returns all messages that were received by the given user and are not
+        marked as deleted.
+        """
+        return self.filter(
+            recipient=user,
+            recipient_deleted_at__isnull=True,
+            is_public=True,
+            service__isnull=True,
         )
 
     def outbox_for(self, user):
@@ -26,6 +42,8 @@ class MessageManager(models.Manager):
         return self.filter(
             sender=user,
             sender_deleted_at__isnull=True,
+            is_public=False,
+            service__isnull=True,
         )
 
     def trash_for(self, user):
@@ -36,9 +54,13 @@ class MessageManager(models.Manager):
         return self.filter(
             recipient=user,
             recipient_deleted_at__isnull=False,
+            is_public=False,
+            service__isnull=True,
         ) | self.filter(
             sender=user,
             sender_deleted_at__isnull=False,
+            is_public=False,
+            service__isnull=True,
         )
 
 
@@ -56,6 +78,9 @@ class Message(models.Model):
     replied_at = models.DateTimeField(_("replied at"), null=True, blank=True)
     sender_deleted_at = models.DateTimeField(_("Sender deleted at"), null=True, blank=True)
     recipient_deleted_at = models.DateTimeField(_("Recipient deleted at"), null=True, blank=True)
+    is_public = models.BooleanField(_("Public message"), default=False)
+    service = models.ForeignKey(Servicio, related_name='messages', null=True, blank=True)
+    transfer = models.ForeignKey(Transfer, related_name='messages', null=True, blank=True)
     
     objects = MessageManager()
     

@@ -22,4 +22,3 @@ urlpatterns = patterns('main.views',
     url(r'^contact/$', 'contact', name="contact"),
     (r'^/?$', 'index'),
 )
-

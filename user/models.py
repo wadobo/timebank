@@ -41,6 +41,7 @@ class Profile(User):
 
     address = models.CharField(_(u"Dirección"), max_length=100)
 
+    # credits in minutes
     balance = models.IntegerField(default=0)
 
     description = models.TextField(_(u"Descripción personal"), max_length=300,
@@ -48,7 +49,11 @@ class Profile(User):
 
     karma = models.CommaSeparatedIntegerField(_("Karma"), default=0,
         max_length=4)
-    
+
+    land_line = models.CharField(_(u"Teléfono fijo"), max_length=20)
+
+    mobile_tlf = models.CharField(_(u"Teléfono móvil"), max_length=20)
+
     class Meta:
         verbose_name = _("Usuario")
         verbose_name_plural = _("Usuarios")
@@ -60,4 +65,4 @@ class Profile(User):
     objects = UserManager() 
 
     def __eq__(self, value):
-        return self.id == value.id
+        return value and self.id == value.id or False

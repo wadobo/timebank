@@ -1,39 +1,7 @@
+
 {% load i18n %}
-{% for serv in servs %}
-    <div class="serv {% cycle "odd" "even" %}">
-        {% if not serv.activo %}
-            {% if serv.oferta %}
-                oferta:
-            {% else %}
-                demanda:
-            {% endif %}
-        {% endif %}
-        <p class="description"> {{ serv.descripcion }} </p>
-        <p>
-            {% trans "Zona" %}:
-            <span class="zone">{{ serv.zona }}</span>
-            {% trans "Categoría" %}:
-            <span class="categorie">{{ serv.categoria }} </span>
-            {% trans "Fecha" %}:
-            <span class="date"> {{ serv.pub_date|date:"d.m.Y, H:i" }} </span>
-        </p>
-        <div class="buttons">
-            <a class="action" href="{%url serv-edit serv.id %}">{% trans "Modificar" %}</a>
-            <form method="POST" action="{% url serv-del serv.id %}"> {% csrf_token %}
-                <input class="action" name="delete" type="submit" value="{% trans "Eliminar" %}"/>
-            </form>
-            {% if serv.activo %}
-            <form method="POST" action="{% url serv-deactive serv.id %}"> {% csrf_token %}
-                <input class="action" name="deactive" type="submit" value="{% trans "Desactivar" %}"/>
-            </form>
-            {% else %}
-            <form method="POST" action="{% url serv-active serv.id %}"> {% csrf_token %}
-                <input class="action" name="active" type="submit" value="{% trans "Activar" %}"/>
-            </form>
-            {% endif %}
-        </div>
-    </div>
-    <div class="cleaner"></div>
+{% for serv in services.object_list %}
+    {% include "serv/single_service_view.html" %}
 {% empty %}
-    {% trans "Ninguno" %}
+    <p>{% trans "Ningún servicio" %}</p>
 {% endfor %}

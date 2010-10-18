@@ -112,6 +112,8 @@ class FormCharField(forms.CharField):
         self._auto_help_text = u''
         if self.required:
             self._auto_help_text += _(u"Requerido. ")
+        else:
+            self._auto_help_text += _(u"Opcional. ")
         if self.max_length and self.min_length:
             self._auto_help_text += _(u"De %d a %d caracteres. ")\
                 % (self.min_length, self.max_length)
@@ -143,6 +145,8 @@ class FormEmailField(forms.EmailField):
         self._auto_help_text = u''
         if self.required:
             self._auto_help_text += _(u"Requerido. ")
+        else:
+            self._auto_help_text += _(u"Opcional. ")
         self._auto_help_text += _(u" Ejemplo: nombre@ejemplo.com")
 
     help_text = property(get_help_text, set_help_text)
@@ -174,6 +178,8 @@ class FormDateField(forms.DateField):
         self._auto_help_text = u''
         if self.required:
             self._auto_help_text += _(u"Requerido. Ejemplo(s): ")
+        else:
+            self._auto_help_text += _(u"Opcional. Ejemplo(s): ")
 
         the_date = datetime(1986, 9, 17).date()
 

@@ -14,11 +14,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from models import Profile
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext_lazy as _
+
+
+from models import Profile
+from messages.models import Message
 from utils import FormCharField, FormEmailField, FormDateField
+from  serv.forms import CustomCharField
 
 class RegisterForm(UserCreationForm):
     birth_date = FormDateField(label=_("Fecha de Nacimiento"),
@@ -31,12 +35,16 @@ class RegisterForm(UserCreationForm):
         max_length=100, help_text=_(u"Ejemplo: Avda. Molina, 12, Sevilla"))
     description = FormCharField(label=_(u"Descripción personal"), required=True,
         max_length=300, widget=forms.Textarea())
+    land_line = FormCharField(label=_(u"Teléfono fijo"), max_length=20,
+        required=False, help_text="Ejemplo: 954 123 111")
+    mobile_tlf = FormCharField(label=_(u"Teléfono móvil"), max_length=20,
+        required=False, help_text="Ejemplo: 651 333 111")
 
     class Meta:
         model = Profile
-        fields = ('username', 'first_name', 'last_name', 'email', 'address', 'birth_date', 'description')
+        fields = ('username', 'first_name', 'last_name', 'email', 'address', 'birth_date', 'description', 'land_line', 'mobile_tlf')
 
-class EditProfileForm(UserChangeForm):
+class EditProfileForm(forms.ModelForm):
     birth_date = FormDateField(label=_("Fecha de Nacimiento"),
         input_formats=("%d/%m/%Y",))
 
@@ -52,19 +60,14 @@ class EditProfileForm(UserChangeForm):
         widget=forms.PasswordInput, required=True,
         help_text=_(u"Introduce tu contraseña actual para comprobar tu"
             " identidad."))
+    land_line = FormCharField(label=_(u"Teléfono fijo"), max_length=20,
+        required=False, help_text="Ejemplo: 954 123 111")
+    mobile_tlf = FormCharField(label=_(u"Teléfono móvil"), max_length=20,
+        required=False, help_text="Ejemplo: 651 333 111")
 
     def __init__(self, request, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.request = request
-
-    def clean_username(self):
-        username = self.cleaned_data["username"]
-        try:
-            Profile.objects.filter(username=username)\
-                .filter(id=self.request.user.id)
-        except:
-            return username
-        raise forms.ValidationError(_("A user with that username already exists."))
 
     def clean_password1(self):
         password1 = self.cleaned_data["password1"]
@@ -74,11 +77,35 @@ class EditProfileForm(UserChangeForm):
 
     class Meta:
         model = Profile
-        fields = ('username', 'first_name', 'last_name', 'email', 'address',
-        'birth_date', 'description')
+        hidden = ()
+        fields = ('first_name', 'last_name', 'email', 'address',
+        'birth_date', 'description', 'land_line', 'mobile_tlf')
 
 class RemoveForm(forms.Form):
     reason = FormCharField(label=_(u"Razón"), required=True,
         min_length=10, max_length=300, widget=forms.Textarea(),
         help_text=_(u"¿Hemos hecho algo mal? Por favor díganos la razón por"
             u"la que quiere darse de baja."))
+
+class PublicMessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ("body",)
+
+class FindPeopleForm(forms.Form):
+    USER_CHOICES = (
+        ('0', _('cualquiera')),
+        ('1', _('online')),
+        ('2', _(u'se conectó hoy')),
+        ('3', _(u'se conectó esta semana')),
+        ('4', _(u'se conectó este mes')),
+        ('5', _(u'se conectó este año')),
+    )
+
+    user_status = CustomCharField(label=_("Estado del usuario"),
+        widget=forms.Select(choices=USER_CHOICES), required=False)
+    username = forms.CharField(label=_("Nombre de usuario"), required=False)
+
+    def as_url_args(self):
+        return urllib.urlencode(self.data)
+

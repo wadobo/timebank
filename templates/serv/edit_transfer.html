@@ -1,0 +1,21 @@
+{% extends "serv/base_transfer.html" %}
+{% load i18n %}
+{% block subtitle %}
+        {% trans "Editar transferencia" %}
+{% endblock %}
+
+{% block subcontent %}
+    <h2>{% trans "Servicio" %}</h2>
+    {% with transfer.service as serv %}
+        {% include "serv/single_service_view.html" %}
+    {% endwith %}
+    <h2 style="margin-top: 30px">{% trans "Editar transferencia" %}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            {% include "main/form_snippet.html" %}
+        </fieldset>
+        <input type="submit" value="{% trans 'Actualizar transferencia' %}"/>
+    </form>
+</div>
+{% endblock %}

@@ -1,33 +1,20 @@
+
 {% extends "template_base.html" %}
 {% load i18n %}
 {% block title %} {% trans 'Portada' %} {% endblock %}
-                {% block content %}
-                    <div class="section_3">
-                        <h1>{{ SITE_NAME }}</h1>
-                        <p>El Banco del Tiempo de Ecolocal es un lugar donde podrás intercambiar servicios con otros usuarios usando el tiempo como moneda de cambio. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut iaculis lacinia purus.</p>
-                    </div>
-                    
-                    <div class="templaemo_h_line"></div>
-                    
-                    <div class="section_4">
-                        <h1>{% trans 'Servicios' %}</h1>
-                        <div class="two_col left">
-                            <h2>Arreglo ordenadores</h2>
-                            <p>Eduardo dice: arreglo ordenadores en la zona de Sevilla Este. Disponibilidad sobretodo durante fines de semana y festivos por las tardes, voy a tu casa.</p>
-                        </div>
-                        <div class="two_col right">
-                            <h2>Arreglo pinchazos de bici</h2>
-                            <p>Pablo dice: arreglo pinchazos de bici si proporcionas tú el parche. Yo traigo las herramientas. Disponibilidad entre semana por las mañanas, voy a tu casa.</p>
-                        </div>
-                        <div class="two_col left">
-                            <h2>Arreglo ordenadores</h2>
-                            <p>Eduardo dice: arreglo ordenadores en la zona de Sevilla Este. Disponibilidad sobretodo durante fines de semana y festivos por las tardes, voy a tu casa.</p>
-                        </div>
-                        <div class="two_col right">
-                            <h2>Arreglo pinchazos de bici</h2>
-                            <p>Pablo dice: arreglo pinchazos de bici si proporcionas tú el parche. Yo traigo las herramientas. Disponibilidad entre semana por las mañanas, voy a tu casa.</p>
-                        </div>
-                        <a href="/services/" style="float: right;">{% trans "Más servicios" %}</a>
-                        <div class="cleaner"></div>
-                    </div>
-                {% endblock %}
+
+{% block content %}
+    <div class="section_3">
+        <h1>{{ SITE_NAME }}</h1>
+        <p>El Banco del Tiempo de Ecolocal es un lugar donde podrás intercambiar servicios con otros usuarios usando el tiempo como moneda de cambio. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut iaculis lacinia purus.</p>
+    </div>
+
+    <div class="section_4">
+        <h1>{% trans 'Servicios' %}</h1>
+        <div class="subcontent services">
+            {% include "serv/listservs.html" %}
+            <a href="/services/">{% trans "Más servicios" %}</a>
+        </div>
+        <div class="cleaner"></div>
+    </div>
+{% endblock %}

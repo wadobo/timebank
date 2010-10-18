@@ -1,0 +1,28 @@
+{% load i18n %}
+<div class="serv comment">
+    <div class="information">
+    </div>
+    <div class="gravatar">
+        <a href="{% url user-view comment.sender.id %}">
+            <img src="{% gravatar comment.sender.email 48 %}" alt="{{ comment.sender.username }}" title="{{ comment.sender.username }}"/>
+            {{ comment.sender.username }}
+        </a>
+    </div>
+    <a href="{% url serv-transfer-view comment.id %}"><div class="description"><p>{{ comment.body|linebreaks }}</p></div></a>
+    <div class="cleaner"></div>
+    <div class="information2">
+        {% if comment.is_public %}
+            {% trans "el comentario es público" %}
+        {% else %}
+            {% trans "el comentario es privado" %}
+        {% endif %}
+        {% trans "Publicado hace" %} {{ comment.sent_at|timesince }}
+    </div>
+    <div class="cleaner"></div>
+    <div class="buttons">
+        {% if user.is_authenticated and comment.sender == user %}
+            <a class="action" href="{% url serv-comment-delete comment.id %}">{% trans "Borrar comentario" %}</a>
+        {% endif %}
+    </div>
+</div>
+<div class="cleaner"></div>

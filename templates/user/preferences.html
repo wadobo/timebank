@@ -7,6 +7,18 @@
         <h1>{% trans 'Preferencias' %}</h1>
         <ul class="preferences">
             <li>
+                <a href="{% url serv-transfers-mine %}">{% trans "Mis transferencias" %}</a>
+            </li>
+            <li>
+                <a href="{% url serv-myservices %}">{% trans "Mis servicios" %}</a>
+            </li>
+            <li>
+                <a href="{% url user-view-current %}">{% trans "Ver perfil" %}</a>
+            </li>
+            <li>
+                <a href="{% url user-edit-profile %}">{% trans "Editar perfil" %}</a>
+            </li>
+            <li>
                 <a href="{% url user-password-change %}">{% trans "Cambiar contraseña" %}</a>
             </li>
             <li>

@@ -18,8 +18,11 @@
 
 
 from django.db import models
+from sqlalchemy.orm import relation, backref
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext as _
 
+from user.models import Profile
 
 class Zona(models.Model):
 
@@ -43,7 +46,7 @@ class Categoria(models.Model):
 
 class Servicio(models.Model):
 
-    creador = models.ForeignKey(User, related_name="creador")
+    creador = models.ForeignKey(Profile, related_name="creador")
     #Si es una oferta=true, si es demanda=false
     oferta = models.BooleanField()
     pub_date = models.DateTimeField("Fecha de publicación",
@@ -63,6 +66,32 @@ class Servicio(models.Model):
 
     def cortaServicio(self):
         return "%s..." % self.descripcion[:50]
+
+    def transfers_count(self):
+        return self.transfers.count()
+
+    def sorted_transfers(self):
+        return self.transfers.order_by('-request_date')
+
+    def messages_count(self):
+        from messages.models import Message
+        return Message.objects.filter(service=self).count()
+
+    def messages(self):
+        from messages.models import Message
+        return Message.objects.filter(service=self)
+
+    def credits_transfered(self):
+        ret = self.transfers.filter(status='d').aggregate(models.Sum('credits'))
+        return ret['credits__sum'] and ret['credits__sum'] or 0
+
+    def ongoing_transfers(self, user):
+        if self.oferta:
+            return Transfer.objects.filter(credits_debtor=user, service=self,
+                status__in=["q", "a"])
+        else:
+            return Transfer.objects.filter(credits_payee=user, service=self,
+                status__in=["q", "a"])
 
     class Meta:
         ordering = ('-pub_date', )
@@ -177,3 +206,49 @@ class MensajeA(Mensaje):
 
         verbose_name = "Mensaje con la administración"
         verbose_name_plural = "Mensajes con la administración"
+
+
+TRANSFER_STATUS = (
+    ('q', _('Transferencia solicitada')), # q for reQuest
+    ('a', _('Transferencia aceptada')), # a for Accepted
+    ('r', _('Transferencia rechazada')), # r for Rejected
+    ('d', _('Transferencia realizada')), # d for Done
+)
+
+class Transfer(models.Model):
+    # Person receiving the credits (and giving the service)
+    credits_payee = models.ForeignKey(Profile, related_name='transfers_received')
+
+    # Person giving the credits (and receiving the service)
+    credits_debtor = models.ForeignKey(Profile, related_name='transfers_given')
+
+    service = models.ForeignKey(Servicio, related_name='transfers')
+
+    # Small description for the received service
+    description = models.TextField(_(u"Descripción"), max_length=300)
+
+    request_date = models.DateTimeField(_("Fecha de solicitud de transferencia"), auto_now=True,
+        auto_now_add=True)
+
+    confirmation_date = models.DateTimeField(_(u"Fecha de confirmación de"
+        " transferencia"),null=True)
+
+    status = models.CharField(_(u"Estado"), max_length=1, choices=TRANSFER_STATUS)
+
+    is_public = models.BooleanField(_(u"Transferencia pública"), default=False)
+
+    # credits in minutes
+    credits = models.PositiveIntegerField(_(u"Créditos"))
+
+    #TODO: Add here a rating of the service, set by the payee of course
+
+    class meta:
+        ordering = ['-request_date']
+
+    def creator(self):
+        '''
+        Transfers are related to services. IF a service is an offer, then the
+        person creating the transfer is the debtor of credits, else it's the
+        payee.
+        '''
+        return self.service.oferta and self.credits_debtor or self.credits_payee

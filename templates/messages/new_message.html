@@ -1,7 +1,15 @@
-{% load i18n %}{% blocktrans with message.recipient.username as recipient and message.sender.username as sender%}Hello {{ recipient }},
+{% load i18n %}
+{% if message.is_public %}
+{% blocktrans with message.recipient.username as recipient and message.sender.username as sender%}Hola {{ recipient }},
+
+ha recibido un mensaje público de {{ sender }} con el
+siguiente contenido:{% endblocktrans %}
+{% else %}
+{% blocktrans with message.recipient.username as recipient and message.sender.username as sender%}Hello {{ recipient }},
 
 you received a private message from {{ sender }} with
 the following contents:{% endblocktrans %}
+{% endif %}
 
 {{ message.body|safe }}
 
