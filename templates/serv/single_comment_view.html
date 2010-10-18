@@ -8,7 +8,7 @@
             {{ comment.sender.username }}
         </a>
     </div>
-    <a href="{% url serv-transfer-view comment.id %}"><div class="description"><p>{{ comment.body|linebreaks }}</p></div></a>
+    <div class="description"><p>{{ comment.body|linebreaks }}</p></div>
     <div class="cleaner"></div>
     <div class="information2">
         {% if comment.is_public %}
