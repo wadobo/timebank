@@ -1,0 +1,105 @@
+[
+  {
+    "pk": 1, 
+    "model": "serv.zona", 
+    "fields": {
+      "nombre_zona": "Sevilla Este"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "serv.zona", 
+    "fields": {
+      "nombre_zona": "Centro"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "serv.zona", 
+    "fields": {
+      "nombre_zona": "Reina Mercedes"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "serv.categoria", 
+    "fields": {
+      "nombre_categoria": "Miscel\u00e1nea"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "serv.categoria", 
+    "fields": {
+      "nombre_categoria": "Labores caseras y cocina"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "serv.categoria", 
+    "fields": {
+      "nombre_categoria": "Transportes"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "serv.categoria", 
+    "fields": {
+      "nombre_categoria": "Deporte y ocio"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "serv.servicio", 
+    "fields": {
+      "categoria": 4, 
+      "zona": 1, 
+      "oferta": true, 
+      "activo": true, 
+      "creador": 1, 
+      "descripcion": "Arreglo pinchazos de bicicletas, tr\u00e1ete t\u00fa el parche o la nueva rec\u00e1mara", 
+      "pub_date": "2010-10-18 14:11:23"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "serv.servicio", 
+    "fields": {
+      "categoria": 2, 
+      "zona": 1, 
+      "oferta": false, 
+      "activo": true, 
+      "creador": 1, 
+      "descripcion": "Busco a alguien que me corte el pelo y me lo deje al 3 o al 4.", 
+      "pub_date": "2010-10-18 14:11:05"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "serv.servicio", 
+    "fields": {
+      "categoria": 3, 
+      "zona": 2, 
+      "oferta": false, 
+      "activo": true, 
+      "creador": 1, 
+      "descripcion": "cara al invierno, lluvia.. busco gente (con coche) que vaya pa la Univ Pablo de Olavide a diario desde el centro (Puerta Ossorio), aunque sea solo la ida o la vuelta o un dia por semana. podemos compartir gastos", 
+      "pub_date": "2010-10-18 14:10:46"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "serv.transfer", 
+    "fields": {
+      "status": "q", 
+      "service": 3, 
+      "request_date": "2010-10-18 14:18:53", 
+      "confirmation_date": null, 
+      "credits": 60, 
+      "credits_payee": 2, 
+      "is_public": true, 
+      "credits_debtor": 1, 
+      "description": "Tengo coche, te llevo, gasta poco. Hagamos una prueba de una semana, pongamos una hora de transferencia ok? Transferencia p\u00fablica por cierto."
+    }
+  }
+]

@@ -1,0 +1,97 @@
+[
+    {
+        "pk": 5, 
+        "model": "messages.message", 
+        "fields": {
+            "body": "Comentando mi propio perfil, por hacer algo", 
+            "recipient_deleted_at": null, 
+            "sender_deleted_at": null, 
+            "read_at": null, 
+            "parent_msg": null, 
+            "sent_at": "2010-10-18 14:26:51", 
+            "service": null, 
+            "transfer": null, 
+            "replied_at": null, 
+            "is_public": true, 
+            "subject": "", 
+            "recipient": 1, 
+            "sender": 1
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "messages.message", 
+        "fields": {
+            "body": "Prueba de mensaje", 
+            "recipient_deleted_at": null, 
+            "sender_deleted_at": null, 
+            "read_at": "2010-10-18 14:25:57", 
+            "parent_msg": null, 
+            "sent_at": "2010-10-18 14:25:30", 
+            "service": null, 
+            "transfer": null, 
+            "replied_at": null, 
+            "is_public": false, 
+            "subject": "", 
+            "recipient": 1, 
+            "sender": 2
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "messages.message", 
+        "fields": {
+            "body": "Esto es un comentario privado, que s\u00f3lo el creador del servicio y yo puede leer", 
+            "recipient_deleted_at": null, 
+            "sender_deleted_at": null, 
+            "read_at": null, 
+            "parent_msg": null, 
+            "sent_at": "2010-10-18 14:17:03", 
+            "service": 2, 
+            "transfer": null, 
+            "replied_at": null, 
+            "is_public": false, 
+            "subject": "", 
+            "recipient": 1, 
+            "sender": 2
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "messages.message", 
+        "fields": {
+            "body": "En serio, alguien habr\u00e1 que me quiera cortar el pelo", 
+            "recipient_deleted_at": null, 
+            "sender_deleted_at": null, 
+            "read_at": null, 
+            "parent_msg": null, 
+            "sent_at": "2010-10-18 14:12:13", 
+            "service": 2, 
+            "transfer": null, 
+            "replied_at": null, 
+            "is_public": false, 
+            "subject": "", 
+            "recipient": 1, 
+            "sender": 1
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "messages.message", 
+        "fields": {
+            "body": "Nadie me responde?", 
+            "recipient_deleted_at": null, 
+            "sender_deleted_at": null, 
+            "read_at": null, 
+            "parent_msg": null, 
+            "sent_at": "2010-10-18 14:11:48", 
+            "service": 2, 
+            "transfer": null, 
+            "replied_at": null, 
+            "is_public": true, 
+            "subject": "", 
+            "recipient": 1, 
+            "sender": 1
+        }
+    }
+]
