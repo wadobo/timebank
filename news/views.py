@@ -22,6 +22,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.http import Http404
+from django.core.paginator import Paginator
 
 class NewView(ViewClass):
     def GET(self, new_id):
@@ -33,7 +34,19 @@ class NewView(ViewClass):
 
 class Index(ViewClass):
     def GET(self):
-        news = New.objects.filter(hidden=False)[:20]
+        try:
+            page = int(self.request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+
+        news = New.objects.filter(hidden=False)
+
+        paginator = Paginator(news, 25)
+        try:
+            news = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+            news = paginator.page(paginator.num_pages)
+
         context = dict(news=news)
         return self.context_response('news/list.html', context)
 
