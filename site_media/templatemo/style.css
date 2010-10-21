@@ -806,6 +806,7 @@ div.new .info
 .services .serv .information2 {
     border-top: 1px solid #ddd;
     float: left;
+    width: 100%;
 }
 
 ul.view-profile {

@@ -1,0 +1,35 @@
+{% load i18n %}
+{% if transfer.status == "d" %}
+            <form class="rating" id="rating-{{transfer.id}}" action="{% url serv-transfer-rate transfer.id  %}" method="post">
+                {% csrf_token %}
+                {% if user.is_authenticated and transfer.credits_debtor == user %}
+                    {% rating_by_user user on transfer.rating as user_rating %}
+                    {% if user_rating %}
+                        <input class="hover-star" type="radio" name="rating" value="1" {% if user_rating == 1 %} checked="checked" {% endif %}/>
+                        <input class="hover-star" type="radio" name="rating" value="2" {% if user_rating == 2 %} checked="checked" {% endif %}/>
+                        <input class="hover-star" type="radio" name="rating" value="3" {% if user_rating == 3 %} checked="checked" {% endif %}/>
+                        <input class="hover-star" type="radio" name="rating" value="4" {% if user_rating == 4 %} checked="checked" {% endif %}/>
+                        <input class="hover-star" type="radio" name="rating" value="5" {% if user_rating == 5 %} checked="checked" {% endif %}/>
+                    {% else %}
+                        <input class="hover-star" type="radio" name="rating" value="1" {% if transfer.int_rating == 1 %} checked="checked" {% endif %}/>
+                        <input class="hover-star" type="radio" name="rating" value="2" {% if transfer.int_rating == 2 %} checked="checked" {% endif %}/>
+                        <input class="hover-star" type="radio" name="rating" value="3" {% if transfer.int_rating == 3 %} checked="checked" {% endif %}/>
+                        <input class="hover-star" type="radio" name="rating" value="4" {% if transfer.int_rating == 4 %} checked="checked" {% endif %}/>
+                        <input class="hover-star" type="radio" name="rating" value="5" {% if transfer.int_rating == 5 %} checked="checked" {% endif %}/>
+                    {% endif %}
+                {% else %}
+                    <input class="hover-star" type="radio" name="rating" value="1" disabled="disabled" {% if transfer.int_rating == 1 %} checked="checked" {% endif %}/>
+                    <input class="hover-star" type="radio" name="rating" value="2" disabled="disabled" {% if transfer.int_rating == 2 %} checked="checked" {% endif %}/>
+                    <input class="hover-star" type="radio" name="rating" value="3" disabled="disabled" {% if transfer.int_rating == 3 %} checked="checked" {% endif %}/>
+                    <input class="hover-star" type="radio" name="rating" value="4" disabled="disabled" {% if transfer.int_rating == 4 %} checked="checked" {% endif %}/>
+                    <input class="hover-star" type="radio" name="rating" value="5" disabled="disabled" {% if transfer.int_rating == 5 %} checked="checked" {% endif %}/>
+                {% endif %}
+                <script>
+                    $('.hover-star').rating({
+                        callback: function(value, link){
+                            this.form.submit();
+                        }
+                    });
+                </script>
+            </form>
+{% endif %}

@@ -412,7 +412,7 @@ class ConfirmTransfer(ViewClass):
                 'error')
             return redirect('serv-transfers-mine')
 
-        if transfer.service.creador != self.request.user:
+        if transfer.credits_debtor != self.request.user:
             self.flash(_(u"No puedes confirmar una transferencia de un"
                 " servicio que no sea tuyo"), "error")
             return redirect('serv-transfers-mine')
@@ -428,7 +428,7 @@ class ConfirmTransfer(ViewClass):
         transfer.credits_debtor.save()
         transfer.credits_payee.save()
         transfer.save()
-        self.flash(_("Transferencia aceptada"))
+        self.flash(_("Transferencia realizada"))
         return redirect('serv-transfers-mine')
 
 
@@ -478,6 +478,36 @@ class MyTransfers(ViewClass):
         context = dict(transfers=transfers, subtab="mine")
         return self.context_response('serv/view_transfers.html', context)
 
+class RateTransfer(ViewClass):
+    @login_required
+    @csrf_protect
+    def GET(self, transfer_id):
+        import ipdb; ipdb.set_trace()
+
+    @login_required
+    @csrf_protect
+    def POST(self, transfer_id):
+        try:
+            rating = int(self.request.POST['rating'])
+        except:
+            self.flash(_(u"Error recibiendo la puntuación"))
+            return redirect('serv-transfer-view', transfer_id)
+        transfer = get_object_or_404(Transfer, id=int(transfer_id))
+
+        if transfer.credits_debtor != self.request.user:
+            self.flash(_(u"No tienes permisos para puntuar esta transferencia"),
+                "error")
+            return redirect('serv-transfer-view', transfer_id)
+
+        if 1 > rating > 5:
+            self.flash(_(u"sólo se puede valor de 1 a 5"), "error")
+            return redirect('serv-transfer-view', transfer_id)
+
+        transfer.rating.add(score=rating, user=self.request.user,
+            ip_address=self.request.META['REMOTE_ADDR'])
+        self.flash(_(u"Tu puntuación de la transferencia ha sido actualizada correctamente"))
+
+        return redirect('serv-transfer-view', transfer_id)
 
 class AddComment(ViewClass):
     @login_required
@@ -546,6 +576,7 @@ cancel_transfer = CancelTransfer()
 accept_transfer = AcceptTransfer()
 confirm_transfer = ConfirmTransfer()
 view_transfer = ViewTransfer()
+rate_transfer = RateTransfer()
 my_transfers = MyTransfers()
 add_comment = AddComment()
 delete_comment = DeleteComment()

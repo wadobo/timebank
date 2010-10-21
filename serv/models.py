@@ -21,6 +21,7 @@ from django.db import models
 from sqlalchemy.orm import relation, backref
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+from djangoratings.fields import RatingField
 
 from user.models import Profile
 
@@ -216,6 +217,11 @@ TRANSFER_STATUS = (
 )
 
 class Transfer(models.Model):
+    rating = RatingField(range=5, allow_anonymous=False, can_change_vote=True)
+
+    def int_rating(self):
+        return int(self.rating.score / self.rating.votes)
+
     # Person receiving the credits (and giving the service)
     credits_payee = models.ForeignKey(Profile, related_name='transfers_received')
 
