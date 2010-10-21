@@ -18,7 +18,6 @@ from django.shortcuts import render_to_response, redirect
 from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
-from django.views.decorators.csrf import csrf_protect
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 from utils import ViewClass, send_mail_to_admins
@@ -26,7 +25,6 @@ from forms import AnonymousContactForm, ContactForm
 from serv.models import Servicio
 
 class Index(ViewClass):
-    @csrf_protect
     def GET(self):
         services = Servicio.objects.filter(activo=True)
         paginator = Paginator(services, 25)
@@ -36,7 +34,6 @@ class Index(ViewClass):
 
 
 class Contact(ViewClass):
-    @csrf_protect
     def GET(self):
         if self.request.user.is_authenticated():
             form = ContactForm()
@@ -45,7 +42,6 @@ class Contact(ViewClass):
         return self.context_response('main/contact.html', {'form': form,
             'current_tab': 'contact'})
 
-    @csrf_protect
     def POST(self):
         if self.request.user.is_authenticated():
             form = ContactForm(self.request.POST)

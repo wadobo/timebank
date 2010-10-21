@@ -4,7 +4,6 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_protect
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_noop
 from django.core.urlresolvers import reverse
@@ -63,7 +62,6 @@ def trash(request, template_name='messages/trash.html'):
     }, context_instance=RequestContext(request))
 trash = login_required(trash)
 
-@csrf_protect
 def compose(request, recipient=None, form_class=ComposeForm,
         template_name='messages/compose.html', success_url=None, recipient_filter=None):
     """
@@ -101,7 +99,6 @@ def compose(request, recipient=None, form_class=ComposeForm,
     }, context_instance=RequestContext(request))
 compose = login_required(compose)
 
-@csrf_protect
 def reply(request, message_id, form_class=ComposeForm,
         template_name='messages/compose.html', success_url=None, recipient_filter=None):
     """

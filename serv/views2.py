@@ -17,7 +17,6 @@
 from utils import ViewClass
 from datetime import datetime, timedelta
 
-from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
@@ -100,7 +99,6 @@ class ListServices(ViewClass):
 
 class AddService(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self):
         form = ServiceForm()
         context = dict(form=form, instance=None, current_tab="services",
@@ -108,7 +106,6 @@ class AddService(ViewClass):
         return self.context_response('serv/edit_service.html', context)
 
     @login_required
-    @csrf_protect
     def POST(self):
         form = ServiceForm(self.request.POST)
         if form.is_valid():
@@ -124,7 +121,6 @@ class AddService(ViewClass):
 
 class EditService(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if not instance.creador == self.request.user:
@@ -137,7 +133,6 @@ class EditService(ViewClass):
         return self.context_response('serv/edit_service.html', context)
 
     @login_required
-    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if not instance.creador == self.request.user:
@@ -168,7 +163,6 @@ class EditService(ViewClass):
 
 class DeleteService(ViewClass):
     @login_required
-    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if instance.creador == self.request.user:
@@ -182,7 +176,6 @@ class DeleteService(ViewClass):
 
 class ActiveService(ViewClass):
     @login_required
-    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if instance.creador == self.request.user:
@@ -197,7 +190,6 @@ class ActiveService(ViewClass):
 
 class DeactiveService(ViewClass):
     @login_required
-    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if instance.creador == self.request.user:
@@ -212,7 +204,6 @@ class DeactiveService(ViewClass):
 
 class AddTransfer(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         ongoing_transfers = service.ongoing_transfers(self.request.user)
@@ -224,7 +215,6 @@ class AddTransfer(ViewClass):
         return self.context_response('serv/add_transfer.html', context)
 
     @login_required
-    @csrf_protect
     def POST(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         ongoing_transfers = service.ongoing_transfers(self.request.user)
@@ -286,7 +276,6 @@ class AddTransfer(ViewClass):
 
 class EditTransfer(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
         if transfer.creator() != self.request.user:
@@ -303,7 +292,6 @@ class EditTransfer(ViewClass):
         return self.context_response('serv/edit_transfer.html', context)
 
     @login_required
-    @csrf_protect
     def POST(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
         if transfer.creator() != self.request.user:
@@ -341,7 +329,6 @@ class EditTransfer(ViewClass):
 
 class CancelTransfer(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
         if transfer.credits_debtor != self.request.user and\
@@ -361,7 +348,6 @@ class CancelTransfer(ViewClass):
 
 class AcceptTransfer(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
 
@@ -395,7 +381,6 @@ class AcceptTransfer(ViewClass):
 
 class ConfirmTransfer(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
 
@@ -434,7 +419,6 @@ class ConfirmTransfer(ViewClass):
 
 class ViewService(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         context = dict(service=service)
@@ -442,7 +426,6 @@ class ViewService(ViewClass):
 
 
 class ViewTransfer(ViewClass):
-    @csrf_protect
     def GET(self, transfer_id):
         transfer = get_object_or_404(Transfer, id=int(transfer_id))
         if transfer.credits_debtor != self.request.user and\
@@ -458,7 +441,6 @@ class ViewTransfer(ViewClass):
 
 class MyTransfers(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self):
         transfers = Transfer.objects.filter(
             Q(credits_debtor=self.request.user)
@@ -480,12 +462,10 @@ class MyTransfers(ViewClass):
 
 class RateTransfer(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, transfer_id):
         import ipdb; ipdb.set_trace()
 
     @login_required
-    @csrf_protect
     def POST(self, transfer_id):
         try:
             rating = int(self.request.POST['rating'])
@@ -511,7 +491,6 @@ class RateTransfer(ViewClass):
 
 class AddComment(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         form = AddCommentForm()
@@ -520,7 +499,6 @@ class AddComment(ViewClass):
         return self.context_response('serv/service_add_comment.html', context)
 
     @login_required
-    @csrf_protect
     def POST(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         if not service.activo:
@@ -544,7 +522,6 @@ class AddComment(ViewClass):
 
 class DeleteComment(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, comment_id):
         message = get_object_or_404(Message, pk=comment_id)
         if not message.service:
