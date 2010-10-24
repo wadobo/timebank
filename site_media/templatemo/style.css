@@ -832,6 +832,7 @@ ul.view-profile li > div {
     width: auto;
     clear: right;
     min-width: 200px;
+    max-width: 450px;
     min-height: 20px;
 }
 
