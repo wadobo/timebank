@@ -36,16 +36,18 @@ from user.models import Profile
 from messages.models import Message
 
 class ListServices(ViewClass):
-    @login_required
     def GET(self):
         form = ListServicesForm(self.request.GET)
+
+        if not self.request.user.is_authenticated():
+            del form.fields['mine']
 
         try:
             page = int(self.request.GET.get('page', '1'))
         except ValueError:
             page = 1
 
-        if form.data.get("mine", ''):
+        if self.request.user.is_authenticated() and form.data.get("mine", ''):
             services = Servicio.objects.filter(creador=self.request.user)
             subtab = "my"
         else:
@@ -418,7 +420,6 @@ class ConfirmTransfer(ViewClass):
 
 
 class ViewService(ViewClass):
-    @login_required
     def GET(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         context = dict(service=service)
