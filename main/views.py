@@ -19,10 +19,35 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.contrib.auth.decorators import login_required
 
 from utils import ViewClass, send_mail_to_admins
 from forms import AnonymousContactForm, ContactForm
 from serv.models import Servicio
+
+class Migrate(ViewClass):
+    @login_required
+    def GET(self):
+        if not self.request.user.is_superuser:
+            self.flash(_(u'No tienes permisos'), 'error')
+            redirect('main.views.index')
+        from user.models import Profile
+        from aplicacion.models import PerfilUsuario, Transferencia
+        from serv.models import Transfer
+
+        # Migrate profiles
+        perfiles = PerfilUsuario.objects.all()
+        for perfil in perfiles:
+            profile = Profile()
+            profile.__dict__.update(perfil.user.__dict__)
+            profile.birth_date = perfil.fecha_de_nacimiento
+            profile.address = perfil.direccion
+            profile.description = perfil.descr
+            profile.balance = int(float(perfil.saldo)*60)
+            profile.save()
+
+        self.flash(_(u'Migración realizada'))
+        return redirect('main.views.index')
 
 class Index(ViewClass):
     def GET(self):
@@ -72,3 +97,4 @@ class Contact(ViewClass):
 
 index = Index()
 contact = Contact()
+migrate = Migrate()
