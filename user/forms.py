@@ -106,5 +106,6 @@ class FindPeopleForm(forms.Form):
     username = forms.CharField(label=_("Nombre de usuario"), required=False)
 
     def as_url_args(self):
+        import urllib
         return urllib.urlencode(self.data)
 
