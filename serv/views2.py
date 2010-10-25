@@ -420,6 +420,7 @@ class ConfirmTransfer(ViewClass):
 
 
 class ViewService(ViewClass):
+    @login_required
     def GET(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         context = dict(service=service)
@@ -427,6 +428,7 @@ class ViewService(ViewClass):
 
 
 class ViewTransfer(ViewClass):
+    @login_required
     def GET(self, transfer_id):
         transfer = get_object_or_404(Transfer, id=int(transfer_id))
         if transfer.credits_debtor != self.request.user and\

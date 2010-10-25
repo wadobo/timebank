@@ -152,8 +152,8 @@ class EditProfile(ViewClass):
             u" - Descripción: %s\n\n") % (old_user.username, old_user.first_name,
                 old_user.last_name, old_user.email, old_user.address,
                 old_user.birth_date, old_user.description,
-                form.cleaned_data["first_name"], form.cleaned_data["last_name"], 
-                form.cleaned_data["email"], form.cleaned_data["address"], 
+                form.cleaned_data["first_name"], form.cleaned_data["last_name"],
+                form.cleaned_data["email"], form.cleaned_data["address"],
                 form.cleaned_data["birth_date"],
                 form.cleaned_data["description"]
             )
@@ -226,6 +226,7 @@ class Remove(ViewClass):
 
 
 class ViewProfile(ViewClass):
+    @login_required
     def GET(self, user_id=None):
         user = user_id and get_object_or_404(Profile, id=user_id) or self.request.user
 
@@ -240,6 +241,7 @@ class ViewProfile(ViewClass):
 
 
 class FindPeople(ViewClass):
+    @login_required
     def GET(self):
         form = FindPeopleForm(self.request.GET)
 
