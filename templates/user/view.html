@@ -56,7 +56,7 @@
                 <em>{% trans "Karma" %}:</em>
                 <div>{{ profile.karma }}</div>
             </li>
-            {% if not user.is_anonymous %}
+            {% if user.is_staff %}
                 <li>
                     <em>{% trans "Edad" %}:</em>
                     <div>{{ profile.birth_date|timesince }}</div>
