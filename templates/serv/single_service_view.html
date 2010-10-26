@@ -16,7 +16,7 @@
             {% if user.is_authenticated %}
                 <a href="{% url user-view serv.creador.id %}">
                     <img src="{% gravatar serv.creador.email 48 %}" alt="{{ serv.creador.username }}" title="{{ serv.creador.username }}"/>
-                    {{ serv.creador.username }}
+                    <div>{{ serv.creador.username|truncate_chars:7 }}</div>
                 </a>
             {% else %}
                 <img src="{% gravatar serv.creador.email 48 %}" alt="{{ serv.creador.username }}" title="{{ serv.creador.username }}"/>
