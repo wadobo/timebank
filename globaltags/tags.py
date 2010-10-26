@@ -1,5 +1,5 @@
 
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Django settings for timebank project.
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 #
@@ -76,7 +76,7 @@ def transfer_actions(context, service):
     '''
     ongoing_transfers = service.ongoing_transfers(context["user"])
     if ongoing_transfers:
-        return {"transfer": ongoing_transfers[0]}
+        return {"transfer": ongoing_transfers[0], 'user': context["user"]}
     else:
         return {"service": service}
 

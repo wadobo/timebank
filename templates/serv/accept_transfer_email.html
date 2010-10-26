@@ -1,0 +1,7 @@
+{% load i18n %}
+{% url serv-transfer-view transfer.id as transfer_url %}
+{% blocktrans with transfer.creator.username as transfer_creator and transfer.service.creador.username as service_creator %}Hola {{ transfer_creator }},
+
+La transferencia que solicitaste del servicio de {{ service_creator }} ha sido aceptada por él/ella. Puedes ver los detalles de la transferencia en {{ site_url }}{{ transfer_url }}.
+
+El equipo de {{ site_url }}{% endblocktrans %}
