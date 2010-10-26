@@ -4,7 +4,7 @@
 {% block title %}
     {% trans 'Ver perfil' %}
     {% if user != profile and not profile.is_anonymous %}
-        / {{ user.username }}
+        / {{ profile.username }}
     {% endif %}
 {% endblock %}
 
@@ -13,7 +13,7 @@
         <h1>
             {% trans 'Ver perfil' %}
             {% if user != profile and not profile.is_anonymous %}
-                / {{ user.username }}
+                / {{ profile.username }}
             {% endif %}
         </h1>
 
