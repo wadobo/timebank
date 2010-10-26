@@ -238,6 +238,7 @@ class AddTransfer(ViewClass):
             # Set remaining transfer settings
             transfer.service = service
             transfer.status = 'q'
+            transfer.is_public = True
             if transfer.service.oferta:
                 transfer.credits_debtor = self.request.user
                 transfer.credits_payee = transfer.service.creador
@@ -514,6 +515,7 @@ class AddComment(ViewClass):
             message = form.save(commit=False)
             message.sender = self.request.user
             message.recipient = service.creador
+            message.is_public = True
             message.service = service
             message.save()
             self.flash(_(u"Comentario añadido correctamente"))

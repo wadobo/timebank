@@ -11,9 +11,7 @@
     <div class="description"><p>{{ comment.body|linebreaks }}</p></div>
     <div class="cleaner"></div>
     <div class="information2">
-        {% if comment.is_public %}
-            {% trans "el comentario es público" %}
-        {% else %}
+        {% if not comment.is_public %}
             {% trans "el comentario es privado" %}
         {% endif %}
         {% trans "Publicado hace" %} {{ comment.sent_at|timesince }}

@@ -97,7 +97,7 @@ class AddTransferForm(forms.ModelForm):
 
     class Meta:
         model = Transfer
-        fields = ['description', 'is_public', 'credits']
+        fields = ['description', 'credits']
 
     def clean_credits(self):
         credits = self.cleaned_data["credits"]
@@ -112,7 +112,7 @@ class AddTransferForm(forms.ModelForm):
 class AddCommentForm(forms.ModelForm):
     class Meta:
         model = Message
-        fields = ['body', 'is_public']
+        fields = ['body']
 
 class ContactoIForm(forms.ModelForm):
 
