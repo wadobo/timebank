@@ -53,7 +53,7 @@
                         <li><a href="{% url user-register %}" class="last {% current_tab 'register' %}">{% trans 'Registrarse' %}</a></li>
                     </ul>
                     <ul>
-                        <li><a href="/" class="current {% current_tab 'default' %}">{% trans 'Inicio' %}</a></li>
+                        <li><a href="/" class="{% current_tab 'default' %}">{% trans 'Inicio' %}</a></li>
                         <li><a href="{% url user-find-people %}" class="{% current_tab 'people' %}">{% trans 'Gente' %}</a></li>
                         <li><a href="{% url serv-list %}" class="last {% current_tab 'services' %}">{% trans 'Servicios' %}</a></li>
                     </ul>
