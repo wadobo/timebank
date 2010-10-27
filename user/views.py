@@ -20,13 +20,12 @@ from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login as django_login
-from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator
 
 from datetime import datetime, timedelta
 
-from utils import ViewClass, send_mail_to_admins
+from utils import ViewClass, send_mail_to_admins, login_required
 from forms import (RegisterForm, EditProfileForm, RemoveForm,
     PublicMessageForm, FindPeopleForm)
 from models import Profile

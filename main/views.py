@@ -19,9 +19,8 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.contrib.auth.decorators import login_required
 
-from utils import ViewClass, send_mail_to_admins
+from utils import ViewClass, send_mail_to_admins, login_required
 from forms import AnonymousContactForm, ContactForm
 from serv.models import Servicio
 

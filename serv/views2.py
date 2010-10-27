@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from utils import ViewClass
+from utils import ViewClass, login_required
 from datetime import datetime, timedelta
 
 from django.shortcuts import get_object_or_404
@@ -22,7 +22,6 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.http import Http404
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.core.paginator import Paginator, InvalidPage, EmptyPage

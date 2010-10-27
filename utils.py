@@ -15,9 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.shortcuts import redirect
 from django.http import HttpResponse as response
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import render_to_response
+from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.utils.translation import gettext as _
 from django import forms
@@ -92,6 +94,19 @@ class ViewClass(object):
         else:
             raise AttributeError, value
 
+def login_required(fn):
+    '''
+    Decorator
+    '''
+    def wrapper(self, *args, **kwargs):
+        if not self.request.user.is_authenticated():
+            self.flash(_(u'Debes estar registrado para entrar en '
+                u'<a href="%s">%s</a>. Si no lo estás puedes registrarte ahora'
+                u' o entrar con tu usuario en el recuadro de la izquierda.') %\
+                (self.request.get_full_path(), self.request.get_full_path()))
+            return redirect('user-register')
+        fn(self, *args, **kwargs)
+    return wrapper
 
 class FormCharField(forms.CharField):
     '''
@@ -220,3 +235,13 @@ def send_mail_to_admins(subject, message, sender=settings.DEFAULT_FROM_EMAIL):
     recipients = ["%s <%s>" % (admin[0], admin[1]) for admin in settings.ADMINS]
     send_mail(subject, message, sender, recipients)
 
+
+def edulix_decorator(view_func):
+    def edulix_decorator_inside(*args, **kwargs):
+        print "before"
+        view_func(*args, **kwargs)
+        print "after"
+
+@edulix_decorator
+def edulix_hello():
+    print "edulix"
