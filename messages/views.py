@@ -1,3 +1,5 @@
+# the absolute_import ensures that the import of utils.py is from parent dir
+from __future__ import absolute_import
 import datetime
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
