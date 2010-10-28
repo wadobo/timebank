@@ -105,7 +105,7 @@ def login_required(fn):
                 u' o entrar con tu usuario en el recuadro de la izquierda.') %\
                 (self.request.get_full_path(), self.request.get_full_path()))
             return redirect('user-register')
-        fn(self, *args, **kwargs)
+        return fn(self, *args, **kwargs)
     return wrapper
 
 class FormCharField(forms.CharField):
