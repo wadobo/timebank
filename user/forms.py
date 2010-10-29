@@ -21,7 +21,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from models import Profile
 from messages.models import Message
-from utils import FormCharField, FormEmailField, FormDateField
+from utils import (FormCharField, FormEmailField, FormDateField,
+    FormCaptchaField)
 from  serv.forms import CustomCharField
 
 class RegisterForm(UserCreationForm):
@@ -39,6 +40,7 @@ class RegisterForm(UserCreationForm):
         required=False, help_text="Ejemplo: 954 123 111")
     mobile_tlf = FormCharField(label=_(u"Teléfono móvil"), max_length=20,
         required=False, help_text="Ejemplo: 651 333 111")
+    captcha = FormCaptchaField()
 
     class Meta:
         model = Profile
