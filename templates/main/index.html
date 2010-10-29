@@ -10,10 +10,15 @@
     </div>
 
     <div class="section_4">
-        <h1>{% trans 'Servicios' %}</h1>
+        <h1>{% trans 'Servicios más recientes' %}</h1>
+        {% if not user.is_authenticated %}
+            {% url user-register as user_register %}
+            <p>{% blocktrans %}Para poder ver más servicios debes <a href='{{ user_register }}'>registrarte</a>.{% endblocktrans %}</p>
+        {% endif %}
+        <p>
         <div class="subcontent services">
             {% include "serv/listservs.html" %}
-            <a href="/services/">{% trans "Más servicios" %}</a>
+            <a href="{% url serv-list %}">{% trans "+ servicios" %}</a>
         </div>
         <div class="cleaner"></div>
     </div>

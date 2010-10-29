@@ -51,7 +51,7 @@ class Migrate(ViewClass):
 class Index(ViewClass):
     def GET(self):
         services = Servicio.objects.filter(activo=True)
-        paginator = Paginator(services, 10)
+        paginator = Paginator(services, 5)
         services = paginator.page(1)
         return self.context_response('main/index.html', {'show_news': True,
         'services': services})

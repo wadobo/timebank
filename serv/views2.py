@@ -35,6 +35,7 @@ from user.models import Profile
 from messages.models import Message
 
 class ListServices(ViewClass):
+    @login_required
     def GET(self):
         form = ListServicesForm(self.request.GET)
 
