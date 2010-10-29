@@ -119,7 +119,7 @@ class FormCharField(forms.CharField):
 
     def get_help_text(self):
         return unicode(self._auto_help_text) + unicode(self._help_text)
-        
+
     def set_help_text(self, help_text):
         self._help_text = help_text
 
@@ -152,7 +152,7 @@ class FormEmailField(forms.EmailField):
 
     def get_help_text(self):
         return unicode(self._auto_help_text) + unicode(self._help_text)
-        
+
     def set_help_text(self, help_text):
         self._help_text = help_text
 
@@ -185,7 +185,7 @@ class FormDateField(forms.DateField):
 
     def get_help_text(self):
         return unicode(self._auto_help_text) + unicode(self._help_text)
-        
+
     def set_help_text(self, help_text):
         self._help_text = help_text
 
@@ -235,13 +235,3 @@ def send_mail_to_admins(subject, message, sender=settings.DEFAULT_FROM_EMAIL):
     recipients = ["%s <%s>" % (admin[0], admin[1]) for admin in settings.ADMINS]
     send_mail(subject, message, sender, recipients)
 
-
-def edulix_decorator(view_func):
-    def edulix_decorator_inside(*args, **kwargs):
-        print "before"
-        view_func(*args, **kwargs)
-        print "after"
-
-@edulix_decorator
-def edulix_hello():
-    print "edulix"
