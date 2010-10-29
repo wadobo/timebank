@@ -1,0 +1,17 @@
+{% extends "template_base.html" %}
+{% load i18n %}
+{% block title %} {% trans 'Panel de Administración' %} {% endblock %}
+
+{% block content %}
+    <div class="section_3">
+        <h1>{% trans 'Panel de Administración' %}</h1>
+        <ul class="preferences">
+            <li>
+                <a href="{% url admin %}">{% trans "Administración avanzada" %}</a>
+            </li>
+            <li>
+                <a href="">{% trans "Enviar correo masivo" %}</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

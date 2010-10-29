@@ -18,6 +18,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext_lazy as _
 
+from tinymce.widgets import TinyMCE
 
 from models import Profile
 from messages.models import Message
@@ -111,3 +112,8 @@ class FindPeopleForm(forms.Form):
         import urllib
         return urllib.urlencode(self.data)
 
+
+class SendEmailToAllForm(forms.Form):
+    subject = forms.CharField(label=_(u'Asunto'), required=True)
+    message = forms.CharField(label=_(u'Mensaje'), required=True,
+        widget=forms.Textarea)

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -43,6 +43,8 @@ urlpatterns = patterns('',
         name="user-view"),
     url(r'^view/(?P<recipient_id>\d+)/sendmessage$', 'user.views.send_message',
         name="user-send-public-message"),
+    url(r'^send_email_to_all/$', 'user.views.send_email_to_all',
+        name="user-send-email-to-all"),
 )
 
 urlpatterns += patterns('',
@@ -51,7 +53,7 @@ urlpatterns += patterns('',
         'email_template_name': 'user/password_reset_email.html',
         'post_reset_redirect': base_url + remember_sent_url},
         name="user-remember"),
-    url(r'^remember/confirm/([^/]+)/([^/]+)/$', 
+    url(r'^remember/confirm/([^/]+)/([^/]+)/$',
         'django.contrib.auth.views.password_reset_confirm',
         {'template_name': 'user/password_reset_confirm.html',
         'post_reset_redirect': base_url + remember_complete_url},

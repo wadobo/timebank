@@ -18,7 +18,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.contrib.auth import authenticate, login as django_login
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator
@@ -27,7 +27,7 @@ from datetime import datetime, timedelta
 
 from utils import ViewClass, send_mail_to_admins, login_required
 from forms import (RegisterForm, EditProfileForm, RemoveForm,
-    PublicMessageForm, FindPeopleForm)
+    PublicMessageForm, FindPeopleForm, SendEmailToAllForm)
 from models import Profile
 from messages.models import Message
 
@@ -294,6 +294,41 @@ class SendMessage(ViewClass):
             recipient.username)
         return redirect("user-view", user_id=recipient_id)
 
+
+class SendEmailToAll(ViewClass):
+    @login_required
+    def GET(self):
+        # check permissions
+        if not self.request.user.is_staff or\
+            not self.request.user.is_superuser:
+            self.flash(_(u"No tienes permisos para enviar un email a todos"
+                u" los usuarios"))
+            return redirect('main.views.index')
+
+        form = SendEmailToAllForm()
+        return self.context_response('user/send_email_to_all.html',
+            {'form': form, 'current_tab': 'admin-panel'})
+
+    def POST(self):
+        # check permissions
+        if not self.request.user.is_staff or\
+            not self.request.user.is_superuser:
+            self.flash(_(u"No tienes permisos para enviar un email a todos"
+                u" los usuarios"))
+            return redirect('main.views.index')
+
+        form = SendEmailToAllForm(self.request.POST)
+        if not form.is_valid():
+            return self.context_response('user/send_email_to_all.html',
+                {'form': form, 'current_tab': 'admin-panel'})
+
+        mass_email = EmailMessage(form.cleaned_data["subject"], form.cleaned_data["message"],
+            from_email=settings.DEFAULT_FROM_EMAIL, to=[],
+            bcc=[user.email for user in Profile.objects.filter(is_active=True)])
+        mass_email.send()
+        self.flash(_(u"Email enviado a todos los usuarios"))
+        return redirect('main.views.index')
+
 login = Login()
 register = Register()
 password_reset_done = PasswordResetDone()
@@ -305,3 +340,4 @@ remove = Remove()
 view_profile = ViewProfile()
 send_message = SendMessage()
 find_people = FindPeople()
+send_email_to_all = SendEmailToAll()
