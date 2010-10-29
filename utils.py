@@ -96,7 +96,10 @@ class ViewClass(object):
 
 def login_required(fn):
     '''
-    Decorator
+    Login required decorator, it works similarly as the login_required decorator
+    from django.auth.decorators.
+    NOTE it can only be used inside a ViewClass. It WONT work in typical django
+    function views.
     '''
     def wrapper(self, *args, **kwargs):
         if not self.request.user.is_authenticated():
