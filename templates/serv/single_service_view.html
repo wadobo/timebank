@@ -48,7 +48,7 @@
             {% if user.is_authenticated and serv.creador != user %}
                 {% transfer_actions serv %}
                 <a class="action" href="{% url serv-comment-add serv.id %}">{% trans "Comentar" %}</a>
-                <a class="action" href="{% url messages_compose_to serv.creador.username %}">{% trans "Enviar mensaje privado a" %} {{ serv.creador.username }}</a>
+                <a class="action" href="{% url messages_compose_to serv.creador.username %}">{% trans "Enviar mensaje privado" %}</a>
             {% endif %}
         </div>
     </div>

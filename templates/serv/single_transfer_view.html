@@ -38,7 +38,7 @@
                         <input class="action" name="submit" type="submit" value="{% trans 'Cancelar transferencia' %}"/>
                     </form>
                 {% endif %}
-                <a class="action" href="{% url messages_compose_to transfer.creator.username %}">{% trans "Enviar mensaje privado a" %} {{ transfer.creator.username }}</a>
+                <a class="action" href="{% url messages_compose_to transfer.creator.username %}">{% trans "Enviar mensaje privado" %}</a>
             {% endif %}
             {% if user.is_authenticated and transfer.service.creador == user %}
                 {% if transfer.status == "q" %}
