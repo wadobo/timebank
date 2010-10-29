@@ -238,7 +238,7 @@ class AddTransfer(ViewClass):
             # Set remaining transfer settings
             transfer.service = service
             transfer.status = 'q'
-            transfer.is_public = True
+            transfer.is_public = False
             if transfer.service.oferta:
                 transfer.credits_debtor = self.request.user
                 transfer.credits_payee = transfer.service.creador

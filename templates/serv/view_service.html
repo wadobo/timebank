@@ -8,9 +8,9 @@
 {% with service as serv %}
     {% include "serv/single_service_view.html" %}
 {% endwith %}
-<h2 style="margin-top: 30px">{% trans "Transferencias del servicio" %}</h2>
+<h2 style="margin-top: 30px">{% trans "Mis transferencias en este servicio" %}</h2>
 {% for transfer in service.sorted_transfers|limit_results %}
-    {% if transfer.is_public or user.is_authenticated and transfer.credits_debtor == user or user.is_authenticated and transfer.credits_payee == user %}
+    {% if transfer.credits_debtor == user or transfer.credits_payee == user %}
         {% include "serv/single_transfer_view.html" %}
     {% endif %}
 {% empty %}
