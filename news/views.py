@@ -41,7 +41,7 @@ class Index(ViewClass):
 
         news = New.objects.filter(hidden=False)
 
-        paginator = Paginator(news, 25)
+        paginator = Paginator(news, 10)
         try:
             news = paginator.page(page)
         except (EmptyPage, InvalidPage):
@@ -53,7 +53,7 @@ class Index(ViewClass):
 
 class Feed(ViewClass):
     def GET(self):
-        entries = New.objects.filter(hidden=False)[:20]
+        entries = New.objects.filter(hidden=False)[:10]
         current_site = Site.objects.get_current()
         link = "http://%s%s" % (current_site.domain,
             reverse('news.views.index'))

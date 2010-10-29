@@ -266,7 +266,7 @@ class FindPeople(ViewClass):
                 last_date = datetime.now() - timedelta(years=1)
             people = people.filter(last_login__gt=last_date)
 
-        paginator = Paginator(people, 25)
+        paginator = Paginator(people, 10)
         try:
             people = paginator.page(page)
         except (EmptyPage, InvalidPage):

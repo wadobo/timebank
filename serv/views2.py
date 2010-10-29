@@ -83,7 +83,7 @@ class ListServices(ViewClass):
             username = form.data["username"]
             services = services.filter(creador__username__contains=username)
 
-        paginator = Paginator(services, 25)
+        paginator = Paginator(services, 10)
         try:
             services = paginator.page(page)
         except (EmptyPage, InvalidPage):
@@ -454,7 +454,7 @@ class MyTransfers(ViewClass):
         except ValueError:
             page = 1
 
-        paginator = Paginator(transfers, 25)
+        paginator = Paginator(transfers, 10)
         try:
             transfers = paginator.page(page)
         except (EmptyPage, InvalidPage):
