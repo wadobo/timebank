@@ -179,7 +179,6 @@ class PasswordChangeDone(ViewClass):
         return redirect('user-preferences')
 
 
-
 class Remove(ViewClass):
     @login_required
     def GET(self):
