@@ -872,3 +872,7 @@ ul.view-profile li > div {
     margin-bottom: 20px;
     background-color: #eee;
 }
+
+.services a.more {
+    float: right;
+}
