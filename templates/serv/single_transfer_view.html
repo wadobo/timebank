@@ -34,21 +34,31 @@
             {% if user.is_authenticated and transfer.service.creador != user %}
                 {% if transfer.status == "q" or transfer.status == "a" %}
                     <a class="action" href="{% url serv-transfer-edit transfer.id %}">{% trans "Editar transferencia" %}</a>
-                    <a class="action" href="{% url serv-transfer-cancel transfer.id %}">{% trans "Cancelar transferencia" %}</a>
+                    <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
+                        <input class="action" name="submit" type="submit" value="{% trans 'Cancelar transferencia' %}"/>
+                    </form>
                 {% endif %}
                 <a class="action" href="{% url messages_compose_to transfer.creator.username %}">{% trans "Enviar mensaje privado a" %} {{ transfer.creator.username }}</a>
             {% endif %}
             {% if user.is_authenticated and transfer.service.creador == user %}
                 {% if transfer.status == "q" %}
-                    <a class="action" href="{% url serv-transfer-accept transfer.id %}">{% trans "Aceptar transferencia" %}</a>
-                    <a class="action" href="{% url serv-transfer-cancel transfer.id %}">{% trans "Cancelar transferencia" %}</a>
+                    <form method="POST" action="{% url serv-transfer-accept transfer.id %}"> {% csrf_token %}
+                        <input class="action" name="submit" type="submit" value="{% trans 'Aceptar transferencia' %}"/>
+                    </form>
+                    <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
+                        <input class="action" name="submit" type="submit" value="{% trans 'Cancelar transferencia' %}"/>
+                    </form>
                 {% endif %}
                 {% if transfer.status == "a" %}
-                    <a class="action" href="{% url serv-transfer-cancel transfer.id %}">{% trans "Cancelar transferencia" %}</a>
+                    <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
+                        <input class="action" name="submit" type="submit" value="{% trans 'Cancelar transferencia' %}"/>
+                    </form>
                 {% endif %}
             {% endif %}
             {% if user.is_authenticated and transfer.credits_debtor == user and transfer.status == "a" %}
-                    <a class="action" href="{% url serv-transfer-confirm transfer.id %}">{% trans "Confirmar transferencia" %}</a>
+                    <form method="POST" action="{% url serv-transfer-confirm transfer.id %}"> {% csrf_token %}
+                        <input class="action" name="submit" type="submit" value="{% trans 'Confirmar transferencia' %}"/>
+                    </form>
             {% endif %}
         </div>
     </div>

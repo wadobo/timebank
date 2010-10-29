@@ -331,7 +331,7 @@ class EditTransfer(ViewClass):
 
 class CancelTransfer(ViewClass):
     @login_required
-    def GET(self, transfer_id):
+    def POST(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
         if transfer.credits_debtor != self.request.user and\
             transfer.credits_payee != self.request.user:
@@ -350,7 +350,7 @@ class CancelTransfer(ViewClass):
 
 class AcceptTransfer(ViewClass):
     @login_required
-    def GET(self, transfer_id):
+    def POST(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
 
         # Check user would not surpass max balance
@@ -383,7 +383,7 @@ class AcceptTransfer(ViewClass):
 
 class ConfirmTransfer(ViewClass):
     @login_required
-    def GET(self, transfer_id):
+    def POST(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
 
         # Check user would not surpass max balance
@@ -465,10 +465,6 @@ class MyTransfers(ViewClass):
 
 class RateTransfer(ViewClass):
     @login_required
-    def GET(self, transfer_id):
-        import ipdb; ipdb.set_trace()
-
-    @login_required
     def POST(self, transfer_id):
         try:
             rating = int(self.request.POST['rating'])
@@ -526,7 +522,7 @@ class AddComment(ViewClass):
 
 class DeleteComment(ViewClass):
     @login_required
-    def GET(self, comment_id):
+    def POST(self, comment_id):
         message = get_object_or_404(Message, pk=comment_id)
         if not message.service:
             self.flash(_(u"El mensaje que intenta borrar no es un comentario"),

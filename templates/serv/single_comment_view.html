@@ -19,7 +19,9 @@
     <div class="cleaner"></div>
     <div class="buttons">
         {% if user.is_authenticated and comment.sender == user %}
-            <a class="action" href="{% url serv-comment-delete comment.id %}">{% trans "Borrar comentario" %}</a>
+            <form method="POST" action="{% url serv-comment-delete comment.id %}"> {% csrf_token %}
+                <input class="action" name="submit" type="submit" value="{% trans 'Borrar comentario' %}"/>
+            </form>
         {% endif %}
     </div>
 </div>
