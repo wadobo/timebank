@@ -212,10 +212,10 @@ class MensajeA(Mensaje):
 
 
 TRANSFER_STATUS = (
-    ('q', _('Transferencia solicitada')), # q for reQuest
-    ('a', _('Transferencia aceptada')), # a for Accepted
-    ('r', _('Transferencia rechazada')), # r for Rejected
-    ('d', _('Transferencia realizada')), # d for Done
+    ('q', _('solicitada')), # q for reQuest
+    ('a', _('aceptada')), # a for Accepted
+    ('r', _('rechazada')), # r for Rejected
+    ('d', _('realizada')), # d for Done
 )
 
 class Transfer(models.Model):
@@ -256,5 +256,8 @@ class Transfer(models.Model):
     def creator(self):
         return self.service.creador == self.credits_debtor and\
             self.credits_payee or self.credits_debtor
+
+    def status_readable(self):
+        return TRANSFER_STATUS[self.status]
 
 signals.post_save.connect(new_transfer_email, sender=Transfer)

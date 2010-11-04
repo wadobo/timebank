@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,7 @@
 from django.contrib.auth.models import User, UserManager
 from django.utils.translation import ugettext as _
 from django.db import models
-from django.db.models import signals, Avg
+from django.db.models import signals, Avg, Q
 from datetime import date
 
 def create_profile_for_user(sender, **kwargs):
@@ -53,6 +53,9 @@ class Profile(User):
 
     mobile_tlf = models.CharField(_(u"Teléfono móvil"), max_length=20)
 
+    email_updates = models.BooleanField(_(u"Recibir actualizaciones por email"),
+        default=False)
+
     class Meta:
         verbose_name = _("Usuario")
         verbose_name_plural = _("Usuarios")
@@ -65,6 +68,14 @@ class Profile(User):
 
     def __eq__(self, value):
         return value and self.id == value.id or False
+
+    def transfers_pending(self):
+        '''
+        Transfers from this user which are not in a final state
+        '''
+        from serv.models import Transfer
+        return Transfer.objects.filter(Q(credits_payee=self) \
+            | Q(credits_payee=self)).filter(status__in=['r', 'd'])
 
     def karma(self):
         '''

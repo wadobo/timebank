@@ -59,6 +59,7 @@ urlpatterns = patterns('',
     (r'^news/', include('news.urls')),
     (r'^messages/', include('messages.urls')),
     (r'^services/', include('serv.urls')),
+    (r'^tasks/', include('tasks.urls')),
     (r'^', include('main.urls')),
 )
 

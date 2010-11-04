@@ -120,7 +120,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.flatpages',
-    #'aplicacion',
+    'aplicacion',
     'serv',
     'main',
     'flashmsg',
@@ -129,7 +129,8 @@ INSTALLED_APPS = (
     'user',
     'globaltags',
     'messages',
-    'djangoratings'
+    'djangoratings',
+    'tasks'
 )
 
 LOGIN_URL = '/'
