@@ -11,25 +11,28 @@
         <meta name="keywords" content="timebank,banco del tiempo,ecolocal"/>
         <meta name="description" content="timebank"/>
         <link href="{{ MEDIA_URL }}flashmsg.css" rel="stylesheet" type="text/css">
-        <link href="{{ MEDIA_URL }}templatemo/style.css" rel="stylesheet" type="text/css"> 
+        <link href="{{ MEDIA_URL }}templatemo/style.css" rel="stylesheet" type="text/css">
         <link href="{{ MEDIA_URL }}templatemo/fullsize.css" media="screen" rel="stylesheet" type="text/css">
+        <link href='{{ MEDIA_URL }}jquery.rating.css' type="text/css" rel="stylesheet"/>
         <link rel="alternate" title="RSS" href="{% url news-feed %}" type="application/rss+xml">
-        <script type="text/javascript" src="{{ MEDIA_URL }}templatemo/jquery.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
+        <script src='{{ MEDIA_URL }}js/jquery.MetaData.js' type="text/javascript" language="javascript"></script>
+        <script src='{{ MEDIA_URL }}js/jquery.rating.js' type="text/javascript" language="javascript"></script>
     </head>
     <body>
-    <div id="container"> 
+    <div id="container">
         <div id="header">
             <div id="logo_area">
                 <div id="logo"><a href="/"><img src="{{ MEDIA_URL }}imgs/timebank.png"></a></div>
           </div>
             <div id="social">
-                <a href="{% url news.views.feed %}"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_3.jpg" alt="RSS"></a>
+                <!--<a href="{% url news.views.feed %}"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_3.jpg" alt="RSS"></a>
                 <a href="#"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_2.jpg" alt="Twitter"></a>
                 <a href="#"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_1.jpg" alt="Delicious"></a>
                 <form action="#" method="post">
                     <input value="SEARCH" name="q" class="field" title="email" onfocus="clearText(this)" onblur="clearText(this)" type="text">
                     <input name="search" value="" alt="Search" class="button" title="Subscribe" type="submit">
-                </form>
+                </form>-->
             </div>
             <div id="menu">
                 {% if user.is_authenticated %}
@@ -38,6 +41,9 @@
                         <li><a href="{% url user-logout %}"  class="last">{% trans 'Salir' %}</a></li>
                     </ul>
                     <ul>
+                        {% if user.is_staff or user.is_superuser %}
+                            <li><a href="{% url admin:index %}" class="{% current_tab 'admin-panel' %}">{% trans 'Administración' %}</a></li>
+                        {% endif %}
                         <li><a href="{% url user-find-people %}" class="{% current_tab 'people' %}">{% trans 'Gente' %}</a></li>
                         <li><a href="{% url serv-list %}" class="{% current_tab 'services' %}">{% trans 'Servicios' %}</a></li>
                         <li><a href="{% url serv-transfers-mine %}" class="{% current_tab 'transfers' %}">{% trans 'Transferencias' %}</a></li>
@@ -50,14 +56,14 @@
                         <li><a href="{% url user-register %}" class="last {% current_tab 'register' %}">{% trans 'Registrarse' %}</a></li>
                     </ul>
                     <ul>
-                        <li><a href="/" class="current {% current_tab 'default' %}">{% trans 'Inicio' %}</a></li>
-                        <li><a href="/people/" class="{% current_tab 'people' %}">{% trans 'Gente' %}</a></li>
+                        <li><a href="/" class="{% current_tab 'default' %}">{% trans 'Inicio' %}</a></li>
+                        <li><a href="{% url user-find-people %}" class="{% current_tab 'people' %}">{% trans 'Gente' %}</a></li>
                         <li><a href="{% url serv-list %}" class="last {% current_tab 'services' %}">{% trans 'Servicios' %}</a></li>
                     </ul>
                 {% endif %}
             </div>
         </div>
-        
+
         <div id="content_area">
             <div id="left">
                 <div class="section_1">
@@ -92,11 +98,11 @@
                         </div>
                     {% endif %}
                 </div>
-                
+
                 <div class="section_2">
                     <h1>
                         <a href="{% url news.views.feed %}"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_3.jpg" alt="RSS"></a>
-                        {% trans 'Novedades' %}
+                        {% trans 'Noticias' %}
                     </h1>
                     {% for new in front_news %}
                         <div class="new {% cycle 'blue' 'green' 'yellow' %}">
@@ -105,31 +111,31 @@
                     {% endfor %}
                     <a href="{% url news %}">{% trans "+ noticias" %}</a>
                 </div>
-                
+
                 <div class="section_2">
 <!--                     <a href="http://validator.w3.org/check?uri=referer"><img style="border: 0pt none; width: 88px; height: 31px;" src="{{ MEDIA_URL }}templatemo/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional" vspace="8" width="88" border="0" height="31"></a> -->
 <!--                 <a href="http://jigsaw.w3.org/css-validator/check/referer"><img style="border: 0pt none; width: 88px; height: 31px;" src="{{ MEDIA_URL }}templatemo/vcss-blue.gif" alt="Valid CSS!" vspace="8" border="0"></a> -->
                 </div>
 
             </div><!-- End of left -->
-            
+
             <div id="right">
                 <div id="flash_messages">{% flash %}</div>
                 {% block content %}
                 {% endblock %}
-                
+
                 <div class="cleaner"></div>
-            
+
             </div><!-- End of right -->
-        
+
         </div> <!-- End of content_area -->
-        
+
     </div><!-- End Of Container -->
     <div class="cleaner"></div>
      <div id="footer">
             <ul class="footer_menu">
                 <li><a href="/" class="{% current_tab 'default' %}">{% trans "Home" %}</a></li>
-                <li><a href="{% url news %}" class="{% current_tab 'news' %}">{% trans "Blog" %}</a></li>
+                <li><a href="{% url news %}" class="{% current_tab 'news' %}">{% trans "Noticias" %}</a></li>
                 <li><a href="{% url contact %}" class="{% current_tab 'contact' %}">{% trans "Contacta" %}</a></li>
                 {% for page in flatpages %}
                     <li><a href="{{ page.url }}">{{ page.title }}</a></li>

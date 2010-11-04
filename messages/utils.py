@@ -22,8 +22,8 @@ def format_quote(text):
     for i, line in enumerate(lines):
         lines[i] = "> %s" % line
     return '\n'.join(lines)
-    
-def new_message_email(sender, instance, signal, 
+
+def new_message_email(sender, instance, signal,
         subject_prefix=_(u'New Message: %(subject)s'),
         template_name="messages/new_message.html",
         default_protocol=None,
@@ -50,5 +50,55 @@ def new_message_email(sender, instance, signal,
                 send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
                     [instance.recipient.email,])
         except Exception, e:
-            #print e
+            print e
             pass #fail silently
+
+def new_transfer_email(sender, instance, signal, *args, **kwargs):
+
+    if 'created' not in kwargs or not kwargs['created']:
+        update_transfer_email(sender, instance, signal, *args, **kwargs)
+        return
+
+    current_domain = Site.objects.get_current().domain
+    default_protocol = getattr(settings, 'DEFAULT_HTTP_PROTOCOL', 'http')
+
+    recipient = instance.service.creador
+    subject=_(u'Nueva solicitud de transferencia de %s') % recipient.username
+    message = render_to_string("serv/new_transfer_email.html", {
+        'site_url': '%s://%s' % (default_protocol, current_domain),
+        'transfer': instance
+    })
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
+        [recipient.email,])
+
+def update_transfer_email(sender, instance, signal, *args, **kwargs):
+    current_domain = Site.objects.get_current().domain
+    default_protocol = getattr(settings, 'DEFAULT_HTTP_PROTOCOL', 'http')
+
+    if instance.status == 'q':
+        recipient_emails = [instance.service.creador.email,]
+        subject=_(u'Transferencia de %s editada') % instance.creator().username
+        template = "serv/edit_transfer_email.html"
+    elif instance.status == 'a':
+        recipient_emails = [instance.creator().email,]
+        subject=_(u'Transferencia del servicio de %s aceptada') % instance.service.creador.username
+        template = "serv/accept_transfer_email.html"
+    elif instance.status == 'r':
+        subject=_(u'Transferencia de %s del servicio de %s cancelada') % (\
+            instance.creator().username, instance.service.creador.username)
+        template = "serv/cancel_transfer_email.html"
+        recipient_emails = [instance.credits_debtor.email, instance.credits_payee.email]
+    elif instance.status == 'd':
+        subject=_(u'Transferencia del servicio que realizaste a %s confirmada') % (\
+            instance.credits_debtor.email)
+        template = "serv/done_transfer_email.html"
+        recipient_emails = [instance.credits_payee.email,]
+    else:
+        print "error, invalid updated transfer status " + instance.service.status
+        return
+
+    message = render_to_string(template, {
+        'site_url': '%s://%s' % (default_protocol, current_domain),
+        'transfer': instance
+    })
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_emails)

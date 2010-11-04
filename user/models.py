@@ -17,7 +17,7 @@
 from django.contrib.auth.models import User, UserManager
 from django.utils.translation import ugettext as _
 from django.db import models
-from django.db.models import signals
+from django.db.models import signals, Avg
 from datetime import date
 
 def create_profile_for_user(sender, **kwargs):
@@ -26,12 +26,14 @@ def create_profile_for_user(sender, **kwargs):
     '''
     if kwargs['created']:
         profile = Profile()
-        profile.birth_date = date.today()
-        profile.address = _(u"dirección")
+        if not kwargs['instance'].__dict__.has_key("birth_date"):
+            profile.birth_date = date.today()
+        if not kwargs['instance'].__dict__.has_key("address"):
+            profile.address = _(u"direccion")
         profile.__dict__.update(kwargs['instance'].__dict__)
         profile.save()
 
-signals.post_save.connect(create_profile_for_user, sender=User)
+#signals.post_save.connect(create_profile_for_user, sender=User)
 
 class Profile(User):
     '''
@@ -47,9 +49,6 @@ class Profile(User):
     description = models.TextField(_(u"Descripción personal"), max_length=300,
         blank=True)
 
-    karma = models.CommaSeparatedIntegerField(_("Karma"), default=0,
-        max_length=4)
-
     land_line = models.CharField(_(u"Teléfono fijo"), max_length=20)
 
     mobile_tlf = models.CharField(_(u"Teléfono móvil"), max_length=20)
@@ -62,7 +61,17 @@ class Profile(User):
         return _("Id: %s usuario: %s") % (self.id, self.username)
 
     # Use UserManager to get the create_user method, etc.
-    objects = UserManager() 
+    objects = UserManager()
 
     def __eq__(self, value):
         return value and self.id == value.id or False
+
+    def karma(self):
+        '''
+        Average of the user's transfer scores
+        '''
+        karma = self.transfers_received.aggregate(Avg('rating_score'))
+        if karma['rating_score__avg']:
+            return karma['rating_score__avg']
+        else:
+            return 0

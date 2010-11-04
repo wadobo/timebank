@@ -18,10 +18,12 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext_lazy as _
 
+from tinymce.widgets import TinyMCE
 
 from models import Profile
 from messages.models import Message
-from utils import FormCharField, FormEmailField, FormDateField
+from utils import (FormCharField, FormEmailField, FormDateField,
+    FormCaptchaField)
 from  serv.forms import CustomCharField
 
 class RegisterForm(UserCreationForm):
@@ -39,6 +41,7 @@ class RegisterForm(UserCreationForm):
         required=False, help_text="Ejemplo: 954 123 111")
     mobile_tlf = FormCharField(label=_(u"Teléfono móvil"), max_length=20,
         required=False, help_text="Ejemplo: 651 333 111")
+    captcha = FormCaptchaField()
 
     class Meta:
         model = Profile
@@ -94,12 +97,11 @@ class PublicMessageForm(forms.ModelForm):
 
 class FindPeopleForm(forms.Form):
     USER_CHOICES = (
-        ('0', _('cualquiera')),
-        ('1', _('online')),
-        ('2', _(u'se conectó hoy')),
-        ('3', _(u'se conectó esta semana')),
-        ('4', _(u'se conectó este mes')),
-        ('5', _(u'se conectó este año')),
+        ('0', _('---------')),
+        ('1', _(u'se conectó hoy')),
+        ('2', _(u'se conectó esta semana')),
+        ('3', _(u'se conectó este mes')),
+        ('4', _(u'se conectó este año')),
     )
 
     user_status = CustomCharField(label=_("Estado del usuario"),
@@ -107,5 +109,11 @@ class FindPeopleForm(forms.Form):
     username = forms.CharField(label=_("Nombre de usuario"), required=False)
 
     def as_url_args(self):
+        import urllib
         return urllib.urlencode(self.data)
 
+
+class SendEmailToAllForm(forms.Form):
+    subject = forms.CharField(label=_(u'Asunto'), required=True)
+    message = forms.CharField(label=_(u'Mensaje'), required=True,
+        widget=forms.Textarea)

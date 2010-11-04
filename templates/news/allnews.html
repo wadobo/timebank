@@ -1,7 +1,27 @@
 {% load i18n %}
 
-{% for new in news %}
-<div class="new">
-{% include "news/truncnew.html" %}
-</div>
+{% if user.is_staff %}
+    <a href="{% url admin:news_new_add %}">{% trans "Añadir noticia" %}</a>
+{% endif %}
+{% for new in news.object_list %}
+    <div class="new">
+        {% include "news/truncnew.html" %}
+    </div>
 {% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if news.has_previous %}
+            <a href="?page={{ news.previous_page_number }}">{% trans "anterior" %}</a>
+        {% endif %}
+
+        <span class="current">
+            {% blocktrans with news.number as number and news.paginator.num_pages as num_pages %}
+            Página {{ number }} de {{ num_pages }}
+            {% endblocktrans %}
+        </span>
+
+        {% if news.has_next %}
+            <a href="?page={{ news.next_page_number }}">{% trans "siguiente" %}</a>
+        {% endif %}
+    </span>
+</div>

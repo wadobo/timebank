@@ -67,12 +67,11 @@ class ListServicesForm(forms.Form):
         ('2', _('demanda')),
     )
     USER_CHOICES = (
-        ('0', _('cualquiera')),
-        ('1', _('online')),
-        ('2', _(u'se conectó hoy')),
-        ('3', _(u'se conectó esta semana')),
-        ('4', _(u'se conectó este mes')),
-        ('5', _(u'se conectó este año')),
+        ('0', _('---------')),
+        ('1', _(u'se conectó hoy')),
+        ('2', _(u'se conectó esta semana')),
+        ('3', _(u'se conectó este mes')),
+        ('4', _(u'se conectó este año')),
     )
 
     mine = forms.BooleanField(label=_(u"Sólo listar mis servicios"), required=False)
@@ -98,7 +97,7 @@ class AddTransferForm(forms.ModelForm):
 
     class Meta:
         model = Transfer
-        fields = ['description', 'is_public', 'credits']
+        fields = ['description', 'credits']
 
     def clean_credits(self):
         credits = self.cleaned_data["credits"]
@@ -113,7 +112,7 @@ class AddTransferForm(forms.ModelForm):
 class AddCommentForm(forms.ModelForm):
     class Meta:
         model = Message
-        fields = ['body', 'is_public']
+        fields = ['body']
 
 class ContactoIForm(forms.ModelForm):
 

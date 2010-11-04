@@ -13,10 +13,14 @@
             <span class="date"> {% trans "Publicado hace" %} {{ serv.pub_date|timesince }} </span>
         </div>
         <div class="gravatar">
-            <a href="{% url user-view serv.creador.id %}">
-                <img src="{% gravatar serv.creador.email 48 %}" alt="{{ serv.creador.username }}" title="{{ serv.creador.username }}"/>
-                {{ serv.creador.username }}
-            </a>
+            {% if user.is_authenticated %}
+                <a href="{% url user-view serv.creador.id %}">
+                    <img src="{% gravatar serv.creador.email 48 %}" alt="{{ serv.creador.username }}" title="{{ serv.creador.username }}"/>
+                    <div>{{ serv.creador.username|truncate_chars:7 }}</div>
+                </a>
+            {% else %}
+                <img src="{% gravatar serv.creador.email 48 %}"/>
+            {% endif %}
         </div>
         <a href="{% url serv-view serv.id %}"><div class="description">{{ serv.descripcion|truncatewords:50|linebreaks }}</div></a>
         <div class="cleaner"></div>
@@ -44,7 +48,7 @@
             {% if user.is_authenticated and serv.creador != user %}
                 {% transfer_actions serv %}
                 <a class="action" href="{% url serv-comment-add serv.id %}">{% trans "Comentar" %}</a>
-                <a class="action" href="{% url messages_compose_to serv.creador.username %}">{% trans "Enviar mensaje privado a" %} {{ serv.creador.username }}</a>
+                <a class="action" href="{% url messages_compose_to serv.creador.username %}">{% trans "Enviar mensaje privado" %}</a>
             {% endif %}
         </div>
     </div>

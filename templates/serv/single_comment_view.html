@@ -8,12 +8,10 @@
             {{ comment.sender.username }}
         </a>
     </div>
-    <a href="{% url serv-transfer-view comment.id %}"><div class="description"><p>{{ comment.body|linebreaks }}</p></div></a>
+    <div class="description"><p>{{ comment.body|linebreaks }}</p></div>
     <div class="cleaner"></div>
     <div class="information2">
-        {% if comment.is_public %}
-            {% trans "el comentario es público" %}
-        {% else %}
+        {% if not comment.is_public %}
             {% trans "el comentario es privado" %}
         {% endif %}
         {% trans "Publicado hace" %} {{ comment.sent_at|timesince }}
@@ -21,7 +19,9 @@
     <div class="cleaner"></div>
     <div class="buttons">
         {% if user.is_authenticated and comment.sender == user %}
-            <a class="action" href="{% url serv-comment-delete comment.id %}">{% trans "Borrar comentario" %}</a>
+            <form method="POST" action="{% url serv-comment-delete comment.id %}"> {% csrf_token %}
+                <input class="action" name="submit" type="submit" value="{% trans 'Borrar comentario' %}"/>
+            </form>
         {% endif %}
     </div>
 </div>

@@ -14,16 +14,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from utils import ViewClass
-from datetime import datetime
+from utils import ViewClass, login_required
+from datetime import datetime, timedelta
 
-from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.http import Http404
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
@@ -42,12 +40,15 @@ class ListServices(ViewClass):
     def GET(self):
         form = ListServicesForm(self.request.GET)
 
+        if not self.request.user.is_authenticated():
+            del form.fields['mine']
+
         try:
             page = int(self.request.GET.get('page', '1'))
         except ValueError:
             page = 1
 
-        if form.data.get("mine", ''):
+        if self.request.user.is_authenticated() and form.data.get("mine", ''):
             services = Servicio.objects.filter(creador=self.request.user)
             subtab = "my"
         else:
@@ -68,11 +69,23 @@ class ListServices(ViewClass):
                 id=int(form.data["area"]))
             services = services.filter(zona=area)
 
+        user_status = form.data.get("user_status", '0')
+        if user_status != '0':
+            if user_status == '1': # today
+                last_date = datetime.now() - timedelta(days=1)
+            elif user_status == '2': # this week
+                last_date = datetime.now() - timedelta(days=7)
+            elif user_status == '3': # this month
+                last_date = datetime.now() - timedelta(months=1)
+            elif user_status == '4': # this year
+                last_date = datetime.now() - timedelta(years=1)
+            services = services.filter(creador__last_login__gt=last_date)
+
         if form.data.get("username", ''):
             username = form.data["username"]
             services = services.filter(creador__username__contains=username)
 
-        paginator = Paginator(services, 25)
+        paginator = Paginator(services, 10)
         try:
             services = paginator.page(page)
         except (EmptyPage, InvalidPage):
@@ -89,7 +102,6 @@ class ListServices(ViewClass):
 
 class AddService(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self):
         form = ServiceForm()
         context = dict(form=form, instance=None, current_tab="services",
@@ -97,7 +109,6 @@ class AddService(ViewClass):
         return self.context_response('serv/edit_service.html', context)
 
     @login_required
-    @csrf_protect
     def POST(self):
         form = ServiceForm(self.request.POST)
         if form.is_valid():
@@ -113,7 +124,6 @@ class AddService(ViewClass):
 
 class EditService(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if not instance.creador == self.request.user:
@@ -126,7 +136,6 @@ class EditService(ViewClass):
         return self.context_response('serv/edit_service.html', context)
 
     @login_required
-    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if not instance.creador == self.request.user:
@@ -157,7 +166,6 @@ class EditService(ViewClass):
 
 class DeleteService(ViewClass):
     @login_required
-    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if instance.creador == self.request.user:
@@ -171,7 +179,6 @@ class DeleteService(ViewClass):
 
 class ActiveService(ViewClass):
     @login_required
-    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if instance.creador == self.request.user:
@@ -186,7 +193,6 @@ class ActiveService(ViewClass):
 
 class DeactiveService(ViewClass):
     @login_required
-    @csrf_protect
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
         if instance.creador == self.request.user:
@@ -201,7 +207,6 @@ class DeactiveService(ViewClass):
 
 class AddTransfer(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         ongoing_transfers = service.ongoing_transfers(self.request.user)
@@ -213,7 +218,6 @@ class AddTransfer(ViewClass):
         return self.context_response('serv/add_transfer.html', context)
 
     @login_required
-    @csrf_protect
     def POST(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         ongoing_transfers = service.ongoing_transfers(self.request.user)
@@ -235,6 +239,7 @@ class AddTransfer(ViewClass):
             # Set remaining transfer settings
             transfer.service = service
             transfer.status = 'q'
+            transfer.is_public = False
             if transfer.service.oferta:
                 transfer.credits_debtor = self.request.user
                 transfer.credits_payee = transfer.service.creador
@@ -275,7 +280,6 @@ class AddTransfer(ViewClass):
 
 class EditTransfer(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
         if transfer.creator() != self.request.user:
@@ -292,7 +296,6 @@ class EditTransfer(ViewClass):
         return self.context_response('serv/edit_transfer.html', context)
 
     @login_required
-    @csrf_protect
     def POST(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
         if transfer.creator() != self.request.user:
@@ -330,8 +333,7 @@ class EditTransfer(ViewClass):
 
 class CancelTransfer(ViewClass):
     @login_required
-    @csrf_protect
-    def GET(self, transfer_id):
+    def POST(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
         if transfer.credits_debtor != self.request.user and\
             transfer.credits_payee != self.request.user:
@@ -350,8 +352,7 @@ class CancelTransfer(ViewClass):
 
 class AcceptTransfer(ViewClass):
     @login_required
-    @csrf_protect
-    def GET(self, transfer_id):
+    def POST(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
 
         # Check user would not surpass max balance
@@ -384,8 +385,7 @@ class AcceptTransfer(ViewClass):
 
 class ConfirmTransfer(ViewClass):
     @login_required
-    @csrf_protect
-    def GET(self, transfer_id):
+    def POST(self, transfer_id):
         transfer = get_object_or_404(Transfer, pk=transfer_id)
 
         # Check user would not surpass max balance
@@ -401,7 +401,7 @@ class ConfirmTransfer(ViewClass):
                 'error')
             return redirect('serv-transfers-mine')
 
-        if transfer.service.creador != self.request.user:
+        if transfer.credits_debtor != self.request.user:
             self.flash(_(u"No puedes confirmar una transferencia de un"
                 " servicio que no sea tuyo"), "error")
             return redirect('serv-transfers-mine')
@@ -417,13 +417,12 @@ class ConfirmTransfer(ViewClass):
         transfer.credits_debtor.save()
         transfer.credits_payee.save()
         transfer.save()
-        self.flash(_("Transferencia aceptada"))
+        self.flash(_("Transferencia realizada"))
         return redirect('serv-transfers-mine')
 
 
 class ViewService(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         context = dict(service=service)
@@ -431,7 +430,7 @@ class ViewService(ViewClass):
 
 
 class ViewTransfer(ViewClass):
-    @csrf_protect
+    @login_required
     def GET(self, transfer_id):
         transfer = get_object_or_404(Transfer, id=int(transfer_id))
         if transfer.credits_debtor != self.request.user and\
@@ -447,7 +446,6 @@ class ViewTransfer(ViewClass):
 
 class MyTransfers(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self):
         transfers = Transfer.objects.filter(
             Q(credits_debtor=self.request.user)
@@ -458,7 +456,7 @@ class MyTransfers(ViewClass):
         except ValueError:
             page = 1
 
-        paginator = Paginator(transfers, 25)
+        paginator = Paginator(transfers, 10)
         try:
             transfers = paginator.page(page)
         except (EmptyPage, InvalidPage):
@@ -467,10 +465,33 @@ class MyTransfers(ViewClass):
         context = dict(transfers=transfers, subtab="mine")
         return self.context_response('serv/view_transfers.html', context)
 
+class RateTransfer(ViewClass):
+    @login_required
+    def POST(self, transfer_id):
+        try:
+            rating = int(self.request.POST['rating'])
+        except:
+            self.flash(_(u"Error recibiendo la puntuación"))
+            return redirect('serv-transfer-view', transfer_id)
+        transfer = get_object_or_404(Transfer, id=int(transfer_id))
+
+        if transfer.credits_debtor != self.request.user:
+            self.flash(_(u"No tienes permisos para puntuar esta transferencia"),
+                "error")
+            return redirect('serv-transfer-view', transfer_id)
+
+        if 1 > rating > 5:
+            self.flash(_(u"sólo se puede valor de 1 a 5"), "error")
+            return redirect('serv-transfer-view', transfer_id)
+
+        transfer.rating.add(score=rating, user=self.request.user,
+            ip_address=self.request.META['REMOTE_ADDR'])
+        self.flash(_(u"Tu puntuación de la transferencia ha sido actualizada correctamente"))
+
+        return redirect('serv-transfer-view', transfer_id)
 
 class AddComment(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         form = AddCommentForm()
@@ -479,7 +500,6 @@ class AddComment(ViewClass):
         return self.context_response('serv/service_add_comment.html', context)
 
     @login_required
-    @csrf_protect
     def POST(self, service_id):
         service = get_object_or_404(Servicio, pk=service_id)
         if not service.activo:
@@ -492,6 +512,7 @@ class AddComment(ViewClass):
             message = form.save(commit=False)
             message.sender = self.request.user
             message.recipient = service.creador
+            message.is_public = True
             message.service = service
             message.save()
             self.flash(_(u"Comentario añadido correctamente"))
@@ -503,8 +524,7 @@ class AddComment(ViewClass):
 
 class DeleteComment(ViewClass):
     @login_required
-    @csrf_protect
-    def GET(self, comment_id):
+    def POST(self, comment_id):
         message = get_object_or_404(Message, pk=comment_id)
         if not message.service:
             self.flash(_(u"El mensaje que intenta borrar no es un comentario"),
@@ -535,6 +555,7 @@ cancel_transfer = CancelTransfer()
 accept_transfer = AcceptTransfer()
 confirm_transfer = ConfirmTransfer()
 view_transfer = ViewTransfer()
+rate_transfer = RateTransfer()
 my_transfers = MyTransfers()
 add_comment = AddComment()
 delete_comment = DeleteComment()

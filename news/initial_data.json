@@ -1,0 +1,15 @@
+[
+    {
+        "pk": 1, 
+        "model": "news.new", 
+        "fields": {
+            "body": "<p>Hemos rescrito completamente la web del banco del tiempo de ecolocal y ahora estamos probando la nueva versi&oacute;n, que ser&aacute; software libre. Si tienes problemas, por favor contacta con nosotros.</p>", 
+            "author": 1, 
+            "title": "Nuevo sitio web", 
+            "last_modified_date": "2010-10-18 14:15:07", 
+            "creation_date": "2010-10-18 14:15:07", 
+            "publish_date": "2010-10-18 14:15:07", 
+            "hidden": false
+        }
+    }
+]

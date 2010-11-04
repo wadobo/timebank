@@ -22,6 +22,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
 from django.conf import settings
+from django.shortcuts import redirect
 
 class ExtraProfileInline(admin.StackedInline):
     model = Profile
@@ -30,10 +31,15 @@ class ExtraProfileInline(admin.StackedInline):
     }),)
     list_display = ('birth_date', 'address', 'balance')
 
+def send_email_action(profile_admin, request, queryset):
+    return redirect('user-send-email-to-all')
+send_email_action.short_description = _("Enviar email a todos los usuarios")
+
 class ProfileAdmin(UserAdmin):
     inlines = [
         ExtraProfileInline,
     ]
+    actions = [send_email_action]
 
     def save_model(self, request, model, form, change):
         '''

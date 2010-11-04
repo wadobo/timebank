@@ -15,9 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.shortcuts import redirect
 from django.http import HttpResponse as response
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import render_to_response
+from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.utils.translation import gettext as _
 from django import forms
@@ -92,6 +94,22 @@ class ViewClass(object):
         else:
             raise AttributeError, value
 
+def login_required(fn):
+    '''
+    Login required decorator, it works similarly as the login_required decorator
+    from django.auth.decorators.
+    NOTE it can only be used inside a ViewClass. It WONT work in typical django
+    function views.
+    '''
+    def wrapper(self, *args, **kwargs):
+        if not self.request.user.is_authenticated():
+            self.flash(_(u'Debes estar registrado para entrar en '
+                u'<a href="%s">%s</a>. Si no lo estás puedes registrarte ahora'
+                u' o entrar con tu usuario en el recuadro de la izquierda.') %\
+                (self.request.get_full_path(), self.request.get_full_path()))
+            return redirect('user-register')
+        return fn(self, *args, **kwargs)
+    return wrapper
 
 class FormCharField(forms.CharField):
     '''
@@ -104,7 +122,7 @@ class FormCharField(forms.CharField):
 
     def get_help_text(self):
         return unicode(self._auto_help_text) + unicode(self._help_text)
-        
+
     def set_help_text(self, help_text):
         self._help_text = help_text
 
@@ -137,7 +155,7 @@ class FormEmailField(forms.EmailField):
 
     def get_help_text(self):
         return unicode(self._auto_help_text) + unicode(self._help_text)
-        
+
     def set_help_text(self, help_text):
         self._help_text = help_text
 
@@ -170,7 +188,7 @@ class FormDateField(forms.DateField):
 
     def get_help_text(self):
         return unicode(self._auto_help_text) + unicode(self._help_text)
-        
+
     def set_help_text(self, help_text):
         self._help_text = help_text
 

@@ -21,8 +21,11 @@ from django.db import models
 from sqlalchemy.orm import relation, backref
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+from djangoratings.fields import RatingField
+from django.db.models import signals
 
 from user.models import Profile
+from messages.utils import new_transfer_email
 
 class Zona(models.Model):
 
@@ -216,6 +219,11 @@ TRANSFER_STATUS = (
 )
 
 class Transfer(models.Model):
+    rating = RatingField(range=5, allow_anonymous=False, can_change_vote=True)
+
+    def int_rating(self):
+        return int(self.rating.score / self.rating.votes)
+
     # Person receiving the credits (and giving the service)
     credits_payee = models.ForeignKey(Profile, related_name='transfers_received')
 
@@ -246,9 +254,7 @@ class Transfer(models.Model):
         ordering = ['-request_date']
 
     def creator(self):
-        '''
-        Transfers are related to services. IF a service is an offer, then the
-        person creating the transfer is the debtor of credits, else it's the
-        payee.
-        '''
-        return self.service.oferta and self.credits_debtor or self.credits_payee
+        return self.service.creador == self.credits_debtor and\
+            self.credits_payee or self.credits_debtor
+
+signals.post_save.connect(new_transfer_email, sender=Transfer)

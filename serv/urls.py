@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Copyright (C) 2010 Daniel Garcia Moreno <dani@danigm.net>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,8 @@ from django.conf.urls.defaults import *
 from django.views.generic.simple import redirect_to
 from views2 import (list_services, view, add, edit, delete, active, deactive,
     add_transfer, edit_transfer, cancel_transfer, view_transfer, my_transfers,
-    add_comment, delete_comment, accept_transfer, confirm_transfer)
+    add_comment, delete_comment, accept_transfer, confirm_transfer,
+    rate_transfer)
 
 urlpatterns = patterns('',
     url(r'^$', redirect_to, {'url': 'list/?mine=true'}, name="serv-myservices"),
@@ -34,8 +35,9 @@ urlpatterns = patterns('',
     url(r'^transfer/cancel/(\d+)/$', cancel_transfer, name='serv-transfer-cancel'),
     url(r'^transfer/accept/(\d+)/$', accept_transfer, name='serv-transfer-accept'),
     url(r'^transfer/confirm/(\d+)/$', confirm_transfer, name='serv-transfer-confirm'),
-    url(r'^transfer/view/(\d+).*$', view_transfer, name='serv-transfer-view'),
+    url(r'^transfer/rate/(?P<transfer_id>\d+)/$', rate_transfer, name='serv-transfer-rate'),
     url(r'^transfer/list/.*$', my_transfers, name='serv-transfers-mine'),
+    url(r'^transfer/view/(\d+).*$', view_transfer, name='serv-transfer-view'),
     url(r'^comment/add/(\d+)/$', add_comment, name='serv-comment-add'),
     url(r'^comment/delete/(\d+)/$', delete_comment, name='serv-comment-delete'),
 )

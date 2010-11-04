@@ -18,27 +18,25 @@ from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.contrib.auth import authenticate, login as django_login
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_protect
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator
 
-from utils import ViewClass, send_mail_to_admins
+from datetime import datetime, timedelta
+
+from utils import ViewClass, send_mail_to_admins, login_required
 from forms import (RegisterForm, EditProfileForm, RemoveForm,
-    PublicMessageForm, FindPeopleForm)
+    PublicMessageForm, FindPeopleForm, SendEmailToAllForm)
 from models import Profile
 from messages.models import Message
 
 class Register(ViewClass):
-    @csrf_protect
     def GET(self):
         form = RegisterForm()
         return self.context_response('user/register.html', {'form': form,
             'current_tab': 'register'})
 
-    @csrf_protect
     def POST(self):
         form = RegisterForm(self.request.POST)
         if not form.is_valid():
@@ -82,11 +80,9 @@ class Register(ViewClass):
 
 
 class Login(ViewClass):
-    @csrf_protect
     def GET(self):
         return redirect('main.views.index')
 
-    #@csrf_protect
     def POST(self, *args):
         username = self.request.POST['username']
         password = self.request.POST['password']
@@ -124,13 +120,11 @@ class PasswordResetComplete(ViewClass):
 
 class EditProfile(ViewClass):
     @login_required
-    @csrf_protect
     def GET(self):
         form = EditProfileForm(request=self.request, instance=self.request.user)
         return self.context_response('user/profile.html', {'form': form})
 
     @login_required
-    @csrf_protect
     def POST(self):
         form = EditProfileForm(self.request, self.request.POST,
             instance=self.request.user)
@@ -157,8 +151,8 @@ class EditProfile(ViewClass):
             u" - Descripción: %s\n\n") % (old_user.username, old_user.first_name,
                 old_user.last_name, old_user.email, old_user.address,
                 old_user.birth_date, old_user.description,
-                form.cleaned_data["first_name"], form.cleaned_data["last_name"], 
-                form.cleaned_data["email"], form.cleaned_data["address"], 
+                form.cleaned_data["first_name"], form.cleaned_data["last_name"],
+                form.cleaned_data["email"], form.cleaned_data["address"],
                 form.cleaned_data["birth_date"],
                 form.cleaned_data["description"]
             )
@@ -185,15 +179,12 @@ class PasswordChangeDone(ViewClass):
         return redirect('user-preferences')
 
 
-
 class Remove(ViewClass):
-    @csrf_protect
     @login_required
     def GET(self):
         form = RemoveForm()
         return self.context_response('user/remove.html', {'form': form})
 
-    @csrf_protect
     @login_required
     def POST(self):
         form = RemoveForm(self.request.POST)
@@ -233,6 +224,7 @@ class Remove(ViewClass):
 
 
 class ViewProfile(ViewClass):
+    @login_required
     def GET(self, user_id=None):
         user = user_id and get_object_or_404(Profile, id=user_id) or self.request.user
 
@@ -247,6 +239,7 @@ class ViewProfile(ViewClass):
 
 
 class FindPeople(ViewClass):
+    @login_required
     def GET(self):
         form = FindPeopleForm(self.request.GET)
 
@@ -259,9 +252,21 @@ class FindPeople(ViewClass):
 
         if form.data.get("username", ''):
             username = form.data["username"]
-            people = people.filter(creador__username__contains=username)
+            people = people.filter(username__contains=username)
 
-        paginator = Paginator(people, 25)
+        user_status = form.data.get("user_status", '0')
+        if user_status != '0':
+            if user_status == '1': # today
+                last_date = datetime.now() - timedelta(days=1)
+            elif user_status == '2': # this week
+                last_date = datetime.now() - timedelta(days=7)
+            elif user_status == '3': # this month
+                last_date = datetime.now() - timedelta(months=1)
+            elif user_status == '4': # this year
+                last_date = datetime.now() - timedelta(years=1)
+            people = people.filter(last_login__gt=last_date)
+
+        paginator = Paginator(people, 10)
         try:
             people = paginator.page(page)
         except (EmptyPage, InvalidPage):
@@ -276,7 +281,6 @@ class FindPeople(ViewClass):
 
 
 class SendMessage(ViewClass):
-    #@csrf_protect
     @login_required
     def POST(self, recipient_id=None):
         recipient = get_object_or_404(Profile, id=recipient_id)
@@ -290,6 +294,41 @@ class SendMessage(ViewClass):
             recipient.username)
         return redirect("user-view", user_id=recipient_id)
 
+
+class SendEmailToAll(ViewClass):
+    @login_required
+    def GET(self):
+        # check permissions
+        if not self.request.user.is_staff or\
+            not self.request.user.is_superuser:
+            self.flash(_(u"No tienes permisos para enviar un email a todos"
+                u" los usuarios"))
+            return redirect('main.views.index')
+
+        form = SendEmailToAllForm()
+        return self.context_response('user/send_email_to_all.html',
+            {'form': form, 'current_tab': 'admin-panel'})
+
+    def POST(self):
+        # check permissions
+        if not self.request.user.is_staff or\
+            not self.request.user.is_superuser:
+            self.flash(_(u"No tienes permisos para enviar un email a todos"
+                u" los usuarios"))
+            return redirect('main.views.index')
+
+        form = SendEmailToAllForm(self.request.POST)
+        if not form.is_valid():
+            return self.context_response('user/send_email_to_all.html',
+                {'form': form, 'current_tab': 'admin-panel'})
+
+        mass_email = EmailMessage(form.cleaned_data["subject"], form.cleaned_data["message"],
+            from_email=settings.DEFAULT_FROM_EMAIL, to=[],
+            bcc=[user.email for user in Profile.objects.filter(is_active=True)])
+        mass_email.send()
+        self.flash(_(u"Email enviado a todos los usuarios"))
+        return redirect('main.views.index')
+
 login = Login()
 register = Register()
 password_reset_done = PasswordResetDone()
@@ -301,3 +340,4 @@ remove = Remove()
 view_profile = ViewProfile()
 send_message = SendMessage()
 find_people = FindPeople()
+send_email_to_all = SendEmailToAll()

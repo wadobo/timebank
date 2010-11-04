@@ -18,25 +18,46 @@ from django.shortcuts import render_to_response, redirect
 from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
-from django.views.decorators.csrf import csrf_protect
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
-from utils import ViewClass, send_mail_to_admins
+from utils import ViewClass, send_mail_to_admins, login_required
 from forms import AnonymousContactForm, ContactForm
 from serv.models import Servicio
 
+class Migrate(ViewClass):
+    @login_required
+    def GET(self):
+        if not self.request.user.is_superuser:
+            self.flash(_(u'No tienes permisos'), 'error')
+            redirect('main.views.index')
+        from user.models import Profile
+        from aplicacion.models import PerfilUsuario, Transferencia
+        from serv.models import Transfer
+
+        # Migrate profiles
+        perfiles = PerfilUsuario.objects.all()
+        for perfil in perfiles:
+            profile = Profile()
+            profile.__dict__.update(perfil.user.__dict__)
+            profile.birth_date = perfil.fecha_de_nacimiento
+            profile.address = perfil.direccion
+            profile.description = perfil.descr
+            profile.balance = int(float(perfil.saldo)*60)
+            profile.save()
+
+        self.flash(_(u'Migración realizada'))
+        return redirect('main.views.index')
+
 class Index(ViewClass):
-    @csrf_protect
     def GET(self):
         services = Servicio.objects.filter(activo=True)
-        paginator = Paginator(services, 25)
+        paginator = Paginator(services, 5)
         services = paginator.page(1)
         return self.context_response('main/index.html', {'show_news': True,
         'services': services})
 
 
 class Contact(ViewClass):
-    @csrf_protect
     def GET(self):
         if self.request.user.is_authenticated():
             form = ContactForm()
@@ -45,7 +66,6 @@ class Contact(ViewClass):
         return self.context_response('main/contact.html', {'form': form,
             'current_tab': 'contact'})
 
-    @csrf_protect
     def POST(self):
         if self.request.user.is_authenticated():
             form = ContactForm(self.request.POST)
@@ -76,3 +96,4 @@ class Contact(ViewClass):
 
 index = Index()
 contact = Contact()
+migrate = Migrate()

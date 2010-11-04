@@ -181,7 +181,7 @@ h3
 #menu ul#login
 {
     float:left;
-    width:300px;
+    width:260px;
     margin-left:10px;
 }
 
@@ -806,6 +806,7 @@ div.new .info
 .services .serv .information2 {
     border-top: 1px solid #ddd;
     float: left;
+    width: 100%;
 }
 
 ul.view-profile {
@@ -831,6 +832,7 @@ ul.view-profile li > div {
     width: auto;
     clear: right;
     min-width: 200px;
+    max-width: 450px;
     min-height: 20px;
 }
 
@@ -869,4 +871,8 @@ ul.view-profile li > div {
 .public_messages #user_message_list .message .info {
     margin-bottom: 20px;
     background-color: #eee;
+}
+
+.services a.more {
+    float: right;
 }

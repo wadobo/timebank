@@ -1,5 +1,5 @@
 
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Django settings for timebank project.
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 #
@@ -18,8 +18,10 @@
 
 from django import template
 from django.template import RequestContext
-from messages.models import Message
 import urllib, hashlib
+
+from djangoratings.templatetags.ratings import *
+from messages.models import Message
 
 register = template.Library()
 
@@ -74,7 +76,7 @@ def transfer_actions(context, service):
     '''
     ongoing_transfers = service.ongoing_transfers(context["user"])
     if ongoing_transfers:
-        return {"transfer": ongoing_transfers[0]}
+        return {"transfer": ongoing_transfers[0], 'user': context["user"]}
     else:
         return {"service": service}
 
@@ -84,3 +86,13 @@ def limit_results(objects_list, limit=10):
         return objects_list
 
     return objects_list[:limit]
+
+register.tag('rating_by_user', do_rating_by_user)
+
+@register.inclusion_tag("serv/transfer_rating.html",\
+    takes_context=True)
+def transfer_rating(context, transfer):
+    '''
+    Renders actions for a given service if any. Assumes user is authenticated
+    '''
+    return {"transfer": transfer, "user": context["user"]}

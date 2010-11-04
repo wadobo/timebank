@@ -1,0 +1,15 @@
+{% load i18n %}
+{% url serv-transfer-view transfer.id as transfer_url %}
+{% if transfer.service.oferta %}
+{% blocktrans with transfer.credits_payee.username as recipient and transfer.credits_debtor.username as sender %}Hola {{ recipient }},
+
+{{ sender }} te ha solicitado una transferencia de un servicio que ofertas. Puedes ver y administrar la transferencia en {{ site_url }}{{ transfer_url }}.
+
+El equipo de {{ site_url }}{% endblocktrans %}
+{% else %}
+{% blocktrans with transfer.credits_debtor.username as recipient and transfer.credits_payee.username as sender %}Hola {{ recipient }},
+
+{{ sender }} te ha solicitado una transferencia de un servicio que solicitas. Puedes ver y administrar la transferencia en {{ site_url }}{{ transfer_url }}.
+
+El equipo de {{ site_url }}{% endblocktrans %}
+{% endif %}

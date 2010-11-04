@@ -1,7 +1,7 @@
-{% extends "messages/base.html" %} 
-{% load i18n %} 
-{% block subtitle %} {% trans "Compose" %} {% endblock %}
-{% block subcontent %} 
+{% extends "messages/base.html" %}
+{% load i18n %}
+{% block subtitle %} {% trans "Nuevo mensaje" %} {% endblock %}
+{% block subcontent %}
 <form action="" method="post">
 {% csrf_token %}
 <table>

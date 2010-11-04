@@ -18,14 +18,4 @@
     {% empty %}
         {% trans "Ningún comentario por ahora." %}
     {% endfor %}
-    <h2 style="margin-top: 30px">{% trans "Otras transferencias del servicio" %}</h2>
-    {% for transfer2 in transfer.service.transfers.all|limit_results %}
-        {% if transfer2 != transfer %}{% with transfer2 as transfer %}
-            {% if transfer.is_public or user.is_authenticated and transfer.credits_debtor == user or user.is_authenticated and transfer.credits_payee == user %}
-                {% include "serv/single_transfer_view2.html" %}
-            {% endif %}
-        {% endwith %}{% endif %}
-    {% empty %}
-        {% trans "Ninguna transferencia por ahora." %}
-    {% endfor %}
 {% endblock %}
