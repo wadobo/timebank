@@ -78,17 +78,28 @@ class Contact(ViewClass):
         # Send an email to admins
         if self.request.user.is_authenticated():
             user = self.request.user
-            subject = _("[%s] %s: %s") % (settings.SITE_NAME, user.username,
-                form.cleaned_data["subject"])
-            message = _(u"El usuario registrado %s llamado envía el siguiente"\
-            " mensaje:\n%s") % (user.username, form.cleaned_data["message"])
+            subject = _("[%(site_name)s] %(username)s: %(email_subject)s") % {
+                'site_name': settings.SITE_NAME,
+                'username': user.username,
+                'subject': form.cleaned_data["subject"]
+            }
+            message = _(u"El usuario registrado %(username)s llamado envía "\
+            " el siguiente mensaje:\n%(message)s") % {
+                'username': user.username,
+                'message': form.cleaned_data["message"]
+            }
         else:
-            subject = _("[%s] %s: %s") % (settings.SITE_NAME,
-                form.cleaned_data["email"], form.cleaned_data["subject"])
-            message = _("El usuario no registrado %s cuyo email es %s"\
-            "envía el siguiente mensaje:\n%s") % (\
-                form.cleaned_data["name"], form.cleaned_data["email"],
-                form.cleaned_data["message"])
+            subject = _("[%(site_name)s] %(email)s: %(email_subject)s") % {
+                'site_name': settings.SITE_NAME,
+                'email': form.cleaned_data["email"],
+                'subject': form.cleaned_data["subject"]
+            }
+            message = _("El usuario no registrado %(name)s cuyo email es %(email)s"\
+                "envía el siguiente mensaje:\n%(message)s") % {
+                    'name': form.cleaned_data["name"],
+                    'email': form.cleaned_data["email"],
+                    'message': form.cleaned_data["message"]
+                }
         send_mail_to_admins(subject, message)
 
         self.flash(_("Mensaje enviado, te responderemos lo antes posible"))

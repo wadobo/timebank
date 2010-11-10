@@ -130,7 +130,8 @@ INSTALLED_APPS = (
     'globaltags',
     'messages',
     'djangoratings',
-    'tasks'
+    'tasks',
+    'rosetta'
 )
 
 LOGIN_URL = '/'

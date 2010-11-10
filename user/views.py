@@ -49,31 +49,40 @@ class Register(ViewClass):
         new_user.save()
 
         # Send an email to admins and another to the user
-        subject = _("[%s] Usuario %s registrado") % (settings.SITE_NAME,
-            new_user.username)
+        subject = _("[%(site_name)s] Usuario %(username)s registrado") % {
+            'site_name': settings.SITE_NAME,
+            'username': new_user.username
+        }
         message = _("Se ha registrado un nuevo usuario con nombre de usuario "\
         " %s . Revise sus datos y delo de alta.") % new_user.username
         send_mail_to_admins(subject, message)
 
         current_site = Site.objects.get_current()
-        subject = _("Te has registrado como %s en %s") % (new_user.username,
-            settings.SITE_NAME)
-        message = _(u"Hola %s!\n Te acabas de registrar en http://%s/."
+        subject = _("Te has registrado como %(username)s en %(site_name)s") % {
+            'username': new_user.username,
+            'site_name': settings.SITE_NAME
+            }
+        message = _(u"Hola %(username)s!\n Te acabas de registrar en http://%(url)s/."
             u"Próximamente la creación de tu usuario será revisada por"
             u"nuestros administradores y si todo está correcto, activaremos tu"
             u" usuario y podrás comenzar a participar en nuestra comunidad."
-            u"\n\n- El Equipo de %s.") %\
-            (new_user.username, current_site.domain, settings.SITE_NAME)
+            u"\n\n- El Equipo de %(site_name)s.") % {
+                'username': new_user.username,
+                'url': current_site.domain,
+                'site_name': settings.SITE_NAME
+            }
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
             [new_user.email])
 
         self.flash(_(u"Te acabas de registrar en nuestro sitio web,"
-            u" <strong>%s</strong>. Te hemos enviado un email a"
-            u" <strong>%s</strong> confirmándote tu solicitud de inscripción."
+            u" <strong>%(username)s</strong>. Te hemos enviado un email a"
+            u" <strong>%(email)s</strong> confirmándote tu solicitud de inscripción."
             u" Tan pronto como nuestros administradores hayan revisado dicha"
             u" solicitud te avisaremos de nuevo por email y podrás empezar a"
-            u" disfrutar de este sistema." % (new_user.username,
-                new_user.email)),
+            u" disfrutar de este sistema.") % {
+                'username': new_user.username,
+                'email': new_user.email
+            },
             title=_(u"Usuario creado correctamente"))
 
         return redirect('main.views.index')
@@ -133,29 +142,38 @@ class EditProfile(ViewClass):
 
         # Send an email to admins with old data
         old_user = self.request.user
-        subject = _("[%s] %s ha modificado sus datos") % (settings.SITE_NAME,
-            old_user.username)
-        message = _(u"El usuario %s ha modificado su perfil. Datos antiguos:\n\n"
-            u" - Nombre: %s\n"
-            u" - Apellidos: %s\n"
-            u" - Dirección de email: %s\n"
-            u" - Dirección física: %s\n"
-            u" - Fecha de nacimiento: %s\n"
-            u" - Descripción: %s\n\n"
+        subject = _("[%(site_name)s] %(username)s ha modificado sus datos") % {
+            'site_name': settings.SITE_NAME,
+            'username': old_user.username
+        }
+        message = _(u"El usuario %(username)s ha modificado su perfil. Datos antiguos:\n\n"
+            u" - Nombre: %(old_name)s\n"
+            u" - Apellidos: %(old_surnames)s\n"
+            u" - Dirección de email: %(old_email)s\n"
+            u" - Dirección física: %(old_address)s\n"
+            u" - Fecha de nacimiento: %(old_birth_date)s\n"
+            u" - Descripción: %(old_description)s\n\n"
             u"Nuevos datos:\n\n"
-            u" - Nombre: %s\n"
-            u" - Apellidos: %s\n"
-            u" - Dirección de email: %s\n"
-            u" - Dirección física: %s\n"
-            u" - Fecha de nacimiento: %s\n"
-            u" - Descripción: %s\n\n") % (old_user.username, old_user.first_name,
-                old_user.last_name, old_user.email, old_user.address,
-                old_user.birth_date, old_user.description,
-                form.cleaned_data["first_name"], form.cleaned_data["last_name"],
-                form.cleaned_data["email"], form.cleaned_data["address"],
-                form.cleaned_data["birth_date"],
-                form.cleaned_data["description"]
-            )
+            u" - Nombre: %(name)s\n"
+            u" - Apellidos: %(surnames)s\n"
+            u" - Dirección de email: %(email)s\n"
+            u" - Dirección física: %(address)s\n"
+            u" - Fecha de nacimiento: %(birth_date)s\n"
+            u" - Descripción: %(description)s\n\n") % {
+                'username': old_user.username,
+                'old_name': old_user.first_name,
+                'old_surnames': old_user.last_name,
+                'old_email': old_user.email,
+                'old_address': old_user.address,
+                'old_birth_date':  old_user.birth_date,
+                'old_description': old_user.description,
+                'name': form.cleaned_data["first_name"],
+                'surnames': form.cleaned_data["last_name"],
+                'email': form.cleaned_data["email"],
+                'address': form.cleaned_data["address"],
+                'birth_date': form.cleaned_data["birth_date"],
+                'description': form.cleaned_data["description"]
+            }
         send_mail_to_admins(subject, message)
         form.save()
 
@@ -197,22 +215,31 @@ class Remove(ViewClass):
         user.save()
 
         # Send an email to admins and another to the user
-        subject = _("[%s] Usuario %s desactivado") % (settings.SITE_NAME,
-            user.username)
-        message = _(u"El usuario %s ha solicitado set eliminado del sitio web."
-            u"La razón que ha expuesto es:\n\n%s") % (user.username,
-            form.cleaned_data["reason"])
+        subject = _("[%(site_name)s] Usuario %(username)s desactivado") % {
+            'site_name': settings.SITE_NAME,
+            'username': user.username
+        }
+        message = _(u"El usuario %(username)s ha solicitado set eliminado del sitio web."
+            u"La razón que ha expuesto es:\n\n%(reason)s") % {
+                'username': user.username,
+                'reason': form.cleaned_data["reason"]
+            }
         send_mail_to_admins(subject, message)
 
         current_site = Site.objects.get_current()
-        subject = _("Has borrado tu perfil %s de %s") % (user.username,
-            settings.SITE_NAME)
-        message = _(u"Hola %s!\n Has borrado tu perfil de http://%s/."
+        subject = _("Has borrado tu perfil %(username)s de %(site_name)s") % {
+            'username': user.username,
+            'site_name': settings.SITE_NAME
+            }
+        message = _(u"Hola %(username)s!\n Has borrado tu perfil de http://%(url)s/."
             u"Sentimos que hayas decidido dar este paso. Leeremos la razón"
             u" que nos proporcionaste por la cual te has borrado y la tendremos"
             u" en cuenta para mejorar en el futuro."
-            u"\n\n- El Equipo de %s.") %\
-            (user.username, current_site.domain, settings.SITE_NAME)
+            u"\n\n- El Equipo de %(site_name)s.") % {
+                'username': user.username,
+                'url': current_site.domain,
+                'site_name': settings.SITE_NAME
+            }
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
 
         self.flash(_( u"Sentimos que hayas decidido dar este paso. Leeremos la"

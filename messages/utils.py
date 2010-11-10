@@ -84,8 +84,11 @@ def update_transfer_email(sender, instance, signal, *args, **kwargs):
         subject=_(u'Transferencia del servicio de %s aceptada') % instance.service.creador.username
         template = "serv/accept_transfer_email.html"
     elif instance.status == 'r':
-        subject=_(u'Transferencia de %s del servicio de %s cancelada') % (\
-            instance.creator().username, instance.service.creador.username)
+        subject=_(u'Transferencia de %(user1)s del servicio de %(user2)s'
+            u' cancelada') % {
+                'user1': instance.creator().username,
+                'user2': instance.service.creador.username
+            }
         template = "serv/cancel_transfer_email.html"
         recipient_emails = [instance.credits_debtor.email, instance.credits_payee.email]
     elif instance.status == 'd':

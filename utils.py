@@ -104,9 +104,13 @@ def login_required(fn):
     def wrapper(self, *args, **kwargs):
         if not self.request.user.is_authenticated():
             self.flash(_(u'Debes estar registrado para entrar en '
-                u'<a href="%s">%s</a>. Si no lo estás puedes registrarte ahora'
-                u' o entrar con tu usuario en el recuadro de la izquierda.') %\
-                (self.request.get_full_path(), self.request.get_full_path()))
+                u'<a href="%(link)s">%(link_text)s</a>. Si no lo estás puedes'
+                u' registrarte ahora o entrar con tu usuario en el recuadro de'
+                u' la izquierda.') %\
+                {
+                    'link': self.request.get_full_path(),
+                    'link_text': self.request.get_full_path()
+                })
             return redirect('user-register')
         return fn(self, *args, **kwargs)
     return wrapper
@@ -133,8 +137,8 @@ class FormCharField(forms.CharField):
         else:
             self._auto_help_text += _(u"Opcional. ")
         if self.max_length and self.min_length:
-            self._auto_help_text += _(u"De %d a %d caracteres. ")\
-                % (self.min_length, self.max_length)
+            self._auto_help_text += _(u"De %(from)d a %(to)d caracteres. ")\
+                % {'from': self.min_length, 'to': self.max_length}
         elif self.max_length:
             self._auto_help_text += _(u"Hasta %d caracteres. ")\
                 % self.max_length
