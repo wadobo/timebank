@@ -88,7 +88,11 @@ class Servicio(models.Model):
         return ret['credits__sum'] and ret['credits__sum'] or 0
 
     def credit_hours_transfered(self):
-        return self.credits_transfered()/60.0
+        credits = self.credits_transfered()
+        if credits % 60 == 0:
+            return credits/60
+
+        return credits/60.0
 
     def ongoing_transfers(self, user):
         if self.oferta:

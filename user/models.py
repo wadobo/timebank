@@ -47,6 +47,9 @@ class Profile(User):
     balance = models.IntegerField(default=0)
 
     def balance_hours(self):
+        if self.balance % 60 == 0:
+            return self.balance/60
+
         return self.balance/60.0
 
     description = models.TextField(_(u"Descripción personal"), max_length=300,
