@@ -1,0 +1,1782 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-10 09:52+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: utils.py:106
+#, python-format
+msgid ""
+"Debes estar registrado para entrar en <a href=\"%(link)s\">%(link_text)s</"
+"a>. Si no lo estás puedes registrarte ahora o entrar con tu usuario en el "
+"recuadro de la izquierda."
+msgstr ""
+
+#: utils.py:136 utils.py:169
+msgid "Requerido. "
+msgstr ""
+
+#: utils.py:138 utils.py:171
+msgid "Opcional. "
+msgstr ""
+
+#: utils.py:140
+#, python-format
+msgid "De %(from)d a %(to)d caracteres. "
+msgstr ""
+
+#: utils.py:143
+#, python-format
+msgid "Hasta %d caracteres. "
+msgstr ""
+
+#: utils.py:146
+#, python-format
+msgid "Mínimo de %d caracteres. "
+msgstr ""
+
+#: utils.py:172
+msgid " Ejemplo: nombre@ejemplo.com"
+msgstr ""
+
+#: utils.py:202
+msgid "Requerido. Ejemplo(s): "
+msgstr ""
+
+#: utils.py:204
+msgid "Opcional. Ejemplo(s): "
+msgstr ""
+
+#: utils.py:235
+msgid "Captcha inválido"
+msgstr ""
+
+#: aplicacion/forms.py:95
+msgid "¿Porqué razón quieres darte de baja?"
+msgstr ""
+
+#: main/forms.py:27 templates/user/single_person_view.html:6
+msgid "Nombre y apellidos"
+msgstr ""
+
+#: main/forms.py:29
+msgid "Tu email de contacto"
+msgstr ""
+
+#: main/forms.py:30 main/forms.py:40 user/forms.py:117
+msgid "Asunto"
+msgstr ""
+
+#: main/forms.py:32 main/forms.py:42 user/forms.py:118
+msgid "Mensaje"
+msgstr ""
+
+#: main/views.py:31
+msgid "No tienes permisos"
+msgstr ""
+
+#: main/views.py:48
+msgid "Migración realizada"
+msgstr ""
+
+#: main/views.py:81
+#, python-format
+msgid "[%(site_name)s] %(username)s: %(email_subject)s"
+msgstr ""
+
+#: main/views.py:86
+#, python-format
+msgid ""
+"El usuario registrado %(username)s llamado envía  el siguiente mensaje:\n"
+"%(message)s"
+msgstr ""
+
+#: main/views.py:92
+#, python-format
+msgid "[%(site_name)s] %(email)s: %(email_subject)s"
+msgstr ""
+
+#: main/views.py:97
+#, python-format
+msgid ""
+"El usuario no registrado %(name)s cuyo email es %(email)senvía el siguiente "
+"mensaje:\n"
+"%(message)s"
+msgstr ""
+
+#: main/views.py:105
+msgid "Mensaje enviado, te responderemos lo antes posible"
+msgstr ""
+
+#: messages/admin.py:19 messages/forms.py:20 messages/models.py:75
+#: templates/messages/outbox.html:8 templates/messages/view.html:10
+msgid "Recipient"
+msgstr ""
+
+#: messages/admin.py:21
+msgid "group"
+msgstr ""
+
+#: messages/admin.py:22
+msgid "Creates the message optionally for all users or a group of users."
+msgstr ""
+
+#: messages/admin.py:29
+msgid "All users"
+msgstr ""
+
+#: messages/admin.py:44 messages/forms.py:21 messages/models.py:73
+#: messages/models.py:114 templates/messages/inbox.html:8
+#: templates/messages/outbox.html:8 templates/messages/trash.html:8
+msgid "Message"
+msgstr ""
+
+#: messages/admin.py:51
+msgid "Date/time"
+msgstr ""
+
+#: messages/fields.py:53
+#, python-format
+msgid "The following usernames are incorrect: %(users)s"
+msgstr ""
+
+#: messages/management.py:9
+msgid "Message Received"
+msgstr ""
+
+#: messages/management.py:9
+msgid "you have received a message"
+msgstr ""
+
+#: messages/management.py:10
+msgid "Message Sent"
+msgstr ""
+
+#: messages/management.py:10
+msgid "you have sent a message"
+msgstr ""
+
+#: messages/management.py:11
+msgid "Message Replied"
+msgstr ""
+
+#: messages/management.py:11
+msgid "you have replied to a message"
+msgstr ""
+
+#: messages/management.py:12
+msgid "Reply Received"
+msgstr ""
+
+#: messages/management.py:12
+msgid "you have received a reply to a message"
+msgstr ""
+
+#: messages/management.py:13
+msgid "Message Deleted"
+msgstr ""
+
+#: messages/management.py:13
+msgid "you have deleted a message"
+msgstr ""
+
+#: messages/management.py:14
+msgid "Message Recovered"
+msgstr ""
+
+#: messages/management.py:14
+msgid "you have undeleted a message"
+msgstr ""
+
+#: messages/models.py:72
+msgid "Subject"
+msgstr ""
+
+#: messages/models.py:74 templates/messages/inbox.html:8
+#: templates/messages/trash.html:8 templates/messages/view.html:6
+msgid "Sender"
+msgstr ""
+
+#: messages/models.py:76
+msgid "Parent message"
+msgstr ""
+
+#: messages/models.py:77
+msgid "sent at"
+msgstr ""
+
+#: messages/models.py:78
+msgid "read at"
+msgstr ""
+
+#: messages/models.py:79
+msgid "replied at"
+msgstr ""
+
+#: messages/models.py:80
+msgid "Sender deleted at"
+msgstr ""
+
+#: messages/models.py:81
+msgid "Recipient deleted at"
+msgstr ""
+
+#: messages/models.py:82
+msgid "Mensaje público"
+msgstr ""
+
+#: messages/models.py:115
+msgid "Messages"
+msgstr ""
+
+#: messages/utils.py:27
+#, python-format
+msgid "New Message: %(subject)s"
+msgstr ""
+
+#: messages/utils.py:66
+#, python-format
+msgid "Nueva solicitud de transferencia de %s"
+msgstr ""
+
+#: messages/utils.py:80
+#, python-format
+msgid "Transferencia de %s editada"
+msgstr ""
+
+#: messages/utils.py:84
+#, python-format
+msgid "Transferencia del servicio de %s aceptada"
+msgstr ""
+
+#: messages/utils.py:87
+#, python-format
+msgid "Transferencia de %(user1)s del servicio de %(user2)s cancelada"
+msgstr ""
+
+#: messages/utils.py:95
+#, python-format
+msgid "Transferencia del servicio que realizaste a %s confirmada"
+msgstr ""
+
+#: messages/views.py:106 messages/views.py:165
+msgid "Message successfully sent."
+msgstr ""
+
+#: messages/views.py:134
+#, python-format
+msgid ""
+"%(sender)s wrote:\n"
+"%(body)s"
+msgstr ""
+
+#: messages/views.py:138
+#, python-format
+msgid "Re: %(subject)s"
+msgstr ""
+
+#: messages/views.py:206
+msgid "Message successfully deleted."
+msgstr ""
+
+#: messages/views.py:235
+msgid "Message successfully recovered."
+msgstr ""
+
+#: news/models.py:27
+msgid "Título"
+msgstr ""
+
+#: news/models.py:28
+msgid "Fecha de creación"
+msgstr ""
+
+#: news/models.py:30
+msgid "Última fecha de modificación"
+msgstr ""
+
+#: news/models.py:32
+msgid "Fecha de publicación"
+msgstr ""
+
+#: news/models.py:34
+msgid "Ocultar"
+msgstr ""
+
+#: news/models.py:35
+msgid "Cuerpo de la noticia"
+msgstr ""
+
+#: news/models.py:37
+msgid "Autor"
+msgstr ""
+
+#: news/models.py:40
+msgid "Noticia"
+msgstr ""
+
+#: news/models.py:41 templates/template_base.html:105
+#: templates/template_base.html.py:138
+msgid "Noticias"
+msgstr ""
+
+#: news/views.py:61 news/views.py:63
+#, python-format
+msgid "Noticias en %s"
+msgstr ""
+
+#: serv/forms.py:44 serv/forms.py:67 templates/serv/single_service_view.html:5
+msgid "demanda"
+msgstr ""
+
+#: serv/forms.py:45 serv/forms.py:66 templates/serv/single_service_view.html:5
+msgid "oferta"
+msgstr ""
+
+#: serv/forms.py:48 serv/forms.py:78
+msgid "Tipo de servicio"
+msgstr ""
+
+#: serv/forms.py:49
+msgid ""
+"debe elegir si es una oferta (ofrece algo) o una demanda (solicita algo)"
+msgstr ""
+
+#: serv/forms.py:70 user/forms.py:100
+msgid "---------"
+msgstr ""
+
+#: serv/forms.py:71
+msgid "se conectó hoy"
+msgstr ""
+
+#: serv/forms.py:72
+msgid "se conectó esta semana"
+msgstr ""
+
+#: serv/forms.py:73
+msgid "se conectó este mes"
+msgstr ""
+
+#: serv/forms.py:74
+msgid "se conectó este año"
+msgstr ""
+
+#: serv/forms.py:77
+msgid "Sólo listar mis servicios"
+msgstr ""
+
+#: serv/forms.py:80 templates/serv/single_service_view.html:11
+msgid "Categoría"
+msgstr ""
+
+#: serv/forms.py:81 templates/serv/single_service_view.html:9
+msgid "Zona"
+msgstr ""
+
+#: serv/forms.py:82
+msgid "Estado del usuario"
+msgstr ""
+
+#: serv/forms.py:84 templates/user/view.html:36 user/forms.py:109
+msgid "Nombre de usuario"
+msgstr ""
+
+#: serv/forms.py:95 serv/models.py:248
+#: templates/user/single_person_view.html:8
+msgid "Créditos"
+msgstr ""
+
+#: serv/forms.py:96
+msgid "En minutos. Ejemplo: 60, 30, 120"
+msgstr ""
+
+#: serv/forms.py:107
+msgid "Número inválido"
+msgstr ""
+
+#: serv/models.py:214
+msgid "solicitada"
+msgstr ""
+
+#: serv/models.py:215
+msgid "aceptada"
+msgstr ""
+
+#: serv/models.py:216
+msgid "rechazada"
+msgstr ""
+
+#: serv/models.py:217
+msgid "realizada"
+msgstr ""
+
+#: serv/models.py:235 templates/user/view.html:52
+msgid "Descripción"
+msgstr ""
+
+#: serv/models.py:237
+msgid "Fecha de solicitud de transferencia"
+msgstr ""
+
+#: serv/models.py:240
+msgid "Fecha de confirmación de transferencia"
+msgstr ""
+
+#: serv/models.py:243 templates/serv/single_transfer_view.html:20
+msgid "Estado"
+msgstr ""
+
+#: serv/models.py:245
+msgid "Transferencia pública"
+msgstr ""
+
+#: serv/views2.py:117
+msgid "Servicio añadido correctamente"
+msgstr ""
+
+#: serv/views2.py:129 serv/views2.py:141 serv/views2.py:188 serv/views2.py:202
+msgid "No puedes modificar un servicio que no es tuyo"
+msgstr ""
+
+#: serv/views2.py:155
+msgid ""
+"No puedes cambiar el servicio de oferta a demanda mientras hay "
+"transferencias en curso"
+msgstr ""
+
+#: serv/views2.py:159
+msgid "Servicio modificado correctamente"
+msgstr ""
+
+#: serv/views2.py:172
+msgid "Servicio eliminado correctamente"
+msgstr ""
+
+#: serv/views2.py:174
+msgid "No puedes eliminar un servicio que no es tuyo"
+msgstr ""
+
+#: serv/views2.py:186
+msgid "Servicio activado correctamente"
+msgstr ""
+
+#: serv/views2.py:200
+msgid "Servicio desactivado correctamente"
+msgstr ""
+
+#: serv/views2.py:229
+msgid "No tienes suficiente crédito"
+msgstr ""
+
+#: serv/views2.py:233
+msgid "No puedes solicitarte un servicio a tí mismo"
+msgstr ""
+
+#: serv/views2.py:251 serv/views2.py:314 serv/views2.py:359 serv/views2.py:392
+msgid ""
+"La transferencia superaría el límite de crédito del receptor de créditos"
+msgstr ""
+
+#: serv/views2.py:257 serv/views2.py:320 serv/views2.py:365 serv/views2.py:398
+msgid ""
+"La transferencia superaría el límite mínimo de crédito de la persona que "
+"recibiría el servicio"
+msgstr ""
+
+#: serv/views2.py:267
+msgid "Ya tienes una transferencia en curso para este servicio"
+msgstr ""
+
+#: serv/views2.py:272
+msgid "Transferencia creada correctamente"
+msgstr ""
+
+#: serv/views2.py:285 serv/views2.py:301
+msgid "No puedes modificar una transferencia que no sea tuya"
+msgstr ""
+
+#: serv/views2.py:289 serv/views2.py:305
+msgid "Sólo se pueden modificar transferencias aun no aceptadas"
+msgstr ""
+
+#: serv/views2.py:326
+msgid "Transferencia modificada correctamente"
+msgstr ""
+
+#: serv/views2.py:339
+msgid "No puedes cancelar una transferencia que no sea tuya"
+msgstr ""
+
+#: serv/views2.py:343 serv/views2.py:376
+msgid "Sólo se pueden modificar transferencias aun no realizadas"
+msgstr ""
+
+#: serv/views2.py:348
+msgid "Transferencia cancelada"
+msgstr ""
+
+#: serv/views2.py:371
+msgid "No puedes aceptar una transferencia de un servicio que no sea tuyo"
+msgstr ""
+
+#: serv/views2.py:381
+msgid "Transferencia aceptada"
+msgstr ""
+
+#: serv/views2.py:404
+msgid "No puedes confirmar una transferencia de un servicio que no sea tuyo"
+msgstr ""
+
+#: serv/views2.py:409
+msgid "Sólo se pueden confirmar transferencias aceptadas"
+msgstr ""
+
+#: serv/views2.py:419
+msgid "Transferencia realizada"
+msgstr ""
+
+#: serv/views2.py:438
+msgid "No tienes permisos para ver esta transferencia"
+msgstr ""
+
+#: serv/views2.py:473
+msgid "Error recibiendo la puntuación"
+msgstr ""
+
+#: serv/views2.py:478
+msgid "No tienes permisos para puntuar esta transferencia"
+msgstr ""
+
+#: serv/views2.py:483
+msgid "sólo se puede valor de 1 a 5"
+msgstr ""
+
+#: serv/views2.py:488
+msgid "Tu puntuación de la transferencia ha sido actualizada correctamente"
+msgstr ""
+
+#: serv/views2.py:505
+msgid "No se pueden comentar servicios inactivos"
+msgstr ""
+
+#: serv/views2.py:517
+msgid "Comentario añadido correctamente"
+msgstr ""
+
+#: serv/views2.py:529
+msgid "El mensaje que intenta borrar no es un comentario"
+msgstr ""
+
+#: serv/views2.py:535
+msgid "No puedes borrar un mensaje que no sea tuyo"
+msgstr ""
+
+#: serv/views2.py:539
+msgid "Comentario borrado correctamente"
+msgstr ""
+
+#: tasks/models.py:26 templates/user/view.html:40
+msgid "Nombre"
+msgstr ""
+
+#: tasks/models.py:27
+msgid "Última ejecución"
+msgstr ""
+
+#: tasks/views.py:61
+msgid ""
+"No tienes permisos para ejecutar la tarea de enviarlas actualizaciones por "
+"email a los usuarios"
+msgstr ""
+
+#: tasks/views.py:73 tasks/views.py:84
+msgid "Tarea de actualización postergada"
+msgstr ""
+
+#: tasks/views.py:82
+msgid "Tarea de actualización realizada"
+msgstr ""
+
+#: tasks/views.py:105
+#, python-format
+msgid "Updates from %s"
+msgstr ""
+
+#: templates/baja.html:33
+msgid "Confirmar baja"
+msgstr ""
+
+#: templates/personal.html:35
+msgid "l, j \\de F \\de Y"
+msgstr ""
+
+#: templates/register.html:10
+msgid "Enviar datos"
+msgstr ""
+
+#: templates/registerdone.html:6
+#, python-format
+msgid ""
+"Gracias por haberte registrado en %(SITE_NAME)s, te hemos enviado un email "
+"confirmándote tu solicitud de inscripción. Tan pronto como nuestros "
+"administradores hayan revisado dicha solicitud te avisaremos de nuevo por "
+"email y podrás empezar a disfrutar de este sistema."
+msgstr ""
+
+#: templates/registerdone.html:9
+msgid "Volver a la página de inicio"
+msgstr ""
+
+#: templates/template_base.html:10 templates/main/index.html:4
+msgid "Portada"
+msgstr ""
+
+#: templates/template_base.html:40
+#, python-format
+msgid "¡Hola, %(username)s!"
+msgstr ""
+
+#: templates/template_base.html:41
+msgid "Salir"
+msgstr ""
+
+#: templates/template_base.html:45
+msgid "Administración"
+msgstr ""
+
+#: templates/template_base.html:47 templates/template_base.html.py:60
+#: templates/user/find_people.html:3
+msgid "Gente"
+msgstr ""
+
+#: templates/template_base.html:48 templates/template_base.html.py:61
+#: templates/serv/base.html:3 templates/serv/base.html.py:7
+msgid "Servicios"
+msgstr ""
+
+#: templates/template_base.html:49 templates/serv/base_transfer.html:3
+#: templates/serv/base_transfer.html:7
+msgid "Transferencias"
+msgstr ""
+
+#: templates/template_base.html:50 templates/messages/base.html:3
+#: templates/messages/base.html.py:7
+msgid "Mensajes"
+msgstr ""
+
+#: templates/template_base.html:51
+msgid "Perfil"
+msgstr ""
+
+#: templates/template_base.html:55 templates/template_base.html.py:72
+#: templates/template_base.html:82
+msgid "Entrar"
+msgstr ""
+
+#: templates/template_base.html:56
+msgid "Registrarse"
+msgstr ""
+
+#: templates/template_base.html:59
+msgid "Inicio"
+msgstr ""
+
+#: templates/template_base.html:74
+msgid "¿Olvidaste la contraseña?"
+msgstr ""
+
+#: templates/template_base.html:90 templates/user/preferences.html:3
+#: templates/user/preferences.html.py:7
+msgid "Preferencias"
+msgstr ""
+
+#: templates/template_base.html:96
+msgid "Crédito"
+msgstr ""
+
+#: templates/template_base.html:112
+msgid "+ noticias"
+msgstr ""
+
+#: templates/template_base.html:137
+msgid "Home"
+msgstr ""
+
+#: templates/template_base.html:139 templates/main/contact.html:3
+#: templates/main/contact.html.py:7
+msgid "Contacta"
+msgstr ""
+
+#: templates/flatpages/default.html:14 templates/news/basenew.html:7
+msgid "Editar"
+msgstr ""
+
+#: templates/main/contact.html:13
+msgid "Enviar mensaje"
+msgstr ""
+
+#: templates/main/index.html:13 templates/tasks/email_update.html:43
+msgid "Servicios más recientes"
+msgstr ""
+
+#: templates/main/index.html:16
+#, python-format
+msgid ""
+"Para poder ver más servicios debes <a href='%(user_register)s'>registrarte</"
+"a>."
+msgstr ""
+
+#: templates/main/index.html:21
+msgid "+ servicios"
+msgstr ""
+
+#: templates/messages/base.html:9 templates/messages/inbox.html:3
+#: templates/messages/new_message.html:32
+msgid "Inbox"
+msgstr ""
+
+#: templates/messages/base.html:10 templates/messages/outbox.html:3
+msgid "Sent Messages"
+msgstr ""
+
+#: templates/messages/base.html:11
+msgid "New Message"
+msgstr ""
+
+#: templates/messages/base.html:12
+msgid "Trash"
+msgstr ""
+
+#: templates/messages/compose.html:3
+msgid "Nuevo mensaje"
+msgstr ""
+
+#: templates/messages/compose.html:10
+msgid "Send"
+msgstr ""
+
+#: templates/messages/inbox.html:8
+msgid "Received"
+msgstr ""
+
+#: templates/messages/inbox.html:8 templates/messages/outbox.html:8
+#: templates/messages/trash.html:8
+msgid "Action"
+msgstr ""
+
+#: templates/messages/inbox.html:19 templates/messages/outbox.html:19
+msgid "delete"
+msgstr ""
+
+#: templates/messages/inbox.html:25 templates/messages/outbox.html:25
+#: templates/messages/trash.html:25
+msgid "No hay mensajes."
+msgstr ""
+
+#: templates/messages/new_message.html:4
+#, python-format
+msgid ""
+"Hola %(recipient)s,\n"
+"\n"
+"Has recibido un comentario de %(sender)s en un servicio tuyo\n"
+"(%(site_url)s%(service_url)s) con el siguiente contenido:\n"
+"\n"
+"%(body)s\n"
+"\n"
+"--\n"
+"Enviado desde %(site_url)s\n"
+"Ver servicio: (%(site_url)s%(service_url)s\n"
+msgstr ""
+
+#: templates/messages/new_message.html:17
+#, python-format
+msgid ""
+"Hola %(recipient)s,\n"
+"\n"
+"ha recibido un mensaje público de %(sender)s con el\n"
+"siguiente contenido:"
+msgstr ""
+
+#: templates/messages/new_message.html:22
+#, python-format
+msgid ""
+"Hello %(recipient)s,\n"
+"\n"
+"you received a private message from %(sender)s with\n"
+"the following contents:"
+msgstr ""
+
+#: templates/messages/new_message.html:31
+#, python-format
+msgid "Sent from %(site_url)s"
+msgstr ""
+
+#: templates/messages/new_message.html:33 templates/messages/view.html:16
+msgid "Reply"
+msgstr ""
+
+#: templates/messages/outbox.html:8
+msgid "Sent"
+msgstr ""
+
+#: templates/messages/trash.html:3
+msgid "Deleted Messages"
+msgstr ""
+
+#: templates/messages/trash.html:8 templates/messages/view.html:8
+msgid "Date"
+msgstr ""
+
+#: templates/messages/trash.html:19
+msgid "undelete"
+msgstr ""
+
+#: templates/messages/trash.html:28
+msgid ""
+"Deleted Messages are removed from the trash at unregular intervals, don't "
+"rely on this feature for long-time storage."
+msgstr ""
+
+#: templates/messages/view.html:3
+msgid "View Message"
+msgstr ""
+
+#: templates/messages/view.html:18
+msgid "Delete"
+msgstr ""
+
+#: templates/news/allnews.html:4
+msgid "Añadir noticia"
+msgstr ""
+
+#: templates/news/allnews.html:14 templates/serv/services.html:16
+#: templates/serv/view_transfers.html:18 templates/user/find_people.html:22
+#: templates/user/list_user_services.html:27
+msgid "anterior"
+msgstr ""
+
+#: templates/news/allnews.html:18
+#, python-format
+msgid ""
+"\n"
+"            Página %(number)s de %(num_pages)s\n"
+"            "
+msgstr ""
+
+#: templates/news/allnews.html:24 templates/serv/services.html:26
+#: templates/serv/view_transfers.html:28 templates/user/find_people.html:32
+#: templates/user/list_user_services.html:37
+msgid "siguiente"
+msgstr ""
+
+#: templates/news/basenew.html:11
+#, python-format
+msgid ""
+"\n"
+"    hace %(date)s por"
+msgstr ""
+
+#: templates/news/truncnewfront.html:9
+#, python-format
+msgid ""
+"\n"
+"    hace %(date)s\n"
+"    "
+msgstr ""
+
+#: templates/notification/messages_deleted/notice.html:1
+#, python-format
+msgid ""
+"You have deleted the message <a href=\"%(message_url)s\">%(message)s</a>."
+msgstr ""
+
+#: templates/notification/messages_received/notice.html:2
+#, python-format
+msgid ""
+"You have received the message <a href=\"%(message_url)s\">%(message)s</a> "
+"from %(message_sender)s."
+msgstr ""
+
+#: templates/notification/messages_recovered/notice.html:1
+#, python-format
+msgid ""
+"You have recovered the message <a href=\"%(message_url)s\">%(message)s</a>."
+msgstr ""
+
+#: templates/notification/messages_replied/notice.html:2
+#, python-format
+msgid ""
+"You have replied to <a href=\"%(message_url)s\">%(message_parent_msg)s</a> "
+"from %(message_recipient)s."
+msgstr ""
+
+#: templates/notification/messages_reply_received/notice.html:2
+#, python-format
+msgid "%(message_sender)s has sent you a reply to %(message_parent_msg)s."
+msgstr ""
+
+#: templates/notification/messages_sent/notice.html:2
+#, python-format
+msgid ""
+"You have sent the message <a href=\"%(message_url)s\">%(message)s</a> to "
+"%(message_recipient)s."
+msgstr ""
+
+#: templates/serv/accept_transfer_email.html:3
+#, python-format
+msgid ""
+"Hola %(transfer_creator)s,\n"
+"\n"
+"La transferencia que solicitaste del servicio de %(service_creator)s ha sido "
+"aceptada por él/ella. Puedes ver los detalles de la transferencia en "
+"%(site_url)s%(transfer_url)s.\n"
+"\n"
+"El equipo de %(site_url)s"
+msgstr ""
+
+#: templates/serv/add_transfer.html:4 templates/serv/add_transfer.html:13
+#: templates/serv/add_transfer.html:19
+#: templates/serv/service_transfer_actions.html:3
+msgid "Solicitar transferencia"
+msgstr ""
+
+#: templates/serv/add_transfer.html:8 templates/serv/edit_transfer.html:8
+#: templates/serv/service_add_comment.html:8
+msgid "Servicio"
+msgstr ""
+
+#: templates/serv/base.html:9 templates/serv/services.html:3
+#: templates/user/preferences.html:13
+msgid "Mis servicios"
+msgstr ""
+
+#: templates/serv/base.html:10
+msgid "Encontrar Servicios"
+msgstr ""
+
+#: templates/serv/base.html:11
+msgid "Crear un nuevo servicio"
+msgstr ""
+
+#: templates/serv/base_transfer.html:9
+msgid "Mis Transferencias"
+msgstr ""
+
+#: templates/serv/cancel_transfer_email.html:3
+#, python-format
+msgid ""
+"Hola,\n"
+"\n"
+"La transferencia solicitada en un principio por %(transfer_creator)s del "
+"servicio creado por %(service_creator)s ha sido cancelada. Puedes ver los "
+"detalles de la transferencia en %(site_url)s%(transfer_url)s.\n"
+"\n"
+"El equipo de %(site_url)s"
+msgstr ""
+
+#: templates/serv/done_transfer_email.html:3
+#, python-format
+msgid ""
+"Hola %(payee)s,\n"
+"\n"
+"La transferencia del servicio que realizaste a %(debtor)s ha sido confirmada "
+"por él/ella. Puedes ver los detalles de la transferencia en %(site_url)s"
+"%(transfer_url)s.\n"
+"\n"
+"El equipo de %(site_url)s"
+msgstr ""
+
+#: templates/serv/edit_service.html:5
+msgid "Editar servicio"
+msgstr ""
+
+#: templates/serv/edit_service.html:7
+msgid "Añadir servicio"
+msgstr ""
+
+#: templates/serv/edit_service.html:17 templates/user/profile.html:13
+msgid "Guardar"
+msgstr ""
+
+#: templates/serv/edit_transfer.html:4 templates/serv/edit_transfer.html:12
+#: templates/serv/service_transfer_actions.html:5
+#: templates/serv/single_transfer_view.html:36
+msgid "Editar transferencia"
+msgstr ""
+
+#: templates/serv/edit_transfer.html:18
+msgid "Actualizar transferencia"
+msgstr ""
+
+#: templates/serv/edit_transfer_email.html:3
+#, python-format
+msgid ""
+"Hola %(service_creator)s,\n"
+"\n"
+"La transferencia que solicitó %(transfer_creator)s de un servicio tuyo ha "
+"sido editada por él/ella. Puedes ver los detalles de la transferencia en "
+"%(site_url)s%(transfer_url)s.\n"
+"\n"
+"El equipo de %(site_url)s"
+msgstr ""
+
+#: templates/serv/listservs.html:6
+msgid "Ningún servicio"
+msgstr ""
+
+#: templates/serv/new_transfer_email.html:4
+#, python-format
+msgid ""
+"Hola %(recipient)s,\n"
+"\n"
+"%(sender)s te ha solicitado una transferencia de un servicio que ofertas. "
+"Puedes ver y administrar la transferencia en %(site_url)s%(transfer_url)s.\n"
+"\n"
+"El equipo de %(site_url)s"
+msgstr ""
+
+#: templates/serv/new_transfer_email.html:10
+#, python-format
+msgid ""
+"Hola %(recipient)s,\n"
+"\n"
+"%(sender)s te ha solicitado una transferencia de un servicio que solicitas. "
+"Puedes ver y administrar la transferencia en %(site_url)s%(transfer_url)s.\n"
+"\n"
+"El equipo de %(site_url)s"
+msgstr ""
+
+#: templates/serv/service_add_comment.html:4
+msgid "Comentar un servicio"
+msgstr ""
+
+#: templates/serv/service_add_comment.html:12
+msgid "Comentar el servicio"
+msgstr ""
+
+#: templates/serv/service_add_comment.html:18
+msgid "Enviar comentario"
+msgstr ""
+
+#: templates/serv/service_transfer_actions.html:7
+#: templates/serv/single_transfer_view.html:38
+#: templates/serv/single_transfer_view.html:49
+#: templates/serv/single_transfer_view.html:54
+msgid "Cancelar transferencia"
+msgstr ""
+
+#: templates/serv/service_transfer_actions.html:11
+#: templates/serv/single_transfer_view.html:60
+msgid "Confirmar transferencia"
+msgstr ""
+
+#: templates/serv/services.html:10
+msgid "Encontrar servicios"
+msgstr ""
+
+#: templates/serv/services.html:20 templates/serv/view_transfers.html:22
+#: templates/user/find_people.html:26
+#: templates/user/list_user_services.html:31
+#, python-format
+msgid ""
+"\n"
+"                    Página %(number)s de %(num_pages)s\n"
+"                    "
+msgstr ""
+
+#: templates/serv/single_comment_view.html:15
+msgid "el comentario es privado"
+msgstr ""
+
+#: templates/serv/single_comment_view.html:17
+#: templates/serv/single_service_view.html:13
+msgid "Publicado hace"
+msgstr ""
+
+#: templates/serv/single_comment_view.html:23
+msgid "Borrar comentario"
+msgstr ""
+
+#: templates/serv/single_service_view.html:4
+msgid "Tipo"
+msgstr ""
+
+#: templates/serv/single_service_view.html:7
+msgid "Inactiva"
+msgstr ""
+
+#: templates/serv/single_service_view.html:28
+msgid "transferencias"
+msgstr ""
+
+#: templates/serv/single_service_view.html:28
+msgid "comentarios"
+msgstr ""
+
+#: templates/serv/single_service_view.html:28
+msgid "créditos transferidos"
+msgstr ""
+
+#: templates/serv/single_service_view.html:33
+#: templates/serv/single_service_view.html:50
+msgid "Comentar"
+msgstr ""
+
+#: templates/serv/single_service_view.html:34
+msgid "Modificar"
+msgstr ""
+
+#: templates/serv/single_service_view.html:36
+msgid "Eliminar"
+msgstr ""
+
+#: templates/serv/single_service_view.html:40
+msgid "Desactivar"
+msgstr ""
+
+#: templates/serv/single_service_view.html:44
+msgid "Activar"
+msgstr ""
+
+#: templates/serv/single_service_view.html:51
+#: templates/serv/single_transfer_view.html:41
+#: templates/user/list_user_services.html:19 templates/user/view.html:24
+msgid "Enviar mensaje privado"
+msgstr ""
+
+#: templates/serv/single_transfer_view.html:17
+#, python-format
+msgid ""
+"Transferencia de %(credits)s créditos de <a href=\"%(debtor_url)s\">"
+"%(debtor)s</a> a <a href=\"%(payee_url)s\">%(payee)s</a>"
+msgstr ""
+
+#: templates/serv/single_transfer_view.html:19
+#, python-format
+msgid ""
+"Transferencia privada de %(credits)s créditos de <a href=\"%(debtor_url)s\">"
+"%(debtor)s</a> a <a href=\"%(payee_url)s\">%(payee)s</a>"
+msgstr ""
+
+#: templates/serv/single_transfer_view.html:22
+msgid "<strong>creada</strong>, hace"
+msgstr ""
+
+#: templates/serv/single_transfer_view.html:24
+msgid "<strong>aceptada</strong>, creada hace"
+msgstr ""
+
+#: templates/serv/single_transfer_view.html:26
+msgid "<strong>rechazada</strong>, creada hace"
+msgstr ""
+
+#: templates/serv/single_transfer_view.html:28
+msgid "<strong>confirmada</strong> hace"
+msgstr ""
+
+#: templates/serv/single_transfer_view.html:46
+msgid "Aceptar transferencia"
+msgstr ""
+
+#: templates/serv/view_service.html:4
+msgid "Ver servicio"
+msgstr ""
+
+#: templates/serv/view_service.html:11
+msgid "Mis transferencias en este servicio"
+msgstr ""
+
+#: templates/serv/view_service.html:17 templates/serv/view_transfers.html:13
+msgid "Ninguna transferencia por ahora."
+msgstr ""
+
+#: templates/serv/view_service.html:19 templates/serv/view_transfer.html:13
+msgid "Comentarios sobre el servicio"
+msgstr ""
+
+#: templates/serv/view_service.html:25 templates/serv/view_transfer.html:19
+msgid "Ningún comentario por ahora."
+msgstr ""
+
+#: templates/serv/view_transfer.html:4
+msgid "Ver transferencia"
+msgstr ""
+
+#: templates/serv/view_transfer.html:9
+msgid "Servicio que se transfiere"
+msgstr ""
+
+#: templates/serv/view_transfers.html:4 templates/user/preferences.html:10
+msgid "Mis transferencias"
+msgstr ""
+
+#: templates/tasks/email_update.html:1
+#, python-format
+msgid ""
+"Hola %(recipient)s,\n"
+"\n"
+"Hay novedades en tu perfil de %(site_name)s que requieren tu atención:\n"
+msgstr ""
+
+#: templates/tasks/email_update.html:9
+#, python-format
+msgid "Ir a la bandeja de entrada:%(inbox_url)s"
+msgstr ""
+
+#: templates/tasks/email_update.html:10
+#, python-format
+msgid ""
+"\n"
+"    %(site_url)s%(msg_url)s\n"
+"    Mensaje de %(from)s, enviado hace %(sent_ago)s:\n"
+"        %(body)s\n"
+"\n"
+msgstr ""
+
+#: templates/tasks/email_update.html:16
+msgid "No tienes mensajes sin leer"
+msgstr ""
+
+#: templates/tasks/email_update.html:18
+msgid "Comentarios en tu perfil sin leer"
+msgstr ""
+
+#: templates/tasks/email_update.html:21
+#, python-format
+msgid "Lee todos los comentarios en tu perfil: %(view_comments_url)s"
+msgstr ""
+
+#: templates/tasks/email_update.html:22
+#, python-format
+msgid ""
+"\n"
+"    Comentario de %(from)s, enviado hace %(sent_ago)s:\n"
+"        %(body)s\n"
+"\n"
+msgstr ""
+
+#: templates/tasks/email_update.html:27
+msgid "No tienes comentarios en tu perfil sin leer"
+msgstr ""
+
+#: templates/tasks/email_update.html:29
+msgid "Transferencias pendientes"
+msgstr ""
+
+#: templates/tasks/email_update.html:32
+#, python-format
+msgid "Administrar todas tus transferencias: %(my_transfers_url)s"
+msgstr ""
+
+#: templates/tasks/email_update.html:33
+#, python-format
+msgid ""
+"\n"
+"    %(site_url)s%(transfer_url)s\n"
+"    Comentario con %(from)s, creada hace %(created_ago)s en estado "
+"%(status)s\n"
+"        %(description)s\n"
+"\n"
+msgstr ""
+
+#: templates/tasks/email_update.html:39
+msgid "No tienes transferencias pendientes"
+msgstr ""
+
+#: templates/tasks/email_update.html:41
+msgid "Además de todo esto, puede interesarte:"
+msgstr ""
+
+#: templates/tasks/email_update.html:46
+#, python-format
+msgid "Lista de servicios: %(services_url)s"
+msgstr ""
+
+#: templates/tasks/email_update.html:47
+#, python-format
+msgid ""
+"\n"
+"    %(site_url)s%(service_url)s\n"
+"    Servicio en la zona \"%(area)s\" y categoría \"%(category)s\" creador "
+"por %(from)s publicado hace %(published_ago)s\n"
+"        %(description)s\n"
+msgstr ""
+
+#: templates/tasks/email_update.html:52
+msgid "No hay servicios recientes"
+msgstr ""
+
+#: templates/tasks/email_update.html:54
+#, python-format
+msgid ""
+"\n"
+"Intercambia tu tiempo y habilidades en %(site_name)s, %(site_url)s.\n"
+"\n"
+"¿No quieres recibir notificaciones por email? Ajusta las preferencias de tu "
+"perfil en %(site_url)s%(prefs_url)s"
+msgstr ""
+
+#: templates/user/find_people.html:10
+msgid "Encontrar gente"
+msgstr ""
+
+#: templates/user/find_people.html:16
+msgid "No se encontró a nadie"
+msgstr ""
+
+#: templates/user/list_user_services.html:5
+#: templates/user/list_user_services.html:12
+msgid "Ver servicios de"
+msgstr ""
+
+#: templates/user/list_user_services.html:17
+#: templates/user/preferences.html:19 templates/user/profile.html:3
+#: templates/user/profile.html.py:7 templates/user/view.html:22
+msgid "Editar perfil"
+msgstr ""
+
+#: templates/user/list_user_services.html:20 templates/user/view.html:25
+msgid "Ver sus servicios"
+msgstr ""
+
+#: templates/user/password_change.html:3 templates/user/password_change.html:7
+#: templates/user/password_change.html:13
+#: templates/user/password_reset_confirm.html:15
+#: templates/user/preferences.html:22
+msgid "Cambiar contraseña"
+msgstr ""
+
+#: templates/user/password_reset.html:3 templates/user/password_reset.html:7
+msgid "¿Has olvidado tu contraseña?"
+msgstr ""
+
+#: templates/user/password_reset.html:8
+msgid ""
+"Rellena el siguiente formulario para que podamos enviarte un enlace a tu "
+"dirección de email con el que podrás cambiar tu contraseña."
+msgstr ""
+
+#: templates/user/password_reset.html:14
+msgid "Enviar email de comprobación"
+msgstr ""
+
+#: templates/user/password_reset_confirm.html:3
+#: templates/user/password_reset_confirm.html:7
+msgid "Cambia tu contraseña"
+msgstr ""
+
+#: templates/user/password_reset_confirm.html:9
+msgid ""
+"Hemos confirmado tu identidad, ahora puedes establecer tu nueva contraseña. "
+"Intenta no olvidarla, aunque si la vuelves a olvidar puedes volver a "
+"utilizar este mismo formulario para recuperarla siempre que te acuerdes de "
+"tu nombre de usuario o tu email."
+msgstr ""
+
+#: templates/user/password_reset_confirm.html:18
+msgid ""
+"<strong>¡Error!</strong> Este enlace de confirmación de contraseña es "
+"incorrecto o ha caducado. Comprueba que has accedido al enlace correcto, o "
+"vuelve a solicitar el restablecimiento de tu contraseña."
+msgstr ""
+
+#: templates/user/password_reset_email.html:2
+msgid ""
+"Estás recibiendo este e-mail porque solicitaste restablecer tu contraseña"
+msgstr ""
+
+#: templates/user/password_reset_email.html:3
+#, python-format
+msgid "para tu cuenta en %(protocol)s://%(site_name)s"
+msgstr ""
+
+#: templates/user/password_reset_email.html:5
+msgid "Puedes cambiar tu contraseña en la siguiente dirección:"
+msgstr ""
+
+#: templates/user/password_reset_email.html:9
+msgid "Tu nombre de usuario, en caso de que lo olvidases, es:"
+msgstr ""
+
+#: templates/user/password_reset_email.html:11
+msgid "¡Gracias por usar nuestro sitio web!"
+msgstr ""
+
+#: templates/user/password_reset_email.html:13
+#, python-format
+msgid "El equipo de %(site_name)s"
+msgstr ""
+
+#: templates/user/preferences.html:16 templates/user/view.html:5
+#: templates/user/view.html.py:14
+msgid "Ver perfil"
+msgstr ""
+
+#: templates/user/preferences.html:25 templates/user/remove.html:3
+#: templates/user/remove.html.py:7 templates/user/remove.html:13
+msgid "Eliminar usuario"
+msgstr ""
+
+#: templates/user/register.html:3 templates/user/register.html.py:7
+msgid "Regístrate"
+msgstr ""
+
+#: templates/user/register.html:13
+msgid "Registrarme"
+msgstr ""
+
+#: templates/user/send_email_to_all.html:3
+#: templates/user/send_email_to_all.html:7
+#: templates/user/send_email_to_all.html:13 user/admin.py:36
+msgid "Enviar email a todos los usuarios"
+msgstr ""
+
+#: templates/user/single_person_view.html:4
+msgid "Nick"
+msgstr ""
+
+#: templates/user/single_person_view.html:10 templates/user/view.html:56
+msgid "Karma"
+msgstr ""
+
+#: templates/user/view.html:30
+msgid "Gravatar"
+msgstr ""
+
+#: templates/user/view.html:44 user/forms.py:34 user/forms.py:56
+msgid "Apellidos"
+msgstr ""
+
+#: templates/user/view.html:48
+msgid "Cŕeditos"
+msgstr ""
+
+#: templates/user/view.html:61
+msgid "Edad"
+msgstr ""
+
+#: templates/user/view.html:65 user/forms.py:36 user/forms.py:58
+msgid "Dirección física"
+msgstr ""
+
+#: templates/user/view.html:69
+msgid "Email"
+msgstr ""
+
+#: templates/user/view.html:73 user/forms.py:40 user/forms.py:66
+#: user/models.py:52
+msgid "Teléfono fijo"
+msgstr ""
+
+#: templates/user/view.html:77 user/forms.py:42 user/forms.py:68
+#: user/models.py:54
+msgid "Teléfono móvil"
+msgstr ""
+
+#: templates/user/view.html:90
+msgid "Publicar comentario en su tablón"
+msgstr ""
+
+#: templates/user/view.html:93
+msgid "Mensajes publicados en su tablón:"
+msgstr ""
+
+#: templates/user/view.html:98
+msgid "Enviado por"
+msgstr ""
+
+#: templates/user/view.html:98
+msgid "hace"
+msgstr ""
+
+#: templates/user/view.html:103
+msgid "Este usuario no ha recibido ningún mensaje"
+msgstr ""
+
+#: tinymce/views.py:68
+msgid "Error running spellchecker"
+msgstr ""
+
+#: user/admin.py:56
+#, python-format
+msgid "Bienvenido a %(site_name)s, %(username)s"
+msgstr ""
+
+#: user/admin.py:60
+#, python-format
+msgid ""
+"Enhorabuena %(username)s!\n"
+"Los adminitradores han aceptado tu solicitud de registro, ¡ahora ya puedes "
+"comenzar a colaborar con los demás en http://%(url)s/.\n"
+"\n"
+"- El equipo de %(site_name)s."
+msgstr ""
+
+#: user/forms.py:30 user/forms.py:51 user/models.py:42
+msgid "Fecha de Nacimiento"
+msgstr ""
+
+#: user/forms.py:33 user/forms.py:54
+msgid "Nombre propio"
+msgstr ""
+
+#: user/forms.py:35 user/forms.py:57
+msgid "Dirección de email"
+msgstr ""
+
+#: user/forms.py:37 user/forms.py:59
+msgid "Ejemplo: Avda. Molina, 12, Sevilla"
+msgstr ""
+
+#: user/forms.py:38 user/forms.py:60 user/models.py:49
+msgid "Descripción personal"
+msgstr ""
+
+#: user/forms.py:62
+msgid "Contraseña actual"
+msgstr ""
+
+#: user/forms.py:64
+msgid "Introduce tu contraseña actual para comprobar tu identidad."
+msgstr ""
+
+#: user/forms.py:78
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: user/forms.py:88
+msgid "Razón"
+msgstr ""
+
+#: user/forms.py:90
+msgid ""
+"¿Hemos hecho algo mal? Por favor díganos la razón porla que quiere darse de "
+"baja."
+msgstr ""
+
+#: user/forms.py:101
+msgid "24 horas"
+msgstr ""
+
+#: user/forms.py:102
+msgid "una semana"
+msgstr ""
+
+#: user/forms.py:103
+msgid "un mes"
+msgstr ""
+
+#: user/forms.py:104
+msgid "un año"
+msgstr ""
+
+#: user/forms.py:107
+msgid "El usuario se conectó hace menos de"
+msgstr ""
+
+#: user/models.py:32
+msgid "direccion"
+msgstr ""
+
+#: user/models.py:44
+msgid "Dirección"
+msgstr ""
+
+#: user/models.py:56
+msgid "Recibir actualizaciones por email"
+msgstr ""
+
+#: user/models.py:60
+msgid "Usuario"
+msgstr ""
+
+#: user/models.py:61
+msgid "Usuarios"
+msgstr ""
+
+#: user/models.py:64
+#, python-format
+msgid "Id: %(id)s usuario: %(username)s"
+msgstr ""
+
+#: user/views.py:53
+#, python-format
+msgid "[%(site_name)s] Usuario %(username)s registrado"
+msgstr ""
+
+#: user/views.py:57
+#, python-format
+msgid ""
+"Se ha registrado un nuevo usuario con nombre de usuario  %s . Revise sus "
+"datos y delo de alta."
+msgstr ""
+
+#: user/views.py:62
+#, python-format
+msgid "Te has registrado como %(username)s en %(site_name)s"
+msgstr ""
+
+#: user/views.py:66
+#, python-format
+msgid ""
+"Hola %(username)s!\n"
+" Te acabas de registrar en http://%(url)s/.Próximamente la creación de tu "
+"usuario será revisada pornuestros administradores y si todo está correcto, "
+"activaremos tu usuario y podrás comenzar a participar en nuestra comunidad.\n"
+"\n"
+"- El Equipo de %(site_name)s."
+msgstr ""
+
+#: user/views.py:78
+#, python-format
+msgid ""
+"Te acabas de registrar en nuestro sitio web, <strong>%(username)s</strong>. "
+"Te hemos enviado un email a <strong>%(email)s</strong> confirmándote tu "
+"solicitud de inscripción. Tan pronto como nuestros administradores hayan "
+"revisado dicha solicitud te avisaremos de nuevo por email y podrás empezar a "
+"disfrutar de este sistema."
+msgstr ""
+
+#: user/views.py:87
+msgid "Usuario creado correctamente"
+msgstr ""
+
+#: user/views.py:103
+#, python-format
+msgid "Bienvenido %s"
+msgstr ""
+
+#: user/views.py:105
+msgid "Tu cuenta está deshabilitada, contacta con los administradores"
+msgstr ""
+
+#: user/views.py:108
+msgid "Nombre de usuario o contrase&ntilde;a inválidos"
+msgstr ""
+
+#: user/views.py:114
+msgid ""
+"Te hemos enviado un correo a tu dirección de email con instrucciones para "
+"poder recuperar tu contraseña. Puede tardar un poco; se paciente. Si parece "
+"que no te llega, comprueba la carpeta de correos no deseados."
+msgstr ""
+
+#: user/views.py:118
+msgid "Recuperación de contraseña en proceso"
+msgstr ""
+
+#: user/views.py:124
+msgid ""
+"Has cambiado tu contraseña exitosamente, ahora puedes entrar introduciendo "
+"tu usuario y contraseña en el recuadro gris de la izquierda."
+msgstr ""
+
+#: user/views.py:127
+msgid "Contraseña cambiada exitosamente"
+msgstr ""
+
+#: user/views.py:146
+#, python-format
+msgid "[%(site_name)s] %(username)s ha modificado sus datos"
+msgstr ""
+
+#: user/views.py:150
+#, python-format
+msgid ""
+"El usuario %(username)s ha modificado su perfil. Datos antiguos:\n"
+"\n"
+" - Nombre: %(old_name)s\n"
+" - Apellidos: %(old_surnames)s\n"
+" - Dirección de email: %(old_email)s\n"
+" - Dirección física: %(old_address)s\n"
+" - Fecha de nacimiento: %(old_birth_date)s\n"
+" - Descripción: %(old_description)s\n"
+"\n"
+"Nuevos datos:\n"
+"\n"
+" - Nombre: %(name)s\n"
+" - Apellidos: %(surnames)s\n"
+" - Dirección de email: %(email)s\n"
+" - Dirección física: %(address)s\n"
+" - Fecha de nacimiento: %(birth_date)s\n"
+" - Descripción: %(description)s\n"
+"\n"
+msgstr ""
+
+#: user/views.py:181
+#, python-format
+msgid "Perfil actualizado: <a href=\"%s\">ver tu perfil</a>."
+msgstr ""
+
+#: user/views.py:197
+msgid "Contraseña cambiada."
+msgstr ""
+
+#: user/views.py:219
+#, python-format
+msgid "[%(site_name)s] Usuario %(username)s desactivado"
+msgstr ""
+
+#: user/views.py:223
+#, python-format
+msgid ""
+"El usuario %(username)s ha solicitado set eliminado del sitio web.La razón "
+"que ha expuesto es:\n"
+"\n"
+"%(reason)s"
+msgstr ""
+
+#: user/views.py:231
+#, python-format
+msgid "Has borrado tu perfil %(username)s de %(site_name)s"
+msgstr ""
+
+#: user/views.py:235
+#, python-format
+msgid ""
+"Hola %(username)s!\n"
+" Has borrado tu perfil de http://%(url)s/.Sentimos que hayas decidido dar "
+"este paso. Leeremos la razón que nos proporcionaste por la cual te has "
+"borrado y la tendremos en cuenta para mejorar en el futuro.\n"
+"\n"
+"- El Equipo de %(site_name)s."
+msgstr ""
+
+#: user/views.py:246
+msgid ""
+"Sentimos que hayas decidido dar este paso. Leeremos la razón que nos "
+"proporcionaste por la cual te has borrado y la tendremos en cuenta para "
+"mejorar en el futuro."
+msgstr ""
+
+#: user/views.py:249
+msgid "Usuario borrado"
+msgstr ""
+
+#: user/views.py:336
+#, python-format
+msgid "Mensaje añadido al perfil público de %s"
+msgstr ""
+
+#: user/views.py:347 user/views.py:359
+msgid "No tienes permisos para enviar un email a todos los usuarios"
+msgstr ""
+
+#: user/views.py:372
+msgid "Email enviado a todos los usuarios"
+msgstr ""
