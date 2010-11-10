@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pip -E env install -r dependencies.txt
+pip -E env install -r dependencies.txt --upgrade
