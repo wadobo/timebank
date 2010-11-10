@@ -18,7 +18,6 @@
 
 
 from django.db import models
-from sqlalchemy.orm import relation, backref
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from djangoratings.fields import RatingField
