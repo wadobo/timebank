@@ -92,22 +92,32 @@ class ListServicesForm(forms.Form):
         return urllib.urlencode(self.data)
 
 class AddTransferForm(forms.ModelForm):
-    credits = FormCharField(label=_(u"Créditos"), required=True, max_length=3,
-        help_text=_(u"En minutos. Ejemplo: 60, 30, 120"))
+    CREDITS_CHOICES = (
+        ('30', _('media hora')),
+        ('60', _('1 hora')),
+        ('90', _('1 hora y media')),
+        ('120', _('2 horas')),
+        ('150', _('2 horas y media')),
+        ('180', _('3 horas')),
+        ('210', _('3 horas y media')),
+        ('240', _('4 horas')),
+        ('270', _('4 horas y media')),
+        ('300', _('5 horas')),
+        ('330', _('5 horas y media')),
+        ('360', _('6 horas')),
+        ('390', _('6 horas y media')),
+    )
+
+    credits = CustomCharField(label=_(u"Créditos"),
+        widget=forms.Select(choices=CREDITS_CHOICES), required=True)
 
     class Meta:
         model = Transfer
         fields = ['description', 'credits']
 
     def clean_credits(self):
-        credits = self.cleaned_data["credits"]
-        try:
-            credits = int(credits)
-        except ValueError:
-            raise forms.ValidationError(_(u"Número inválido"))
-        if credits < 0 or credits > settings.MAX_CREDITS_PER_TRANSFER:
-            raise forms.ValidationError(u"Límite de créditos sobrepasado")
-        return credits
+        credits = self.cleaned_data.get("credits", "30")
+        return int(credits)
 
 class AddCommentForm(forms.ModelForm):
     class Meta:

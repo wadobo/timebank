@@ -46,6 +46,9 @@ class Profile(User):
     # credits in minutes
     balance = models.IntegerField(default=0)
 
+    def balance_hours(self):
+        return self.balance/60.0
+
     description = models.TextField(_(u"Descripción personal"), max_length=300,
         blank=True)
 

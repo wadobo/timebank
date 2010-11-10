@@ -14,9 +14,9 @@
             {% url user-view transfer.credits_debtor.id as debtor_url %}
             {% url user-view transfer.credits_payee.id as payee_url %}
             {% if transfer.is_public %}
-                {% blocktrans with transfer.credits_debtor.username as debtor and transfer.credits_payee.username as payee and transfer.credits as credits and transfer.request_date|timesince as created %}Transferencia de {{ credits }} créditos de <a href="{{ debtor_url }}">{{ debtor }}</a> a <a href="{{ payee_url }}">{{ payee }}</a>{% endblocktrans %}
+                {% blocktrans with transfer.credits_debtor.username as debtor and transfer.credits_payee.username as payee and transfer.credit_hours as credits and transfer.request_date|timesince as created %}Transferencia de {{ credits }} horas de <a href="{{ debtor_url }}">{{ debtor }}</a> a <a href="{{ payee_url }}">{{ payee }}</a>{% endblocktrans %}
             {% else %}
-                {% blocktrans with transfer.credits_debtor.username as debtor and transfer.credits_payee.username as payee and transfer.credits as credits %}Transferencia privada de {{ credits }} créditos de <a href="{{ debtor_url }}">{{ debtor }}</a> a <a href="{{ payee_url }}">{{ payee }}</a>{% endblocktrans %}
+                {% blocktrans with transfer.credits_debtor.username as debtor and transfer.credits_payee.username as payee and transfer.credit_hours as credits %}Transferencia privada de {{ credits }} horas de <a href="{{ debtor_url }}">{{ debtor }}</a> a <a href="{{ payee_url }}">{{ payee }}</a>{% endblocktrans %}
             {% endif %} / {% trans "Estado" %}:
             {% if transfer.status == "q" %}
                 {% trans     "<strong>creada</strong>, hace" %} {{ transfer.request_date|timesince }}

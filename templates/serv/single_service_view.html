@@ -25,7 +25,7 @@
         <a href="{% url serv-view serv.id %}"><div class="description">{{ serv.descripcion|truncatewords:50|linebreaks }}</div></a>
         <div class="cleaner"></div>
         <div class="information2">
-            {{ serv.transfers_count }} {% trans "transferencias" %} / {{ serv.messages_count }} {% trans "comentarios" %} / {{ serv.credits_transfered }} {% trans "créditos transferidos" %}
+            {{ serv.transfers_count }} {% trans "transferencias" %} / {{ serv.messages_count }} {% trans "comentarios" %} / {{ serv.credit_hours_transfered }} {% trans "horas transferidas" %}
         </div>
         <div class="cleaner"></div>
         <div class="buttons">

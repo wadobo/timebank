@@ -87,6 +87,9 @@ class Servicio(models.Model):
         ret = self.transfers.filter(status='d').aggregate(models.Sum('credits'))
         return ret['credits__sum'] and ret['credits__sum'] or 0
 
+    def credit_hours_transfered(self):
+        return self.credits_transfered()/60.0
+
     def ongoing_transfers(self, user):
         if self.oferta:
             return Transfer.objects.filter(credits_debtor=user, service=self,
@@ -246,6 +249,9 @@ class Transfer(models.Model):
 
     # credits in minutes
     credits = models.PositiveIntegerField(_(u"Créditos"))
+
+    def credit_hours(self):
+        return self.credits/60.0
 
     #TODO: Add here a rating of the service, set by the payee of course
 
