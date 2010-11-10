@@ -48,7 +48,7 @@ class Categoria(models.Model):
 
 class Servicio(models.Model):
 
-    creador = models.ForeignKey(Profile, related_name="creador")
+    creador = models.ForeignKey(Profile, related_name="services")
     #Si es una oferta=true, si es demanda=false
     oferta = models.BooleanField()
     pub_date = models.DateTimeField("Fecha de publicación",
