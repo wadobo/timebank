@@ -28,7 +28,7 @@ from messages.utils import new_transfer_email
 
 class Zona(models.Model):
 
-    nombre_zona = models.CharField(max_length=40)
+    nombre_zona = models.CharField(_("Zona"), max_length=40)
 
     def __unicode__(self):
         return self.nombre_zona
@@ -36,14 +36,14 @@ class Zona(models.Model):
 
 class Categoria(models.Model):
 
-    nombre_categoria = models.CharField("Categoría", max_length=45)
+    nombre_categoria = models.CharField(_(u"Categoría"), max_length=45)
 
     def __unicode__(self):
         return self.nombre_categoria
 
     class Meta:
-        verbose_name = "Categoría"
-        verbose_name_plural = "Categorías"
+        verbose_name = _(u"Categoría")
+        verbose_name_plural = _(u"Categorías")
 
 
 class Servicio(models.Model):
@@ -51,19 +51,19 @@ class Servicio(models.Model):
     creador = models.ForeignKey(Profile, related_name="services")
     #Si es una oferta=true, si es demanda=false
     oferta = models.BooleanField()
-    pub_date = models.DateTimeField("Fecha de publicación",
+    pub_date = models.DateTimeField(_(u"Fecha de publicación"),
                                     auto_now=True,
                                     auto_now_add=True)
     activo = models.BooleanField(default=True)
-    descripcion = models.TextField("Descripción", max_length=400)
+    descripcion = models.TextField(_(u"Descripción"), max_length=400)
     categoria = models.ForeignKey(Categoria)
     zona = models.ForeignKey(Zona, null=True, blank=True)
 
     def __unicode__(self):
         if self.oferta:
-            msj = "ofertado"
+            msj = _("ofertado")
         else:
-            msj = "solicitado"
+            msj = _("solicitado")
         return "Servicio %s %s por: %s" % (self.id, msj, self.creador)
 
     def cortaServicio(self):
