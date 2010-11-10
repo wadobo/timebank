@@ -70,14 +70,18 @@ class ListServices(ViewClass):
 
         user_status = form.data.get("user_status", '0')
         if user_status != '0':
-            if user_status == '1': # today
+            if user_status == '1': # one day
                 last_date = datetime.now() - timedelta(days=1)
-            elif user_status == '2': # this week
+            elif user_status == '2': # 1 week
                 last_date = datetime.now() - timedelta(days=7)
-            elif user_status == '3': # this month
-                last_date = datetime.now() - timedelta(months=1)
-            elif user_status == '4': # this year
-                last_date = datetime.now() - timedelta(years=1)
+            elif user_status == '3': # 1 month
+                last_date = datetime.now() - timedelta(days=30)
+            elif user_status == '4': # 3 months
+                last_date = datetime.now() - timedelta(days=3*30)
+            elif user_status == '5': # 6 months
+                last_date = datetime.now() - timedelta(days=6*30)
+            elif user_status == '6': # 1 year
+                last_date = datetime.now() - timedelta(days=365)
             services = services.filter(creador__last_login__gt=last_date)
 
         if form.data.get("username", ''):

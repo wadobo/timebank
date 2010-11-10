@@ -27,7 +27,8 @@ from datetime import datetime, timedelta
 
 from utils import ViewClass, send_mail_to_admins, login_required
 from forms import (RegisterForm, EditProfileForm, RemoveForm,
-    PublicMessageForm, FindPeopleForm, SendEmailToAllForm)
+    PublicMessageForm, FindPeopleForm, FindPeople4AdminsForm,
+    SendEmailToAllForm)
 from models import Profile
 from serv.models import Servicio
 from messages.models import Message
@@ -295,7 +296,10 @@ class ListUserServices(ViewClass):
 class FindPeople(ViewClass):
     @login_required
     def GET(self):
-        form = FindPeopleForm(self.request.GET)
+        if self.request.user.is_staff or self.request.user.is_superuser:
+            form = FindPeople4AdminsForm(self.request.GET)
+        else:
+            form = FindPeopleForm(self.request.GET)
 
         people = Profile.objects.all()
 
@@ -310,15 +314,37 @@ class FindPeople(ViewClass):
 
         user_status = form.data.get("user_status", '0')
         if user_status != '0':
-            if user_status == '1': # today
-                last_date = datetime.now() - timedelta(days=1)
-            elif user_status == '2': # this week
-                last_date = datetime.now() - timedelta(days=7)
-            elif user_status == '3': # this month
-                last_date = datetime.now() - timedelta(months=1)
-            elif user_status == '4': # this year
-                last_date = datetime.now() - timedelta(years=1)
-            people = people.filter(last_login__gt=last_date)
+            if (self.request.user.is_staff or self.request.user.is_superuser) \
+                and int(user_status) > 6:
+                if user_status == '7': # 1 week
+                    last_date = datetime.now() - timedelta(days=7)
+                elif user_status == '8': # 1 month
+                    last_date = datetime.now() - timedelta(days=30)
+                elif user_status == '9': # 3 months
+                    last_date = datetime.now() - timedelta(days=3*30)
+                elif user_status == '10': # 6 months
+                    last_date = datetime.now() - timedelta(days=6*30)
+                elif user_status == '11':  # 1 year
+                    last_date = datetime.now() - timedelta(days=365)
+                people = people.filter(last_login__lt=last_date)
+            else:
+                if user_status == '1':
+                    last_date = datetime.now() - timedelta(days=1)
+                elif user_status == '2':
+                    last_date = datetime.now() - timedelta(days=7)
+                elif user_status == '3':
+                    last_date = datetime.now() - timedelta(days=30)
+                elif user_status == '4':
+                    last_date = datetime.now() - timedelta(days=3*30)
+                elif user_status == '5':
+                    last_date = datetime.now() - timedelta(days=6*30)
+                elif user_status == '6':
+                    last_date = datetime.now() - timedelta(days=365)
+                people = people.filter(last_login__gt=last_date)
+
+        #if self.request.user.is_staff or self.request.user.is_superuser \
+            #and form.data.get("without_services", ''):
+            #people = people.filter(services__count=0)
 
         paginator = Paginator(people, 10)
         try:

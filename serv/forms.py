@@ -75,10 +75,12 @@ class ListServicesForm(forms.Form):
     )
     USER_CHOICES = (
         ('0', _('---------')),
-        ('1', _(u'se conectó hoy')),
-        ('2', _(u'se conectó esta semana')),
-        ('3', _(u'se conectó este mes')),
-        ('4', _(u'se conectó este año')),
+        ('1', _(u'se conectó hace menos de un día')),
+        ('2', _(u'se conectó hace menos de una semana')),
+        ('3', _(u'se conectó hace menos de 1 mes')),
+        ('4', _(u'se conectó hace menos de 3 meses')),
+        ('5', _(u'se conectó hace menos de 6 meses')),
+        ('6', _(u'se conectó hace menos de 1 año')),
     )
 
     mine = forms.BooleanField(label=_(u"Sólo listar mis servicios"), required=False)
