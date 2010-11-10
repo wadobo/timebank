@@ -21,7 +21,7 @@ from django.utils.translation import ugettext as _
 from django.core.mail import send_mail, EmailMessage
 from django.contrib.auth import authenticate, login as django_login
 from django.core.urlresolvers import reverse
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 from datetime import datetime, timedelta
 
@@ -29,6 +29,7 @@ from utils import ViewClass, send_mail_to_admins, login_required
 from forms import (RegisterForm, EditProfileForm, RemoveForm,
     PublicMessageForm, FindPeopleForm, SendEmailToAllForm)
 from models import Profile
+from serv.models import Servicio
 from messages.models import Message
 
 class Register(ViewClass):
@@ -265,6 +266,32 @@ class ViewProfile(ViewClass):
             'form': send_message_form, 'message_list': messages})
 
 
+class ListUserServices(ViewClass):
+    @login_required
+    def GET(self, user_id=None):
+        user = user_id and get_object_or_404(Profile, id=user_id)
+        services = user.services.all()
+
+        try:
+            page = int(self.request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+
+        paginator = Paginator(services, 10)
+        try:
+            services = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+            services = paginator.page(paginator.num_pages)
+
+        context = dict(
+            services=services,
+            profile=user,
+            current_tab="people",
+            subtab="user-view-services"
+        )
+        return self.context_response('user/list_user_services.html', context)
+
+
 class FindPeople(ViewClass):
     @login_required
     def GET(self):
@@ -356,6 +383,7 @@ class SendEmailToAll(ViewClass):
         self.flash(_(u"Email enviado a todos los usuarios"))
         return redirect('main.views.index')
 
+
 login = Login()
 register = Register()
 password_reset_done = PasswordResetDone()
@@ -368,3 +396,4 @@ view_profile = ViewProfile()
 send_message = SendMessage()
 find_people = FindPeople()
 send_email_to_all = SendEmailToAll()
+list_user_services = ListUserServices()
