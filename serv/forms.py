@@ -55,6 +55,13 @@ class ServiceForm(forms.ModelForm):
         model = Servicio
         exclude = ('creador', 'pub_date', 'activo')
 
+    def __init__(self, *args, **kwargs):
+        super(ServiceForm, self).__init__(*args, **kwargs)
+        self.fields['zona'].empty_label = _("Todas")
+        self.fields['descripcion'].help_text = _(u"Sugerencia: no introduzcas"
+            u" datos personales a los que no quieras que cualquiera pueda"
+            u" acceder, para ese fin utiliza mensajes privados.")
+
     def clean_offer(self):
         offer = self.cleaned_data.get("oferta", "0")
         return bool(offer)

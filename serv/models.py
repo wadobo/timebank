@@ -57,7 +57,7 @@ class Servicio(models.Model):
     activo = models.BooleanField(default=True)
     descripcion = models.TextField("Descripción", max_length=400)
     categoria = models.ForeignKey(Categoria)
-    zona = models.ForeignKey(Zona)
+    zona = models.ForeignKey(Zona, null=True, blank=True)
 
     def __unicode__(self):
         if self.oferta:

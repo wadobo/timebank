@@ -7,7 +7,13 @@
                 <span class="inactive">{% trans "Inactiva"  %}</span> /
             {% endif %}
             {% trans "Zona" %}:
-            <span class="zone"><a href="{% url serv-list %}?area={{ serv.zona.id }}">{{ serv.zona }}</a></span> /
+            <span class="zone"><a href="{% url serv-list %}?area={{ serv.zona.id }}">
+            {% if serv.zona %}
+                {{ serv.zona }}
+            {% else %}
+                {% trans "Todas" %}
+            {% endif %}
+            </a></span> /
             {% trans "Categoría" %}:
             <span class="category"><a href="{% url serv-list %}?category={{ serv.categoria.id }}">{{ serv.categoria }}</a></span> /
             <span class="date"> {% trans "Publicado hace" %} {{ serv.pub_date|timesince }} </span>
