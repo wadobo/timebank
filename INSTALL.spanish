@@ -33,6 +33,15 @@ Manual de instalación y despliegue
 
 Aplicación lanzada. Hay más información de cómo lanzar una aplicación django en el manual de django  http://docs.djangoproject.com/en/dev/howto/deployment/ y también por ejemplo en el siguiente enlace: http://softlibre.barrapunto.com/article.pl?sid=10/11/09/0711228 .
 
+Configuración de las tareas
+===========================
+
+Si quieres que se envíen emails a los usuarios con recordatorios de los mensajes que tienen sin leer o las transferencias que tienen pendientes, debes añadir una tarea al cron para que visite cada hora una url concreta: http://<tuservidor>/tasks/send_email_updates/. Para eso debes añadir un script a /etc/cron.daily/ que se llame por ejemplo timebank_tasks.sh, con los permisos necesarios (los mismos que el resto de scripts que haya en ese mismo directorio), y con el contenido:
+
+#!/bin/bash
+# suponemos que
+wget -0 - http://<tuservidor>/tasks/send_email_updates/ > /dev/null
+
 Traducción
 ==========
 
