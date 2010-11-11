@@ -81,8 +81,8 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         hidden = ()
-        fields = ('first_name', 'last_name', 'email', 'address',
-        'birth_date', 'description', 'land_line', 'mobile_tlf')
+        fields = ('first_name', 'last_name', 'email', 'address',  'birth_date',
+            'description', 'land_line', 'mobile_tlf', 'email_updates')
 
 class RemoveForm(forms.Form):
     reason = FormCharField(label=_(u"Razón"), required=True,

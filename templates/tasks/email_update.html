@@ -1,4 +1,4 @@
-{% load i18n %}{% url serv-view message.service.id as service_url %}{% blocktrans with recipient.username as recipient%}Hola {{ recipient }},
+{% load i18n %}{% blocktrans with recipient.username as recipient%}Hola {{ recipient }},
 
 Hay novedades en tu perfil de {{ site_name }} que requieren tu atención:
 {% endblocktrans %}

@@ -91,6 +91,8 @@ class SendEmailUpdates(ViewClass):
         be sent in periods.
         '''
         for user in Profile.objects.all():
+            if not user.email_updates:
+                continue
             unread_messages = Message.objects.inbox_for(user).filter(read_at__isnull=True)
             unread_comments = Message.objects.public_inbox_for(user).\
                 filter(read_at__isnull=True)

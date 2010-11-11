@@ -60,7 +60,7 @@ class Profile(User):
     mobile_tlf = models.CharField(_(u"Teléfono móvil"), max_length=20)
 
     email_updates = models.BooleanField(_(u"Recibir actualizaciones por email"),
-        default=False)
+        default=True)
 
     class Meta:
         verbose_name = _("Usuario")
