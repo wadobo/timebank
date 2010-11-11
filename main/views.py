@@ -19,10 +19,12 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.db.models import signals
 
 from utils import ViewClass, send_mail_to_admins, login_required
 from forms import AnonymousContactForm, ContactForm
 from serv.models import Servicio
+from messages.utils import new_transfer_email
 
 class Migrate(ViewClass):
     @login_required
@@ -44,6 +46,33 @@ class Migrate(ViewClass):
             profile.description = perfil.descr
             profile.balance = int(float(perfil.saldo)*60)
             profile.save()
+
+        # Migrate transfers
+        transferencias = Transferencia.objects.all()
+        # disable sending emails during migration
+        signals.post_save.disconnect(new_transfer_email, sender=Transfer)
+        for transferencia in transferencias:
+            transfer = Transfer()
+            if transferencia.creoBeneficiario:
+                transfer.direct_transfer_creator_id = transferencia.beneficiario_id
+            else:
+                transfer.direct_transfer_creator_id = transferencia.deudor_id
+            transfer.credits_payee_id = transferencia.beneficiario_id
+            transfer.credits_debtor_id = transferencia.deudor_id
+            transfer.description = transferencia.descrServ
+            transfer.request_date = transferencia.fechaTx
+            if transferencia.realizada and not transferencia.rechazada:
+                transfer.confirmation_date = transferencia.fechaTx
+            if transferencia.realizada:
+                transfer.status = 'd'
+            elif transferencia.rechazada:
+                transfer.status = 'r'
+            else:
+                transfer.status = 'q'
+            transfer.is_public = False
+            transfer.credits = int(float(transferencia.cantidad)*60)
+            transfer.save()
+        signals.post_save.connect(new_transfer_email, sender=Transfer)
 
         self.flash(_(u'Migración realizada'))
         return redirect('main.views.index')
