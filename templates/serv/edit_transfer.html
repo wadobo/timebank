@@ -1,15 +1,29 @@
 {% extends "serv/base_transfer.html" %}
 {% load i18n %}
 {% block subtitle %}
+    {% if not transfer.is_direct %}
         {% trans "Editar transferencia" %}
+    {% else %}
+        {% trans "Editar transferencia directa" %}
+    {% endif %}
 {% endblock %}
 
 {% block subcontent %}
-    <h2>{% trans "Servicio" %}</h2>
-    {% with transfer.service as serv %}
-        {% include "serv/single_service_view.html" %}
-    {% endwith %}
-    <h2 style="margin-top: 30px">{% trans "Editar transferencia" %}</h2>
+    {% if not transfer.is_direct %}
+        <h2>{% trans "Servicio" %}</h2>
+        {% with transfer.service as serv %}
+            {% include "serv/single_service_view.html" %}
+        {% endwith %}
+    {% else %}
+        <h2>{% trans "Transferencia" %}</h2>
+        {% include "serv/single_transfer_view.html" %}
+    {% endif %}
+    <h2 style="margin-top: 30px">
+    {% if not transfer.is_direct %}
+        {% trans "Editar transferencia" %}
+    {% else %}
+        {% trans "Editar transferencia directa" %}
+    {% endif %}</h2>
     <form method="POST">
         {% csrf_token %}
         <fieldset>

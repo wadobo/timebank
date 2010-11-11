@@ -18,12 +18,15 @@
         </h1>
 
         <ul class="subnavilist">
-        {% if not user.is_anonymous and user == profile %}
-            <li><a href="{% url user-edit-profile %}">{% trans "Editar perfil"%}</a><small>/</small></li>
-        {% endif %}{% if not user.is_anonymous %}
+        {% if not user.is_anonymous %}
             <li><a href="{% url user-view profile.id %}" class="current">{% trans "Ver perfil"%}</a><small>/</small></li>
             <li><a href="{% url messages_compose_to profile.username %}">{% trans "Enviar mensaje privado"%}</a><small>/</small></li>
-            <li><a href="{% url user-view-services profile.id %}">{% trans "Ver sus servicios"%}</a></li>
+            <li><a href="{% url user-view-services profile.id %}">{% trans "Ver sus servicios"%}</a><small>/</small></li>
+        {% endif %}
+        {% if not user.is_anonymous and user == profile %}
+            <li><a href="{% url user-edit-profile %}">{% trans "Editar perfil"%}</a></li>
+        {% else %}
+            <li><a href="{% url serv-transfer-new-to profile.id %}">{% trans "Transferir horas" %}</a></li>
         {% endif %}
         </ul>
         <ul class="view-profile">

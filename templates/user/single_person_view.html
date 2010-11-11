@@ -17,5 +17,11 @@
             </a>
         </div>
         <a href="{% url user-view person.id %}"><div class="description">{{ person.description|linebreaks }}</div></a>
+        {% if user.is_authenticated %}
+        <div class="cleaner"></div>
+        <div class="buttons">
+            <a class="action" href="{% url serv-transfer-new-to person.id %}">{% trans "Transferir horas" %}</a>
+        </div>
+        {% endif %}
 </div>
 <div class="cleaner"></div>

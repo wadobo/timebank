@@ -220,7 +220,7 @@ class MensajeA(Mensaje):
 TRANSFER_STATUS = (
     ('q', _('solicitada')), # q for reQuest
     ('a', _('aceptada')), # a for Accepted
-    ('r', _('rechazada')), # r for Rejected
+    ('r', _('cancelada')), # r for Rejected TODO: (but it actually should be c for cancelled)
     ('d', _('realizada')), # d for Done
 )
 
@@ -230,13 +230,18 @@ class Transfer(models.Model):
     def int_rating(self):
         return int(self.rating.score / self.rating.votes)
 
+    # will only be set and used when transfer is not associated with a service
+    direct_transfer_creator = models.ForeignKey(Profile,
+        related_name='direct_transfers_created', null=True, blank=True)
+
     # Person receiving the credits (and giving the service)
     credits_payee = models.ForeignKey(Profile, related_name='transfers_received')
 
     # Person giving the credits (and receiving the service)
     credits_debtor = models.ForeignKey(Profile, related_name='transfers_given')
 
-    service = models.ForeignKey(Servicio, related_name='transfers')
+    service = models.ForeignKey(Servicio, related_name='transfers', null=True,
+        blank=True)
 
     # Small description for the received service
     description = models.TextField(_(u"Descripción"), max_length=300)
@@ -263,8 +268,28 @@ class Transfer(models.Model):
         ordering = ['-request_date']
 
     def creator(self):
-        return self.service.creador == self.credits_debtor and\
-            self.credits_payee or self.credits_debtor
+        '''
+        Transfer creator
+        '''
+        if self.service:
+            return self.service.creador == self.credits_debtor and\
+                self.credits_payee or self.credits_debtor
+        else:
+            return self.direct_transfer_creator
+
+    def recipient(self):
+        '''
+        the user which is not the creator
+        '''
+        if self.service:
+            return self.service.creador != self.credits_debtor and\
+                self.credits_payee or self.credits_debtor
+        else:
+            return self.direct_transfer_creator == self.credits_debtor and\
+                self.credits_payee or self.credits_debtor
+
+    def is_direct(self):
+        return not self.service
 
     def status_readable(self):
         return TRANSFER_STATUS[self.status]

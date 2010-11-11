@@ -62,14 +62,18 @@ def new_transfer_email(sender, instance, signal, *args, **kwargs):
     current_domain = Site.objects.get_current().domain
     default_protocol = getattr(settings, 'DEFAULT_HTTP_PROTOCOL', 'http')
 
-    recipient = instance.service.creador
-    subject=_(u'Nueva solicitud de transferencia de %s') % recipient.username
+    recipient = instance.recipient()
+    if instance.service:
+        subject=_(u'Nueva solicitud de transferencia de %s') % instance.creator().username
+    else:
+        subject=_(u'Nueva transferencia directa de %s') % instance.creator().username
     message = render_to_string("serv/new_transfer_email.html", {
         'site_url': '%s://%s' % (default_protocol, current_domain),
         'transfer': instance
     })
     send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
         [recipient.email,])
+
 
 def update_transfer_email(sender, instance, signal, *args, **kwargs):
     current_domain = Site.objects.get_current().domain
@@ -80,15 +84,25 @@ def update_transfer_email(sender, instance, signal, *args, **kwargs):
         subject=_(u'Transferencia de %s editada') % instance.creator().username
         template = "serv/edit_transfer_email.html"
     elif instance.status == 'a':
+
         recipient_emails = [instance.creator().email,]
-        subject=_(u'Transferencia del servicio de %s aceptada') % instance.service.creador.username
+        if instance.service:
+            subject=_(u'Transferencia del servicio de %s aceptada') %\
+                instance.service.creador.username
+        else:
+            subject=_(u'Transferencia directa de  %s aceptada') %\
+                instance.creator().username
         template = "serv/accept_transfer_email.html"
     elif instance.status == 'r':
-        subject=_(u'Transferencia de %(user1)s del servicio de %(user2)s'
-            u' cancelada') % {
-                'user1': instance.creator().username,
-                'user2': instance.service.creador.username
-            }
+        if not instance.is_direct():
+            subject=_(u'Transferencia de %(user1)s del servicio de %(user2)s'
+                u' cancelada') % {
+                    'user1': instance.creator().username,
+                    'user2': instance.service.creador.username
+                }
+        else:
+            subject=_(u'Transferencia directa de %s cancelada') %\
+                instance.creator().username
         template = "serv/cancel_transfer_email.html"
         recipient_emails = [instance.credits_debtor.email, instance.credits_payee.email]
     elif instance.status == 'd':
