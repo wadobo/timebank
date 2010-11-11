@@ -91,6 +91,6 @@ class Profile(User):
         '''
         karma = self.transfers_received.aggregate(Avg('rating_score'))
         if karma['rating_score__avg']:
-            return karma['rating_score__avg']
+            return int(karma['rating_score__avg'])
         else:
             return 0

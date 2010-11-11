@@ -57,8 +57,8 @@
                 <div>{{ profile.description }}</div>
             </li>
             <li>
-                <em>{% trans "Karma" %}:</em>
-                <div>{{ profile.karma }}</div>
+                <em>{% trans "Puntuación global" %}:</em>
+                {% user_rating profile %}
             </li>
             {% if user.is_staff %}
                 <li>
