@@ -70,7 +70,9 @@ class Migrate(ViewClass):
             else:
                 transfer.status = 'q'
             transfer.is_public = False
-            transfer.credits = int(float(".".join(str(i) for i in transferencia.cantidad))*60)
+            transfer.credits = int(transferencia.cantidad[0])*60
+            if len(transferencia.cantidad) > 1:
+                transfer.credits += 30
             transfer.save()
         signals.post_save.connect(new_transfer_email, sender=Transfer)
 
