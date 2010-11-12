@@ -301,6 +301,7 @@ class FindPeople(ViewClass):
         else:
             form = FindPeopleForm(self.request.GET)
 
+        form.fields["user_status"].label=_(u"El usuario se conectó hace")
         people = Profile.objects.all()
 
         try:
@@ -342,9 +343,9 @@ class FindPeople(ViewClass):
                     last_date = datetime.now() - timedelta(days=365)
                 people = people.filter(last_login__gt=last_date)
 
-        #if self.request.user.is_staff or self.request.user.is_superuser \
-            #and form.data.get("without_services", ''):
-            #people = people.filter(services__count=0)
+        if (self.request.user.is_staff or self.request.user.is_superuser) \
+            and form.data.get("without_services", ''):
+            people = people.exclude(id__in=Servicio.objects.values_list('creador_id', flat=True))
 
         paginator = Paginator(people, 10)
         try:
