@@ -35,7 +35,7 @@ div.star-rating-hover a {
     background-position:0 -32px;
 }
 
-form.rating {
+.rating {
     float: right;
     width: 90px;
     margin-left: 10px;

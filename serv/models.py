@@ -18,7 +18,6 @@
 
 
 from django.db import models
-from sqlalchemy.orm import relation, backref
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from djangoratings.fields import RatingField
@@ -29,7 +28,7 @@ from messages.utils import new_transfer_email
 
 class Zona(models.Model):
 
-    nombre_zona = models.CharField(max_length=40)
+    nombre_zona = models.CharField(_("Zona"), max_length=40)
 
     def __unicode__(self):
         return self.nombre_zona
@@ -37,34 +36,34 @@ class Zona(models.Model):
 
 class Categoria(models.Model):
 
-    nombre_categoria = models.CharField("Categoría", max_length=45)
+    nombre_categoria = models.CharField(_(u"Categoría"), max_length=45)
 
     def __unicode__(self):
         return self.nombre_categoria
 
     class Meta:
-        verbose_name = "Categoría"
-        verbose_name_plural = "Categorías"
+        verbose_name = _(u"Categoría")
+        verbose_name_plural = _(u"Categorías")
 
 
 class Servicio(models.Model):
 
-    creador = models.ForeignKey(Profile, related_name="creador")
+    creador = models.ForeignKey(Profile, related_name="services")
     #Si es una oferta=true, si es demanda=false
     oferta = models.BooleanField()
-    pub_date = models.DateTimeField("Fecha de publicación",
+    pub_date = models.DateTimeField(_(u"Fecha de publicación"),
                                     auto_now=True,
                                     auto_now_add=True)
     activo = models.BooleanField(default=True)
-    descripcion = models.TextField("Descripción", max_length=400)
+    descripcion = models.TextField(_(u"Descripción"), max_length=400)
     categoria = models.ForeignKey(Categoria)
-    zona = models.ForeignKey(Zona)
+    zona = models.ForeignKey(Zona, null=True, blank=True)
 
     def __unicode__(self):
         if self.oferta:
-            msj = "ofertado"
+            msj = _("ofertado")
         else:
-            msj = "solicitado"
+            msj = _("solicitado")
         return "Servicio %s %s por: %s" % (self.id, msj, self.creador)
 
     def cortaServicio(self):
@@ -87,6 +86,13 @@ class Servicio(models.Model):
     def credits_transfered(self):
         ret = self.transfers.filter(status='d').aggregate(models.Sum('credits'))
         return ret['credits__sum'] and ret['credits__sum'] or 0
+
+    def credit_hours_transfered(self):
+        credits = self.credits_transfered()
+        if credits % 60 == 0:
+            return credits/60
+
+        return credits/60.0
 
     def ongoing_transfers(self, user):
         if self.oferta:
@@ -212,10 +218,10 @@ class MensajeA(Mensaje):
 
 
 TRANSFER_STATUS = (
-    ('q', _('Transferencia solicitada')), # q for reQuest
-    ('a', _('Transferencia aceptada')), # a for Accepted
-    ('r', _('Transferencia rechazada')), # r for Rejected
-    ('d', _('Transferencia realizada')), # d for Done
+    ('q', _('solicitada')), # q for reQuest
+    ('a', _('aceptada')), # a for Accepted
+    ('r', _('cancelada')), # r for Rejected TODO: (but it actually should be c for cancelled)
+    ('d', _('realizada')), # d for Done
 )
 
 class Transfer(models.Model):
@@ -224,13 +230,18 @@ class Transfer(models.Model):
     def int_rating(self):
         return int(self.rating.score / self.rating.votes)
 
+    # will only be set and used when transfer is not associated with a service
+    direct_transfer_creator = models.ForeignKey(Profile,
+        related_name='direct_transfers_created', null=True, blank=True)
+
     # Person receiving the credits (and giving the service)
     credits_payee = models.ForeignKey(Profile, related_name='transfers_received')
 
     # Person giving the credits (and receiving the service)
     credits_debtor = models.ForeignKey(Profile, related_name='transfers_given')
 
-    service = models.ForeignKey(Servicio, related_name='transfers')
+    service = models.ForeignKey(Servicio, related_name='transfers', null=True,
+        blank=True)
 
     # Small description for the received service
     description = models.TextField(_(u"Descripción"), max_length=300)
@@ -248,13 +259,39 @@ class Transfer(models.Model):
     # credits in minutes
     credits = models.PositiveIntegerField(_(u"Créditos"))
 
+    def credit_hours(self):
+        return self.credits/60.0
+
     #TODO: Add here a rating of the service, set by the payee of course
 
     class meta:
         ordering = ['-request_date']
 
     def creator(self):
-        return self.service.creador == self.credits_debtor and\
-            self.credits_payee or self.credits_debtor
+        '''
+        Transfer creator
+        '''
+        if self.service:
+            return self.service.creador == self.credits_debtor and\
+                self.credits_payee or self.credits_debtor
+        else:
+            return self.direct_transfer_creator
+
+    def recipient(self):
+        '''
+        the user which is not the creator
+        '''
+        if self.service:
+            return self.service.creador != self.credits_debtor and\
+                self.credits_payee or self.credits_debtor
+        else:
+            return self.direct_transfer_creator == self.credits_debtor and\
+                self.credits_payee or self.credits_debtor
+
+    def is_direct(self):
+        return not self.service
+
+    def status_readable(self):
+        return TRANSFER_STATUS[self.status]
 
 signals.post_save.connect(new_transfer_email, sender=Transfer)

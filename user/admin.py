@@ -53,13 +53,18 @@ class ProfileAdmin(UserAdmin):
         if model.is_active == True and old_model.is_active == False:
             # user activated, send activation email
             current_site = Site.objects.get_current()
-            title = _("Bienvenido a %s, %s") % (settings.SITE_NAME,
-                model.username)
-            message = _(u"Enhorabuena %s!\n"
+            title = _("Bienvenido a %(site_name)s, %(username)s") % {
+                'site_name': settings.SITE_NAME,
+                'username': model.username
+            }
+            message = _(u"Enhorabuena %(username)s!\n"
             u"Los adminitradores han aceptado tu solicitud de registro, "
             u"¡ahora ya puedes comenzar a colaborar con los demás en "
-            u"http://%s/.\n\n- El equipo de %s.") %\
-                (model.username, current_site.domain, settings.SITE_NAME)
+            u"http://%(url)s/.\n\n- El equipo de %(site_name)s.") % {
+                'username': model.username,
+                'url': current_site.domain,
+                'site_name': settings.SITE_NAME
+            }
             send_mail(title, message, settings.DEFAULT_FROM_EMAIL,
                 [model.email])
 

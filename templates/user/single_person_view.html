@@ -6,16 +6,23 @@
             {% trans "Nombre y apellidos" %}:
             <span>{{ person.first_name }} {{ person.last_name }}</span> /
             {% trans "Créditos" %}:
-            <span>{{ person.balance }}</span> /
+            <span>{{ person.balance_hours }} horas</span> /
             {% trans "Karma" %}:
             <span>{{ person.karma }}</span>
         </div>
         <div class="gravatar">
             <a href="{% url user-view person.id %}">
                 <img src="{% gravatar person.email 48 %}" alt="{{ person.username }}" title="{{ person.username }}"/>
-                {{ person.username }}
+                {{ person.username|truncate_chars:7 }}
             </a>
         </div>
         <a href="{% url user-view person.id %}"><div class="description">{{ person.description|linebreaks }}</div></a>
+        {% if user.is_authenticated %}
+        <div class="cleaner"></div>
+        <div class="buttons">
+            <a class="action" href="{% url serv-transfer-new-to person.id %}">{% trans "Transferir horas" %}</a>
+            <a class="action" href="{% url user-view-services person.id %}">{% trans "Ver sus servicios" %}</a>
+        </div>
+        {% endif %}
 </div>
 <div class="cleaner"></div>

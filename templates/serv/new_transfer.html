@@ -1,0 +1,19 @@
+{% extends "serv/base_transfer.html" %}
+{% load i18n %}
+{% block subtitle %}
+        {% trans "Transferir horas" %}
+{% endblock %}
+
+{% block subcontent %}
+    <div class="cleaner"></div>
+    <h2 style="margin-top: 30px">{% trans "Transferir horas" %}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            {% include "main/form_snippet.html" %}
+        </fieldset>
+        <input type="submit" value="{% trans 'Crear transferencia' %}"/>
+    </form>
+</div>
+{% endblock %}
+ 

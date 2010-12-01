@@ -96,3 +96,11 @@ def transfer_rating(context, transfer):
     Renders actions for a given service if any. Assumes user is authenticated
     '''
     return {"transfer": transfer, "user": context["user"]}
+
+@register.inclusion_tag("user/user_rating.html",\
+    takes_context=True)
+def user_rating(context, user):
+    '''
+    Renders actions for a given service if any. Assumes user is authenticated
+    '''
+    return {"user": user}

@@ -2,6 +2,6 @@
 {% url serv-transfer-view transfer.id as transfer_url %}
 {% blocktrans with transfer.credits_payee.username as payee and transfer.credits_debtor.username as debtor %}Hola {{ payee }},
 
-La transferencia del servicio que realizaste a {{ debtor }} ha sido confirmada por él/ella. Puedes ver los detalles de la transferencia en {{ site_url }}{{ transfer_url }}.
+La transferencia del servicio que realizaste a {{ debtor }} ha sido confirmada por él/ella. Puedes ver los detalles de la transferencia en {{ site_url }}{{ transfer_url }} .
 
 El equipo de {{ site_url }}{% endblocktrans %}

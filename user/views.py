@@ -21,14 +21,16 @@ from django.utils.translation import ugettext as _
 from django.core.mail import send_mail, EmailMessage
 from django.contrib.auth import authenticate, login as django_login
 from django.core.urlresolvers import reverse
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 from datetime import datetime, timedelta
 
 from utils import ViewClass, send_mail_to_admins, login_required
 from forms import (RegisterForm, EditProfileForm, RemoveForm,
-    PublicMessageForm, FindPeopleForm, SendEmailToAllForm)
+    PublicMessageForm, FindPeopleForm, FindPeople4AdminsForm,
+    SendEmailToAllForm)
 from models import Profile
+from serv.models import Servicio
 from messages.models import Message
 
 class Register(ViewClass):
@@ -49,31 +51,40 @@ class Register(ViewClass):
         new_user.save()
 
         # Send an email to admins and another to the user
-        subject = _("[%s] Usuario %s registrado") % (settings.SITE_NAME,
-            new_user.username)
+        subject = _("[%(site_name)s] Usuario %(username)s registrado") % {
+            'site_name': settings.SITE_NAME,
+            'username': new_user.username
+        }
         message = _("Se ha registrado un nuevo usuario con nombre de usuario "\
         " %s . Revise sus datos y delo de alta.") % new_user.username
         send_mail_to_admins(subject, message)
 
         current_site = Site.objects.get_current()
-        subject = _("Te has registrado como %s en %s") % (new_user.username,
-            settings.SITE_NAME)
-        message = _(u"Hola %s!\n Te acabas de registrar en http://%s/."
+        subject = _("Te has registrado como %(username)s en %(site_name)s") % {
+            'username': new_user.username,
+            'site_name': settings.SITE_NAME
+            }
+        message = _(u"Hola %(username)s!\n Te acabas de registrar en http://%(url)s/."
             u"Próximamente la creación de tu usuario será revisada por"
             u"nuestros administradores y si todo está correcto, activaremos tu"
             u" usuario y podrás comenzar a participar en nuestra comunidad."
-            u"\n\n- El Equipo de %s.") %\
-            (new_user.username, current_site.domain, settings.SITE_NAME)
+            u"\n\n- El Equipo de %(site_name)s.") % {
+                'username': new_user.username,
+                'url': current_site.domain,
+                'site_name': settings.SITE_NAME
+            }
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
             [new_user.email])
 
         self.flash(_(u"Te acabas de registrar en nuestro sitio web,"
-            u" <strong>%s</strong>. Te hemos enviado un email a"
-            u" <strong>%s</strong> confirmándote tu solicitud de inscripción."
+            u" <strong>%(username)s</strong>. Te hemos enviado un email a"
+            u" <strong>%(email)s</strong> confirmándote tu solicitud de inscripción."
             u" Tan pronto como nuestros administradores hayan revisado dicha"
             u" solicitud te avisaremos de nuevo por email y podrás empezar a"
-            u" disfrutar de este sistema." % (new_user.username,
-                new_user.email)),
+            u" disfrutar de este sistema.") % {
+                'username': new_user.username,
+                'email': new_user.email
+            },
             title=_(u"Usuario creado correctamente"))
 
         return redirect('main.views.index')
@@ -133,29 +144,38 @@ class EditProfile(ViewClass):
 
         # Send an email to admins with old data
         old_user = self.request.user
-        subject = _("[%s] %s ha modificado sus datos") % (settings.SITE_NAME,
-            old_user.username)
-        message = _(u"El usuario %s ha modificado su perfil. Datos antiguos:\n\n"
-            u" - Nombre: %s\n"
-            u" - Apellidos: %s\n"
-            u" - Dirección de email: %s\n"
-            u" - Dirección física: %s\n"
-            u" - Fecha de nacimiento: %s\n"
-            u" - Descripción: %s\n\n"
+        subject = _("[%(site_name)s] %(username)s ha modificado sus datos") % {
+            'site_name': settings.SITE_NAME,
+            'username': old_user.username
+        }
+        message = _(u"El usuario %(username)s ha modificado su perfil. Datos antiguos:\n\n"
+            u" - Nombre: %(old_name)s\n"
+            u" - Apellidos: %(old_surnames)s\n"
+            u" - Dirección de email: %(old_email)s\n"
+            u" - Dirección física: %(old_address)s\n"
+            u" - Fecha de nacimiento: %(old_birth_date)s\n"
+            u" - Descripción: %(old_description)s\n\n"
             u"Nuevos datos:\n\n"
-            u" - Nombre: %s\n"
-            u" - Apellidos: %s\n"
-            u" - Dirección de email: %s\n"
-            u" - Dirección física: %s\n"
-            u" - Fecha de nacimiento: %s\n"
-            u" - Descripción: %s\n\n") % (old_user.username, old_user.first_name,
-                old_user.last_name, old_user.email, old_user.address,
-                old_user.birth_date, old_user.description,
-                form.cleaned_data["first_name"], form.cleaned_data["last_name"],
-                form.cleaned_data["email"], form.cleaned_data["address"],
-                form.cleaned_data["birth_date"],
-                form.cleaned_data["description"]
-            )
+            u" - Nombre: %(name)s\n"
+            u" - Apellidos: %(surnames)s\n"
+            u" - Dirección de email: %(email)s\n"
+            u" - Dirección física: %(address)s\n"
+            u" - Fecha de nacimiento: %(birth_date)s\n"
+            u" - Descripción: %(description)s\n\n") % {
+                'username': old_user.username,
+                'old_name': old_user.first_name,
+                'old_surnames': old_user.last_name,
+                'old_email': old_user.email,
+                'old_address': old_user.address,
+                'old_birth_date':  old_user.birth_date,
+                'old_description': old_user.description,
+                'name': form.cleaned_data["first_name"],
+                'surnames': form.cleaned_data["last_name"],
+                'email': form.cleaned_data["email"],
+                'address': form.cleaned_data["address"],
+                'birth_date': form.cleaned_data["birth_date"],
+                'description': form.cleaned_data["description"]
+            }
         send_mail_to_admins(subject, message)
         form.save()
 
@@ -197,22 +217,31 @@ class Remove(ViewClass):
         user.save()
 
         # Send an email to admins and another to the user
-        subject = _("[%s] Usuario %s desactivado") % (settings.SITE_NAME,
-            user.username)
-        message = _(u"El usuario %s ha solicitado set eliminado del sitio web."
-            u"La razón que ha expuesto es:\n\n%s") % (user.username,
-            form.cleaned_data["reason"])
+        subject = _("[%(site_name)s] Usuario %(username)s desactivado") % {
+            'site_name': settings.SITE_NAME,
+            'username': user.username
+        }
+        message = _(u"El usuario %(username)s ha solicitado set eliminado del sitio web."
+            u"La razón que ha expuesto es:\n\n%(reason)s") % {
+                'username': user.username,
+                'reason': form.cleaned_data["reason"]
+            }
         send_mail_to_admins(subject, message)
 
         current_site = Site.objects.get_current()
-        subject = _("Has borrado tu perfil %s de %s") % (user.username,
-            settings.SITE_NAME)
-        message = _(u"Hola %s!\n Has borrado tu perfil de http://%s/."
+        subject = _("Has borrado tu perfil %(username)s de %(site_name)s") % {
+            'username': user.username,
+            'site_name': settings.SITE_NAME
+            }
+        message = _(u"Hola %(username)s!\n Has borrado tu perfil de http://%(url)s/."
             u"Sentimos que hayas decidido dar este paso. Leeremos la razón"
             u" que nos proporcionaste por la cual te has borrado y la tendremos"
             u" en cuenta para mejorar en el futuro."
-            u"\n\n- El Equipo de %s.") %\
-            (user.username, current_site.domain, settings.SITE_NAME)
+            u"\n\n- El Equipo de %(site_name)s.") % {
+                'username': user.username,
+                'url': current_site.domain,
+                'site_name': settings.SITE_NAME
+            }
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
 
         self.flash(_( u"Sentimos que hayas decidido dar este paso. Leeremos la"
@@ -238,11 +267,41 @@ class ViewProfile(ViewClass):
             'form': send_message_form, 'message_list': messages})
 
 
+class ListUserServices(ViewClass):
+    @login_required
+    def GET(self, user_id=None):
+        user = user_id and get_object_or_404(Profile, id=user_id)
+        services = user.services.all()
+
+        try:
+            page = int(self.request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+
+        paginator = Paginator(services, 10)
+        try:
+            services = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+            services = paginator.page(paginator.num_pages)
+
+        context = dict(
+            services=services,
+            profile=user,
+            current_tab="people",
+            subtab="user-view-services"
+        )
+        return self.context_response('user/list_user_services.html', context)
+
+
 class FindPeople(ViewClass):
     @login_required
     def GET(self):
-        form = FindPeopleForm(self.request.GET)
+        if self.request.user.is_staff or self.request.user.is_superuser:
+            form = FindPeople4AdminsForm(self.request.GET)
+        else:
+            form = FindPeopleForm(self.request.GET)
 
+        form.fields["user_status"].label=_(u"El usuario se conectó hace")
         people = Profile.objects.all()
 
         try:
@@ -256,15 +315,37 @@ class FindPeople(ViewClass):
 
         user_status = form.data.get("user_status", '0')
         if user_status != '0':
-            if user_status == '1': # today
-                last_date = datetime.now() - timedelta(days=1)
-            elif user_status == '2': # this week
-                last_date = datetime.now() - timedelta(days=7)
-            elif user_status == '3': # this month
-                last_date = datetime.now() - timedelta(months=1)
-            elif user_status == '4': # this year
-                last_date = datetime.now() - timedelta(years=1)
-            people = people.filter(last_login__gt=last_date)
+            if (self.request.user.is_staff or self.request.user.is_superuser) \
+                and int(user_status) > 6:
+                if user_status == '7': # 1 week
+                    last_date = datetime.now() - timedelta(days=7)
+                elif user_status == '8': # 1 month
+                    last_date = datetime.now() - timedelta(days=30)
+                elif user_status == '9': # 3 months
+                    last_date = datetime.now() - timedelta(days=3*30)
+                elif user_status == '10': # 6 months
+                    last_date = datetime.now() - timedelta(days=6*30)
+                elif user_status == '11':  # 1 year
+                    last_date = datetime.now() - timedelta(days=365)
+                people = people.filter(last_login__lt=last_date)
+            else:
+                if user_status == '1':
+                    last_date = datetime.now() - timedelta(days=1)
+                elif user_status == '2':
+                    last_date = datetime.now() - timedelta(days=7)
+                elif user_status == '3':
+                    last_date = datetime.now() - timedelta(days=30)
+                elif user_status == '4':
+                    last_date = datetime.now() - timedelta(days=3*30)
+                elif user_status == '5':
+                    last_date = datetime.now() - timedelta(days=6*30)
+                elif user_status == '6':
+                    last_date = datetime.now() - timedelta(days=365)
+                people = people.filter(last_login__gt=last_date)
+
+        if (self.request.user.is_staff or self.request.user.is_superuser) \
+            and form.data.get("without_services", ''):
+            people = people.exclude(id__in=Servicio.objects.values_list('creador_id', flat=True))
 
         paginator = Paginator(people, 10)
         try:
@@ -329,6 +410,7 @@ class SendEmailToAll(ViewClass):
         self.flash(_(u"Email enviado a todos los usuarios"))
         return redirect('main.views.index')
 
+
 login = Login()
 register = Register()
 password_reset_done = PasswordResetDone()
@@ -341,3 +423,4 @@ view_profile = ViewProfile()
 send_message = SendMessage()
 find_people = FindPeople()
 send_email_to_all = SendEmailToAll()
+list_user_services = ListUserServices()

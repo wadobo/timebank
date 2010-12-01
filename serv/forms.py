@@ -16,13 +16,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django import forms
-import urllib
 from django.forms.widgets import RadioSelect, CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+
+import urllib
 
 from serv.models import (Servicio, ContactoIntercambio, MensajeI, Zona,
     Categoria, Transfer)
@@ -55,6 +56,13 @@ class ServiceForm(forms.ModelForm):
         model = Servicio
         exclude = ('creador', 'pub_date', 'activo')
 
+    def __init__(self, *args, **kwargs):
+        super(ServiceForm, self).__init__(*args, **kwargs)
+        self.fields['zona'].empty_label = _("Todas")
+        self.fields['descripcion'].help_text = _(u"Sugerencia: no introduzcas"
+            u" datos personales a los que no quieras que cualquiera pueda"
+            u" acceder, para ese fin utiliza mensajes privados.")
+
     def clean_offer(self):
         offer = self.cleaned_data.get("oferta", "0")
         return bool(offer)
@@ -68,10 +76,12 @@ class ListServicesForm(forms.Form):
     )
     USER_CHOICES = (
         ('0', _('---------')),
-        ('1', _(u'se conectó hoy')),
-        ('2', _(u'se conectó esta semana')),
-        ('3', _(u'se conectó este mes')),
-        ('4', _(u'se conectó este año')),
+        ('1', _(u'se conectó hace menos de un día')),
+        ('2', _(u'se conectó hace menos de una semana')),
+        ('3', _(u'se conectó hace menos de 1 mes')),
+        ('4', _(u'se conectó hace menos de 3 meses')),
+        ('5', _(u'se conectó hace menos de 6 meses')),
+        ('6', _(u'se conectó hace menos de 1 año')),
     )
 
     mine = forms.BooleanField(label=_(u"Sólo listar mis servicios"), required=False)
@@ -91,23 +101,83 @@ class ListServicesForm(forms.Form):
     def as_url_args(self):
         return urllib.urlencode(self.data)
 
-class AddTransferForm(forms.ModelForm):
-    credits = FormCharField(label=_(u"Créditos"), required=True, max_length=3,
-        help_text=_(u"En minutos. Ejemplo: 60, 30, 120"))
+class NewTransferForm(forms.ModelForm):
+    CREDITS_CHOICES = (
+        ('30', _('media hora')),
+        ('60', _('1 hora')),
+        ('90', _('1 hora y media')),
+        ('120', _('2 horas')),
+        ('150', _('2 horas y media')),
+        ('180', _('3 horas')),
+        ('210', _('3 horas y media')),
+        ('240', _('4 horas')),
+        ('270', _('4 horas y media')),
+        ('300', _('5 horas')),
+        ('330', _('5 horas y media')),
+        ('360', _('6 horas')),
+        ('390', _('6 horas y media')),
+    )
+    OFFER_CHOICES = (
+        ('0', _(u'dar créditos')),
+        ('1', _(u'solicitar créditos')),
+    )
+    username = forms.CharField(label=_(u"Nombre de usuario"), help_text=_(
+        u"Nombre del usuario que recibirá o al que se le solicitan"
+        u"los créditos a transferir"), required=True)
+
+    credits = CustomCharField(label=_(u"Créditos"),
+        widget=forms.Select(choices=CREDITS_CHOICES), required=True)
+
+    service_type = CustomCharField(label=_("Tipo de servicio"),
+            help_text=_(u"debes elegir si recibes o solicitas"
+            u" créditos con esta transferencia"),
+            widget=forms.Select(choices=OFFER_CHOICES))
 
     class Meta:
         model = Transfer
         fields = ['description', 'credits']
 
     def clean_credits(self):
-        credits = self.cleaned_data["credits"]
+        credits = self.cleaned_data.get("credits", "30")
+        return int(credits)
+
+    def clean_username(self):
+        from user.models import Profile
+        username = self.cleaned_data.get("username", "")
         try:
-            credits = int(credits)
-        except ValueError:
-            raise forms.ValidationError(_(u"Número inválido"))
-        if credits < 0 or credits > settings.MAX_CREDITS_PER_TRANSFER:
-            raise forms.ValidationError(u"Límite de créditos sobrepasado")
-        return credits
+            self.user = get_object_or_404(Profile, username=username)
+        except Exception, e:
+            raise forms.ValidationError(_(u"No existe un usuario con"
+                u" ese nombre."))
+
+
+class AddTransferForm(forms.ModelForm):
+    CREDITS_CHOICES = (
+        ('30', _('media hora')),
+        ('60', _('1 hora')),
+        ('90', _('1 hora y media')),
+        ('120', _('2 horas')),
+        ('150', _('2 horas y media')),
+        ('180', _('3 horas')),
+        ('210', _('3 horas y media')),
+        ('240', _('4 horas')),
+        ('270', _('4 horas y media')),
+        ('300', _('5 horas')),
+        ('330', _('5 horas y media')),
+        ('360', _('6 horas')),
+        ('390', _('6 horas y media')),
+    )
+
+    credits = CustomCharField(label=_(u"Créditos"),
+        widget=forms.Select(choices=CREDITS_CHOICES), required=True)
+
+    class Meta:
+        model = Transfer
+        fields = ['description', 'credits']
+
+    def clean_credits(self):
+        credits = self.cleaned_data.get("credits", "30")
+        return int(credits)
 
 class AddCommentForm(forms.ModelForm):
     class Meta:

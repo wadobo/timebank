@@ -19,10 +19,12 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.db.models import signals
 
 from utils import ViewClass, send_mail_to_admins, login_required
 from forms import AnonymousContactForm, ContactForm
 from serv.models import Servicio
+from messages.utils import new_transfer_email
 
 class Migrate(ViewClass):
     @login_required
@@ -44,6 +46,35 @@ class Migrate(ViewClass):
             profile.description = perfil.descr
             profile.balance = int(float(perfil.saldo)*60)
             profile.save()
+
+        # Migrate transfers
+        transferencias = Transferencia.objects.all()
+        # disable sending emails during migration
+        signals.post_save.disconnect(new_transfer_email, sender=Transfer)
+        for transferencia in transferencias:
+            transfer = Transfer()
+            if transferencia.creoBeneficiario:
+                transfer.direct_transfer_creator_id = transferencia.beneficiario_id
+            else:
+                transfer.direct_transfer_creator_id = transferencia.deudor_id
+            transfer.credits_payee_id = transferencia.beneficiario_id
+            transfer.credits_debtor_id = transferencia.deudor_id
+            transfer.description = transferencia.descrServ
+            transfer.request_date = transferencia.fechaTx
+            if transferencia.realizada and not transferencia.rechazada:
+                transfer.confirmation_date = transferencia.fechaTx
+            if transferencia.realizada:
+                transfer.status = 'd'
+            elif transferencia.rechazada:
+                transfer.status = 'r'
+            else:
+                transfer.status = 'q'
+            transfer.is_public = False
+            transfer.credits = int(transferencia.cantidad[0])*60
+            if len(transferencia.cantidad) > 1:
+                transfer.credits += 30
+            transfer.save()
+        signals.post_save.connect(new_transfer_email, sender=Transfer)
 
         self.flash(_(u'Migración realizada'))
         return redirect('main.views.index')
@@ -78,17 +109,28 @@ class Contact(ViewClass):
         # Send an email to admins
         if self.request.user.is_authenticated():
             user = self.request.user
-            subject = _("[%s] %s: %s") % (settings.SITE_NAME, user.username,
-                form.cleaned_data["subject"])
-            message = _(u"El usuario registrado %s llamado envía el siguiente"\
-            " mensaje:\n%s") % (user.username, form.cleaned_data["message"])
+            subject = _("[%(site_name)s] %(username)s: %(email_subject)s") % {
+                'site_name': settings.SITE_NAME,
+                'username': user.username,
+                'subject': form.cleaned_data["subject"]
+            }
+            message = _(u"El usuario registrado %(username)s llamado envía "\
+            " el siguiente mensaje:\n%(message)s") % {
+                'username': user.username,
+                'message': form.cleaned_data["message"]
+            }
         else:
-            subject = _("[%s] %s: %s") % (settings.SITE_NAME,
-                form.cleaned_data["email"], form.cleaned_data["subject"])
-            message = _("El usuario no registrado %s cuyo email es %s"\
-            "envía el siguiente mensaje:\n%s") % (\
-                form.cleaned_data["name"], form.cleaned_data["email"],
-                form.cleaned_data["message"])
+            subject = _("[%(site_name)s] %(email)s: %(email_subject)s") % {
+                'site_name': settings.SITE_NAME,
+                'email': form.cleaned_data["email"],
+                'subject': form.cleaned_data["subject"]
+            }
+            message = _("El usuario no registrado %(name)s cuyo email es %(email)s"\
+                "envía el siguiente mensaje:\n%(message)s") % {
+                    'name': form.cleaned_data["name"],
+                    'email': form.cleaned_data["email"],
+                    'message': form.cleaned_data["message"]
+                }
         send_mail_to_admins(subject, message)
 
         self.flash(_("Mensaje enviado, te responderemos lo antes posible"))

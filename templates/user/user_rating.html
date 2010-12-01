@@ -1,0 +1,16 @@
+{% load i18n %}
+<div class="rating">
+    <input class="hover-star" type="radio" name="rating" value="1" disabled="disabled" {% if user.karma == 1 %} checked="checked" {% endif %}/>
+    <input class="hover-star" type="radio" name="rating" value="2" disabled="disabled" {% if user.karma == 2 %} checked="checked" {% endif %}/>
+    <input class="hover-star" type="radio" name="rating" value="3" disabled="disabled" {% if user.karma == 3 %} checked="checked" {% endif %}/>
+    <input class="hover-star" type="radio" name="rating" value="4" disabled="disabled" {% if user.karma == 4 %} checked="checked" {% endif %}/>
+    <input class="hover-star" type="radio" name="rating" value="5" disabled="disabled" {% if user.karma == 5 %} checked="checked" {% endif %}/>
+        <script>
+            $('.hover-star').rating({
+                callback: function(value, link){
+                    this.form.submit();
+                }
+            });
+        </script>
+</div>
+ 

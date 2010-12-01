@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*- 
 # Copyright (C) 2009 Tim Gaggstatter <Tim.Gaggstatter AT gmx DOT net>
 # Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 #
@@ -17,23 +17,7 @@
 
 from django.conf.urls.defaults import *
 from django.conf import settings
-from django.contrib import admin
 
-admin.autodiscover()
-
-urlpatterns = patterns('',
-    (r'^admin/', include(admin.site.urls)),
-    (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': settings.STATIC_DOC_ROOT, 'show_indexes': True}),
-    (r'^user/', include('user.urls')),
-    (r'^news/', include('news.urls')),
-    (r'^messages/', include('messages.urls')),
-    (r'^services/', include('serv.urls')),
-    (r'^tasks/', include('tasks.urls')),
-    (r'^', include('main.urls')),
+urlpatterns = patterns('tasks.views',
+    url(r'^send_email_updates/$', 'send_email_updates', name="send_email_updates"),
 )
-
-if 'rosetta' in settings.INSTALLED_APPS:
-    urlpatterns += patterns('',
-        url(r'^rosetta/', include('rosetta.urls')),
-    )

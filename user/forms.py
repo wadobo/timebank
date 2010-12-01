@@ -81,8 +81,8 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         hidden = ()
-        fields = ('first_name', 'last_name', 'email', 'address',
-        'birth_date', 'description', 'land_line', 'mobile_tlf')
+        fields = ('first_name', 'last_name', 'email', 'address',  'birth_date',
+            'description', 'land_line', 'mobile_tlf', 'email_updates')
 
 class RemoveForm(forms.Form):
     reason = FormCharField(label=_(u"Razón"), required=True,
@@ -98,13 +98,15 @@ class PublicMessageForm(forms.ModelForm):
 class FindPeopleForm(forms.Form):
     USER_CHOICES = (
         ('0', _('---------')),
-        ('1', _(u'se conectó hoy')),
-        ('2', _(u'se conectó esta semana')),
-        ('3', _(u'se conectó este mes')),
-        ('4', _(u'se conectó este año')),
+        ('1', _(u'menos de 24 horas')),
+        ('2', _(u'menos de una semana')),
+        ('3', _(u'menos de un mes')),
+        ('4', _(u'menos de 3 meses')),
+        ('5', _(u'menos de 6 meses')),
+        ('6', _(u'menos de un año')),
     )
 
-    user_status = CustomCharField(label=_("Estado del usuario"),
+    user_status = CustomCharField(label=_("El usuario se conectó hace"),
         widget=forms.Select(choices=USER_CHOICES), required=False)
     username = forms.CharField(label=_("Nombre de usuario"), required=False)
 
@@ -112,6 +114,17 @@ class FindPeopleForm(forms.Form):
         import urllib
         return urllib.urlencode(self.data)
 
+class FindPeople4AdminsForm(FindPeopleForm):
+    USER_CHOICES = FindPeopleForm.USER_CHOICES + (
+        ('7', _(u'más de una semana')),
+        ('8', _(u'más de 1 mes')),
+        ('9', _(u'más de 3 meses')),
+        ('10', _(u'más de 6 meses')),
+        ('11', _(u'más de un año')),
+    )
+    user_status = CustomCharField(label=_("El usuario se conectó hace"),
+        widget=forms.Select(choices=USER_CHOICES), required=False)
+    without_services = forms.BooleanField(label=_("Sin servicios"), required=False)
 
 class SendEmailToAllForm(forms.Form):
     subject = forms.CharField(label=_(u'Asunto'), required=True)

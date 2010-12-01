@@ -30,7 +30,7 @@ from serv.models import (Servicio, Zona, Categoria,
                          ContactoIntercambio, MensajeI,
                          ContactoAdministracion, MensajeA, Transfer)
 from serv.forms import (ServiceForm, ContactoIForm, MensajeIForm,
-    ListServicesForm, AddTransferForm, AddCommentForm)
+    ListServicesForm, AddTransferForm, AddCommentForm, NewTransferForm)
 from user.models import Profile
 from messages.models import Message
 
@@ -71,14 +71,18 @@ class ListServices(ViewClass):
 
         user_status = form.data.get("user_status", '0')
         if user_status != '0':
-            if user_status == '1': # today
+            if user_status == '1': # one day
                 last_date = datetime.now() - timedelta(days=1)
-            elif user_status == '2': # this week
+            elif user_status == '2': # 1 week
                 last_date = datetime.now() - timedelta(days=7)
-            elif user_status == '3': # this month
-                last_date = datetime.now() - timedelta(months=1)
-            elif user_status == '4': # this year
-                last_date = datetime.now() - timedelta(years=1)
+            elif user_status == '3': # 1 month
+                last_date = datetime.now() - timedelta(days=30)
+            elif user_status == '4': # 3 months
+                last_date = datetime.now() - timedelta(days=3*30)
+            elif user_status == '5': # 6 months
+                last_date = datetime.now() - timedelta(days=6*30)
+            elif user_status == '6': # 1 year
+                last_date = datetime.now() - timedelta(days=365)
             services = services.filter(creador__last_login__gt=last_date)
 
         if form.data.get("username", ''):
@@ -205,6 +209,70 @@ class DeactiveService(ViewClass):
         return redirect('serv-myservices')
 
 
+class NewTransfer(ViewClass):
+    @login_required
+    def GET(self, user_id=None):
+        if user_id:
+            user = get_object_or_404(Profile, pk=user_id)
+            if self.request.user.is_authenticated and self.request.user == user:
+                self.flash(_(u"No puedes transferirte créditos a ti mismo"),
+                    "error")
+                return redirect("serv-transfer-new")
+            else:
+                form_data = dict(username=user.username)
+                form = NewTransferForm(form_data)
+        else:
+            form = NewTransferForm()
+        context = dict(form=form, current_tab="transfers", subtab="new")
+        return self.context_response('serv/new_transfer.html', context)
+
+    @login_required
+    def POST(self, user_id=None):
+        # check user is not doing an "auto-transfer"
+        if self.request.user.is_authenticated and\
+            self.request.POST["username"] == self.request.user.username:
+            self.flash(_(u"No puedes transferirte créditos a ti mismo"),
+                "error")
+            return redirect("serv-transfer-new")
+
+        form = NewTransferForm(data=self.request.POST)
+        context = dict(form=form, instance=None, current_tab="transfers",
+            subtab="new")
+        if not form.is_valid():
+            return self.context_response('serv/new_transfer.html', context)
+
+        transfer = form.save(commit=False)
+        transfer.is_public = False
+        transfer.direct_transfer_creator = self.request.user
+        if form.data["service_type"] == '0':
+            # give credits. status jumps directly to accepted, so that the
+            # receiving part can confirm
+            transfer.status = 'a'
+            transfer.credits_payee = form.user
+            transfer.credits_debtor = self.request.user
+        else:
+            # request credits
+            transfer.status = 'q'
+            transfer.credits_payee = self.request.user
+            transfer.credits_debtor = form.user
+
+        # Check user would not surpass max balance
+        if transfer.credits_payee.balance + transfer.credits > settings.MAX_CREDIT:
+            self.flash(_(u"La transferencia superaría el límite de"
+                u" crédito del receptor de créditos"), 'error')
+            return self.context_response('serv/new_transfer.html', context)
+
+        # Check user would not minimum min balance
+        if transfer.credits_debtor.balance - transfer.credits < settings.MIN_CREDIT:
+            self.flash(_(u"La transferencia superaría el límite mínimo "
+                u"de crédito de la persona que da los créditos"),
+                'error')
+            return self.context_response('serv/new_transfer.html', context)
+
+        transfer.save()
+        self.flash(_(u"Transferencia creada correctamente"))
+        return redirect('serv-transfers-mine')
+
 class AddTransfer(ViewClass):
     @login_required
     def GET(self, service_id):
@@ -237,7 +305,7 @@ class AddTransfer(ViewClass):
         if form.is_valid():
             transfer = form.save(commit=False)
             # Set remaining transfer settings
-            transfer.service = service
+            transfer.service = None
             transfer.status = 'q'
             transfer.is_public = False
             if transfer.service.oferta:
@@ -271,7 +339,7 @@ class AddTransfer(ViewClass):
 
             transfer.save()
             self.flash(_(u"Transferencia creada correctamente"))
-            return redirect('serv-transfers-mine') #TODO transfers-list-mine
+            return redirect('serv-transfers-mine')
 
         context = dict(form=form, instance=None, current_tab="transfers",
             subtab="add", service=service)
@@ -368,12 +436,13 @@ class AcceptTransfer(ViewClass):
                 'error')
             return redirect('serv-transfers-mine')
 
-        if transfer.service.creador != self.request.user:
+        if transfer.creator() == self.request.user:
             self.flash(_(u"No puedes aceptar una transferencia de un servicio"
                 " que no sea tuyo"), "error")
             return redirect('serv-transfers-mine')
 
-        if transfer.status != "q":
+        if transfer.status != "a" or not transfer.is_direct() and\
+            transfer.status != "q":
             self.flash(_(u"Sólo se pueden modificar transferencias aun no realizadas"),
                 "error")
             return redirect('serv-transfers-mine')
@@ -549,6 +618,7 @@ view = ViewService()
 delete = DeleteService()
 active = ActiveService()
 deactive = DeactiveService()
+new_transfer = NewTransfer()
 add_transfer = AddTransfer()
 edit_transfer = EditTransfer()
 cancel_transfer = CancelTransfer()

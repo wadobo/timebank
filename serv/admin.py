@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from serv.models import Servicio, Zona, Categoria, ContactoAdministracion, ContactoIntercambio, MensajeA, MensajeI
+from serv.models import Servicio, Zona, Categoria, ContactoAdministracion, ContactoIntercambio, MensajeA, MensajeI, Transfer
 from django.contrib import admin
 
 class ServicioAdmin(admin.ModelAdmin):
@@ -59,6 +59,7 @@ class MensajesAdmin(admin.ModelAdmin):
 admin.site.register(Servicio, ServicioAdmin)
 admin.site.register(Zona)
 admin.site.register(Categoria)
+admin.site.register(Transfer)
 admin.site.register(ContactoIntercambio, ContactoIntAdmin)
 admin.site.register(ContactoAdministracion, ContactoAdmAdmin)
 admin.site.register(MensajeI, MensajesAdmin)
