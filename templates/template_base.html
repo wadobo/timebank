@@ -71,7 +71,7 @@
                         <div class="top">
                             <h1>{% trans 'Entrar' %}</h1>
                             <span class="title">
-                                <a href="{% url user-remember %}" class="{% current_tab 'user-remember' %}">{% trans '¿Olvidaste la contraseña?' %}</a>
+                                <a href="{% url user-remember %}" class="{% current_tab 'user-remember' %}">{% trans '¿Olvidaste tu contraseña?' %}</a>
                             </span>
                         </div>
                         <div class="middle">
@@ -134,7 +134,7 @@
     <div class="cleaner"></div>
      <div id="footer">
             <ul class="footer_menu">
-                <li><a href="/" class="{% current_tab 'default' %}">{% trans "Home" %}</a></li>
+                <li><a href="/" class="{% current_tab 'default' %}">{% trans "Portada" %}</a></li>
                 <li><a href="{% url news %}" class="{% current_tab 'news' %}">{% trans "Noticias" %}</a></li>
                 <li><a href="{% url contact %}" class="{% current_tab 'contact' %}">{% trans "Contacta" %}</a></li>
                 {% for page in flatpages %}

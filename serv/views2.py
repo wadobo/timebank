@@ -597,7 +597,7 @@ class DeleteComment(ViewClass):
     def POST(self, comment_id):
         message = get_object_or_404(Message, pk=comment_id)
         if not message.service:
-            self.flash(_(u"El mensaje que intenta borrar no es un comentario"),
+            self.flash(_(u"El mensaje que intentas borrar no es un comentario"),
                 "error")
             return redirect('/')
 

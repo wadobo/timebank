@@ -29,7 +29,7 @@ def create_profile_for_user(sender, **kwargs):
         if not kwargs['instance'].__dict__.has_key("birth_date"):
             profile.birth_date = date.today()
         if not kwargs['instance'].__dict__.has_key("address"):
-            profile.address = _(u"direccion")
+            profile.address = _(u"dirección")
         profile.__dict__.update(kwargs['instance'].__dict__)
         profile.save()
 

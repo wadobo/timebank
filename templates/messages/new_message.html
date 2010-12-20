@@ -19,16 +19,16 @@ Ver servicio: ({{ site_url }}{{ service_url }}
 ha recibido un mensaje público de {{ sender }} con el
 siguiente contenido:{% endblocktrans %}
 {% else %}
-{% blocktrans with message.recipient.username as recipient and message.sender.username as sender%}Hello {{ recipient }},
+{% blocktrans with message.recipient.username as recipient and message.sender.username as sender%}Hola {{ recipient }},
 
-you received a private message from {{ sender }} with
-the following contents:{% endblocktrans %}
+ha recibido un mensaje privado de {{ sender }} con el
+siguiente contenido:{% endblocktrans %}
 {% endif %}
 
 {{ message.body|safe }}
 
 --
-{% blocktrans %}Sent from {{ site_url }}{% endblocktrans %}
+{% blocktrans %}Enviado desde {{ site_url }}{% endblocktrans %}
 {% trans "Inbox" %}: {{ site_url }}{% url messages_inbox %}
 {% trans "Reply" %}: {{ site_url }}{% url messages_reply message.pk %}
 {% endif %}

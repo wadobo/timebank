@@ -222,7 +222,7 @@ class Remove(ViewClass):
             'username': user.username
         }
         message = _(u"El usuario %(username)s ha solicitado set eliminado del sitio web."
-            u"La razón que ha expuesto es:\n\n%(reason)s") % {
+            u" La razón que ha expuesto es:\n\n%(reason)s") % {
                 'username': user.username,
                 'reason': form.cleaned_data["reason"]
             }

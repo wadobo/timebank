@@ -123,7 +123,7 @@ class NewTransferForm(forms.ModelForm):
     )
     username = forms.CharField(label=_(u"Nombre de usuario"), help_text=_(
         u"Nombre del usuario que recibirá o al que se le solicitan"
-        u"los créditos a transferir"), required=True)
+        u" los créditos a transferir"), required=True)
 
     credits = CustomCharField(label=_(u"Créditos"),
         widget=forms.Select(choices=CREDITS_CHOICES), required=True)
