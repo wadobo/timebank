@@ -25,6 +25,7 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.views.decorators.csrf import csrf_protect
 
 from serv.models import (Servicio, Zona, Categoria,
                          ContactoIntercambio, MensajeI,
@@ -305,7 +306,7 @@ class AddTransfer(ViewClass):
         if form.is_valid():
             transfer = form.save(commit=False)
             # Set remaining transfer settings
-            transfer.service = None
+            transfer.service = service
             transfer.status = 'q'
             transfer.is_public = False
             if transfer.service.oferta:
