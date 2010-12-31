@@ -18,14 +18,14 @@ from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import send_mail, mail_managers, EmailMessage
 from django.contrib.auth import authenticate, login as django_login
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 from datetime import datetime, timedelta
 
-from utils import ViewClass, send_mail_to_admins, login_required
+from utils import ViewClass, login_required
 from forms import (RegisterForm, EditProfileForm, RemoveForm,
     PublicMessageForm, FindPeopleForm, FindPeople4AdminsForm,
     SendEmailToAllForm)
@@ -57,7 +57,7 @@ class Register(ViewClass):
         }
         message = _("Se ha registrado un nuevo usuario con nombre de usuario "\
         " %s . Revise sus datos y delo de alta.") % new_user.username
-        send_mail_to_admins(subject, message)
+        mail_managers(subject, message)
 
         current_site = Site.objects.get_current()
         subject = _("Te has registrado como %(username)s en %(site_name)s") % {
@@ -176,7 +176,7 @@ class EditProfile(ViewClass):
                 'birth_date': form.cleaned_data["birth_date"],
                 'description': form.cleaned_data["description"]
             }
-        send_mail_to_admins(subject, message)
+        mail_managers(subject, message)
         form.save()
 
         self.flash(_(u"Perfil actualizado: <a href=\"%s\">ver tu perfil</a>.") %
@@ -226,7 +226,7 @@ class Remove(ViewClass):
                 'username': user.username,
                 'reason': form.cleaned_data["reason"]
             }
-        send_mail_to_admins(subject, message)
+        mail_managers(subject, message)
 
         current_site = Site.objects.get_current()
         subject = _("Has borrado tu perfil %(username)s de %(site_name)s") % {

@@ -16,12 +16,12 @@
 
 from django.shortcuts import render_to_response, redirect
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, mail_managers
 from django.utils.translation import gettext as _
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.db.models import signals
 
-from utils import ViewClass, send_mail_to_admins, login_required
+from utils import ViewClass, login_required
 from forms import AnonymousContactForm, ContactForm
 from serv.models import Servicio
 from messages.utils import new_transfer_email
@@ -131,7 +131,7 @@ class Contact(ViewClass):
                     'email': form.cleaned_data["email"],
                     'message': form.cleaned_data["message"]
                 }
-        send_mail_to_admins(subject, message)
+        mail_managers(subject, message)
 
         self.flash(_("Mensaje enviado, te responderemos lo antes posible"))
         return redirect('main.views.index')

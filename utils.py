@@ -28,7 +28,6 @@ from django.utils import formats
 from django.conf import settings
 from django.utils.encoding import smart_unicode
 from django.utils.safestring import mark_safe
-from django.core.mail import send_mail
 from recaptcha.client import captcha
 
 from flashmsg import flash
@@ -234,11 +233,3 @@ class FormCaptchaField(forms.CharField):
         if not check_captcha.is_valid:
             raise forms.util.ValidationError(_(u'Captcha inválido'))
         return values[0]
-
-def send_mail_to_admins(subject, message, sender=settings.DEFAULT_FROM_EMAIL):
-    '''
-    Just a convenience function
-    '''
-    recipients = ["%s <%s>" % (admin[0], admin[1]) for admin in settings.ADMINS]
-    send_mail(subject, message, sender, recipients)
-
