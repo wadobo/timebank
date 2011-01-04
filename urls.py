@@ -33,6 +33,9 @@ urlpatterns = patterns('',
     (r'^', include('main.urls')),
 )
 
+handler404 = 'main.views.handler404'
+handler500 = 'main.views.handler500'
+
 if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += patterns('',
         url(r'^rosetta/', include('rosetta.urls')),

@@ -136,6 +136,19 @@ class Contact(ViewClass):
         self.flash(_("Mensaje enviado, te responderemos lo antes posible"))
         return redirect('main.views.index')
 
+
+class ErrorHandler(ViewClass):
+    def __init__(self, template):
+        self.template = template
+
+    def GET(self):
+        return self.context_response(self.template, {})
+
+    def POST(self):
+        return self.GET()
+
 index = Index()
 contact = Contact()
 migrate = Migrate()
+handler404 = ErrorHandler('404.html')
+handler500 = ErrorHandler('500.html')

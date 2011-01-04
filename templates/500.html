@@ -1,23 +1,14 @@
-<!--
-Copyright (C) 2010 Eduardo Robles Elvira <edulix AT gmail DOT com>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+{% extends "template_base.html" %}
+{% load i18n %}
+{% block title %} {% trans "Error 500" %} {% endblock %}
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
-{% extends "base_online.html" %}
-{% block style %}"/site_media/personal.css"{% endblock %}
 {% block content %}
-<div id="500">
-    Lo sentimos ha ocurrido un error, si vuelve a ocurrir informe a la administración para poder resolver el problema.
-</div>
-{% endblock content  %}
+    <div class="section_3 404">
+        <h1>{{ SITE_NAME }} - {% trans "Error 500" %}</h1>
+        <p>
+            {% blocktrans %}Lo sentimos, ha ocurrido un error. Ya hemos notificado a los administradores de la página web para que solventen.
+            {% endblocktrans %}
+        </p>
+    </div>
+{% endblock %}
