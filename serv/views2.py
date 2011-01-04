@@ -596,10 +596,13 @@ class DeleteComment(ViewClass):
     @login_required
     def POST(self, comment_id):
         message = get_object_or_404(Message, pk=comment_id)
-        if not message.service:
-            self.flash(_(u"El mensaje que intentas borrar no es un comentario"),
-                "error")
-            return redirect('/')
+        service = None
+        recipient = None
+
+        if message.service:
+            service = message.service
+        else:
+            recipient = message.recipient
 
         service = message.service
         if message.sender.id != self.request.user.id:
@@ -609,8 +612,10 @@ class DeleteComment(ViewClass):
             message.delete()
             self.flash(_(u"Comentario borrado correctamente"))
 
-        return redirect('serv-view', service.id)
-
+        if service:
+            return redirect('serv-view', service.id)
+        else:
+            return redirect('user-view', recipient.id)
 
 list_services = ListServices()
 add = AddService()
