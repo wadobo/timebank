@@ -21,5 +21,4 @@ from django.conf import settings
 urlpatterns = patterns('main.views',
     url(r'^contact/$', 'contact', name="contact"),
     (r'^/?$', 'index'),
-    (r'^migrate/$', 'migrate'),
 )

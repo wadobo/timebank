@@ -120,7 +120,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.flatpages',
-    'aplicacion',
     'serv',
     'main',
     'flashmsg',
