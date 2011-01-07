@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'flashmsg',
     'news',
     'tinymce',
+    'south',
     'user',
     'globaltags',
     'messages',
