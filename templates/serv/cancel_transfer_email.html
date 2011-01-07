@@ -1,7 +1,7 @@
 {% load i18n %}
 {% url serv-transfer-view transfer.id as transfer_url %}
 {% if not transfer.is_direct %}
-{% blocktrans with transfer.creator.username as transfer_creator and transfer.service.creador.username as service_creator %}Hola,
+{% blocktrans with transfer.creator.username as transfer_creator and transfer.service.creator.username as service_creator %}Hola,
 
 La transferencia solicitada en un principio por {{ transfer_creator }} del servicio creado por {{ service_creator }} ha sido cancelada. Puedes ver los detalles de la transferencia en {{ site_url }}{{ transfer_url }} .
 

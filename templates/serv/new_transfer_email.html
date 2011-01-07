@@ -3,7 +3,7 @@
 {{ transfer_creator }} ha creado una transferencia directa contigo. Puedes ver y administrar la transferencia en {{ site_url }}{{ transfer_url }} .
 
 El equipo de {{ site_url }}{% endblocktrans %}
-{% else %}{% if transfer.service.oferta %}{% blocktrans with transfer.credits_payee.username as recipient and transfer.credits_debtor.username as sender %}Hola {{ recipient }},
+{% else %}{% if transfer.service.is_offer %}{% blocktrans with transfer.credits_payee.username as recipient and transfer.credits_debtor.username as sender %}Hola {{ recipient }},
 
 {{ sender }} te ha solicitado una transferencia de un servicio que ofertas. Puedes ver y administrar la transferencia en {{ site_url }}{{ transfer_url }} .
 

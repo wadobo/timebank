@@ -7,7 +7,7 @@ from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from serv.models import Servicio, Transfer
+from serv.models import Service, Transfer
 
 class MessageManager(models.Manager):
 
@@ -80,7 +80,7 @@ class Message(models.Model):
     sender_deleted_at = models.DateTimeField(_("Sender deleted at"), null=True, blank=True)
     recipient_deleted_at = models.DateTimeField(_("Recipient deleted at"), null=True, blank=True)
     is_public = models.BooleanField(_(u"Mensaje público"), default=False)
-    service = models.ForeignKey(Servicio, related_name='messages', null=True, blank=True)
+    service = models.ForeignKey(Service, related_name='messages', null=True, blank=True)
     transfer = models.ForeignKey(Transfer, related_name='messages', null=True, blank=True)
 
     objects = MessageManager()

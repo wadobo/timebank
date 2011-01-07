@@ -30,7 +30,7 @@ from forms import (RegisterForm, EditProfileForm, RemoveForm,
     PublicMessageForm, FindPeopleForm, FindPeople4AdminsForm,
     SendEmailToAllForm)
 from models import Profile
-from serv.models import Servicio
+from serv.models import Service
 from messages.models import Message
 
 class Register(ViewClass):
@@ -345,7 +345,8 @@ class FindPeople(ViewClass):
 
         if (self.request.user.is_staff or self.request.user.is_superuser) \
             and form.data.get("without_services", ''):
-            people = people.exclude(id__in=Servicio.objects.values_list('creador_id', flat=True))
+            people = people.exclude(id__in=Service.objects.values_list(
+                'creator_id', flat=True))
 
         paginator = Paginator(people, 10)
         try:

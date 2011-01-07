@@ -31,7 +31,7 @@
         </div>
         <div class="cleaner"></div>
         <div class="buttons">
-            {% if user.is_authenticated and transfer.service.creador != user %}
+            {% if user.is_authenticated and transfer.service.creator != user %}
                 {% if transfer.status == "q" or transfer.status == "a" %}
                     <a class="action" href="{% url serv-transfer-edit transfer.id %}">{% trans "Editar transferencia" %}</a>
                     <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
@@ -40,7 +40,7 @@
                 {% endif %}
                 <a class="action" href="{% url messages_compose_to transfer.creator.username %}">{% trans "Enviar mensaje privado" %}</a>
             {% endif %}
-            {% if user.is_authenticated and transfer.service.creador == user %}
+            {% if user.is_authenticated and transfer.service.creator == user %}
                 {% if transfer.status == "q" %}
                     <form method="POST" action="{% url serv-transfer-accept transfer.id %}"> {% csrf_token %}
                         <input class="action" name="submit" type="submit" value="{% trans 'Aceptar transferencia' %}"/>

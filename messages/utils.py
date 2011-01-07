@@ -80,7 +80,7 @@ def update_transfer_email(sender, instance, signal, *args, **kwargs):
     default_protocol = getattr(settings, 'DEFAULT_HTTP_PROTOCOL', 'http')
 
     if instance.status == 'q':
-        recipient_emails = [instance.service.creador.email,]
+        recipient_emails = [instance.service.creator.email,]
         subject=_(u'Transferencia de %s editada') % instance.creator().username
         template = "serv/edit_transfer_email.html"
     elif instance.status == 'a':
@@ -88,7 +88,7 @@ def update_transfer_email(sender, instance, signal, *args, **kwargs):
         recipient_emails = [instance.creator().email,]
         if instance.service:
             subject=_(u'Transferencia del servicio de %s aceptada') %\
-                instance.service.creador.username
+                instance.service.creator.username
         else:
             subject=_(u'Transferencia directa de  %s aceptada') %\
                 instance.creator().username
@@ -98,7 +98,7 @@ def update_transfer_email(sender, instance, signal, *args, **kwargs):
             subject=_(u'Transferencia de %(user1)s del servicio de %(user2)s'
                 u' cancelada') % {
                     'user1': instance.creator().username,
-                    'user2': instance.service.creador.username
+                    'user2': instance.service.creator.username
                 }
         else:
             subject=_(u'Transferencia directa de %s cancelada') %\

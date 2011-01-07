@@ -44,7 +44,7 @@ Hay novedades en tu perfil de {{ site_name }} que requieren tu atención:
 
 {% for service in new_services.object_list %}
 {% url serv-list as services_url %}{% if forloop.first %}{% blocktrans %}Lista de servicios: {{ services_url }}{% endblocktrans %}{% endif %}
-{% url serv-view service.id as service_url %}{% blocktrans with service.creador.username as from and service.pub_date|timesince as published_ago and service.descripcion|truncate_chars as description and service.categoria.nombre_categoria as category and service.zona.nombre_zona as area %}
+{% url serv-view service.id as service_url %}{% blocktrans with service.creator.username as from and service.pub_date|timesince as published_ago and service.description|truncate_chars as description and service.category.name as category and service.area.name as area %}
     {{ site_url }}{{ service_url }}
     Servicio en la zona "{{ area }}" y categoría "{{category }}" creador por {{ from }} publicado hace {{ published_ago }}
         {{ description }}

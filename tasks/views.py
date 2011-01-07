@@ -29,7 +29,7 @@ from datetime import datetime, timedelta
 from utils import ViewClass, login_required
 from user.models import Profile
 from tasks.models import Task
-from serv.models import Transfer, Servicio
+from serv.models import Transfer, Service
 from messages.models import Message
 
 class SendEmailUpdates(ViewClass):
@@ -106,7 +106,7 @@ class SendEmailUpdates(ViewClass):
             if self.__should_send_update(task, send_update_data):
                 subject = _(u"Updates from %s" % settings.SITE_NAME)
                 default_protocol = getattr(settings, 'DEFAULT_HTTP_PROTOCOL', 'http')
-                new_services = Servicio.objects.filter(activo=True)
+                new_services = Service.objects.filter(activo=True)
                 paginator = Paginator(new_services, 5)
                 new_services = paginator.page(1)
 

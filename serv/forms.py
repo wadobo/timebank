@@ -25,8 +25,7 @@ from django.conf import settings
 
 import urllib
 
-from serv.models import (Servicio, ContactoIntercambio, MensajeI, Zona,
-    Categoria, Transfer)
+from serv.models import Service, Area, Category, Transfer
 from messages.models import Message
 from utils import FormCharField
 
@@ -53,18 +52,18 @@ class ServiceForm(forms.ModelForm):
                              widget=forms.Select(choices=OFFER_CHOICES))
 
     class Meta:
-        model = Servicio
-        exclude = ('creador', 'pub_date', 'activo')
+        model = Service
+        exclude = ('creator', 'pub_date', 'is_active')
 
     def __init__(self, *args, **kwargs):
         super(ServiceForm, self).__init__(*args, **kwargs)
-        self.fields['zona'].empty_label = _("Todas")
-        self.fields['descripcion'].help_text = _(u"Sugerencia: no introduzcas"
+        self.fields['area'].empty_label = _("Todas")
+        self.fields['description'].help_text = _(u"Sugerencia: no introduzcas"
             u" datos personales a los que no quieras que cualquiera pueda"
             u" acceder, para ese fin utiliza mensajes privados.")
 
     def clean_offer(self):
-        offer = self.cleaned_data.get("oferta", "0")
+        offer = self.cleaned_data.get("is_offer", "0")
         return bool(offer)
 
 
@@ -95,8 +94,8 @@ class ListServicesForm(forms.Form):
 
     def __init__(self,  *args, **kwargs):
         super(ListServicesForm, self).__init__(*args, **kwargs)
-        self.fields['category'].queryset = Categoria.objects.all()
-        self.fields['area'].queryset = Zona.objects.all()
+        self.fields['category'].queryset = Category.objects.all()
+        self.fields['area'].queryset = Area.objects.all()
 
     def as_url_args(self):
         return urllib.urlencode(self.data)
@@ -183,23 +182,3 @@ class AddCommentForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ['body']
-
-class ContactoIForm(forms.ModelForm):
-
-    class Meta:
-        model = ContactoIntercambio
-
-
-class MensajeIForm(forms.ModelForm):
-
-    class Meta:
-        model = MensajeI
-        fields = ['contenido']
-
-    def clean_contenido(self):
-        conte = self.cleaned_data.get("contenido", "")
-        if 1 > len(conte) or len(conte) > 400:
-            raise forms.ValidationError("El comentario debe tener entre 1 "
-                                        "y 400 caracteres y el actual tiene "
-                                        "%s." % len(conte))
-        return conte

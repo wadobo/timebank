@@ -27,11 +27,9 @@ from django.db.models import Q
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.views.decorators.csrf import csrf_protect
 
-from serv.models import (Servicio, Zona, Categoria,
-                         ContactoIntercambio, MensajeI,
-                         ContactoAdministracion, MensajeA, Transfer)
-from serv.forms import (ServiceForm, ContactoIForm, MensajeIForm,
-    ListServicesForm, AddTransferForm, AddCommentForm, NewTransferForm)
+from serv.models import Service, Area, Category, Transfer
+from serv.forms import (ServiceForm, ListServicesForm, AddTransferForm,
+    AddCommentForm, NewTransferForm)
 from user.models import Profile
 from messages.models import Message
 
@@ -50,25 +48,25 @@ class ListServices(ViewClass):
             page = 1
 
         if self.request.user.is_authenticated() and form.data.get("mine", ''):
-            services = Servicio.objects.filter(creador=self.request.user)
+            services = Service.objects.filter(creator=self.request.user)
             subtab = "my"
         else:
-            services = Servicio.objects.filter(activo=True)
+            services = Service.objects.filter(is_active=True)
             subtab = "find"
 
         if form.data.get("the_type", '') == "1":
-            services = services.filter(oferta=True)
+            services = services.filter(is_offer=True)
         elif form.data.get("the_type", '') == "2":
-            services = services.filter(oferta=False)
+            services = services.filter(is_offer=False)
 
         if form.data.get("category", ''):
-            category = get_object_or_404(Categoria, id=int(form.data["category"]))
-            services = services.filter(categoria=category)
+            category = get_object_or_404(Category, id=int(form.data["category"]))
+            services = services.filter(category=category)
 
         if form.data.get("area", ''):
-            area = get_object_or_404(Zona,
+            area = get_object_or_404(Area,
                 id=int(form.data["area"]))
-            services = services.filter(zona=area)
+            services = services.filter(area=area)
 
         user_status = form.data.get("user_status", '0')
         if user_status != '0':
@@ -84,11 +82,11 @@ class ListServices(ViewClass):
                 last_date = datetime.now() - timedelta(days=6*30)
             elif user_status == '6': # 1 year
                 last_date = datetime.now() - timedelta(days=365)
-            services = services.filter(creador__last_login__gt=last_date)
+            services = services.filter(creator__last_login__gt=last_date)
 
         if form.data.get("username", ''):
             username = form.data["username"]
-            services = services.filter(creador__username__contains=username)
+            services = services.filter(creator__username__contains=username)
 
         paginator = Paginator(services, 10)
         try:
@@ -118,7 +116,7 @@ class AddService(ViewClass):
         form = ServiceForm(self.request.POST)
         if form.is_valid():
             service = form.save(commit=False)
-            service.creador = self.request.user
+            service.creator = self.request.user
             service.save()
             self.flash(_(u"Servicio añadido correctamente"))
             return redirect('serv-myservices')
@@ -130,8 +128,8 @@ class AddService(ViewClass):
 class EditService(ViewClass):
     @login_required
     def GET(self, sid):
-        instance = get_object_or_404(Servicio, pk=sid)
-        if not instance.creador == self.request.user:
+        instance = get_object_or_404(Service, pk=sid)
+        if not instance.creator == self.request.user:
             self.flash(_(u"No puedes modificar un servicio que no es tuyo"),
                        "error")
             return redirect('serv-myservices')
@@ -143,21 +141,21 @@ class EditService(ViewClass):
     @login_required
     def POST(self, sid):
         instance = get_object_or_404(Servicio, pk=sid)
-        if not instance.creador == self.request.user:
+        if not instance.creator == self.request.user:
             self.flash(_(u"No puedes modificar un servicio que no es tuyo"),
                        "error")
             return redirect('serv-myservices')
         form = ServiceForm(self.request.POST, instance=instance)
 
         if form.is_valid():
-            current_is_offer = instance.oferta
+            current_is_offer = instance.is_offer
             service = form.save(commit=False)
 
             # If there are ongoing transfers, oferta field cannot be changed or
             # else havoc will follow:
             if Transfer.objects.filter(service=instance,
                 status__in=["q", "a"]).count() > 0 and\
-                service.oferta != current_is_offer:
+                service.is_offer != current_is_offer:
                 self.flash(_(u"No puedes cambiar el servicio de oferta a demanda"
                     " mientras hay transferencias en curso"), "error")
                 return redirect('serv-myservices')
@@ -172,8 +170,8 @@ class EditService(ViewClass):
 class DeleteService(ViewClass):
     @login_required
     def POST(self, sid):
-        instance = get_object_or_404(Servicio, pk=sid)
-        if instance.creador == self.request.user:
+        instance = get_object_or_404(Service, pk=sid)
+        if instance.creator == self.request.user:
             instance.delete()
             self.flash(_(u"Servicio eliminado correctamente"))
         else:
@@ -185,9 +183,9 @@ class DeleteService(ViewClass):
 class ActiveService(ViewClass):
     @login_required
     def POST(self, sid):
-        instance = get_object_or_404(Servicio, pk=sid)
-        if instance.creador == self.request.user:
-            instance.activo = True
+        instance = get_object_or_404(Service, pk=sid)
+        if instance.creator == self.request.user:
+            instance.is_active = True
             instance.save()
             self.flash(_(u"Servicio activado correctamente"))
         else:
@@ -199,9 +197,9 @@ class ActiveService(ViewClass):
 class DeactiveService(ViewClass):
     @login_required
     def POST(self, sid):
-        instance = get_object_or_404(Servicio, pk=sid)
-        if instance.creador == self.request.user:
-            instance.activo = False
+        instance = get_object_or_404(Service, pk=sid)
+        if instance.creator == self.request.user:
+            instance.is_active = False
             instance.save()
             self.flash(_(u"Servicio desactivado correctamente"))
         else:
@@ -277,7 +275,7 @@ class NewTransfer(ViewClass):
 class AddTransfer(ViewClass):
     @login_required
     def GET(self, service_id):
-        service = get_object_or_404(Servicio, pk=service_id)
+        service = get_object_or_404(Service, pk=service_id)
         ongoing_transfers = service.ongoing_transfers(self.request.user)
         if ongoing_transfers:
             return redirect("serv-transfer-edit", ongoing_transfers[0].id)
@@ -288,18 +286,18 @@ class AddTransfer(ViewClass):
 
     @login_required
     def POST(self, service_id):
-        service = get_object_or_404(Servicio, pk=service_id)
+        service = get_object_or_404(Service, pk=service_id)
         ongoing_transfers = service.ongoing_transfers(self.request.user)
         if ongoing_transfers:
             return redirect("serv-transfer-edit", ongoing_transfers[0].id)
         form = AddTransferForm(data=self.request.POST)
         # Check user would not surpass min balance
         if self.request.user.balance < settings.MIN_CREDIT and\
-            service.oferta:
+            service.is_offer:
             self.flash(_(u"No tienes suficiente crédito"), 'error')
             return redirect('serv-transfers-mine')
 
-        if service.creador == self.request.user:
+        if service.creator == self.request.user:
             self.flash(_(u"No puedes solicitarte un servicio a tí mismo"))
             return redirect('serv-transfers-mine')
 
@@ -309,12 +307,12 @@ class AddTransfer(ViewClass):
             transfer.service = service
             transfer.status = 'q'
             transfer.is_public = False
-            if transfer.service.oferta:
+            if transfer.service.is_offer:
                 transfer.credits_debtor = self.request.user
-                transfer.credits_payee = transfer.service.creador
+                transfer.credits_payee = transfer.service.creator
             else:
                 transfer.credits_payee = self.request.user
-                transfer.credits_debtor = transfer.service.creador
+                transfer.credits_debtor = transfer.service.creator
 
             # Check user would not surpass max balance
             if transfer.credits_payee.balance + transfer.credits > settings.MAX_CREDIT:
@@ -494,7 +492,7 @@ class ConfirmTransfer(ViewClass):
 class ViewService(ViewClass):
     @login_required
     def GET(self, service_id):
-        service = get_object_or_404(Servicio, pk=service_id)
+        service = get_object_or_404(Service, pk=service_id)
         context = dict(service=service)
         return self.context_response('serv/view_service.html', context)
 
@@ -563,7 +561,7 @@ class RateTransfer(ViewClass):
 class AddComment(ViewClass):
     @login_required
     def GET(self, service_id):
-        service = get_object_or_404(Servicio, pk=service_id)
+        service = get_object_or_404(Service, pk=service_id)
         form = AddCommentForm()
         context = dict(form=form, service=service, current_tab="services",
             subtab="comment")
@@ -571,8 +569,8 @@ class AddComment(ViewClass):
 
     @login_required
     def POST(self, service_id):
-        service = get_object_or_404(Servicio, pk=service_id)
-        if not service.activo:
+        service = get_object_or_404(Service, pk=service_id)
+        if not service.is_active:
             self.flash(_(u"No se pueden comentar servicios inactivos"),
                 "error")
             return redirect('/')
@@ -581,7 +579,7 @@ class AddComment(ViewClass):
         if form.is_valid():
             message = form.save(commit=False)
             message.sender = self.request.user
-            message.recipient = service.creador
+            message.recipient = service.creator
             message.is_public = True
             message.service = service
             message.save()
