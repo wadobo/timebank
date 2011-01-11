@@ -22,14 +22,11 @@ class Migration(SchemaMigration):
         db.rename_table('serv_categoria', 'serv_category')
 
         # Renaming model 'Servicio'
-        db.rename_column('serv_servicio', 'creador', 'creator')
         db.rename_column('serv_servicio', 'creador_id', 'creator_id')
         db.rename_column('serv_servicio', 'oferta', 'is_offer')
         db.rename_column('serv_servicio', 'activo', 'is_active')
         db.rename_column('serv_servicio', 'descripcion', 'description')
-        db.rename_column('serv_servicio', 'categoria', 'category')
         db.rename_column('serv_servicio', 'categoria_id', 'category_id')
-        db.rename_column('serv_servicio', 'zona', 'area')
         db.rename_column('serv_servicio', 'zona_id', 'area_id')
         db.rename_table('serv_servicio', 'serv_service')
 
@@ -104,14 +101,11 @@ class Migration(SchemaMigration):
         db.rename_table('serv_category', 'serv_categoria')
 
         # Renaming model 'Servicio'
-        db.rename_column('serv_service', 'creator', 'creador')
         db.rename_column('serv_service', 'creator_id', 'creador_id')
         db.rename_column('serv_service', 'is_offer', 'oferta')
         db.rename_column('serv_service', 'is_active', 'activo')
         db.rename_column('serv_service', 'description', 'descripcion')
-        db.rename_column('serv_service', 'category', 'categoria')
         db.rename_column('serv_service', 'category_id', 'categoria_id')
-        db.rename_column('serv_service', 'area', 'zona')
         db.rename_column('serv_service', 'area_id', 'zona_id')
         db.rename_table('serv_service', 'serv_servicio')
 
