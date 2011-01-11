@@ -17,8 +17,11 @@
 
 from django.conf.urls.defaults import *
 from django.conf import settings
+from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns('main.views',
     url(r'^contact/$', 'contact', name="contact"),
     (r'^/?$', 'index'),
+    (r'^robots\.txt$', direct_to_template,
+        {'template': 'robots.txt', 'mimetype': 'text/plain'}),
 )
