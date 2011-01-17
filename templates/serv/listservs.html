@@ -3,5 +3,5 @@
 {% for serv in services.object_list %}
     {% include "serv/single_service_view.html" %}
 {% empty %}
-    <p>{% trans "Ningún servicio" %}</p>
+    <p>{% trans "No service." %}</p>
 {% endfor %}

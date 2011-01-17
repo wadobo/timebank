@@ -14,18 +14,18 @@
             {% url user-view transfer.credits_debtor.id as debtor_url %}
             {% url user-view transfer.credits_payee.id as payee_url %}
             {% if transfer.is_public %}
-                {% blocktrans with transfer.credits_debtor.username as debtor and transfer.credits_payee.username as payee and transfer.credit_hours as credits and transfer.request_date|timesince as created %}Transferencia de {{ credits }} horas de <a href="{{ debtor_url }}">{{ debtor }}</a> a <a href="{{ payee_url }}">{{ payee }}</a>{% endblocktrans %}
+                {% blocktrans with transfer.credits_debtor.username as debtor and transfer.credits_payee.username as payee and transfer.credit_hours as credits and transfer.request_date|timesince as created %}Transfer of {{ credits }} hours from <a href="{{ debtor_url }}">{{ debtor }}</a> to <a href="{{ payee_url }}">{{ payee }}</a>{% endblocktrans %}
             {% else %}
-                {% blocktrans with transfer.credits_debtor.username as debtor and transfer.credits_payee.username as payee and transfer.credit_hours as credits %}Transferencia privada de {{ credits }} horas de <a href="{{ debtor_url }}">{{ debtor }}</a> a <a href="{{ payee_url }}">{{ payee }}</a>{% endblocktrans %}
-            {% endif %} / {% trans "Estado" %}:
+                {% blocktrans with transfer.credits_debtor.username as debtor and transfer.credits_payee.username as payee and transfer.credit_hours as credits %}Private transfer of {{ credits }} hours from <a href="{{ debtor_url }}">{{ debtor }}</a> to <a href="{{ payee_url }}">{{ payee }}</a>{% endblocktrans %}
+            {% endif %} / {% trans "Status" %}:
             {% if transfer.status == "q" %}
-                {% trans     "<strong>creada</strong>, hace" %} {{ transfer.request_date|timesince }}
+                {% blocktrans with transfer.request_date|timesince as time %}<strong>created</strong>, {{ time }} ago{% endblocktrans %}
             {% endif %}{% if transfer.status == "a" %}
-                {% trans "<strong>aceptada</strong>, creada hace" %} {{ transfer.request_date|timesince }}
+				{% blocktrans with transfer.request_date|timesince as time %}<strong>accepted</strong>, created {{ time }} ago{% endblocktrans %}
             {% endif %}{% if transfer.status == "r" %}
-                {% trans "<strong>rechazada</strong>, creada hace" %} {{ transfer.request_date|timesince }}
+				{% blocktrans with transfer.request_date|timesince as time %}<strong>rejected</strong>, created {{ time }} ago{% endblocktrans %}
             {% endif %}{% if transfer.status == "d" %}
-                {% trans "<strong>confirmada</strong> hace" %} {{ transfer.confirmation_date|timesince }}
+				{% blocktrans with transfer.request_date|timesince as time %}<strong>confirmed</strong>, {{ time }} ago{% endblocktrans %}
             {% endif %}
             {% transfer_rating transfer %}
         </div>
@@ -33,31 +33,31 @@
         <div class="buttons">
             {% if user.is_authenticated and transfer.service.creator != user %}
                 {% if transfer.status == "q" or transfer.status == "a" %}
-                    <a class="action" href="{% url serv-transfer-edit transfer.id %}">{% trans "Editar transferencia" %}</a>
+                    <a class="action" href="{% url serv-transfer-edit transfer.id %}">{% trans "Edit transfer" %}</a>
                     <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
-                        <input class="action" name="submit" type="submit" value="{% trans 'Cancelar transferencia' %}"/>
+                        <input class="action" name="submit" type="submit" value="{% trans 'Cancel transfer' %}"/>
                     </form>
                 {% endif %}
-                <a class="action" href="{% url messages_compose_to transfer.creator.username %}">{% trans "Enviar mensaje privado" %}</a>
+                <a class="action" href="{% url messages_compose_to transfer.creator.username %}">{% trans "Send private message" %}</a>
             {% endif %}
             {% if user.is_authenticated and transfer.service.creator == user %}
                 {% if transfer.status == "q" %}
                     <form method="POST" action="{% url serv-transfer-accept transfer.id %}"> {% csrf_token %}
-                        <input class="action" name="submit" type="submit" value="{% trans 'Aceptar transferencia' %}"/>
+                        <input class="action" name="submit" type="submit" value="{% trans 'Accept transfer' %}"/>
                     </form>
                     <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
-                        <input class="action" name="submit" type="submit" value="{% trans 'Cancelar transferencia' %}"/>
+                        <input class="action" name="submit" type="submit" value="{% trans 'Cancel transfer' %}"/>
                     </form>
                 {% endif %}
                 {% if transfer.status == "a" %}
                     <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
-                        <input class="action" name="submit" type="submit" value="{% trans 'Cancelar transferencia' %}"/>
+                        <input class="action" name="submit" type="submit" value="{% trans 'Cancel transfer' %}"/>
                     </form>
                 {% endif %}
             {% endif %}
             {% if user.is_authenticated and transfer.credits_debtor == user and transfer.status == "a" %}
                     <form method="POST" action="{% url serv-transfer-confirm transfer.id %}"> {% csrf_token %}
-                        <input class="action" name="submit" type="submit" value="{% trans 'Confirmar transferencia' %}"/>
+                        <input class="action" name="submit" type="submit" value="{% trans 'Confirm transfer' %}"/>
                     </form>
             {% endif %}
         </div>

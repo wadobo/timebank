@@ -1,13 +1,13 @@
 {% extends "admin/base.html" %}
 {% load i18n %}
 
-{% block title %}Administración del Ecolocal{% endblock %}
+{% block title %}Administration{% endblock %}
 
 {% block branding %}
-<h1 id="site-name">Banco del Tiempo: Ecolocal</h1>
+<h1 id="site-name">{% trans "Timebank" %}</h1>
 {% endblock %}
 
 {% block nav-global %}
-<a href="{% url rosetta-home %}">{% trans "Traducciones" %}</a>
-<a href="{% url user-send-email-to-all%}">{% trans "Enviar email a todos los usuarios" %}</a>
+<a href="{% url rosetta-home %}">{% trans "Translations" %}</a>
+<a href="{% url user-send-email-to-all%}">{% trans "Send email to all users" %}</a>
 {% endblock %}

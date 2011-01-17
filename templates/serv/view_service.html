@@ -1,27 +1,27 @@
 {% extends "serv/base.html" %}
 {% load i18n %}
 {% block subtitle %}
-        {% trans "Ver servicio" %}
+        {% trans "View service" %}
 {% endblock %}
 
 {% block subcontent %}
 {% with service as serv %}
     {% include "serv/single_service_view.html" %}
 {% endwith %}
-<h2 style="margin-top: 30px">{% trans "Mis transferencias en este servicio" %}</h2>
+<h2 style="margin-top: 30px">{% trans "My transfers in this service" %}</h2>
 {% for transfer in service.sorted_transfers|limit_results %}
     {% if transfer.credits_debtor == user or transfer.credits_payee == user %}
         {% include "serv/single_transfer_view.html" %}
     {% endif %}
 {% empty %}
-    {% trans "Ninguna transferencia por ahora." %}
+    {% trans "No transfers for now." %}
 {% endfor %}
-<h2 style="margin-top: 30px">{% trans "Comentarios sobre el servicio" %}</h2>
+<h2 style="margin-top: 30px">{% trans "Comments on service" %}</h2>
 {% for comment in service.messages.all|limit_results %}
     {% if comment.is_public or user.is_authenticated and comment.sender == user or user.is_authenticated and comment.recipient == user %}
          {% include "serv/single_comment_view.html" %}
     {% endif %}
 {% empty %}
-    {% trans "Ningún comentario por ahora." %}
+    {% trans "No comments for now." %}
 {% endfor %}
 {% endblock %}

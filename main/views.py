@@ -61,8 +61,8 @@ class Contact(ViewClass):
                 'username': user.username,
                 'subject': form.cleaned_data["subject"]
             }
-            message = _(u"El usuario registrado %(username)s llamado envía "\
-            " el siguiente mensaje:\n%(message)s") % {
+            message = _(u"Registered user %(username)s sends the following "\
+            " message:\n%(message)s") % {
                 'username': user.username,
                 'message': form.cleaned_data["message"]
             }
@@ -72,15 +72,15 @@ class Contact(ViewClass):
                 'email': form.cleaned_data["email"],
                 'subject': form.cleaned_data["subject"]
             }
-            message = _("El usuario no registrado %(name)s cuyo email es %(email)s"\
-                "envía el siguiente mensaje:\n%(message)s") % {
+            message = _("Registered user %(name)s whose email is %(email)s"\
+                "sends the following message:\n%(message)s") % {
                     'name': form.cleaned_data["name"],
                     'email': form.cleaned_data["email"],
                     'message': form.cleaned_data["message"]
                 }
         mail_managers(subject, message)
 
-        self.flash(_("Mensaje enviado, te responderemos lo antes posible"))
+        self.flash(_("Mail sent, we'll answer you as soon as possible."))
         return redirect('main.views.index')
 
 

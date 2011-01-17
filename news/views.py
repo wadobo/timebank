@@ -58,9 +58,9 @@ class Feed(ViewClass):
         link = "http://%s%s" % (current_site.domain,
             reverse('news.views.index'))
         context = dict(entries=entries,
-            title=_("Noticias en %s" % settings.SITE_NAME),
+            title=_("News in %s" % settings.SITE_NAME),
             link=link,
-            description=_("Noticias en %s" % settings.SITE_NAME))
+            description=_("News in %s" % settings.SITE_NAME))
         return self.context_response('news/feed.xml', context)
 
 

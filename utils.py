@@ -102,10 +102,10 @@ def login_required(fn):
     '''
     def wrapper(self, *args, **kwargs):
         if not self.request.user.is_authenticated():
-            self.flash(_(u'Debes estar registrado para entrar en '
-                u'<a href="%(link)s">%(link_text)s</a>. Si no lo estás puedes'
-                u' registrarte ahora o entrar con tu usuario en el recuadro de'
-                u' la izquierda.') %\
+            self.flash(_(u'You must be registered to enter in'
+                u' <a href="%(link)s">%(link_text)s</a>. If you want to join'
+                u' us now or enter with your user clic in the box at the '
+                u' left.') %\
                 {
                     'link': self.request.get_full_path(),
                     'link_text': self.request.get_full_path()
@@ -132,17 +132,17 @@ class FormCharField(forms.CharField):
     def update_auto_help_text(self):
         self._auto_help_text = u''
         if self.required:
-            self._auto_help_text += _(u"Requerido. ")
+            self._auto_help_text += _(u"Required. ")
         else:
-            self._auto_help_text += _(u"Opcional. ")
+            self._auto_help_text += _(u"Optional. ")
         if self.max_length and self.min_length:
-            self._auto_help_text += _(u"De %(from)d a %(to)d caracteres. ")\
+            self._auto_help_text += _(u"From %(from)d to %(to)d characters. ")\
                 % {'from': self.min_length, 'to': self.max_length}
         elif self.max_length:
-            self._auto_help_text += _(u"Hasta %d caracteres. ")\
+            self._auto_help_text += _(u"Up to %d characters. ")\
                 % self.max_length
         elif self.min_length:
-            self._auto_help_text += _(u"Mínimo de %d caracteres. ")\
+            self._auto_help_text += _(u"Minimum %d characters. ")\
                 % self.min_length
 
     help_text = property(get_help_text, set_help_text)
@@ -165,10 +165,10 @@ class FormEmailField(forms.EmailField):
     def update_auto_help_text(self):
         self._auto_help_text = u''
         if self.required:
-            self._auto_help_text += _(u"Requerido. ")
+            self._auto_help_text += _(u"Requeried. ")
         else:
-            self._auto_help_text += _(u"Opcional. ")
-        self._auto_help_text += _(u" Ejemplo: nombre@ejemplo.com")
+            self._auto_help_text += _(u"Optional. ")
+        self._auto_help_text += _(u" Example: name@example.com")
 
     help_text = property(get_help_text, set_help_text)
 
@@ -198,9 +198,9 @@ class FormDateField(forms.DateField):
     def update_auto_help_text(self):
         self._auto_help_text = u''
         if self.required:
-            self._auto_help_text += _(u"Requerido. Ejemplo(s): ")
+            self._auto_help_text += _(u"Required. Example(s): ")
         else:
-            self._auto_help_text += _(u"Opcional. Ejemplo(s): ")
+            self._auto_help_text += _(u"Optional. Example(s): ")
 
         the_date = datetime(1986, 9, 17).date()
 
@@ -231,5 +231,5 @@ class FormCaptchaField(forms.CharField):
         check_captcha = captcha.submit(recaptcha_challenge_value,
             recaptcha_response_value, settings.RECAPTCHA_PRIVATE_KEY, {})
         if not check_captcha.is_valid:
-            raise forms.util.ValidationError(_(u'Captcha inválido'))
+            raise forms.util.ValidationError(_(u'Invalid captcha'))
         return values[0]

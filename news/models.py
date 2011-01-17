@@ -24,21 +24,21 @@ from django.contrib.sites.models import Site
 
 class New(models.Model):
 
-    title = models.CharField(_(u"Título"), max_length=300, blank=True)
-    creation_date = models.DateTimeField(_(u"Fecha de creación"),
+    title = models.CharField(_(u"Title"), max_length=300, blank=True)
+    creation_date = models.DateTimeField(_(u"Creation date"),
         auto_now=True)
-    last_modified_date = models.DateTimeField(_(u"Última fecha de modificación"),
+    last_modified_date = models.DateTimeField(_(u"Last modification date"),
         auto_now=True)
-    publish_date = models.DateTimeField(_(u"Fecha de publicación"),
+    publish_date = models.DateTimeField(_(u"Publish date"),
         auto_now=True)
-    hidden = models.BooleanField(_(u"Ocultar"), default=False)
-    body = models.TextField(_(u"Cuerpo de la noticia"))
+    hidden = models.BooleanField(_(u"Hidden"), default=False)
+    body = models.TextField(_(u"Body"))
     author = models.ForeignKey(User)
-    author.verbose_name = _(u"Autor")
+    author.verbose_name = _(u"Author")
 
     class Meta:
-        verbose_name = _("Noticia")
-        verbose_name_plural = _("Noticias")
+        verbose_name = _("News")
+        verbose_name_plural = _("News")
         
     def __unicode__(self):
         return self.title

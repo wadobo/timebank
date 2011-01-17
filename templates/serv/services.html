@@ -1,29 +1,29 @@
 {% extends "serv/base.html" %}
 {% load i18n %}
-{% block subtitle %} {% trans 'Mis servicios' %} {% endblock %}
+{% block subtitle %} {% trans 'My services' %} {% endblock %}
 
 {% block subcontent %}
         <form action="." method="get" class="find_services">
             <fieldset>
                 {% include "main/form_snippet.html" %}
             </fieldset>
-            <input class="submit" type="submit" value="{% trans 'Encontrar servicios' %}"/>
+            <input class="submit" type="submit" value="{% trans 'Find Services' %}"/>
         </form>
         {% include "serv/listservs.html" %}
         <div class="pagination">
             <span class="step-links">
                 {% if services.has_previous %}
-                    <a href="?{{ form.as_url_args }}&amp;page={{ services.previous_page_number }}">{% trans "anterior" %}</a>
+                    <a href="?{{ form.as_url_args }}&amp;page={{ services.previous_page_number }}">{% trans "previous" %}</a>
                 {% endif %}
 
                 <span class="current">
                     {% blocktrans with services.number as number and services.paginator.num_pages as num_pages %}
-                    Página {{ number }} de {{ num_pages }}
+                    Page {{ number }} of {{ num_pages }}
                     {% endblocktrans %}
                 </span>
 
                 {% if services.has_next %}
-                    <a href="?{{ form.as_url_args }}&amp;page={{ services.next_page_number }}">{% trans "siguiente" %}</a>
+                    <a href="?{{ form.as_url_args }}&amp;page={{ services.next_page_number }}">{% trans "next" %}</a>
                 {% endif %}
             </span>
         </div>

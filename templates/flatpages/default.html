@@ -11,7 +11,7 @@
 </h1>
 
 {% if user.is_staff %}
-<a href="{% url admin:flatpages_flatpage_change flatpage.id %}">{% trans "Editar" %}</a>
+<a href="{% url admin:flatpages_flatpage_change flatpage.id %}">{% trans "Edit" %}</a>
 {% endif %}
 
 {{ flatpage.content }}

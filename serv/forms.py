@@ -41,15 +41,12 @@ class CustomCharField(forms.CharField):
 class ServiceForm(forms.ModelForm):
 
     OFFER_CHOICES = (
-        ('0', _('demanda')),
-        ('1', _('oferta')),
+        ('0', _('demand')),
+        ('1', _('offer')),
     )
 
-    oferta = CustomCharField(label=_("Tipo de servicio"),
-                             help_text=_("debe elegir si es una oferta "
-                                       "(ofrece algo) o una demanda (solicita "
-                                       "algo)"),
-                             widget=forms.Select(choices=OFFER_CHOICES))
+    oferta = CustomCharField(label=_("Service type"),
+        widget=forms.Select(choices=OFFER_CHOICES))
 
     class Meta:
         model = Service
@@ -57,10 +54,10 @@ class ServiceForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ServiceForm, self).__init__(*args, **kwargs)
-        self.fields['area'].empty_label = _("Todas")
-        self.fields['description'].help_text = _(u"Sugerencia: no introduzcas"
-            u" datos personales a los que no quieras que cualquiera pueda"
-            u" acceder, para ese fin utiliza mensajes privados.")
+        self.fields['area'].empty_label = _("All")
+        self.fields['description'].help_text = _("Tip: do not introduce"
+            " personal data that you don't want to make public, use private"
+            " messages for that.")
 
     def clean_offer(self):
         offer = self.cleaned_data.get("is_offer", "0")
@@ -70,27 +67,27 @@ class ServiceForm(forms.ModelForm):
 class ListServicesForm(forms.Form):
     TYPE_CHOICES = (
         ('0', '---------'),
-        ('1', _('oferta')),
-        ('2', _('demanda')),
+        ('1', _('offer')),
+        ('2', _('demand')),
     )
     USER_CHOICES = (
         ('0', _('---------')),
-        ('1', _(u'se conectó hace menos de un día')),
-        ('2', _(u'se conectó hace menos de una semana')),
-        ('3', _(u'se conectó hace menos de 1 mes')),
-        ('4', _(u'se conectó hace menos de 3 meses')),
-        ('5', _(u'se conectó hace menos de 6 meses')),
-        ('6', _(u'se conectó hace menos de 1 año')),
+        ('1', _(u'connected less than a day ago')),
+        ('2', _(u'connected less than a week ago')),
+        ('3', _(u'connected less than a month ago')),
+        ('4', _(u'connected less than 3 months ago')),
+        ('5', _(u'connected less than 6 months ago')),
+        ('6', _(u'connected less than a year ago')),
     )
 
-    mine = forms.BooleanField(label=_(u"Sólo listar mis servicios"), required=False)
-    the_type = CustomCharField(label=_("Tipo de servicio"),
+    mine = forms.BooleanField(label=_("Only list my services"), required=False)
+    the_type = CustomCharField(label=_("Service type"),
         widget=forms.Select(choices=TYPE_CHOICES), required=False)
-    category = forms.ModelChoiceField(None, required=False, label=_(u"Categoría"))
-    area = forms.ModelChoiceField(None, required=False, label=_("Zona"))
-    user_status = CustomCharField(label=_("Estado del usuario"),
+    category = forms.ModelChoiceField(None, required=False, label=_("Category"))
+    area = forms.ModelChoiceField(None, required=False, label=_("Area"))
+    user_status = CustomCharField(label=_("User status"),
         widget=forms.Select(choices=USER_CHOICES), required=False)
-    username = forms.CharField(label=_("Nombre de usuario"), required=False)
+    username = forms.CharField(label=_("Username"), required=False)
 
     def __init__(self,  *args, **kwargs):
         super(ListServicesForm, self).__init__(*args, **kwargs)
@@ -102,34 +99,34 @@ class ListServicesForm(forms.Form):
 
 class NewTransferForm(forms.ModelForm):
     CREDITS_CHOICES = (
-        ('30', _('media hora')),
-        ('60', _('1 hora')),
-        ('90', _('1 hora y media')),
-        ('120', _('2 horas')),
-        ('150', _('2 horas y media')),
-        ('180', _('3 horas')),
-        ('210', _('3 horas y media')),
-        ('240', _('4 horas')),
-        ('270', _('4 horas y media')),
-        ('300', _('5 horas')),
-        ('330', _('5 horas y media')),
-        ('360', _('6 horas')),
-        ('390', _('6 horas y media')),
+        ('30', _('half hour')),
+        ('60', _('1 hour')),
+        ('90', _('1 hour and half')),
+        ('120', _('2 hours')),
+        ('150', _('2 hours and half')),
+        ('180', _('3 hours')),
+        ('210', _('3 hours and half')),
+        ('240', _('4 hours')),
+        ('270', _('4 hours and half')),
+        ('300', _('5 hours')),
+        ('330', _('5 hours and half')),
+        ('360', _('6 hours')),
+        ('390', _('6 hours and half')),
     )
     OFFER_CHOICES = (
-        ('0', _(u'dar créditos')),
-        ('1', _(u'solicitar créditos')),
+        ('0', _(u'give credits')),
+        ('1', _(u'ask for credits')),
     )
-    username = forms.CharField(label=_(u"Nombre de usuario"), help_text=_(
-        u"Nombre del usuario que recibirá o al que se le solicitan"
-        u" los créditos a transferir"), required=True)
+    username = forms.CharField(label=_("Username"), help_text=_(
+        "Name the user who will receive or will be asked for the credits"
+        " to transfer"), required=True)
 
-    credits = CustomCharField(label=_(u"Créditos"),
+    credits = CustomCharField(label=_("Credits"),
         widget=forms.Select(choices=CREDITS_CHOICES), required=True)
 
-    service_type = CustomCharField(label=_("Tipo de servicio"),
-            help_text=_(u"debes elegir si recibes o solicitas"
-            u" créditos con esta transferencia"),
+    service_type = CustomCharField(label=_("Service type"),
+            help_text=_("Choose if you receive or ask for credits with"
+            " this transfer"),
             widget=forms.Select(choices=OFFER_CHOICES))
 
     class Meta:
@@ -146,28 +143,27 @@ class NewTransferForm(forms.ModelForm):
         try:
             self.user = get_object_or_404(Profile, username=username)
         except Exception, e:
-            raise forms.ValidationError(_(u"No existe un usuario con"
-                u" ese nombre."))
+            raise forms.ValidationError(_("No user exists with this username."))
 
 
 class AddTransferForm(forms.ModelForm):
     CREDITS_CHOICES = (
-        ('30', _('media hora')),
-        ('60', _('1 hora')),
-        ('90', _('1 hora y media')),
-        ('120', _('2 horas')),
-        ('150', _('2 horas y media')),
-        ('180', _('3 horas')),
-        ('210', _('3 horas y media')),
-        ('240', _('4 horas')),
-        ('270', _('4 horas y media')),
-        ('300', _('5 horas')),
-        ('330', _('5 horas y media')),
-        ('360', _('6 horas')),
-        ('390', _('6 horas y media')),
+        ('30', _('half hour')),
+        ('60', _('1 hour')),
+        ('90', _('1 hour and half')),
+        ('120', _('2 hours')),
+        ('150', _('2 hours and half')),
+        ('180', _('3 hours')),
+        ('210', _('3 hours and half')),
+        ('240', _('4 hours')),
+        ('270', _('4 hours and half')),
+        ('300', _('5 hours')),
+        ('330', _('5 hours and half')),
+        ('360', _('6 hours')),
+        ('390', _('6 hours and half')),
     )
 
-    credits = CustomCharField(label=_(u"Créditos"),
+    credits = CustomCharField(label=_("Credits"),
         widget=forms.Select(choices=CREDITS_CHOICES), required=True)
 
     class Meta:

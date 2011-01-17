@@ -1,7 +1,7 @@
 {% load i18n %}
 {% url serv-transfer-view transfer.id as transfer_url %}
-{% blocktrans with transfer.creator.username as transfer_creator and transfer.service.creator.username as service_creator %}Hola {{ service_creator }},
+{% blocktrans with transfer.creator.username as transfer_creator and transfer.service.creator.username as service_creator %}Hi {{ service_creator }},
 
-La transferencia que solicitó {{ transfer_creator }} de un servicio tuyo ha sido editada por él/ella. Puedes ver los detalles de la transferencia en {{ site_url }}{{ transfer_url }} .
+The transfer requested by {{ transfer_creator }} of one of your services has been edited by him. You can see the updated details of the transfer in {{ site_url }}{{ transfer_url }} .
 
-El equipo de {{ site_url }}{% endblocktrans %}
+The team of {{ site_url }}{% endblocktrans %}

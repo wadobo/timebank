@@ -2,9 +2,9 @@
 {% load i18n %}
 {% block subtitle %}
     {% if instance %}
-        {% trans "Editar servicio" %}
+        {% trans "Edit service" %}
     {% else %}
-        {% trans "Añadir servicio" %}
+        {% trans "Add service" %}
     {% endif %}
 {% endblock %}
 
@@ -14,7 +14,7 @@
         <fieldset>
             {% include "main/form_snippet.html" %}
         </fieldset>
-        <input type="submit" value="{% trans "Guardar" %}"/>
+        <input type="submit" value="{% trans "Save" %}"/>
     </form>
 </div>
 {% endblock %}

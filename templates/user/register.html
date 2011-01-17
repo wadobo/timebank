@@ -1,16 +1,16 @@
 {% extends "template_base.html" %}
 {% load i18n %}
-{% block title %} {% trans 'Regístrate' %} {% endblock %}
+{% block title %} {% trans 'Join Us' %} {% endblock %}
 
 {% block content %}
     <div class="section_3">
-        <h1>{% trans 'Regístrate' %}</h1>
+        <h1>{% trans 'Join Us' %}</h1>
         <form action="" method="post">
             {% csrf_token %}
             <fieldset>
                 {% include "main/form_snippet.html" %}
             </fieldset>
-            <input class="submit" type="submit" value="{% trans 'Registrarme' %}"/>
+            <input class="submit" type="submit" value="{% trans 'Join' %}"/>
         </form>
     </div>
 {% endblock %}

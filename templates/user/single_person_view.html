@@ -3,9 +3,9 @@
         <div class="information">
             {% trans "Nick" %}:
             <span>{{ person.username }}</span> /
-            {% trans "Nombre y apellidos" %}:
+            {% trans "Name and Surname" %}:
             <span>{{ person.first_name }} {{ person.last_name }}</span> /
-            {% trans "Créditos" %}:
+            {% trans "Credits" %}:
             <span>{{ person.balance_hours }} horas</span> /
             {% trans "Karma" %}:
             <span>{{ person.karma }}</span>
@@ -20,8 +20,8 @@
         {% if user.is_authenticated %}
         <div class="cleaner"></div>
         <div class="buttons">
-            <a class="action" href="{% url serv-transfer-new-to person.id %}">{% trans "Transferir horas" %}</a>
-            <a class="action" href="{% url user-view-services person.id %}">{% trans "Ver sus servicios" %}</a>
+            <a class="action" href="{% url serv-transfer-new-to person.id %}">{% trans "Transfer time" %}</a>
+            <a class="action" href="{% url user-view-services person.id %}">{% trans "View his services" %}</a>
         </div>
         {% endif %}
 </div>

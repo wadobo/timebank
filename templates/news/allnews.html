@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% if user.is_staff %}
-    <a href="{% url admin:news_new_add %}">{% trans "Añadir noticia" %}</a>
+    <a href="{% url admin:news_new_add %}">{% trans "Add a piece of news" %}</a>
 {% endif %}
 {% for new in news.object_list %}
     <div class="new">
@@ -11,17 +11,17 @@
 <div class="pagination">
     <span class="step-links">
         {% if news.has_previous %}
-            <a href="?page={{ news.previous_page_number }}">{% trans "anterior" %}</a>
+            <a href="?page={{ news.previous_page_number }}">{% trans "previous" %}</a>
         {% endif %}
 
         <span class="current">
             {% blocktrans with news.number as number and news.paginator.num_pages as num_pages %}
-            Página {{ number }} de {{ num_pages }}
+            Page {{ number }} of {{ num_pages }}
             {% endblocktrans %}
         </span>
 
         {% if news.has_next %}
-            <a href="?page={{ news.next_page_number }}">{% trans "siguiente" %}</a>
+            <a href="?page={{ news.next_page_number }}">{% trans "next" %}</a>
         {% endif %}
     </span>
 </div>

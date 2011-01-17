@@ -1,34 +1,34 @@
 {% load i18n %}
 {% if message.service %}
 {% url serv-view message.service.id as service_url %}
-{% blocktrans with message.recipient.username as recipient and message.sender.username as sender and message.body|safe as body %}Hola {{ recipient }},
+{% blocktrans with message.recipient.username as recipient and message.sender.username as sender and message.body|safe as body %}Hi {{ recipient }},
 
-Has recibido un comentario de {{ sender }} en un servicio tuyo
-({{ site_url }}{{ service_url }}) con el siguiente contenido:
+You have received the following comment from {{ sender }} in the service
+({{ site_url }}{{ service_url }}):
 
 {{ body }}
 
 --
-Enviado desde {{ site_url }}
-Ver servicio: ({{ site_url }}{{ service_url }}
+Sent from {{ site_url }}
+View service: ({{ site_url }}{{ service_url }}
 {% endblocktrans %}
 {% else %}
 {% if message.is_public %}
-{% blocktrans with message.recipient.username as recipient and message.sender.username as sender%}Hola {{ recipient }},
+{% blocktrans with message.recipient.username as recipient and message.sender.username as sender%}Hi {{ recipient }},
 
-ha recibido un mensaje público de {{ sender }} con el
-siguiente contenido:{% endblocktrans %}
+You have received the following public message from {{ sender }} in the service
+({{ site_url }}{{ service_url }}):{% endblocktrans %}
 {% else %}
-{% blocktrans with message.recipient.username as recipient and message.sender.username as sender%}Hola {{ recipient }},
+{% blocktrans with message.recipient.username as recipient and message.sender.username as sender%}Hi {{ recipient }},
 
-ha recibido un mensaje privado de {{ sender }} con el
-siguiente contenido:{% endblocktrans %}
+You have received the following private message from {{ sender }} in the service
+({{ site_url }}{{ service_url }}):{% endblocktrans %}
 {% endif %}
 
 {{ message.body|safe }}
 
 --
-{% blocktrans %}Enviado desde {{ site_url }}{% endblocktrans %}
+{% blocktrans %}Sent from {{ site_url }}{% endblocktrans %}
 {% trans "Inbox" %}: {{ site_url }}{% url messages_inbox %}
 {% trans "Reply" %}: {{ site_url }}{% url messages_reply message.pk %}
 {% endif %}

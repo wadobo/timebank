@@ -1,57 +1,58 @@
 {% load i18n %}{% blocktrans with recipient.username as recipient%}Hola {{ recipient }},
 
-Hay novedades en tu perfil de {{ site_name }} que requieren tu atención:
+There are news in your profile in {{ site_name }} that require your attention:
 {% endblocktrans %}
 
-## Mensajes sin leer
+## Unread messages
 
 {% for msg in unread_messages %}
-{% url messages_inbox as inbox_url %}{% if forloop.first %}{% blocktrans %}Ir a la bandeja de entrada:{{ inbox_url }}{% endblocktrans %}{% endif %}
+{% url messages_inbox as inbox_url %}{% if forloop.first %}{% blocktrans %}Go to inbox: {{ inbox_url }}{% endblocktrans %}{% endif %}
 {% url messages_detail msg.id as msg_url %}{% blocktrans with msg.sender.username as from and msg.sent_at|timesince as sent_ago and msg.body|truncate_chars as body %}
     {{ site_url }}{{ msg_url }}
-    Mensaje de {{ from }}, enviado hace {{ sent_ago }}:
+    Message from {{ from }} sent {{ sent_ago}} ago:
         {{ body }}
 
 {% endblocktrans %}{% empty %}
-    {% trans "No tienes mensajes sin leer" %}{% endfor %}
+    {% trans "No unread messages" %}{% endfor %}
 
-## {% trans "Comentarios en tu perfil sin leer" %}
+## {% trans "Unread comments in your profile" %}
 
 {% for msg in unread_comments %}
-{% url user-view-current as view_comments_url %}{% if forloop.first %}{% blocktrans %}Lee todos los comentarios en tu perfil: {{ view_comments_url }}{% endblocktrans %}{% endif %}
+{% url user-view-current as view_comments_url %}{% if forloop.first %}{% blocktrans %}Read all your comments in your profile: {{ view_comments_url }}{% endblocktrans %}{% endif %}
 {% blocktrans with msg.sender.username as from and msg.sent_at|timesince as sent_ago and msg.body|truncate_chars as body %}
-    Comentario de {{ from }}, enviado hace {{ sent_ago }}:
+	Comment from {{ from }}, sent {{ sent_ago }} ago:
         {{ body }}
 
 {% endblocktrans %}{% empty %}
-    {% trans "No tienes comentarios en tu perfil sin leer" %}{% endfor %}
+    {% trans "No unread comments in your profile" %}{% endfor %}
 
-## {% trans "Transferencias pendientes" %}
+## {% trans "Pending transfers" %}
 
 {% for transfer in transfers_pending %}
-    {% url serv-transfers-mine as my_transfers_url %}{% if forloop.first %}{% blocktrans %}Administrar todas tus transferencias: {{ my_transfers_url }}{% endblocktrans %}{% endif %}
+    {% url serv-transfers-mine as my_transfers_url %}{% if forloop.first %}{% blocktrans %}Manage all your transfers: {{ my_transfers_url }}{% endblocktrans %}{% endif %}
     {% url serv-transfer-view transfer.id as transfer_url %}{% blocktrans with transfer.creator.username as from and transfer.request_date|timesince as created_ago and transfer.description|truncate_chars as description and transfer.status_readable as status %}
     {{ site_url }}{{ transfer_url }}
-    Comentario con {{ from }}, creada hace {{ created_ago }} en estado {{ status }}
+    Transfer with {{ from }}, created {{ created_ago }} ago in status {{ status }}
         {{ description }}
 
 {% endblocktrans %}{% empty %}
-    {% trans "No tienes transferencias pendientes" %}{% endfor %}
+    {% trans "No pending transfers" %}{% endfor %}
 
-{% trans "Además de todo esto, puede interesarte:" %}
+{% trans "Besides all this, you may be interested in:" %}
 
-## {% trans "Servicios más recientes" %}
+## {% trans "Latest services" %}
 
 {% for service in new_services.object_list %}
-{% url serv-list as services_url %}{% if forloop.first %}{% blocktrans %}Lista de servicios: {{ services_url }}{% endblocktrans %}{% endif %}
+{% url serv-list as services_url %}{% if forloop.first %}{% blocktrans %}Service list: {{ services_url }}{% endblocktrans %}{% endif %}
 {% url serv-view service.id as service_url %}{% blocktrans with service.creator.username as from and service.pub_date|timesince as published_ago and service.description|truncate_chars as description and service.category.name as category and service.area.name as area %}
     {{ site_url }}{{ service_url }}
-    Servicio en la zona "{{ area }}" y categoría "{{category }}" creador por {{ from }} publicado hace {{ published_ago }}
+    Service in the area of "{{ area }}" and category "{{category }}" created by {{ from }} published {{ published_ago }} ago
         {{ description }}
 {% endblocktrans %}{% empty %}
-    {% trans "No hay servicios recientes" %}{% endfor %}
+    {% trans "No new services" %}{% endfor %}
 --
 {% url user-edit-profile as prefs_url %}{% blocktrans %}
-Intercambia tu tiempo y habilidades en {{ site_name }}, {{ site_url }}.
 
-¿No quieres recibir notificaciones por email? Ajusta las preferencias de tu perfil en {{ site_url }}{{ prefs_url }}{% endblocktrans %}
+Exchange your time and skills in {{ site_name }}, {{ site_url }} .
+
+Do not want to receive these notifications via email? Set the preferences in your profile in {{ site_url }}{{ prefs_url }}{% endblocktrans %}

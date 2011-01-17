@@ -1,16 +1,16 @@
 {% extends "template_base.html" %}
 {% load i18n %}
-{% block title %} {% trans 'Enviar email a todos los usuarios' %} {% endblock %}
+{% block title %} {% trans 'Send email to all users' %} {% endblock %}
 
 {% block content %}
     <div class="section_3">
-        <h2>{% trans 'Enviar email a todos los usuarios' %}</h2>
+        <h2>{% trans 'Send email to all users' %}</h2>
         <form method="POST">
             {% csrf_token %}
             <fieldset>
                 {% include "main/form_snippet.html" %}
             </fieldset>
-            <input type="submit" value="{% trans 'Enviar email a todos los usuarios' %}"/>
+            <input type="submit" value="{% trans 'Send email to all users' %}"/>
         </form>
     </div>
 {% endblock %}

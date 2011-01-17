@@ -1,14 +1,14 @@
 {% load i18n %}
 {% if service %}
-    <a class="action" href="{% url serv-transfer-add service.id %}">{% trans "Solicitar transferencia" %}</a>
+    <a class="action" href="{% url serv-transfer-add service.id %}">{% trans "Request transfer" %}</a>
 {% else %}
-    <a class="action" href="{% url serv-transfer-edit transfer.id %}">{% trans "Editar transferencia" %}</a>
+    <a class="action" href="{% url serv-transfer-edit transfer.id %}">{% trans "Edit transfer" %}</a>
     <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
-        <input class="action" name="submit" type="submit" value="{% trans 'Cancelar transferencia' %}"/>
+        <input class="action" name="submit" type="submit" value="{% trans 'Cancel transfer' %}"/>
     </form>
     {% if user.is_authenticated and transfer.credits_debtor == user and transfer.status == "a" %}
         <form method="POST" action="{% url serv-transfer-confirm transfer.id %}"> {% csrf_token %}
-            <input class="action" name="submit" type="submit" value="{% trans 'Confirmar transferencia' %}"/>
+            <input class="action" name="submit" type="submit" value="{% trans 'Confirm Transfer' %}"/>
         </form>
     {% endif %}
 {% endif %}

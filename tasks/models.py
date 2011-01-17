@@ -23,5 +23,5 @@ class Task(models.Model):
     This class stores information about the tasks that need to be executed
     timely every X time (the period).
     '''
-    name = models.CharField(_(u"Nombre"), max_length=100, primary_key=True)
-    last_update = models.DateTimeField(_(u"Última ejecución"), auto_now=False)
+    name = models.CharField(_("Name"), max_length=100, primary_key=True)
+    last_update = models.DateTimeField(_("Last execution"), auto_now=False)

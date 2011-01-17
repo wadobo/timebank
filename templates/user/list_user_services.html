@@ -2,24 +2,24 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans 'Servicios de' %} {{ profile.username }}
+    {% blocktrans with profile.username  as username %} {{ username }}'s Services {% endblocktrans %}
 {% endblock %}
 
 {% block content %}
     <div class="section_3">
         <h1>
-            {% trans 'Servicios de' %} {{ profile.username }}
+            {% blocktrans with profile.username  as username %} {{ username }}'s Services {% endblocktrans %}
         </h1>
 
         <ul class="subnavilist">
         {% if not user.is_anonymous %}
-            <li><a href="{% url user-view profile.id %}">{% trans "Ver perfil"%}</a><small>/</small></li>
-            <li><a href="{% url messages_compose_to profile.username %}">{% trans "Enviar mensaje privado"%}</a><small>/</small></li>
-            <li><a href="{% url user-view-services profile.id %}" class="current">{% trans "Ver sus servicios"%}</a><small>/</small></li>
+            <li><a href="{% url user-view profile.id %}">{% trans "View profile"%}</a><small>/</small></li>
+            <li><a href="{% url messages_compose_to profile.username %}">{% trans "Send private message"%}</a><small>/</small></li>
+            <li><a href="{% url user-view-services profile.id %}" class="current">{% trans "View his services"%}</a><small>/</small></li>
         {% endif %}{% if not user.is_anonymous and user == profile %}
-            <li><a href="{% url user-edit-profile %}">{% trans "Editar perfil"%}</a></li>
+            <li><a href="{% url user-edit-profile %}">{% trans "Edit profile"%}</a></li>
         {% else %}
-            <li><a href="{% url serv-transfer-new-to profile.id %}">{% trans "Transferir horas" %}</a></li>
+            <li><a href="{% url serv-transfer-new-to profile.id %}">{% trans "Transfer time" %}</a></li>
         {% endif %}
         </ul>
         <div class="subcontent services">
@@ -28,17 +28,17 @@
         <div class="pagination">
             <span class="step-links">
                 {% if services.has_previous %}
-                    <a href="?page={{ services.previous_page_number }}">{% trans "anterior" %}</a>
+                    <a href="?page={{ services.previous_page_number }}">{% trans "previous" %}</a>
                 {% endif %}
 
                 <span class="current">
                     {% blocktrans with services.number as number and services.paginator.num_pages as num_pages %}
-                    Página {{ number }} de {{ num_pages }}
+                    Page {{ number }} of {{ num_pages }}
                     {% endblocktrans %}
                 </span>
 
                 {% if services.has_next %}
-                    <a href="?page={{ services.next_page_number }}">{% trans "siguiente" %}</a>
+                    <a href="?page={{ services.next_page_number }}">{% trans "next" %}</a>
                 {% endif %}
             </span>
         </div>

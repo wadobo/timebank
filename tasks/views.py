@@ -58,8 +58,8 @@ class SendEmailUpdates(ViewClass):
     def GET(self):
         if not self.request.user.is_staff and \
             not self.request.user.is_superuser:
-            self.flash(_(u"No tienes permisos para ejecutar la tarea de enviar"
-                u"las actualizaciones por email a los usuarios"), "error")
+            self.flash(_("You don't have permission to execute the task of"
+                "sending email updates to the users"), "error")
             return redirect("/")
 
         # if the task exists, retrieve it, or create it
@@ -70,7 +70,7 @@ class SendEmailUpdates(ViewClass):
             task = Task()
             task.name = self.__class__.__name__
             # ensure that the task will be executed
-            self.flash(_(u"Tarea de actualización postergada"))
+            self.flash(_(u"Update task postponed"))
 
         # NOTE: force update, just for development/debug, remove later!
         task.last_update = datetime.now() - 2*self.update_period
@@ -79,9 +79,9 @@ class SendEmailUpdates(ViewClass):
             self.__execute(task)
             task.last_update = datetime.now()
             task.save()
-            self.flash(_(u"Tarea de actualización realizada"))
+            self.flash(_(u"Update task done"))
         else:
-            self.flash(_(u"Tarea de actualización postergada"))
+            self.flash(_(u"Update task postponed"))
         return redirect("/")
 
     def __execute(self, task):

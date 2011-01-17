@@ -1,16 +1,16 @@
 {% extends "template_base.html" %}
 {% load i18n %}
-{% block title %} {% trans 'Editar perfil' %} {% endblock %}
+{% block title %} {% trans 'Edit profile' %} {% endblock %}
 
 {% block content %}
     <div class="section_3">
-        <h1>{% trans 'Editar perfil' %}</h1>
+        <h1>{% trans 'Edit profile' %}</h1>
         <form action="" method="post">
             {% csrf_token %}
             <fieldset>
                 {% include "main/form_snippet.html" %}
             </fieldset>
-            <input class="submit" type="submit" value="{% trans 'Guardar' %}"/>
+            <input class="submit" type="submit" value="{% trans 'Save' %}"/>
         </form>
     </div>
 {% endblock %}

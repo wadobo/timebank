@@ -1,10 +1,10 @@
 {% extends "template_base.html" %}
 {% load i18n %}
-{% block title %} {% trans 'Mensajes' %} {% endblock %}
+{% block title %} {% trans 'Messages' %} {% endblock %}
 
 {% block content %}
     <div class="section_3">
-        <h1>{% trans 'Mensajes' %} / {% block subtitle %} {% endblock %}</h1>
+        <h1>{% trans 'Messages' %} / {% block subtitle %} {% endblock %}</h1>
         <ul class="subnavilist">
             <li><a href="{% url messages_inbox %}" class="{% current_tab 'inbox' 'subtab' %}">{% trans "Inbox" %}</a><small>/</small></li>
             <li><a href="{% url messages_outbox %}" class="{% current_tab 'outbox' 'subtab' %}">{% trans "Sent Messages" %}</a><small>/</small></li>

@@ -2,34 +2,34 @@
 {% load i18n %}
 {% block subtitle %}
     {% if not transfer.is_direct %}
-        {% trans "Editar transferencia" %}
+        {% trans "Edit transfer" %}
     {% else %}
-        {% trans "Editar transferencia directa" %}
+        {% trans "Edit direct transfer" %}
     {% endif %}
 {% endblock %}
 
 {% block subcontent %}
     {% if not transfer.is_direct %}
-        <h2>{% trans "Servicio" %}</h2>
+        <h2>{% trans "Service" %}</h2>
         {% with transfer.service as serv %}
             {% include "serv/single_service_view.html" %}
         {% endwith %}
     {% else %}
-        <h2>{% trans "Transferencia" %}</h2>
+        <h2>{% trans "Transfer" %}</h2>
         {% include "serv/single_transfer_view.html" %}
     {% endif %}
     <h2 style="margin-top: 30px">
     {% if not transfer.is_direct %}
-        {% trans "Editar transferencia" %}
+        {% trans "Edit transfer" %}
     {% else %}
-        {% trans "Editar transferencia directa" %}
+        {% trans "Edit direct transfer" %}
     {% endif %}</h2>
     <form method="POST">
         {% csrf_token %}
         <fieldset>
             {% include "main/form_snippet.html" %}
         </fieldset>
-        <input type="submit" value="{% trans 'Actualizar transferencia' %}"/>
+        <input type="submit" value="{% trans 'Update transfer' %}"/>
     </form>
 </div>
 {% endblock %}

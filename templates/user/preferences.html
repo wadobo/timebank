@@ -1,28 +1,28 @@
 {% extends "template_base.html" %}
 {% load i18n %}
-{% block title %} {% trans 'Preferencias' %} {% endblock %}
+{% block title %} {% trans 'Preferences' %} {% endblock %}
 
 {% block content %}
     <div class="section_3">
-        <h1>{% trans 'Preferencias' %}</h1>
+        <h1>{% trans 'Preferences' %}</h1>
         <ul class="preferences">
             <li>
-                <a href="{% url serv-transfers-mine %}">{% trans "Mis transferencias" %}</a>
+                <a href="{% url serv-transfers-mine %}">{% trans "My transfers" %}</a>
             </li>
             <li>
-                <a href="{% url serv-myservices %}">{% trans "Mis servicios" %}</a>
+                <a href="{% url serv-myservices %}">{% trans "My services" %}</a>
             </li>
             <li>
-                <a href="{% url user-view-current %}">{% trans "Ver perfil" %}</a>
+                <a href="{% url user-view-current %}">{% trans "View profile" %}</a>
             </li>
             <li>
-                <a href="{% url user-edit-profile %}">{% trans "Editar perfil" %}</a>
+                <a href="{% url user-edit-profile %}">{% trans "Edit profile" %}</a>
             </li>
             <li>
-                <a href="{% url user-password-change %}">{% trans "Cambiar contraseña" %}</a>
+                <a href="{% url user-password-change %}">{% trans "Change password" %}</a>
             </li>
             <li>
-                <a href="{% url user-remove %}">{% trans "Eliminar usuario" %}</a>
+                <a href="{% url user-remove %}">{% trans "Remove user" %}</a>
             </li>
         </ul>
     </div>

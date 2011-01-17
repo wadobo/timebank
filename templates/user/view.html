@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans 'Ver perfil' %}
+    {% trans 'View profile' %}
     {% if user != profile and not profile.is_anonymous %}
         / {{ profile.username }}
     {% endif %}
@@ -11,7 +11,7 @@
 {% block content %}
     <div class="section_3">
         <h1>
-            {% trans 'Ver perfil' %}
+            {% trans 'View profile' %}
             {% if user != profile and not profile.is_anonymous %}
                 / {{ profile.username }}
             {% endif %}
@@ -19,14 +19,14 @@
 
         <ul class="subnavilist">
         {% if not user.is_anonymous %}
-            <li><a href="{% url user-view profile.id %}" class="current">{% trans "Ver perfil"%}</a><small>/</small></li>
-            <li><a href="{% url messages_compose_to profile.username %}">{% trans "Enviar mensaje privado"%}</a><small>/</small></li>
-            <li><a href="{% url user-view-services profile.id %}">{% trans "Ver sus servicios"%}</a><small>/</small></li>
+            <li><a href="{% url user-view profile.id %}" class="current">{% trans "View profile"%}</a><small>/</small></li>
+            <li><a href="{% url messages_compose_to profile.username %}">{% trans "Send private message"%}</a><small>/</small></li>
+            <li><a href="{% url user-view-services profile.id %}">{% trans "View his services"%}</a><small>/</small></li>
         {% endif %}
         {% if not user.is_anonymous and user == profile %}
-            <li><a href="{% url user-edit-profile %}">{% trans "Editar perfil"%}</a></li>
+            <li><a href="{% url user-edit-profile %}">{% trans "Edit profile" %}</a></li>
         {% else %}
-            <li><a href="{% url serv-transfer-new-to profile.id %}">{% trans "Transferir horas" %}</a></li>
+            <li><a href="{% url serv-transfer-new-to profile.id %}">{% trans "Transfer time" %}</a></li>
         {% endif %}
         </ul>
         <ul class="view-profile">
@@ -37,36 +37,36 @@
                 </div>
             </li>
             <li>
-                <em>{% trans "Nombre de usuario" %}:</em>
+                <em>{% trans "Username" %}:</em>
                 <div>{{ profile.username }}</div>
             </li>
             <li>
-                <em>{% trans "Nombre" %}:</em>
+                <em>{% trans "Name" %}:</em>
                 <div>{{ profile.first_name }}</div>
             </li>
             <li>
-                <em>{% trans "Apellidos" %}:</em>
+                <em>{% trans "Surname" %}:</em>
                 <div>{{ profile.last_name }}</div>
             </li>
             <li>
-                <em>{% trans "Cŕeditos" %}:</em>
+                <em>{% trans "Credits" %}:</em>
                 <div>{{ profile.balance_hours }} horas</div>
             </li>
             <li>
-                <em>{% trans "Descripción" %}:</em>
+                <em>{% trans "Description" %}:</em>
                 <div>{{ profile.description }}</div>
             </li>
             <li>
-                <em>{% trans "Puntuación global" %}:</em>
+                <em>{% trans "Global rating" %}:</em>
                 {% user_rating profile %}
             </li>
             {% if user.is_staff %}
                 <li>
-                    <em>{% trans "Edad" %}:</em>
+                    <em>{% trans "Age" %}:</em>
                     <div>{{ profile.birth_date|timesince }}</div>
                 </li>
                 <li>
-                    <em>{% trans "Dirección física" %}:</em>
+                    <em>{% trans "Address" %}:</em>
                     <div>{{ profile.address }}</div>
                 </li>
                 <li>
@@ -74,11 +74,11 @@
                     <div>{{ profile.email }}</div>
                 </li>
                 <li>
-                    <em>{% trans "Teléfono fijo" %}:</em>
+                    <em>{% trans "Land line" %}:</em>
                     <div>{{ profile.land_line }}</div>
                 </li>
                 <li>
-                    <em>{% trans "Teléfono móvil" %}:</em>
+                    <em>{% trans "Mobile telephone" %}:</em>
                     <div>{{ profile.mobile_tlf }}</div>
                 </li>
             {% endif %}
@@ -91,15 +91,15 @@
                 <fieldset>
                     {% include "main/form_snippet.html" %}
                 </fieldset>
-                <input class="submit" type="submit" value="{% trans 'Publicar comentario en su tablón' %}"/>
+                <input class="submit" type="submit" value="{% trans 'Publish comment in his profile' %}"/>
             </form>
             <div id="user_message_list" class="services">
                 <div class="description"> </div>
-                <h1>{% trans "Mensajes publicados en su tablón" %}</h1>
+                <h1>{% trans "Messages published in his profile" %}</h1>
                 {% for comment in message_list %}
                     {% include "serv/single_comment_view.html" %}
                 {% empty %}
-                    {% trans "Este usuario no ha recibido ningún mensaje" %}.
+                    {% trans "No one sent a message to this user profile." %}
                 {% endfor %}
             </div>
         </div>

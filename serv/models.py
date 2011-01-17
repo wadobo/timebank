@@ -26,7 +26,7 @@ from messages.utils import new_transfer_email
 
 class Area(models.Model):
 
-    name = models.CharField(_("Zona"), max_length=40)
+    name = models.CharField(_("Area"), max_length=40)
 
     def __unicode__(self):
         return self.name
@@ -34,33 +34,33 @@ class Area(models.Model):
 
 class Category(models.Model):
 
-    name = models.CharField(_(u"Categoría"), max_length=45)
+    name = models.CharField(_(u"Category"), max_length=45)
 
     def __unicode__(self):
         return self.name
 
     class Meta:
-        verbose_name = _(u"Categoría")
-        verbose_name_plural = _(u"Categorías")
+        verbose_name = _(u"Category")
+        verbose_name_plural = _(u"Categories")
 
 
 class Service(models.Model):
 
     creator = models.ForeignKey(Profile, related_name="services")
     is_offer = models.BooleanField()
-    pub_date = models.DateTimeField(_(u"Fecha de publicación"),
+    pub_date = models.DateTimeField(_(u"Publish date"),
         auto_now=True, auto_now_add=True)
     is_active = models.BooleanField(default=True)
-    description = models.TextField(_(u"Descripción"), max_length=400)
+    description = models.TextField(_(u"Description"), max_length=400)
     category = models.ForeignKey(Category)
     area = models.ForeignKey(Area, null=True, blank=True)
 
     def __unicode__(self):
         if self.is_offer:
-            msj = _("ofertado")
+            msj = _("offered")
         else:
-            msj = _("solicitado")
-        return "Servicio %s %s por: %s" % (self.id, msj, self.creator)
+            msj = _("demanded")
+        return "Service %s %s from: %s" % (self.id, msj, self.creator)
 
     def short_name(self):
         if len(self.description) < 53:
@@ -106,10 +106,10 @@ class Service(models.Model):
 
 
 TRANSFER_STATUS = (
-    ('q', _('solicitada')), # q for reQuest
-    ('a', _('aceptada')), # a for Accepted
-    ('r', _('cancelada')), # r for Rejected TODO: (but it actually should be c for cancelled)
-    ('d', _('realizada')), # d for Done
+    ('q', _('requested')), # q for reQuest
+    ('a', _('accepted')), # a for Accepted
+    ('r', _('cancelled')), # r for Rejected TODO: (but it actually should be c for cancelled)
+    ('d', _('done')), # d for Done
 )
 
 class Transfer(models.Model):
@@ -132,25 +132,23 @@ class Transfer(models.Model):
         blank=True)
 
     # Small description for the received service
-    description = models.TextField(_(u"Descripción"), max_length=300)
+    description = models.TextField(_(u"Description"), max_length=300)
 
-    request_date = models.DateTimeField(_("Fecha de solicitud de transferencia"), auto_now=True,
-        auto_now_add=True)
+    request_date = models.DateTimeField(_("Transfer request date"),
+        auto_now=True, auto_now_add=True)
 
-    confirmation_date = models.DateTimeField(_(u"Fecha de confirmación de"
-        " transferencia"),null=True)
+    confirmation_date = models.DateTimeField(_(u"Transfer confirmation date"),
+        null=True)
 
-    status = models.CharField(_(u"Estado"), max_length=1, choices=TRANSFER_STATUS)
+    status = models.CharField(_(u"Status"), max_length=1, choices=TRANSFER_STATUS)
 
-    is_public = models.BooleanField(_(u"Transferencia pública"), default=False)
+    is_public = models.BooleanField(_(u"Is public"), default=False)
 
     # credits in minutes
-    credits = models.PositiveIntegerField(_(u"Créditos"))
+    credits = models.PositiveIntegerField(_(u"Credits"))
 
     def credit_hours(self):
         return self.credits/60.0
-
-    #TODO: Add here a rating of the service, set by the payee of course
 
     class meta:
         ordering = ['-request_date']
