@@ -27,20 +27,20 @@ from utils import (FormCharField, FormEmailField, FormDateField,
 from  serv.forms import CustomCharField
 
 class RegisterForm(UserCreationForm):
-    birth_date = FormDateField(label=_("Fecha de Nacimiento"),
+    birth_date = FormDateField(label=_("Birth date"),
         input_formats=("%d/%m/%Y",))
 
-    first_name = FormCharField(label=_("Nombre propio"), required=True, max_length=30)
-    last_name = FormCharField(label=_("Apellidos"), required=True, max_length=30)
-    email = FormEmailField(label=_(u"Dirección de email"), required=True)
-    address = FormCharField(label=_(u"Dirección física"), required=True,
-        max_length=100, help_text=_(u"Ejemplo: Avda. Molina, 12, Sevilla"))
-    description = FormCharField(label=_(u"Descripción personal"), required=True,
+    first_name = FormCharField(label=_("Name"), required=True, max_length=30)
+    last_name = FormCharField(label=_("Last name"), required=True, max_length=30)
+    email = FormEmailField(label=_("Email address"), required=True)
+    address = FormCharField(label=_("Address"), required=True,
+        max_length=100, help_text=_("Example: Avda. Molina, 12, Sevilla"))
+    description = FormCharField(label=_("Personal descripcion"), required=True,
         max_length=300, widget=forms.Textarea())
-    land_line = FormCharField(label=_(u"Teléfono fijo"), max_length=20,
-        required=False, help_text="Ejemplo: 954 123 111")
-    mobile_tlf = FormCharField(label=_(u"Teléfono móvil"), max_length=20,
-        required=False, help_text="Ejemplo: 651 333 111")
+    land_line = FormCharField(label=_("Land line"), max_length=20,
+        required=False, help_text="Example: 954 123 111")
+    mobile_tlf = FormCharField(label=_("Mobile Telephone"), max_length=20,
+        required=False, help_text="Example: 651 333 111")
     captcha = FormCaptchaField()
 
     class Meta:
@@ -48,25 +48,24 @@ class RegisterForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'address', 'birth_date', 'description', 'land_line', 'mobile_tlf')
 
 class EditProfileForm(forms.ModelForm):
-    birth_date = FormDateField(label=_("Fecha de Nacimiento"),
+    birth_date = FormDateField(label=_("Birth date"),
         input_formats=("%d/%m/%Y",))
 
-    first_name = FormCharField(label=_("Nombre propio"), required=True,
+    first_name = FormCharField(label=_("Name"), required=True,
         max_length=30)
-    last_name = FormCharField(label=_("Apellidos"), required=True, max_length=30)
-    email = FormEmailField(label=_(u"Dirección de email"), required=True)
-    address = FormCharField(label=_(u"Dirección física"), required=True,
-        max_length=100, help_text=_(u"Ejemplo: Avda. Molina, 12, Sevilla"))
-    description = FormCharField(label=_(u"Descripción personal"), required=True,
+    last_name = FormCharField(label=_("Last name"), required=True, max_length=30)
+    email = FormEmailField(label=_("Email address"), required=True)
+    address = FormCharField(label=_("Address"), required=True,
+        max_length=100, help_text=_("Example: Avda. Molina, 12, Sevilla"))
+    description = FormCharField(label=_("Personal description"), required=True,
         max_length=300, widget=forms.Textarea())
-    password1 = forms.CharField(label=_(u"Contraseña actual"),
+    password1 = forms.CharField(label=_("Current password"),
         widget=forms.PasswordInput, required=True,
-        help_text=_(u"Introduce tu contraseña actual para comprobar tu"
-            " identidad."))
-    land_line = FormCharField(label=_(u"Teléfono fijo"), max_length=20,
-        required=False, help_text="Ejemplo: 954 123 111")
-    mobile_tlf = FormCharField(label=_(u"Teléfono móvil"), max_length=20,
-        required=False, help_text="Ejemplo: 651 333 111")
+        help_text=_("Enter your current password to check your identity"))
+    land_line = FormCharField(label=_("Land line"), max_length=20,
+        required=False, help_text="Example: 954 123 111")
+    mobile_tlf = FormCharField(label=_("Mobile telephone"), max_length=20,
+        required=False, help_text="Example: 651 333 111")
 
     def __init__(self, request, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -85,10 +84,10 @@ class EditProfileForm(forms.ModelForm):
             'description', 'land_line', 'mobile_tlf', 'email_updates')
 
 class RemoveForm(forms.Form):
-    reason = FormCharField(label=_(u"Razón"), required=True,
+    reason = FormCharField(label=_("Reason"), required=True,
         min_length=10, max_length=300, widget=forms.Textarea(),
-        help_text=_(u"¿Hemos hecho algo mal? Por favor díganos la razón por"
-            u"la que quiere darse de baja."))
+        help_text=_("Have we done something wrong? Please tell us why you want"
+            "rmeove your user."))
 
 class PublicMessageForm(forms.ModelForm):
     class Meta:
@@ -98,17 +97,17 @@ class PublicMessageForm(forms.ModelForm):
 class FindPeopleForm(forms.Form):
     USER_CHOICES = (
         ('0', _('---------')),
-        ('1', _(u'menos de 24 horas')),
-        ('2', _(u'menos de una semana')),
-        ('3', _(u'menos de un mes')),
-        ('4', _(u'menos de 3 meses')),
-        ('5', _(u'menos de 6 meses')),
-        ('6', _(u'menos de un año')),
+        ('1', _(u'less than 24 hours ago')),
+        ('2', _(u'less than one week ago')),
+        ('3', _(u'less than one month ago')),
+        ('4', _(u'less than 3 months ago')),
+        ('5', _(u'less than 6 months ago')),
+        ('6', _(u'less than one year ago')),
     )
 
-    user_status = CustomCharField(label=_("El usuario se conectó hace"),
+    user_status = CustomCharField(label=_("User connected"),
         widget=forms.Select(choices=USER_CHOICES), required=False)
-    username = forms.CharField(label=_("Nombre de usuario"), required=False)
+    username = forms.CharField(label=_("Username"), required=False)
 
     def as_url_args(self):
         import urllib
@@ -116,17 +115,17 @@ class FindPeopleForm(forms.Form):
 
 class FindPeople4AdminsForm(FindPeopleForm):
     USER_CHOICES = FindPeopleForm.USER_CHOICES + (
-        ('7', _(u'más de una semana')),
-        ('8', _(u'más de 1 mes')),
-        ('9', _(u'más de 3 meses')),
-        ('10', _(u'más de 6 meses')),
-        ('11', _(u'más de un año')),
+        ('7', _(u'more than a week ago')),
+        ('8', _(u'more than one month ago')),
+        ('9', _(u'more than 3 months ago')),
+        ('10', _(u'more than 6 months ago')),
+        ('11', _(u'more than one year')),
     )
-    user_status = CustomCharField(label=_("El usuario se conectó hace"),
+    user_status = CustomCharField(label=_("User connected"),
         widget=forms.Select(choices=USER_CHOICES), required=False)
-    without_services = forms.BooleanField(label=_("Sin servicios"), required=False)
+    without_services = forms.BooleanField(label=_("Without services"), required=False)
 
 class SendEmailToAllForm(forms.Form):
-    subject = forms.CharField(label=_(u'Asunto'), required=True)
-    message = forms.CharField(label=_(u'Mensaje'), required=True,
+    subject = forms.CharField(label=_(u'Subject'), required=True)
+    message = forms.CharField(label=_(u'Message body'), required=True,
         widget=forms.Textarea)

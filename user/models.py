@@ -29,7 +29,7 @@ def create_profile_for_user(sender, **kwargs):
         if not kwargs['instance'].__dict__.has_key("birth_date"):
             profile.birth_date = date.today()
         if not kwargs['instance'].__dict__.has_key("address"):
-            profile.address = _(u"dirección")
+            profile.address = _("address")
         profile.__dict__.update(kwargs['instance'].__dict__)
         profile.save()
 
@@ -39,9 +39,9 @@ class Profile(User):
     '''
     User with time bank settings.
     '''
-    birth_date = models.DateField(_(u"Fecha de Nacimiento"))
+    birth_date = models.DateField(_("Birth date"))
 
-    address = models.CharField(_(u"Dirección"), max_length=100)
+    address = models.CharField(_("Address"), max_length=100)
 
     # credits in minutes
     balance = models.IntegerField(default=0)
@@ -52,19 +52,19 @@ class Profile(User):
 
         return self.balance/60.0
 
-    description = models.TextField(_(u"Descripción personal"), max_length=300,
+    description = models.TextField(_("Personal address"), max_length=300,
         blank=True)
 
-    land_line = models.CharField(_(u"Teléfono fijo"), max_length=20)
+    land_line = models.CharField(_("Land line"), max_length=20)
 
-    mobile_tlf = models.CharField(_(u"Teléfono móvil"), max_length=20)
+    mobile_tlf = models.CharField(_("Mobile phone"), max_length=20)
 
-    email_updates = models.BooleanField(_(u"Recibir actualizaciones por email"),
+    email_updates = models.BooleanField(_("Receive email updates"),
         default=True)
 
     class Meta:
-        verbose_name = _("Usuario")
-        verbose_name_plural = _("Usuarios")
+        verbose_name = _("User")
+        verbose_name_plural = _("Users")
 
     def __unicode__(self):
         return _("Id: %(id)s usuario: %(username)s") % {

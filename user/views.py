@@ -55,20 +55,20 @@ class Register(ViewClass):
             'site_name': settings.SITE_NAME,
             'username': new_user.username
         }
-        message = _("Se ha registrado un nuevo usuario con nombre de usuario "\
-        " %s . Revise sus datos y delo de alta.") % new_user.username
+        message = _("A new user has joined with the name %s . Please review his"
+            " data and make it active.") % new_user.username
         mail_managers(subject, message)
 
         current_site = Site.objects.get_current()
-        subject = _("Te has registrado como %(username)s en %(site_name)s") % {
+        subject = _("You have joined as %(username)s in %(site_name)s") % {
             'username': new_user.username,
             'site_name': settings.SITE_NAME
             }
-        message = _(u"Hola %(username)s!\n Te acabas de registrar en http://%(url)s/."
-            u"Próximamente la creación de tu usuario será revisada por"
-            u"nuestros administradores y si todo está correcto, activaremos tu"
-            u" usuario y podrás comenzar a participar en nuestra comunidad."
-            u"\n\n- El Equipo de %(site_name)s.") % {
+        message = _("Hello %(username)s!\n You just joined to http://%(url)s/."
+            " Soon the creation of your user will be reviewed by one of our"
+            " admins and if everything is ok, we will enable your user and you"
+            " will be able to start participating in our community."
+            u"\n\n- The team of %(site_name)s.") % {
                 'username': new_user.username,
                 'url': current_site.domain,
                 'site_name': settings.SITE_NAME
@@ -76,16 +76,15 @@ class Register(ViewClass):
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
             [new_user.email])
 
-        self.flash(_(u"Te acabas de registrar en nuestro sitio web,"
-            u" <strong>%(username)s</strong>. Te hemos enviado un email a"
-            u" <strong>%(email)s</strong> confirmándote tu solicitud de inscripción."
-            u" Tan pronto como nuestros administradores hayan revisado dicha"
-            u" solicitud te avisaremos de nuevo por email y podrás empezar a"
-            u" disfrutar de este sistema.") % {
+        self.flash(_("You just joined us, <strong>%(username)s</strong>. We"
+            " have sent you an email to <strong>%(email)s</strong> confirming"
+            " your inscription request. As soon as our admins review your"
+            " request we will send you an email and you will be able to start"
+            " to participate in our community.") % {
                 'username': new_user.username,
                 'email': new_user.email
             },
-            title=_(u"Usuario creado correctamente"))
+            title=_("User created successfully"))
 
         return redirect('main.views.index')
 
@@ -101,31 +100,31 @@ class Login(ViewClass):
         if user is not None:
             if user.is_active:
                 django_login(self.request, user)
-                self.flash(_("Bienvenido %s") % user.username)
+                self.flash(_("Welcome %s") % user.username)
             else:
-                self.flash(_(u"Tu cuenta está deshabilitada, "
-                             u"contacta con los administradores"), "error")
+                self.flash(_("Your account is disabled,  contact the admins"),
+                    "error")
         else:
-            self.flash(_(u"Nombre de usuario o contrase&ntilde;a inválidos"), "error")
+            self.flash(_("Invalid username or password"), "error")
         return redirect('main.views.index')
 
 
 class PasswordResetDone(ViewClass):
     def GET(self):
-        self.flash(_(u"Te hemos enviado un correo a tu dirección de email con"
-            u" instrucciones para poder recuperar tu contraseña. Puede tardar"
-            u" un poco; se paciente. Si parece que no te llega, comprueba la"
-            u" carpeta de correos no deseados."),
-            title=_(u"Recuperación de contraseña en proceso"))
+        self.flash(_("We have sent you an email to your address with"
+            " instructions to recover your password. It might take a bit to"
+            " arrive  to your inbox so please be patient. If it seems that it"
+            " doesn't arrive, you might want to check your spam folder."),
+            title=_("Password recovery in process"))
         return redirect('main.views.index')
 
 
 class PasswordResetComplete(ViewClass):
     def GET(self):
-        self.flash(_(u"Has cambiado tu contraseña exitosamente, ahora puedes"
-            u" entrar introduciendo tu usuario y contraseña en el recuadro"
-            u" gris de la izquierda."),
-            title=_(u"Contraseña cambiada exitosamente"))
+        self.flash(_("Your password was changed successfully, now you can"
+            " login using your username and the new password using the login"
+            " form in the grey box at the left."),
+            title=_("Password changed successfully"))
         return redirect('main.views.index')
 
 
@@ -144,23 +143,23 @@ class EditProfile(ViewClass):
 
         # Send an email to admins with old data
         old_user = self.request.user
-        subject = _("[%(site_name)s] %(username)s ha modificado sus datos") % {
+        subject = _("[%(site_name)s] %(username)s modified his data") % {
             'site_name': settings.SITE_NAME,
             'username': old_user.username
         }
-        message = _(u"El usuario %(username)s ha modificado su perfil. Datos antiguos:\n\n"
-            u" - Nombre: %(old_name)s\n"
-            u" - Apellidos: %(old_surnames)s\n"
-            u" - Dirección de email: %(old_email)s\n"
-            u" - Dirección física: %(old_address)s\n"
-            u" - Fecha de nacimiento: %(old_birth_date)s\n"
-            u" - Descripción: %(old_description)s\n\n"
-            u"Nuevos datos:\n\n"
-            u" - Nombre: %(name)s\n"
-            u" - Apellidos: %(surnames)s\n"
-            u" - Dirección de email: %(email)s\n"
-            u" - Dirección física: %(address)s\n"
-            u" - Fecha de nacimiento: %(birth_date)s\n"
+        message = _("Username %(username)s modified his profile. Old data:\n\n"
+            u" - Name: %(old_name)s\n"
+            u" - Last name: %(old_surnames)s\n"
+            u" - Email address: %(old_email)s\n"
+            u" - Address: %(old_address)s\n"
+            u" - Birth date: %(old_birth_date)s\n"
+            u" - Description: %(old_description)s\n\n"
+            u"New data:\n\n"
+            u" - Name: %(name)s\n"
+            u" - Last name: %(surnames)s\n"
+            u" - Email address: %(email)s\n"
+            u" - Address: %(address)s\n"
+            u" - Birth date: %(birth_date)s\n"
             u" - Descripción: %(description)s\n\n") % {
                 'username': old_user.username,
                 'old_name': old_user.first_name,
@@ -179,7 +178,7 @@ class EditProfile(ViewClass):
         mail_managers(subject, message)
         form.save()
 
-        self.flash(_(u"Perfil actualizado: <a href=\"%s\">ver tu perfil</a>.") %
+        self.flash(_("Profile updated: <a href=\"%s\">view your profile</a>.") %
             reverse("user-view-current"))
 
         return self.context_response('user/profile.html', {'form': form})
@@ -195,7 +194,7 @@ class Preferences(ViewClass):
 class PasswordChangeDone(ViewClass):
     @login_required
     def GET(self):
-        self.flash(_(u"Contraseña cambiada."))
+        self.flash(_("Password changed."))
         return redirect('user-preferences')
 
 
@@ -217,37 +216,38 @@ class Remove(ViewClass):
         user.save()
 
         # Send an email to admins and another to the user
-        subject = _("[%(site_name)s] Usuario %(username)s desactivado") % {
+        subject = _("[%(site_name)s] User %(username)s disabled") % {
             'site_name': settings.SITE_NAME,
             'username': user.username
         }
-        message = _(u"El usuario %(username)s ha solicitado set eliminado del sitio web."
-            u" La razón que ha expuesto es:\n\n%(reason)s") % {
+        message = _("The user %(username)s has requested being removed from the"
+            " website. The reason given was:\n\n%(reason)s") % {
                 'username': user.username,
                 'reason': form.cleaned_data["reason"]
             }
         mail_managers(subject, message)
 
         current_site = Site.objects.get_current()
-        subject = _("Has borrado tu perfil %(username)s de %(site_name)s") % {
+        subject = _("You removed your profile %(username)s in %(site_name)s") % {
             'username': user.username,
             'site_name': settings.SITE_NAME
             }
-        message = _(u"Hola %(username)s!\n Has borrado tu perfil de http://%(url)s/."
-            u"Sentimos que hayas decidido dar este paso. Leeremos la razón"
-            u" que nos proporcionaste por la cual te has borrado y la tendremos"
-            u" en cuenta para mejorar en el futuro."
-            u"\n\n- El Equipo de %(site_name)s.") % {
+        message = _("Hello %(username)s!\n You removed your profile in"
+            " http://%(url)s/ . We regret your decision to take this"
+            " step. We'll read the reason why you removed yourself from this"
+            " community that you provided to us and we'll have it in mind to"
+            " improve our service in the future."
+            "\n\n- The team of %(site_name)s.") % {
                 'username': user.username,
                 'url': current_site.domain,
                 'site_name': settings.SITE_NAME
             }
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
 
-        self.flash(_( u"Sentimos que hayas decidido dar este paso. Leeremos la"
-            u" razón que nos proporcionaste por la cual te has borrado y la"
-            u" tendremos en cuenta para mejorar en el futuro."),
-            title=_(u"Usuario borrado"))
+        self.flash(_("We regret your decision to take this step.We'll read the"
+            " reason why you removed yourself from this community that you"
+            " provided to us and we'll have it in mind to improve our service"
+            " in the future."), title=_("User removed"))
 
         return redirect("user-logout")
 
@@ -301,7 +301,7 @@ class FindPeople(ViewClass):
         else:
             form = FindPeopleForm(self.request.GET)
 
-        form.fields["user_status"].label=_(u"El usuario se conectó hace")
+        form.fields["user_status"].label=_("User connected")
         people = Profile.objects.all()
 
         try:
@@ -372,7 +372,7 @@ class SendMessage(ViewClass):
         new_message.recipient = recipient
         new_message.is_public = True
         new_message.save()
-        self.flash(_(u"Mensaje añadido al perfil público de %s") %\
+        self.flash(_("MEssage added to %s public profile") %\
             recipient.username)
         return redirect("user-view", user_id=recipient_id)
 
@@ -383,8 +383,8 @@ class SendEmailToAll(ViewClass):
         # check permissions
         if not self.request.user.is_staff or\
             not self.request.user.is_superuser:
-            self.flash(_(u"No tienes permisos para enviar un email a todos"
-                u" los usuarios"))
+            self.flash(_("You don't have permission to send an email to all"
+                " users"))
             return redirect('main.views.index')
 
         form = SendEmailToAllForm()
@@ -395,8 +395,8 @@ class SendEmailToAll(ViewClass):
         # check permissions
         if not self.request.user.is_staff or\
             not self.request.user.is_superuser:
-            self.flash(_(u"No tienes permisos para enviar un email a todos"
-                u" los usuarios"))
+            self.flash(_("You don't have permission to send an email to all"
+                " users"))
             return redirect('main.views.index')
 
         form = SendEmailToAllForm(self.request.POST)
@@ -408,7 +408,7 @@ class SendEmailToAll(ViewClass):
             from_email=settings.DEFAULT_FROM_EMAIL, to=[],
             bcc=[user.email for user in Profile.objects.filter(is_active=True)])
         mass_email.send()
-        self.flash(_(u"Email enviado a todos los usuarios"))
+        self.flash(_("Email sent to all users"))
         return redirect('main.views.index')
 
 

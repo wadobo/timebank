@@ -26,14 +26,14 @@ from django.shortcuts import redirect
 
 class ExtraProfileInline(admin.StackedInline):
     model = Profile
-    fieldsets = (('Datos Extra', {
+    fieldsets = (('Extra data', {
         'fields': ('birth_date', 'address', 'balance')
     }),)
     list_display = ('birth_date', 'address', 'balance')
 
 def send_email_action(profile_admin, request, queryset):
     return redirect('user-send-email-to-all')
-send_email_action.short_description = _("Enviar email a todos los usuarios")
+send_email_action.short_description = _("Send email to all users")
 
 class ProfileAdmin(UserAdmin):
     inlines = [
@@ -53,14 +53,14 @@ class ProfileAdmin(UserAdmin):
         if model.is_active == True and old_model.is_active == False:
             # user activated, send activation email
             current_site = Site.objects.get_current()
-            title = _("Bienvenido a %(site_name)s, %(username)s") % {
+            title = _("Welcome to %(site_name)s, %(username)s") % {
                 'site_name': settings.SITE_NAME,
                 'username': model.username
             }
-            message = _(u"Enhorabuena %(username)s!\n"
-            u"Los adminitradores han aceptado tu solicitud de registro, "
-            u"¡ahora ya puedes comenzar a colaborar con los demás en "
-            u"http://%(url)s/.\n\n- El equipo de %(site_name)s.") % {
+            message = _(u"Congratulations %(username)s!\n"
+            u"The admins have accepted your registration request, "
+            u"now you can start collaborating in our community in  "
+            u"http://%(url)s/.\n\n- The team of %(site_name)s.") % {
                 'username': model.username,
                 'url': current_site.domain,
                 'site_name': settings.SITE_NAME

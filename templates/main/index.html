@@ -6,14 +6,14 @@
 {% block content %}
     <div class="section_3">
         <h1>{{ SITE_NAME }}</h1>
-        <p>{% blocktrans %}The Timebank of {{ SITE_NAME }} is a place where you can exchange services with other users using time as currency.{% endblocktrans %}</p>
+        <p>{% blocktrans %}{{ SITE_NAME }} is a community where you can exchange services with other users using time as currency.{% endblocktrans %}</p>
     </div>
 
     <div class="section_4">
         <h1>{% trans 'New services' %}</h1>
         {% if not user.is_authenticated %}
             {% url user-register as user_register %}
-            <p>{% blocktrans %}To see all services you need to<a href='{{ user_register }}'>register</a>.{% endblocktrans %}</p>
+            <p>{% blocktrans %}To see all services you need to <a href='{{ user_register }}'>register</a>.{% endblocktrans %}</p>
         {% endif %}
         <p>
         <div class="subcontent services">
