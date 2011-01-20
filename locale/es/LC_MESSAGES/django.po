@@ -1296,7 +1296,7 @@ msgstr ""
 "El equipo de %(site_url)s"
 
 #: templates/serv/listservs.html:6
-msgid "No service."
+msgid "No services."
 msgstr "Ningún servicio"
 
 #: templates/serv/new_transfer.html:4 templates/serv/new_transfer.html.py:9
