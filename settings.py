@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+from django.utils.translation import ugettext_lazy as _
 
 curdir = os.path.abspath(os.path.dirname(__file__))
 
@@ -95,7 +96,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware'
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -165,6 +167,12 @@ RECAPTCHA_PRIVATE_KEY = ""
 MIN_CREDIT = -10*60
 MAX_CREDIT = 20*60
 MAX_CREDITS_PER_TRANSFER = 10*60
+
+
+LANGUAGES = (
+      ('es', _('Spanish')),
+      ('en', _('English'))
+)
 
 # Just in case
 RATINGS_VOTES_PER_IP = 3

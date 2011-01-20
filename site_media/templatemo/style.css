@@ -876,3 +876,15 @@ ul.view-profile li > div {
 .services a.more {
     float: right;
 }
+
+#select-language-input {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    float: right;
+    margin-top: 5px;
+    margin-right: 15px;
+}

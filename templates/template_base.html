@@ -17,6 +17,7 @@
         <link href='{{ MEDIA_URL }}jquery.rating.css' type="text/css" rel="stylesheet"/>
         <link rel="alternate" title="RSS" href="{ % url news-feed %}" type="application/rss+xml">
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/timebank.js"></script>
         <script src='{{ MEDIA_URL }}js/jquery.MetaData.js' type="text/javascript" language="javascript"></script>
         <script src='{{ MEDIA_URL }}js/jquery.rating.js' type="text/javascript" language="javascript"></script>
     </head>
@@ -26,6 +27,20 @@
             <div id="logo_area">
                 <div id="logo"><a href="/"><img src="{{ MEDIA_URL }}imgs/timebank.png"></a></div>
           </div>
+        <form action="{% url django.views.i18n.set_language %}" method="POST">
+            {% csrf_token %}
+            <select name="language" id="select-language-input">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% for key, value in LANGUAGES %}
+                {% ifequal key LANGUAGE_CODE %}
+                    <option value="{{ key }}" selected="selected">{{ value }}</option>
+                {% else %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endifequal %}
+            {% endfor %}
+            </select>
+        </form>
             <div id="social">
                 <!--<a href="{ % url news.views.feed %}"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_3.jpg" alt="RSS"></a>
                 <a href="#"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_2.jpg" alt="Twitter"></a>
