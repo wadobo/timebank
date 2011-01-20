@@ -59,7 +59,7 @@ class SendEmailUpdates(ViewClass):
         if not self.request.user.is_staff and \
             not self.request.user.is_superuser:
             self.flash(_("You don't have permission to execute the task of"
-                "sending email updates to the users"), "error")
+                " sending email updates to the users"), "error")
             return redirect("/")
 
         # if the task exists, retrieve it, or create it

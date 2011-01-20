@@ -35,7 +35,7 @@ class RegisterForm(UserCreationForm):
     email = FormEmailField(label=_("Email address"), required=True)
     address = FormCharField(label=_("Address"), required=True,
         max_length=100, help_text=_("Example: Avda. Molina, 12, Sevilla"))
-    description = FormCharField(label=_("Personal descripcion"), required=True,
+    description = FormCharField(label=_("Personal description"), required=True,
         max_length=300, widget=forms.Textarea())
     land_line = FormCharField(label=_("Land line"), max_length=20,
         required=False, help_text="Example: 954 123 111")

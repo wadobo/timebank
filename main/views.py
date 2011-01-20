@@ -73,7 +73,7 @@ class Contact(ViewClass):
                 'subject': form.cleaned_data["subject"]
             }
             message = _("Registered user %(name)s whose email is %(email)s"\
-                "sends the following message:\n%(message)s") % {
+                " sends the following message:\n%(message)s") % {
                     'name': form.cleaned_data["name"],
                     'email': form.cleaned_data["email"],
                     'message': form.cleaned_data["message"]

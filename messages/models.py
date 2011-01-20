@@ -79,7 +79,7 @@ class Message(models.Model):
     replied_at = models.DateTimeField(_("replied at"), null=True, blank=True)
     sender_deleted_at = models.DateTimeField(_("Sender deleted at"), null=True, blank=True)
     recipient_deleted_at = models.DateTimeField(_("Recipient deleted at"), null=True, blank=True)
-    is_public = models.BooleanField(_(u"Mensaje público"), default=False)
+    is_public = models.BooleanField(_("Public message"), default=False)
     service = models.ForeignKey(Service, related_name='messages', null=True, blank=True)
     transfer = models.ForeignKey(Transfer, related_name='messages', null=True, blank=True)
 

@@ -265,7 +265,7 @@ class NewTransfer(ViewClass):
         # Check user would not minimum min balance
         if transfer.credits_debtor.balance - transfer.credits < settings.MIN_CREDIT:
             self.flash(_(u"The transfer would exceed the minimum credit limit"
-                "of the person giving the credits"),
+                " of the person giving the credits"),
                 'error')
             return self.context_response('serv/new_transfer.html', context)
 
@@ -324,7 +324,7 @@ class AddTransfer(ViewClass):
             # Check user would not minimum min balance
             if transfer.credits_debtor.balance - transfer.credits < settings.MIN_CREDIT:
                 self.flash(_("The transfer would exceed the minimum credit limit"
-                    "of the person receiving the service"), 'error')
+                    " of the person receiving the service"), 'error')
                 return redirect('serv-transfers-mine')
 
             # Check there's no current ongoing transfer for this service and

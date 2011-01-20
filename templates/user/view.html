@@ -26,7 +26,7 @@
         {% if not user.is_anonymous and user == profile %}
             <li><a href="{% url user-edit-profile %}">{% trans "Edit profile" %}</a></li>
         {% else %}
-            <li><a href="{% url serv-transfer-new-to profile.id %}">{% trans "Transfer time" %}</a></li>
+            <li><a href="{% url serv-transfer-new-to profile.id %}">{% trans "Transfer hours" %}</a></li>
         {% endif %}
         </ul>
         <ul class="view-profile">
@@ -45,7 +45,7 @@
                 <div>{{ profile.first_name }}</div>
             </li>
             <li>
-                <em>{% trans "Surname" %}:</em>
+                <em>{% trans "Last Name" %}:</em>
                 <div>{{ profile.last_name }}</div>
             </li>
             <li>

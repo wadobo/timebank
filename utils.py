@@ -103,12 +103,13 @@ def login_required(fn):
     def wrapper(self, *args, **kwargs):
         if not self.request.user.is_authenticated():
             self.flash(_(u'You must be registered to enter in'
-                u' <a href="%(link)s">%(link_text)s</a>. If you want to join'
-                u' us now or enter with your user clic in the box at the '
-                u' left.') %\
+                ' <a href="%(link)s">%(link_text)s</a>. You might want to'
+                ' <a href="%(join_url)s">join us now</a> or enter with your'
+                ' user using the grey login box at the left.') %\
                 {
                     'link': self.request.get_full_path(),
-                    'link_text': self.request.get_full_path()
+                    'link_text': self.request.get_full_path(),
+                    'join_url': reverse('user-register')
                 })
             return redirect('user-register')
         return fn(self, *args, **kwargs)

@@ -39,11 +39,11 @@
                 {% if user.is_authenticated %}
                     <ul id="login">
                         <li><span>{% blocktrans with user.username as username %}Hello, {{ username }}!{% endblocktrans %}</span></li>
-                        <li><a href="{% url user-logout %}"  class="last">{% trans 'Salir' %}</a></li>
+                        <li><a href="{% url user-logout %}"  class="last">{% trans 'Log out' %}</a></li>
                     </ul>
                     <ul>
                         {% if user.is_staff or user.is_superuser %}
-                            <li><a href="{% url admin:index %}" class="{% current_tab 'admin-panel' %}">{% trans 'Administración' %}</a></li>
+                            <li><a href="{% url admin:index %}" class="{% current_tab 'admin-panel' %}">{% trans 'Administration' %}</a></li>
                         {% endif %}
                         <li><a href="{% url user-find-people %}" class="{% current_tab 'people' %}">{% trans 'People' %}</a></li>
                         <li><a href="{% url serv-list %}" class="{% current_tab 'services' %}">{% trans 'Services' %}</a></li>

@@ -67,7 +67,7 @@ class Profile(User):
         verbose_name_plural = _("Users")
 
     def __unicode__(self):
-        return _("Id: %(id)s usuario: %(username)s") % {
+        return _("Id: %(id)s user: %(username)s") % {
             'id': self.id, 'username': self.username
         }
 

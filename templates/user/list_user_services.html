@@ -19,7 +19,7 @@
         {% endif %}{% if not user.is_anonymous and user == profile %}
             <li><a href="{% url user-edit-profile %}">{% trans "Edit profile"%}</a></li>
         {% else %}
-            <li><a href="{% url serv-transfer-new-to profile.id %}">{% trans "Transfer time" %}</a></li>
+            <li><a href="{% url serv-transfer-new-to profile.id %}">{% trans "Transfer hours" %}</a></li>
         {% endif %}
         </ul>
         <div class="subcontent services">

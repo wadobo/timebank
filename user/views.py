@@ -51,7 +51,7 @@ class Register(ViewClass):
         new_user.save()
 
         # Send an email to admins and another to the user
-        subject = _("[%(site_name)s] Usuario %(username)s registrado") % {
+        subject = _("[%(site_name)s] User %(username)s joined") % {
             'site_name': settings.SITE_NAME,
             'username': new_user.username
         }
@@ -64,7 +64,7 @@ class Register(ViewClass):
             'username': new_user.username,
             'site_name': settings.SITE_NAME
             }
-        message = _("Hello %(username)s!\n You just joined to http://%(url)s/."
+        message = _("Hello %(username)s!\n You just joined to http://%(url)s/ ."
             " Soon the creation of your user will be reviewed by one of our"
             " admins and if everything is ok, we will enable your user and you"
             " will be able to start participating in our community."
@@ -372,7 +372,7 @@ class SendMessage(ViewClass):
         new_message.recipient = recipient
         new_message.is_public = True
         new_message.save()
-        self.flash(_("MEssage added to %s public profile") %\
+        self.flash(_("Message added to %s public profile") %\
             recipient.username)
         return redirect("user-view", user_id=recipient_id)
 
