@@ -22,7 +22,7 @@ class Migration(SchemaMigration):
             ('sender_deleted_at', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
             ('recipient_deleted_at', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
             ('is_public', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('service', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='messages', null=True, to=orm['serv.Servicio'])),
+            ('service', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='messages', null=True, to=orm['serv.Service'])),
             ('transfer', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='messages', null=True, to=orm['serv.Transfer'])),
         ))
         db.send_create_signal('messages', ['Message'])
@@ -84,25 +84,30 @@ class Migration(SchemaMigration):
             'sender': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sent_messages'", 'to': "orm['auth.User']"}),
             'sender_deleted_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'sent_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'service': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'messages'", 'null': 'True', 'to': "orm['serv.Servicio']"}),
+            'service': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'messages'", 'null': 'True', 'to': "orm['serv.Service']"}),
             'subject': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
             'transfer': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'messages'", 'null': 'True', 'to': "orm['serv.Transfer']"})
         },
-        'serv.categoria': {
-            'Meta': {'object_name': 'Categoria'},
+        'serv.area': {
+            'Meta': {'object_name': 'Area'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'nombre_categoria': ('django.db.models.fields.CharField', [], {'max_length': '45'})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '40'})
         },
-        'serv.servicio': {
-            'Meta': {'ordering': "('-pub_date',)", 'object_name': 'Servicio'},
-            'activo': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'categoria': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['serv.Categoria']"}),
-            'creador': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'services'", 'to': "orm['user.Profile']"}),
-            'descripcion': ('django.db.models.fields.TextField', [], {'max_length': '400'}),
+        'serv.category': {
+            'Meta': {'object_name': 'Category'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'oferta': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'auto_now_add': 'True', 'blank': 'True'}),
-            'zona': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['serv.Zona']", 'null': 'True', 'blank': 'True'})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '45'})
+        },
+        'serv.service': {
+            'Meta': {'ordering': "('-pub_date',)", 'object_name': 'Service'},
+            'area': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['serv.Area']", 'null': 'True', 'blank': 'True'}),
+            'category': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['serv.Category']"}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'services'", 'to': "orm['user.Profile']"}),
+            'description': ('django.db.models.fields.TextField', [], {'max_length': '400'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'is_offer': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'auto_now_add': 'True', 'blank': 'True'})
         },
         'serv.transfer': {
             'Meta': {'object_name': 'Transfer'},
@@ -117,13 +122,8 @@ class Migration(SchemaMigration):
             'rating_score': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'}),
             'rating_votes': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0', 'blank': 'True'}),
             'request_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'auto_now_add': 'True', 'blank': 'True'}),
-            'service': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'transfers'", 'null': 'True', 'to': "orm['serv.Servicio']"}),
+            'service': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'transfers'", 'null': 'True', 'to': "orm['serv.Service']"}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '1'})
-        },
-        'serv.zona': {
-            'Meta': {'object_name': 'Zona'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'nombre_zona': ('django.db.models.fields.CharField', [], {'max_length': '40'})
         },
         'user.profile': {
             'Meta': {'object_name': 'Profile', '_ormbases': ['auth.User']},
