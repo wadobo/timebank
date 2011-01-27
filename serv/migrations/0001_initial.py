@@ -8,80 +8,32 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
-        # Adding model 'Zona'
-        db.create_table('serv_zona', (
+        # Adding model 'Area'
+        db.create_table('serv_area', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('nombre_zona', self.gf('django.db.models.fields.CharField')(max_length=40)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=40)),
         ))
-        db.send_create_signal('serv', ['Zona'])
+        db.send_create_signal('serv', ['Area'])
 
-        # Adding model 'Categoria'
-        db.create_table('serv_categoria', (
+        # Adding model 'Category'
+        db.create_table('serv_category', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('nombre_categoria', self.gf('django.db.models.fields.CharField')(max_length=45)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=45)),
         ))
-        db.send_create_signal('serv', ['Categoria'])
+        db.send_create_signal('serv', ['Category'])
 
-        # Adding model 'Servicio'
-        db.create_table('serv_servicio', (
+        # Adding model 'Service'
+        db.create_table('serv_service', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creador', self.gf('django.db.models.fields.related.ForeignKey')(related_name='services', to=orm['user.Profile'])),
-            ('oferta', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('creator', self.gf('django.db.models.fields.related.ForeignKey')(related_name='services', to=orm['user.Profile'])),
+            ('is_offer', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('pub_date', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, auto_now_add=True, blank=True)),
-            ('activo', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('descripcion', self.gf('django.db.models.fields.TextField')(max_length=400)),
-            ('categoria', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['serv.Categoria'])),
-            ('zona', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['serv.Zona'], null=True, blank=True)),
+            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('description', self.gf('django.db.models.fields.TextField')(max_length=400)),
+            ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['serv.Category'])),
+            ('area', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['serv.Area'], null=True, blank=True)),
         ))
-        db.send_create_signal('serv', ['Servicio'])
-
-        # Adding model 'ContactoIntercambio'
-        db.create_table('serv_contactointercambio', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('oferente', self.gf('django.db.models.fields.related.ForeignKey')(related_name='oferente', to=orm['auth.User'])),
-            ('solicitante', self.gf('django.db.models.fields.related.ForeignKey')(related_name='solicitante', to=orm['auth.User'])),
-            ('servicio', self.gf('django.db.models.fields.related.ForeignKey')(related_name='tema', to=orm['serv.Servicio'])),
-            ('oferente_borrar', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('solicitante_borrar', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal('serv', ['ContactoIntercambio'])
-
-        # Adding unique constraint on 'ContactoIntercambio', fields ['oferente', 'solicitante', 'servicio']
-        db.create_unique('serv_contactointercambio', ['oferente_id', 'solicitante_id', 'servicio_id'])
-
-        # Adding model 'ContactoAdministracion'
-        db.create_table('serv_contactoadministracion', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('usuario_normal', self.gf('django.db.models.fields.related.ForeignKey')(related_name='usuario_normal', to=orm['auth.User'])),
-            ('administrador', self.gf('django.db.models.fields.related.ForeignKey')(related_name='administrador', to=orm['auth.User'])),
-            ('administrador_borrar', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('usuario_borrar', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('tema', self.gf('django.db.models.fields.CharField')(max_length=30)),
-        ))
-        db.send_create_signal('serv', ['ContactoAdministracion'])
-
-        # Adding unique constraint on 'ContactoAdministracion', fields ['usuario_normal', 'administrador']
-        db.create_unique('serv_contactoadministracion', ['usuario_normal_id', 'administrador_id'])
-
-        # Adding model 'MensajeI'
-        db.create_table('serv_mensajei', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('contenido', self.gf('django.db.models.fields.TextField')(max_length=400)),
-            ('pub_date', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('contactoint', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['serv.ContactoIntercambio'])),
-            ('o_a_s', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal('serv', ['MensajeI'])
-
-        # Adding model 'MensajeA'
-        db.create_table('serv_mensajea', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('contenido', self.gf('django.db.models.fields.TextField')(max_length=400)),
-            ('pub_date', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('contactoadm', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['serv.ContactoAdministracion'])),
-            ('a_a_u', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal('serv', ['MensajeA'])
+        db.send_create_signal('serv', ['Service'])
 
         # Adding model 'Transfer'
         db.create_table('serv_transfer', (
@@ -89,7 +41,7 @@ class Migration(SchemaMigration):
             ('direct_transfer_creator', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='direct_transfers_created', null=True, to=orm['user.Profile'])),
             ('credits_payee', self.gf('django.db.models.fields.related.ForeignKey')(related_name='transfers_received', to=orm['user.Profile'])),
             ('credits_debtor', self.gf('django.db.models.fields.related.ForeignKey')(related_name='transfers_given', to=orm['user.Profile'])),
-            ('service', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='transfers', null=True, to=orm['serv.Servicio'])),
+            ('service', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='transfers', null=True, to=orm['serv.Service'])),
             ('description', self.gf('django.db.models.fields.TextField')(max_length=300)),
             ('request_date', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, auto_now_add=True, blank=True)),
             ('confirmation_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
@@ -104,32 +56,14 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         
-        # Removing unique constraint on 'ContactoAdministracion', fields ['usuario_normal', 'administrador']
-        db.delete_unique('serv_contactoadministracion', ['usuario_normal_id', 'administrador_id'])
+        # Deleting model 'Area'
+        db.delete_table('serv_area')
 
-        # Removing unique constraint on 'ContactoIntercambio', fields ['oferente', 'solicitante', 'servicio']
-        db.delete_unique('serv_contactointercambio', ['oferente_id', 'solicitante_id', 'servicio_id'])
+        # Deleting model 'Category'
+        db.delete_table('serv_category')
 
-        # Deleting model 'Zona'
-        db.delete_table('serv_zona')
-
-        # Deleting model 'Categoria'
-        db.delete_table('serv_categoria')
-
-        # Deleting model 'Servicio'
-        db.delete_table('serv_servicio')
-
-        # Deleting model 'ContactoIntercambio'
-        db.delete_table('serv_contactointercambio')
-
-        # Deleting model 'ContactoAdministracion'
-        db.delete_table('serv_contactoadministracion')
-
-        # Deleting model 'MensajeI'
-        db.delete_table('serv_mensajei')
-
-        # Deleting model 'MensajeA'
-        db.delete_table('serv_mensajea')
+        # Deleting model 'Service'
+        db.delete_table('serv_service')
 
         # Deleting model 'Transfer'
         db.delete_table('serv_transfer')
@@ -172,55 +106,26 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'serv.categoria': {
-            'Meta': {'object_name': 'Categoria'},
+        'serv.area': {
+            'Meta': {'object_name': 'Area'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'nombre_categoria': ('django.db.models.fields.CharField', [], {'max_length': '45'})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '40'})
         },
-        'serv.contactoadministracion': {
-            'Meta': {'unique_together': "(('usuario_normal', 'administrador'),)", 'object_name': 'ContactoAdministracion'},
-            'administrador': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'administrador'", 'to': "orm['auth.User']"}),
-            'administrador_borrar': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+        'serv.category': {
+            'Meta': {'object_name': 'Category'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'tema': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'usuario_borrar': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'usuario_normal': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'usuario_normal'", 'to': "orm['auth.User']"})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '45'})
         },
-        'serv.contactointercambio': {
-            'Meta': {'unique_together': "(('oferente', 'solicitante', 'servicio'),)", 'object_name': 'ContactoIntercambio'},
+        'serv.service': {
+            'Meta': {'ordering': "('-pub_date',)", 'object_name': 'Service'},
+            'area': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['serv.Area']", 'null': 'True', 'blank': 'True'}),
+            'category': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['serv.Category']"}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'services'", 'to': "orm['user.Profile']"}),
+            'description': ('django.db.models.fields.TextField', [], {'max_length': '400'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'oferente': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'oferente'", 'to': "orm['auth.User']"}),
-            'oferente_borrar': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'servicio': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tema'", 'to': "orm['serv.Servicio']"}),
-            'solicitante': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'solicitante'", 'to': "orm['auth.User']"}),
-            'solicitante_borrar': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
-        },
-        'serv.mensajea': {
-            'Meta': {'object_name': 'MensajeA'},
-            'a_a_u': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'contactoadm': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['serv.ContactoAdministracion']"}),
-            'contenido': ('django.db.models.fields.TextField', [], {'max_length': '400'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
-        },
-        'serv.mensajei': {
-            'Meta': {'object_name': 'MensajeI'},
-            'contactoint': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['serv.ContactoIntercambio']"}),
-            'contenido': ('django.db.models.fields.TextField', [], {'max_length': '400'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'o_a_s': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
-        },
-        'serv.servicio': {
-            'Meta': {'ordering': "('-pub_date',)", 'object_name': 'Servicio'},
-            'activo': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'categoria': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['serv.Categoria']"}),
-            'creador': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'services'", 'to': "orm['user.Profile']"}),
-            'descripcion': ('django.db.models.fields.TextField', [], {'max_length': '400'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'oferta': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'auto_now_add': 'True', 'blank': 'True'}),
-            'zona': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['serv.Zona']", 'null': 'True', 'blank': 'True'})
+            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'is_offer': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'auto_now_add': 'True', 'blank': 'True'})
         },
         'serv.transfer': {
             'Meta': {'object_name': 'Transfer'},
@@ -235,13 +140,8 @@ class Migration(SchemaMigration):
             'rating_score': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'}),
             'rating_votes': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0', 'blank': 'True'}),
             'request_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'auto_now_add': 'True', 'blank': 'True'}),
-            'service': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'transfers'", 'null': 'True', 'to': "orm['serv.Servicio']"}),
+            'service': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'transfers'", 'null': 'True', 'to': "orm['serv.Service']"}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '1'})
-        },
-        'serv.zona': {
-            'Meta': {'object_name': 'Zona'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'nombre_zona': ('django.db.models.fields.CharField', [], {'max_length': '40'})
         },
         'user.profile': {
             'Meta': {'object_name': 'Profile', '_ormbases': ['auth.User']},
