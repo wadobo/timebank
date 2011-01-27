@@ -176,6 +176,7 @@ LANGUAGES = (
 
 # Just in case
 RATINGS_VOTES_PER_IP = 3
+AUTOACCEPT_REGISTRATION=False
 
 try:
     from local_settings import *

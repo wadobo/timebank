@@ -47,44 +47,69 @@ class Register(ViewClass):
 
         # Register user
         new_user = form.save(commit=False)
-        new_user.is_active = False
+        new_user.is_active = settings.AUTOACCEPT_REGISTRATION
         new_user.save()
 
-        # Send an email to admins and another to the user
-        subject = _("[%(site_name)s] User %(username)s joined") % {
-            'site_name': settings.SITE_NAME,
-            'username': new_user.username
-        }
-        message = _("A new user has joined with the name %s . Please review his"
-            " data and make it active.") % new_user.username
-        mail_managers(subject, message)
-
-        current_site = Site.objects.get_current()
-        subject = _("You have joined as %(username)s in %(site_name)s") % {
-            'username': new_user.username,
-            'site_name': settings.SITE_NAME
+        if not settings.AUTOACCEPT_REGISTRATION:
+            # Send an email to admins and another to the user
+            subject = _("[%(site_name)s] User %(username)s joined") % {
+                'site_name': settings.SITE_NAME,
+                'username': new_user.username
             }
-        message = _("Hello %(username)s!\n You just joined to http://%(url)s/ ."
-            " Soon the creation of your user will be reviewed by one of our"
-            " admins and if everything is ok, we will enable your user and you"
-            " will be able to start participating in our community."
-            u"\n\n- The team of %(site_name)s.") % {
+            message = _("A new user has joined with the name %s . Please review his"
+                " data and make it active.") % new_user.username
+            mail_managers(subject, message)
+
+            current_site = Site.objects.get_current()
+            subject = _("You have joined as %(username)s in %(site_name)s") % {
                 'username': new_user.username,
-                'url': current_site.domain,
                 'site_name': settings.SITE_NAME
-            }
-        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
-            [new_user.email])
+                }
+            message = _("Hello %(username)s!\n You just joined to http://%(url)s/ ."
+                " Soon the creation of your user will be reviewed by one of our"
+                " admins and if everything is ok, we will enable your user and you"
+                " will be able to start participating in our community."
+                u"\n\n- The team of %(site_name)s.") % {
+                    'username': new_user.username,
+                    'url': current_site.domain,
+                    'site_name': settings.SITE_NAME
+                }
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
+                [new_user.email])
 
-        self.flash(_("You just joined us, <strong>%(username)s</strong>. We"
-            " have sent you an email to <strong>%(email)s</strong> confirming"
-            " your inscription request. As soon as our admins review your"
-            " request we will send you an email and you will be able to start"
-            " to participate in our community.") % {
+            self.flash(_("You just joined us, <strong>%(username)s</strong>. We"
+                " have sent you an email to <strong>%(email)s</strong> confirming"
+                " your inscription request. As soon as our admins review your"
+                " request we will send you an email and you will be able to start"
+                " to participate in our community.") % {
+                    'username': new_user.username,
+                    'email': new_user.email
+                },
+                title=_("User created successfully"))
+        else:
+            current_site = Site.objects.get_current()
+            subject = _("You have joined as %(username)s in %(site_name)s") % {
                 'username': new_user.username,
-                'email': new_user.email
-            },
-            title=_("User created successfully"))
+                'site_name': settings.SITE_NAME
+                }
+            message = _("Hello %(username)s!\n You just joined to http://%(url)s/ ."
+                " Now you can start participating in our community!"
+                u"\n\n- The team of %(site_name)s.") % {
+                    'username': new_user.username,
+                    'url': current_site.domain,
+                    'site_name': settings.SITE_NAME
+                }
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
+                [new_user.email])
+
+            self.flash(_("You just joined us, <strong>%(username)s</strong>. We"
+                " have sent you a confirmation email to"
+                " <strong>%(email)s</strong>. Now you can start to participate"
+                " in our community.") % {
+                    'username': new_user.username,
+                    'email': new_user.email
+                },
+                title=_("User created successfully"))
 
         return redirect('main.views.index')
 

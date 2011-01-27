@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 09:56+0100\n"
+"POT-Creation-Date: 2011-01-26 18:13+0100\n"
 "Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
 "Language-Team: Es <timebank-devel@wadobo.com>\n"
 "Language: Spanish\n"
@@ -16,6 +15,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: settings.py:173
+msgid "Spanish"
+msgstr ""
+
+#: settings.py:174
+msgid "English"
+msgstr ""
 
 #: utils.py:105
 #, python-format
@@ -232,7 +239,7 @@ msgstr "El destinatario lo eliminó a las"
 msgid "Public message"
 msgstr "Mensaje público"
 
-#: messages/models.py:115 templates/template_base.html:51
+#: messages/models.py:115 templates/template_base.html:66
 #: templates/messages/base.html:3 templates/messages/base.html.py:7
 msgid "Messages"
 msgstr "Mensajes"
@@ -336,8 +343,8 @@ msgstr "Mensaje"
 msgid "Author"
 msgstr "Autor"
 
-#: news/models.py:40 news/models.py:41 templates/template_base.html:106
-#: templates/template_base.html.py:139
+#: news/models.py:40 news/models.py:41 templates/template_base.html:121
+#: templates/template_base.html.py:154
 msgid "News"
 msgstr "Noticias"
 
@@ -367,8 +374,8 @@ msgid ""
 "Tip: do not introduce personal data that you don't want to make public, use "
 "private messages for that."
 msgstr ""
-"Nota: no introduzcas datos personales que no quieras hacer públicos, usa "
-"los mensajes privados para eso."
+"Nota: no introduzcas datos personales que no quieras hacer públicos, usa los "
+"mensajes privados para eso."
 
 #: serv/forms.py:74 user/forms.py:99
 msgid "---------"
@@ -489,7 +496,7 @@ msgstr ""
 "transferir"
 
 #: serv/forms.py:124 serv/forms.py:166 serv/models.py:148
-#: templates/template_base.html:97 templates/user/single_person_view.html:8
+#: templates/template_base.html:112 templates/user/single_person_view.html:8
 #: templates/user/view.html:52
 msgid "Credits"
 msgstr "Créditos"
@@ -592,7 +599,8 @@ msgstr "No puedes transferirte créditos a ti mismo"
 
 #: serv/views2.py:261 serv/views2.py:320 serv/views2.py:426
 msgid "The transfer would exceed the credit limit of the credits receiver"
-msgstr "La transferencia superaría el límite de crédito del receptor de créditos"
+msgstr ""
+"La transferencia superaría el límite de crédito del receptor de créditos"
 
 #: serv/views2.py:267
 msgid ""
@@ -614,7 +622,7 @@ msgstr "No tienes suficiente crédito"
 msgid "You can't demand a service to yourself"
 msgstr "No puedes solicitarte un servicio a tí mismo"
 
-#: serv/views2.py:326
+#: serv/views2.py:326 serv/views2.py:387 serv/views2.py:432 serv/views2.py:466
 msgid ""
 "The transfer would exceed the minimum credit limit of the person receiving "
 "the service"
@@ -671,8 +679,8 @@ msgid ""
 "The transfer would exceed the credit limit of the person receiving the "
 "credits"
 msgstr ""
-"La transferencia superaría el límite de crédito de la person que"
-"recibiría los créditos"
+"La transferencia superaría el límite de crédito de la persona que recibiría "
+"los créditos"
 
 #: serv/views2.py:472
 msgid "You can't confirm a transfer of a service that isn't yours"
@@ -733,8 +741,8 @@ msgstr "Última ejecución"
 
 #: tasks/views.py:61
 msgid ""
-"You don't have permission to execute the task of sending email updates to the "
-"users"
+"You don't have permission to execute the task of sending email updates to "
+"the users"
 msgstr ""
 "No tienes permisos para ejecutar la tarea de enviarlas actualizaciones por "
 "email a los usuarios"
@@ -774,70 +782,70 @@ msgid ""
 "rectify.\n"
 "            "
 msgstr ""
-"Lo sentimos, ha ocurrido un error. Hemos notificado a los "
-"administradores para arreglarlo.\n"
+"Lo sentimos, ha ocurrido un error. Hemos notificado a los administradores "
+"para arreglarlo.\n"
 "            "
 
-#: templates/template_base.html:10 templates/template_base.html.py:60
-#: templates/template_base.html:138 templates/main/index.html:4
+#: templates/template_base.html:10 templates/template_base.html.py:75
+#: templates/template_base.html:153 templates/main/index.html:4
 msgid "Home"
 msgstr "Portada"
 
-#: templates/template_base.html:41
+#: templates/template_base.html:56
 #, python-format
 msgid "Hello, %(username)s!"
 msgstr "Hola, %(username)s!"
 
-#: templates/template_base.html:42
+#: templates/template_base.html:57
 msgid "Log out"
 msgstr "Salir"
 
-#: templates/template_base.html:46
-msgid "Administración"
-msgstr "Administration"
+#: templates/template_base.html:61
+msgid "Administration"
+msgstr "Administración"
 
-#: templates/template_base.html:48 templates/template_base.html.py:61
+#: templates/template_base.html:63 templates/template_base.html.py:76
 #: templates/user/find_people.html:3
 msgid "People"
 msgstr "Gente"
 
-#: templates/template_base.html:49 templates/template_base.html.py:62
+#: templates/template_base.html:64 templates/template_base.html.py:77
 #: templates/serv/base.html:3 templates/serv/base.html.py:7
 msgid "Services"
 msgstr "Servicios"
 
-#: templates/template_base.html:50 templates/serv/base_transfer.html:3
+#: templates/template_base.html:65 templates/serv/base_transfer.html:3
 #: templates/serv/base_transfer.html:7
 msgid "Transfers"
 msgstr "Transferencias"
 
-#: templates/template_base.html:52
+#: templates/template_base.html:67
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/template_base.html:56 templates/template_base.html.py:73
-#: templates/template_base.html:83
+#: templates/template_base.html:71 templates/template_base.html.py:88
+#: templates/template_base.html:98
 msgid "Login"
 msgstr "Entrar"
 
-#: templates/template_base.html:57
+#: templates/template_base.html:72
 msgid "Register"
 msgstr "Registrar"
 
-#: templates/template_base.html:75
+#: templates/template_base.html:90
 msgid "Forgot your password?"
 msgstr "¿Olvidaste tu contraseña?"
 
-#: templates/template_base.html:91 templates/user/preferences.html:3
+#: templates/template_base.html:106 templates/user/preferences.html:3
 #: templates/user/preferences.html.py:7
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: templates/template_base.html:113
+#: templates/template_base.html:128
 msgid "+ news"
 msgstr "+ noticias"
 
-#: templates/template_base.html:140 templates/main/contact.html:3
+#: templates/template_base.html:155 templates/main/contact.html:3
 #: templates/main/contact.html.py:7
 msgid "Contact"
 msgstr "Contactar"
@@ -871,8 +879,8 @@ msgid ""
 "%(SITE_NAME)s is a community where you can exchange services with other "
 "users using time as currency."
 msgstr ""
-"%(SITE_NAME)s es una comunidad donde puedes intercambiar servicios"
-"con otros usuarios usando el tiempo como moneda de cambio."
+"%(SITE_NAME)s es una comunidad donde puedes intercambiar servicioscon otros "
+"usuarios usando el tiempo como moneda de cambio."
 
 #: templates/main/index.html:13
 msgid "New services"
@@ -1016,8 +1024,8 @@ msgid ""
 "Deleted Messages are removed from the trash at unregular intervals, don't "
 "rely on this feature for long-time storage."
 msgstr ""
-"Los mensajes borrados son eliminados de la papelera de  vez en cuando, "
-"no confíes en esta característica para almacenar mensajes de forma indefinida."
+"Los mensajes borrados son eliminados de la papelera de  vez en cuando, no "
+"confíes en esta característica para almacenar mensajes de forma indefinida."
 
 #: templates/messages/view.html:3
 msgid "View Message"
@@ -1078,8 +1086,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You have deleted the message <a href=\"%(message_url)s\">%(message)s</a>."
-msgstr ""
-"Has borrado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
+msgstr "Has borrado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
 
 #: templates/notification/messages_received/notice.html:2
 #, python-format
@@ -1087,15 +1094,14 @@ msgid ""
 "You have received the message <a href=\"%(message_url)s\">%(message)s</a> "
 "from %(message_sender)s."
 msgstr ""
-"Has recibido el mensaje <a href=\"%(message_url)s\">%(message)s</a> "
-"de %(message_sender)s."
+"Has recibido el mensaje <a href=\"%(message_url)s\">%(message)s</a> de "
+"%(message_sender)s."
 
 #: templates/notification/messages_recovered/notice.html:1
 #, python-format
 msgid ""
 "You have recovered the message <a href=\"%(message_url)s\">%(message)s</a>."
-msgstr ""
-"Has recuperado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
+msgstr "Has recuperado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
 
 #: templates/notification/messages_replied/notice.html:2
 #, python-format
@@ -1103,13 +1109,14 @@ msgid ""
 "You have replied to <a href=\"%(message_url)s\">%(message_parent_msg)s</a> "
 "from %(message_recipient)s."
 msgstr ""
-"Has respondido al mensaje <a href=\"%(message_url)s\">%(message_parent_msg)s</a> "
-"de %(message_recipient)s."
+"Has respondido al mensaje <a href=\"%(message_url)s\">"
+"%(message_parent_msg)s</a> de %(message_recipient)s."
 
 #: templates/notification/messages_reply_received/notice.html:2
 #, python-format
 msgid "%(message_sender)s has sent you a reply to %(message_parent_msg)s."
-msgstr "%(message_sender)s te ha respondido a tu mensaje  %(message_parent_msg)s."
+msgstr ""
+"%(message_sender)s te ha respondido a tu mensaje  %(message_parent_msg)s."
 
 #: templates/notification/messages_sent/notice.html:2
 #, python-format
@@ -1300,6 +1307,8 @@ msgid "No services."
 msgstr "Ningún servicio"
 
 #: templates/serv/new_transfer.html:4 templates/serv/new_transfer.html.py:9
+#: templates/user/list_user_services.html:22
+#: templates/user/single_person_view.html:23 templates/user/view.html:29
 msgid "Transfer hours"
 msgstr "Transferir horas"
 
@@ -1426,9 +1435,8 @@ msgid "Inactive"
 msgstr "Inactiva"
 
 #: templates/serv/single_service_view.html:19
-#, python-format
-msgid "Publicado hace%(time)s"
-msgstr ""
+msgid "Published %(time)s ago"
+msgstr "Publicado hace %(time)s"
 
 #: templates/serv/single_service_view.html:34
 msgid "transfers"
@@ -1717,6 +1725,13 @@ msgstr "Ver sus servicios"
 msgid "Edit profile"
 msgstr "Editar perfil"
 
+#: templates/user/password_change.html:3 templates/user/password_change.html:7
+#: templates/user/password_change.html:13
+#: templates/user/password_reset_confirm.html:15
+#: templates/user/preferences.html:22
+msgid "Change password"
+msgstr "Cambia tu contraseña"
+
 #: templates/user/password_reset.html:3 templates/user/password_reset.html:7
 msgid "Did you forget your password?"
 msgstr "¿Has olvidado tu contraseña?"
@@ -1797,8 +1812,8 @@ msgstr ""
 
 #: templates/user/preferences.html:25 templates/user/remove.html:3
 #: templates/user/remove.html.py:7 templates/user/remove.html:13
-msgid "Eliminar usuario"
-msgstr ""
+msgid "Remove user"
+msgstr "Borrar"
 
 #: templates/user/register.html:3 templates/user/register.html.py:7
 #: templates/user/register.html:13
@@ -1899,15 +1914,13 @@ msgstr "Dirección de email"
 msgid "Example: Avda. Molina, 12, Sevilla"
 msgstr "Ejemplo: Avda. Molina, 12, Sevilla"
 
-#: user/forms.py:38
-#: user/forms.py:60
+#: user/forms.py:38 user/forms.py:60
 msgid "Personal description"
 msgstr "Descripción personal"
 
 #: user/forms.py:42
 msgid "Mobile Telephone"
 msgstr "Teléfono móvil"
-
 
 #: user/forms.py:62
 msgid "Current password"
@@ -1956,7 +1969,7 @@ msgstr "menos de 6 meses"
 msgid "less than one year ago"
 msgstr "menos de un año"
 
-#: user/forms.py:108 user/forms.py:124 user/views.py:304
+#: user/forms.py:108 user/forms.py:124 user/views.py:329
 msgid "User connected"
 msgstr "El usuario se conectó hace"
 
@@ -2017,12 +2030,12 @@ msgstr "Usuarios"
 msgid "Id: %(id)s user: %(username)s"
 msgstr "Id: %(id)s usuario: %(username)s"
 
-#: user/views.py:54
+#: user/views.py:55
 #, python-format
 msgid "[%(site_name)s] User %(username)s joined"
 msgstr "[%(site_name)s] Usuario %(username)s registrado"
 
-#: user/views.py:58
+#: user/views.py:59
 #, python-format
 msgid ""
 "A new user has joined with the name %s . Please review his data and make it "
@@ -2031,12 +2044,12 @@ msgstr ""
 "Se ha registrado un nuevo usuario con nombre de usuario  %s . Revise sus "
 "datos y delo de alta."
 
-#: user/views.py:63
+#: user/views.py:64 user/views.py:91
 #, python-format
 msgid "You have joined as %(username)s in %(site_name)s"
 msgstr "Te has registrado como %(username)s en %(site_name)s"
 
-#: user/views.py:67
+#: user/views.py:68
 #, python-format
 msgid ""
 "Hello %(username)s!\n"
@@ -2053,7 +2066,7 @@ msgstr ""
 "\n"
 "- El Equipo de %(site_name)s."
 
-#: user/views.py:79
+#: user/views.py:80
 #, python-format
 msgid ""
 "You just joined us, <strong>%(username)s</strong>. We have sent you an email "
@@ -2067,24 +2080,48 @@ msgstr ""
 "revisado dicha solicitud te avisaremos de nuevo por email y podrás empezar a "
 "disfrutar de este sistema."
 
-#: user/views.py:87
+#: user/views.py:88 user/views.py:112
 msgid "User created successfully"
 msgstr "Usuario creado correctamente"
 
-#: user/views.py:103
+#: user/views.py:95
+msgid ""
+"Hello %(username)s!\n"
+" You just joined to http://%(url)s/ . Now you can start participating in our "
+"community!\n"
+"\n"
+"- The team of %(site_name)s."
+msgstr ""
+"Hola %(username)s!\n"
+" Te acabas de registrar en http://%(url)s/ . Puedes comenzar a participar en "
+"nuestra comunidad.\n"
+"\n"
+"- El Equipo de %(site_name)s."
+
+#: user/views.py:105
+msgid ""
+"You just joined us, <strong>%(username)s</strong>. We have sent you a "
+"confirmation email to <strong>%(email)s</strong>. Now you can start to "
+"participate in our community."
+msgstr ""
+"Te acabas de registrar en nuestro sitio web, <strong>%(username)s</strong>. "
+"Te hemos enviado un email de confirmación a <strong>%(email)s</strong>. "
+"Ahora puedes comenzar a participar en nuestra comunidad."
+
+#: user/views.py:128
 #, python-format
 msgid "Welcome %s"
 msgstr "Bienvenido %s"
 
-#: user/views.py:105
+#: user/views.py:130
 msgid "Your account is disabled,  contact the admins"
 msgstr "Tu cuenta está deshabilitada, contacta con los administradores"
 
-#: user/views.py:108
+#: user/views.py:133
 msgid "Invalid username or password"
 msgstr "Nombre de usuario o contrase&ntilde;a inválidos"
 
-#: user/views.py:114
+#: user/views.py:139
 msgid ""
 "We have sent you an email to your address with instructions to recover your "
 "password. It might take a bit to arrive  to your inbox so please be patient. "
@@ -2094,11 +2131,11 @@ msgstr ""
 "poder recuperar tu contraseña. Puede tardar un poco; se paciente. Si parece "
 "que no te llega, comprueba la carpeta de correos no deseados."
 
-#: user/views.py:118
+#: user/views.py:143
 msgid "Password recovery in process"
 msgstr "Recuperación de contraseña en proceso"
 
-#: user/views.py:124
+#: user/views.py:149
 msgid ""
 "Your password was changed successfully, now you can login using your "
 "username and the new password using the login form in the grey box at the "
@@ -2107,16 +2144,16 @@ msgstr ""
 "Has cambiado tu contraseña exitosamente, ahora puedes entrar introduciendo "
 "tu usuario y contraseña en el recuadro gris de la izquierda."
 
-#: user/views.py:127
+#: user/views.py:152
 msgid "Password changed successfully"
 msgstr "Contraseña cambiada exitosamente"
 
-#: user/views.py:146
+#: user/views.py:171
 #, python-format
 msgid "[%(site_name)s] %(username)s modified his data"
 msgstr "[%(site_name)s] %(username)s ha modificado sus datos"
 
-#: user/views.py:150
+#: user/views.py:175
 #, python-format
 msgid ""
 "Username %(username)s modified his profile. Old data:\n"
@@ -2157,21 +2194,21 @@ msgstr ""
 " - Descripción: %(description)s\n"
 "\n"
 
-#: user/views.py:181
+#: user/views.py:206
 #, python-format
 msgid "Profile updated: <a href=\"%s\">view your profile</a>."
 msgstr "Perfil actualizado: <a href=\"%s\">ver tu perfil</a>."
 
-#: user/views.py:197
+#: user/views.py:222
 msgid "Password changed."
 msgstr "Contraseña cambiada."
 
-#: user/views.py:219
+#: user/views.py:244
 #, python-format
 msgid "[%(site_name)s] User %(username)s disabled"
 msgstr "[%(site_name)s] Usuario %(username)s desactivado"
 
-#: user/views.py:223
+#: user/views.py:248
 #, python-format
 msgid ""
 "The user %(username)s has requested being removed from the website. The "
@@ -2184,12 +2221,12 @@ msgstr ""
 "\n"
 "%(reason)s"
 
-#: user/views.py:231
+#: user/views.py:256
 #, python-format
 msgid "You removed your profile %(username)s in %(site_name)s"
 msgstr "Has borrado tu perfil %(username)s de %(site_name)s"
 
-#: user/views.py:235
+#: user/views.py:260
 #, python-format
 msgid ""
 "Hello %(username)s!\n"
@@ -2207,7 +2244,7 @@ msgstr ""
 "\n"
 "- El Equipo de %(site_name)s."
 
-#: user/views.py:247
+#: user/views.py:272
 msgid ""
 "We regret your decision to take this step.We'll read the reason why you "
 "removed yourself from this community that you provided to us and we'll have "
@@ -2217,19 +2254,19 @@ msgstr ""
 "proporcionaste por la cual te has borrado y la tendremos en cuenta para "
 "mejorar en el futuro."
 
-#: user/views.py:250
+#: user/views.py:275
 msgid "User removed"
 msgstr "Usuario borrado"
 
-#: user/views.py:375
+#: user/views.py:400
 #, python-format
 msgid "Message added to %s public profile"
 msgstr "Mensaje añadido al perfil público de %s"
 
-#: user/views.py:386 user/views.py:398
+#: user/views.py:411 user/views.py:423
 msgid "You don't have permission to send an email to all users"
 msgstr "No tienes permisos para enviar un email a todos los usuarios"
 
-#: user/views.py:411
+#: user/views.py:436
 msgid "Email sent to all users"
 msgstr "Email enviado a todos los usuarios"
