@@ -171,6 +171,7 @@ MAX_CREDITS_PER_TRANSFER = 10*60
 
 LANGUAGES = (
       ('es', _('Spanish')),
+      ('es_ng', _('Spanish (neutral gender)')),
       ('en', _('English'))
 )
 
