@@ -39,9 +39,9 @@ class Profile(User):
     '''
     User with time bank settings.
     '''
-    birth_date = models.DateField(_("Birth date"))
+    birth_date = models.DateField(_("Birth date"), default=date.today())
 
-    address = models.CharField(_("Address"), max_length=100)
+    address = models.CharField(_("Address"), max_length=100, default=_("address"))
 
     # credits in minutes
     balance = models.IntegerField(default=0)
