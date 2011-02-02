@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-31 12:02+0100\n"
+"POT-Creation-Date: 2011-02-02 11:49+0100\n"
 "Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
 "Language-Team: Es <timebank-devel@wadobo.com>\n"
 "MIME-Version: 1.0\n"
@@ -743,23 +743,15 @@ msgstr "Nombre"
 msgid "Last execution"
 msgstr "Última ejecución"
 
-#: tasks/views.py:61
-msgid ""
-"You don't have permission to execute the task of sending email updates to "
-"the users"
-msgstr ""
-"No tienes permisos para ejecutar la tarea de enviarlas actualizaciones por "
-"email a los usuarios"
-
-#: tasks/views.py:73 tasks/views.py:84
+#: tasks/views.py:66 tasks/views.py:74
 msgid "Update task postponed"
 msgstr "Tarea de actualización postergada"
 
-#: tasks/views.py:82
+#: tasks/views.py:72
 msgid "Update task done"
 msgstr "Tarea de actualización realizada"
 
-#: tasks/views.py:107
+#: tasks/views.py:97
 #, python-format
 msgid "Updates from %s"
 msgstr "Novedades de %s"
@@ -1321,12 +1313,11 @@ msgid "Create transfer"
 msgstr "Crear transferencia"
 
 #: templates/serv/new_transfer_email.html:1
-#, python-format
 msgid ""
 "Hi %(transfer_recipient)s,\n"
 "\n"
-"%(transfer_creator)s has created a direct transfer with you. You You can see "
-"and admin the transfer in %(site_url)s%(transfer_url)s .\n"
+"%(transfer_creator)s has created a direct transfer with you. You can see and "
+"admin the transfer in %(site_url)s%(transfer_url)s .\n"
 "\n"
 "The team of %(site_url)s"
 msgstr ""
@@ -2006,7 +1997,7 @@ msgstr "Sin servicios"
 msgid "Message body"
 msgstr "Mensaje"
 
-#: user/models.py:32
+#: user/models.py:32 user/models.py:44
 msgid "address"
 msgstr "dirección"
 
