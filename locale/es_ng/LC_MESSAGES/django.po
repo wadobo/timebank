@@ -1878,7 +1878,7 @@ msgstr "Error ejecutando el corrector ortográfico"
 #: user/admin.py:56
 #, python-format
 msgid "Welcome to %(site_name)s, %(username)s"
-msgstr "Bienvenido a %(site_name)s, %(username)s"
+msgstr "Bienvenido/a a %(site_name)s, %(username)s"
 
 #: user/admin.py:60
 #, python-format
@@ -2111,7 +2111,7 @@ msgstr ""
 #: user/views.py:128
 #, python-format
 msgid "Welcome %s"
-msgstr "Bienvenido %s"
+msgstr "Bienvenido/a %s"
 
 #: user/views.py:130
 msgid "Your account is disabled,  contact the admins"
