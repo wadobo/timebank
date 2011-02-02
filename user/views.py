@@ -18,14 +18,14 @@ from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
-from django.core.mail import send_mail, mail_managers, EmailMessage
+from django.core.mail import send_mail, EmailMessage
 from django.contrib.auth import authenticate, login as django_login
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 from datetime import datetime, timedelta
 
-from utils import ViewClass, login_required
+from utils import ViewClass, login_required, mail_owners
 from forms import (RegisterForm, EditProfileForm, RemoveForm,
     PublicMessageForm, FindPeopleForm, FindPeople4AdminsForm,
     SendEmailToAllForm)
@@ -58,7 +58,7 @@ class Register(ViewClass):
             }
             message = _("A new user has joined with the name %s . Please review his"
                 " data and make it active.") % new_user.username
-            mail_managers(subject, message)
+            mail_owners(subject, message)
 
             current_site = Site.objects.get_current()
             subject = _("You have joined as %(username)s in %(site_name)s") % {
@@ -200,7 +200,7 @@ class EditProfile(ViewClass):
                 'birth_date': form.cleaned_data["birth_date"],
                 'description': form.cleaned_data["description"]
             }
-        mail_managers(subject, message)
+        mail_owners(subject, message)
         form.save()
 
         self.flash(_("Profile updated: <a href=\"%s\">view your profile</a>.") %
@@ -250,7 +250,7 @@ class Remove(ViewClass):
                 'username': user.username,
                 'reason': form.cleaned_data["reason"]
             }
-        mail_managers(subject, message)
+        mail_owners(subject, message)
 
         current_site = Site.objects.get_current()
         subject = _("You removed your profile %(username)s in %(site_name)s") % {

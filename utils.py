@@ -29,6 +29,7 @@ from django.conf import settings
 from django.utils.encoding import smart_unicode
 from django.utils.safestring import mark_safe
 from recaptcha.client import captcha
+from django.core.mail.message import EmailMessage
 
 from flashmsg import flash
 
@@ -234,3 +235,13 @@ class FormCaptchaField(forms.CharField):
         if not check_captcha.is_valid:
             raise forms.util.ValidationError(_(u'Invalid captcha'))
         return values[0]
+
+def mail_owners(subject, message, fail_silently=False, connection=None):
+    '''
+    Sends a message to the owners, as defined by the OWNERS setting.
+    '''
+    if not settings.OWNERS:
+        return
+    EmailMessage(settings.EMAIL_SUBJECT_PREFIX + subject, message,
+                 settings.SERVER_EMAIL, [a[1] for a in settings.OWNERS],
+                 connection=connection).send(fail_silently=fail_silently)
