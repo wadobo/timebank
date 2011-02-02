@@ -54,14 +54,7 @@ class SendEmailUpdates(ViewClass):
         {"period": timedelta(days=365), 'every': timedelta(days=30)}
     ]
 
-    @login_required
     def GET(self):
-        if not self.request.user.is_staff and \
-            not self.request.user.is_superuser:
-            self.flash(_("You don't have permission to execute the task of"
-                " sending email updates to the users"), "error")
-            return redirect("/")
-
         # if the task exists, retrieve it, or create it
         task_list = Task.objects.filter(name=self.__class__.__name__)
         if task_list:
@@ -71,9 +64,6 @@ class SendEmailUpdates(ViewClass):
             task.name = self.__class__.__name__
             # ensure that the task will be executed
             self.flash(_(u"Update task postponed"))
-
-        # NOTE: force update, just for development/debug, remove later!
-        task.last_update = datetime.now() - 2*self.update_period
 
         if datetime.now() - task.last_update > self.update_period:
             self.__execute(task)
