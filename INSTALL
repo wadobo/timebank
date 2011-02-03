@@ -35,6 +35,10 @@ After that, we need to configure the database (we use sqlite by default):
 
     $ ./manage.py syncdb --noinput
 
+Then create the admin user in the database:
+
+    $ ./manage.py loaddata admin-user.json
+
 That's it! Start the webserver with:
 
     $ ./manage.py runserver
@@ -67,4 +71,4 @@ your collaboration will be much appreciated.
 ### Contact
 
 Should you have any doubt or problem please contact us sending an email to
-timebank-devel@wadobo.com which is the development mailing list of the project.
+timebank-users@wadobo.com which is the development mailing list of the project.
