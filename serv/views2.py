@@ -47,11 +47,13 @@ class ListServices(ViewClass):
         except ValueError:
             page = 1
 
+        services = Service.objects.filter(creator__is_active=True)
+
         if self.request.user.is_authenticated() and form.data.get("mine", ''):
-            services = Service.objects.filter(creator=self.request.user)
+            services = services.filter(creator=self.request.user)
             subtab = "my"
         else:
-            services = Service.objects.filter(is_active=True)
+            services = services.filter(is_active=True)
             subtab = "find"
 
         if form.data.get("the_type", '') == "1":
