@@ -1,0 +1,35 @@
+[
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "admin", 
+            "first_name": "Administrator", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2011-02-03 10:19:40", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$d21fa$824ddf461190c46afd8e45444de8a0450dcca9e7", 
+            "email": "info@wadobo.com", 
+            "date_joined": "2011-01-31 14:00:49"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "user.profile", 
+        "fields": {
+            "description": "personal", 
+            "email_updates": true, 
+            "mobile_tlf": "", 
+            "user_permissions": [], 
+            "land_line": "", 
+            "groups": [], 
+            "address": "direccion", 
+            "birth_date": "1985-01-12", 
+            "balance": 0
+        }
+    } 
+]
