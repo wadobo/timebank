@@ -327,7 +327,7 @@ class FindPeople(ViewClass):
             form = FindPeopleForm(self.request.GET)
 
         form.fields["user_status"].label=_("User connected")
-        people = Profile.objects.filter(is_active=False)
+        people = Profile.objects.filter(is_active=True)
 
         try:
             page = int(self.request.GET.get('page', '1'))
