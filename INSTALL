@@ -24,7 +24,6 @@ http://docs.djangoproject.com/en/1.2/topics/install/
 
 First thing we need is installing the dependencies in virtualenv:
 
-    $ virtualenv env
     $ ./setup_env.sh
 
 $ Now everytime we want to use the installed virtualenv, we can do the
