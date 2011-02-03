@@ -51,6 +51,46 @@ django, and a more powerful database like postgresql. Django documentation
 explains how to do that:
 http://docs.djangoproject.com/en/1.2/topics/install/
 
+### Send email updates
+
+If you want users to receive email reminders about unread messages or pending
+transfers, you should add a cron task that visits every day the following url:
+http://<yourserver>/tasks/send_email_updates/ .
+
+This can be done adding a timebank.sh script to /etc/cron.daily/ with execution
+permissions as the following:
+
+    #!/bin/bash
+    wget http://<tuservidor>/tasks/send_email_updates/ -O /dev/null
+
+### Translations
+
+Timebank has internationalization support and is translated to multiple
+languages. In order to make these translations available in your installation,
+you need to compile the translation (.po) files:
+
+    $ ./manage.py compilemessages
+
+### Settings configuration
+
+The settings.py file contains the default configuration for the project. You
+shouldn't modify it; any settings configuration you need should be added to the
+local_settings.py file.
+
+Most of the variables in settings are self-explanatory and are documented in
+django: http://docs.djangoproject.com/en/1.2/ref/settings/ Notably some new
+setting var that we have added is OWNERS, which contains a list of emails
+addresses similar to MANAGERS and ADMINS. Emails about non-error events 
+happening in your timebank will be sent to OWNERS: a new user has been 
+registered and is awaiting approval, for example.
+
+This is useful to separate those who maintain the server and do application
+development, the tech people (MANAGERS, ADMINS) and those in charge of the
+time bank doing administration tasks at the user-level (OWNERS).
+
+There are some more settings non standard in django in the settings.py file,
+quite self explanatory, but you can ask us if you need help with them. See
+Contact seccion for that.
 
 ### Contribute
 
