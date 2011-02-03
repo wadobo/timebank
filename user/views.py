@@ -280,7 +280,7 @@ class Remove(ViewClass):
 class ViewProfile(ViewClass):
     @login_required
     def GET(self, user_id=None):
-        user = user_id and get_object_or_404(Profile, id=user_id, is_active=False) or self.request.user
+        user = user_id and get_object_or_404(Profile, id=user_id, is_active=True) or self.request.user
 
         send_message_form = None
         if self.request.user.is_authenticated():
