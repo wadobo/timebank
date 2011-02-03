@@ -9,7 +9,8 @@ The project page is http://wadobo.com/trac/timebank/
 
 ### Dependencies
 
-* Python >= 2.5
+* Python 2.x >= 2.5
+* python-virtualenv
 * Has only been tested in Linux so far
 
 Other dependencies can be installed with virtualenv.
