@@ -65,7 +65,9 @@ class SendEmailUpdates(ViewClass):
             # ensure that the task will be executed
             self.flash(_(u"Update task postponed"))
 
-        if datetime.now() - task.last_update > self.update_period:
+        if not task.last_update or\
+            datetime.now() - task.last_update > self.update_period:
+
             self.__execute(task)
             task.last_update = datetime.now()
             task.save()
