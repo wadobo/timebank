@@ -137,7 +137,7 @@ class SendEmailUpdates(ViewClass):
                         continue
                     # we found the period we are in! if task.last_update is
                     # from an older period, then we should send the email update
-                    if task.last_update < email_period_date:
+                    if not task.last_update or task.last_update < email_period_date:
                         return True
         return False
 
