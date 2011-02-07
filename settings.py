@@ -164,6 +164,9 @@ RECAPTCHA_PRIVATE_KEY = ""
 #EMAIL_HOST_USER = ''
 #EMAIL_HOST_PASSWORD = ''
 
+## For debugging, you can use the console email backend:
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 MIN_CREDIT = -10*60
 MAX_CREDIT = 20*60
 MAX_CREDITS_PER_TRANSFER = 10*60

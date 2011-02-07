@@ -2,7 +2,7 @@
 *.mo
 *.swp
 sessions
-settings.local.py
 database.sqlite
 .kdev4
 env
+local_settings.py
