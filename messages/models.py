@@ -80,8 +80,10 @@ class Message(models.Model):
     sender_deleted_at = models.DateTimeField(_("Sender deleted at"), null=True, blank=True)
     recipient_deleted_at = models.DateTimeField(_("Recipient deleted at"), null=True, blank=True)
     is_public = models.BooleanField(_("Public message"), default=False)
-    service = models.ForeignKey(Service, related_name='messages', null=True, blank=True)
-    transfer = models.ForeignKey(Transfer, related_name='messages', null=True, blank=True)
+    service = models.ForeignKey(Service, related_name='messages', null=True, blank=True,
+        verbose_name=_("Service"))
+    transfer = models.ForeignKey(Transfer, related_name='messages', null=True, blank=True,
+        verbose_name=_("Transfer"))
 
     objects = MessageManager()
 

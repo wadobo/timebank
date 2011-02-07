@@ -33,7 +33,7 @@ class New(models.Model):
         auto_now=True)
     hidden = models.BooleanField(_(u"Hidden"), default=False)
     body = models.TextField(_(u"Body"))
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, verbose_name=_("User"))
     author.verbose_name = _(u"Author")
 
     class Meta:

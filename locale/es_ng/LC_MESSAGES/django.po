@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-07 14:31+0100\n"
+"POT-Creation-Date: 2011-02-07 16:30+0100\n"
 "Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
 "Language-Team: Es <timebank-devel@wadobo.com>\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,7 @@ msgid "Subject"
 msgstr "Asunto"
 
 #: main/forms.py:32 main/forms.py:42 messages/admin.py:44 messages/forms.py:21
-#: messages/models.py:73 messages/models.py:114
+#: messages/models.py:73 messages/models.py:116
 #: templates/messages/inbox.html:8 templates/messages/outbox.html:8
 #: templates/messages/trash.html:8
 msgid "Message"
@@ -248,7 +248,17 @@ msgstr "La persona destinataria lo eliminó a las"
 msgid "Public message"
 msgstr "Mensaje público"
 
-#: messages/models.py:115 templates/template_base.html:66
+#: messages/models.py:84 serv/models.py:137 templates/serv/add_transfer.html:8
+#: templates/serv/edit_transfer.html:13
+#: templates/serv/service_add_comment.html:8
+msgid "Service"
+msgstr "Servicio"
+
+#: messages/models.py:86 templates/serv/edit_transfer.html:18
+msgid "Transfer"
+msgstr "Transferencia"
+
+#: messages/models.py:117 templates/template_base.html:66
 #: templates/messages/base.html:3 templates/messages/base.html.py:7
 msgid "Messages"
 msgstr "Mensajes"
@@ -336,7 +346,7 @@ msgstr "Fecha de creación"
 msgid "Last modification date"
 msgstr "Fecha de última modificación"
 
-#: news/models.py:32 serv/models.py:51
+#: news/models.py:32 serv/models.py:52
 msgid "Publish date"
 msgstr "Fecha de publicación"
 
@@ -347,6 +357,10 @@ msgstr "Oculto"
 #: news/models.py:35
 msgid "Body"
 msgstr "Mensaje"
+
+#: news/models.py:36 user/models.py:66
+msgid "User"
+msgstr "Usuario/a"
 
 #: news/models.py:37
 msgid "Author"
@@ -418,12 +432,12 @@ msgstr "conectado hace menos de un año"
 msgid "Only list my services"
 msgstr "Mostrar sólo mis servicios"
 
-#: serv/forms.py:86 serv/models.py:37 serv/models.py:43
+#: serv/forms.py:86 serv/models.py:37 serv/models.py:43 serv/models.py:56
 #: templates/serv/single_service_view.html:17
 msgid "Category"
 msgstr "Categoría"
 
-#: serv/forms.py:87 serv/models.py:29
+#: serv/forms.py:87 serv/models.py:29 serv/models.py:58
 #: templates/serv/single_service_view.html:9
 msgid "Area"
 msgstr "Zona"
@@ -504,7 +518,7 @@ msgstr ""
 "Nombre de usuario/a que recibirá o al que se le solicitan los créditos a "
 "transferir"
 
-#: serv/forms.py:124 serv/forms.py:166 serv/models.py:148
+#: serv/forms.py:124 serv/forms.py:166 serv/models.py:153
 #: templates/template_base.html:112 templates/user/single_person_view.html:8
 #: templates/user/view.html:52
 msgid "Credits"
@@ -522,47 +536,63 @@ msgstr "No existe una persona usuaria con ese nombre."
 msgid "Categories"
 msgstr "Categorías"
 
-#: serv/models.py:54 serv/models.py:135 templates/user/view.html:56
+#: serv/models.py:50
+msgid "Creator"
+msgstr "Creador"
+
+#: serv/models.py:55 serv/models.py:140 templates/user/view.html:56
 msgid "Description"
 msgstr "Descripción"
 
-#: serv/models.py:60
+#: serv/models.py:62
 msgid "offered"
 msgstr "ofertado"
 
-#: serv/models.py:62
+#: serv/models.py:64
 msgid "demanded"
 msgstr "demandado"
 
-#: serv/models.py:109
+#: serv/models.py:111
 msgid "requested"
 msgstr "solicitada"
 
-#: serv/models.py:110
+#: serv/models.py:112
 msgid "accepted"
 msgstr "aceptada"
 
-#: serv/models.py:111
+#: serv/models.py:113
 msgid "cancelled"
 msgstr "cancelada"
 
-#: serv/models.py:112
+#: serv/models.py:114
 msgid "done"
 msgstr "realizada"
 
-#: serv/models.py:137
+#: serv/models.py:126
+msgid "Direct transfer creator"
+msgstr "Creador de transferencia directa"
+
+#: serv/models.py:130
+msgid "Credits payee"
+msgstr "Receptor de créditos"
+
+#: serv/models.py:134
+msgid "Credits debtor"
+msgstr "Deudor de créditos"
+
+#: serv/models.py:142
 msgid "Transfer request date"
 msgstr "Fecha de solicitud de transferencia"
 
-#: serv/models.py:140
+#: serv/models.py:145
 msgid "Transfer confirmation date"
 msgstr "Fecha de confirmación de transferencia"
 
-#: serv/models.py:143 templates/serv/single_transfer_view.html:20
+#: serv/models.py:148 templates/serv/single_transfer_view.html:20
 msgid "Status"
 msgstr "Estado"
 
-#: serv/models.py:145
+#: serv/models.py:150
 msgid "Is public"
 msgstr "Transferencia pública"
 
@@ -1180,11 +1210,6 @@ msgstr ""
 msgid "Request transfer"
 msgstr "Solicitar transferencia"
 
-#: templates/serv/add_transfer.html:8 templates/serv/edit_transfer.html:13
-#: templates/serv/service_add_comment.html:8
-msgid "Service"
-msgstr "Servicio"
-
 #: templates/serv/base.html:9
 msgid "My Services"
 msgstr "Mis servicios"
@@ -1283,10 +1308,6 @@ msgstr "Editar transferencia"
 #: templates/serv/edit_transfer.html:7 templates/serv/edit_transfer.html:25
 msgid "Edit direct transfer"
 msgstr "Editar transferencia directa"
-
-#: templates/serv/edit_transfer.html:18
-msgid "Transfer"
-msgstr "Transferencia"
 
 #: templates/serv/edit_transfer.html:32
 msgid "Update transfer"
@@ -2027,10 +2048,6 @@ msgstr "Teléfono móvil"
 msgid "Receive email updates"
 msgstr "Recibir actualizaciones por email"
 
-#: user/models.py:66
-msgid "User"
-msgstr "Usuario/a"
-
 #: user/models.py:67
 msgid "Users"
 msgstr "Usuarios/as"
@@ -2167,6 +2184,7 @@ msgid "[%(site_name)s] %(username)s modified his data"
 msgstr "[%(site_name)s] %(username)s ha modificado sus datos"
 
 #: user/views.py:175
+#, python-format
 msgid ""
 "Username %(username)s modified his profile. Old data:\n"
 "\n"

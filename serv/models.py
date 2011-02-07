@@ -46,14 +46,16 @@ class Category(models.Model):
 
 class Service(models.Model):
 
-    creator = models.ForeignKey(Profile, related_name="services")
+    creator = models.ForeignKey(Profile, related_name="services",
+        verbose_name=_("Creator"))
     is_offer = models.BooleanField()
     pub_date = models.DateTimeField(_(u"Publish date"),
         auto_now=True, auto_now_add=True)
     is_active = models.BooleanField(default=True)
     description = models.TextField(_(u"Description"), max_length=400)
-    category = models.ForeignKey(Category)
-    area = models.ForeignKey(Area, null=True, blank=True)
+    category = models.ForeignKey(Category, verbose_name=_('Category'))
+    area = models.ForeignKey(Area, null=True, blank=True,
+        verbose_name=_("Area"))
 
     def __unicode__(self):
         if self.is_offer:
@@ -120,16 +122,19 @@ class Transfer(models.Model):
 
     # will only be set and used when transfer is not associated with a service
     direct_transfer_creator = models.ForeignKey(Profile,
-        related_name='direct_transfers_created', null=True, blank=True)
+        related_name='direct_transfers_created', null=True, blank=True,
+        verbose_name=_("Direct transfer creator"))
 
     # Person receiving the credits (and giving the service)
-    credits_payee = models.ForeignKey(Profile, related_name='transfers_received')
+    credits_payee = models.ForeignKey(Profile, related_name='transfers_received',
+        verbose_name=_("Credits payee"))
 
     # Person giving the credits (and receiving the service)
-    credits_debtor = models.ForeignKey(Profile, related_name='transfers_given')
+    credits_debtor = models.ForeignKey(Profile, related_name='transfers_given',
+        verbose_name=_("Credits debtor"))
 
     service = models.ForeignKey(Service, related_name='transfers', null=True,
-        blank=True)
+        blank=True, verbose_name=_("Service"))
 
     # Small description for the received service
     description = models.TextField(_(u"Description"), max_length=300)
