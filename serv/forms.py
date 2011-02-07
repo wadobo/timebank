@@ -50,7 +50,7 @@ class ServiceForm(forms.ModelForm):
 
     class Meta:
         model = Service
-        exclude = ('creator', 'pub_date', 'is_active')
+        exclude = ('creator', 'pub_date', 'is_active', 'is_offer')
 
     def __init__(self, *args, **kwargs):
         super(ServiceForm, self).__init__(*args, **kwargs)
