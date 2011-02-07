@@ -142,7 +142,7 @@ class EditService(ViewClass):
 
     @login_required
     def POST(self, sid):
-        instance = get_object_or_404(Servicio, pk=sid)
+        instance = get_object_or_404(Service, pk=sid)
         if not instance.creator == self.request.user:
             self.flash(_(u"You can't modify a service that isn't yours"),
                        "error")
