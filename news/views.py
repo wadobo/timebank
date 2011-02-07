@@ -18,7 +18,7 @@ from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from utils import ViewClass
 from news.models import New
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.http import Http404

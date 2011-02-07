@@ -17,7 +17,7 @@
 from django.shortcuts import render_to_response, redirect
 from django.conf import settings
 from django.core.mail import send_mail
-from django.utils.translation import gettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.db.models import signals
 

@@ -80,7 +80,7 @@ msgstr "Opcional. Ejemplos(s): "
 
 #: utils.py:218
 msgid "Captcha disabled"
-msgstr ""
+msgstr "Captcha desactivado"
 
 #: utils.py:242
 msgid "Invalid captcha"

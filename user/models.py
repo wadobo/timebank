@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.contrib.auth.models import User, UserManager
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.db.models import signals, Avg, Q
 from datetime import date
