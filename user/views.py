@@ -185,7 +185,7 @@ class EditProfile(ViewClass):
             u" - Email address: %(email)s\n"
             u" - Address: %(address)s\n"
             u" - Birth date: %(birth_date)s\n"
-            u" - Descripción: %(description)s\n\n") % {
+            u" - Description: %(description)s\n\n") % {
                 'username': old_user.username,
                 'old_name': old_user.first_name,
                 'old_surnames': old_user.last_name,
