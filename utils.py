@@ -214,9 +214,13 @@ class FormDateField(forms.DateField):
 
 class FormCaptchaWidget(forms.widgets.Widget):
     def render(self, name, value, attrs=None):
+        if not settings.SHOW_CAPTCHAS:
+            return  _('Captcha disabled')
         return mark_safe(u'%s' % captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY))
 
     def value_from_datadict(self, data, files, name):
+        if not settings.SHOW_CAPTCHAS:
+            return "captcha disabled"
         return [data.get('recaptcha_challenge_field', None),
             data.get('recaptcha_response_field', None)]
 
@@ -228,6 +232,8 @@ class FormCaptchaField(forms.CharField):
 
     def clean(self, values):
         super(FormCaptchaField, self).clean(values[1])
+        if not settings.SHOW_CAPTCHAS:
+            return values
         recaptcha_challenge_value = smart_unicode(values[0])
         recaptcha_response_value = smart_unicode(values[1])
         check_captcha = captcha.submit(recaptcha_challenge_value,

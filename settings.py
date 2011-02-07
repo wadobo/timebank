@@ -179,6 +179,8 @@ LANGUAGES = (
 RATINGS_VOTES_PER_IP = 3
 AUTOACCEPT_REGISTRATION=False
 
+SHOW_CAPTCHAS=True
+
 try:
     from local_settings import *
 except ImportError:
