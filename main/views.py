@@ -59,7 +59,7 @@ class Contact(ViewClass):
             subject = _("[%(site_name)s] %(username)s: %(email_subject)s") % {
                 'site_name': settings.SITE_NAME,
                 'username': user.username,
-                'subject': form.cleaned_data["subject"]
+                'email_subject': form.cleaned_data["subject"]
             }
             message = _(u"Registered user %(username)s sends the following "\
             " message:\n%(message)s") % {
@@ -70,7 +70,7 @@ class Contact(ViewClass):
             subject = _("[%(site_name)s] %(email)s: %(email_subject)s") % {
                 'site_name': settings.SITE_NAME,
                 'email': form.cleaned_data["email"],
-                'subject': form.cleaned_data["subject"]
+                'email_subject': form.cleaned_data["subject"]
             }
             message = _("Registered user %(name)s whose email is %(email)s"\
                 " sends the following message:\n%(message)s") % {
