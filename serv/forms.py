@@ -39,18 +39,13 @@ class CustomCharField(forms.CharField):
 
 
 class ServiceForm(forms.ModelForm):
-
-    OFFER_CHOICES = (
-        ('0', _('demand')),
-        ('1', _('offer')),
-    )
-
-    oferta = CustomCharField(label=_("Service type"),
-        widget=forms.Select(choices=OFFER_CHOICES))
-
     class Meta:
         model = Service
-        exclude = ('creator', 'pub_date', 'is_active', 'is_offer')
+        exclude = ('creator', 'pub_date', 'is_active')
+        widgets = {
+            'is_offer': forms.Select
+        }
+
 
     def __init__(self, *args, **kwargs):
         super(ServiceForm, self).__init__(*args, **kwargs)
@@ -58,10 +53,6 @@ class ServiceForm(forms.ModelForm):
         self.fields['description'].help_text = _("Tip: do not introduce"
             " personal data that you don't want to make public, use private"
             " messages for that.")
-
-    def clean_offer(self):
-        offer = self.cleaned_data.get("is_offer", "0")
-        return bool(offer)
 
 
 class ListServicesForm(forms.Form):

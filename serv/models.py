@@ -44,11 +44,15 @@ class Category(models.Model):
         verbose_name_plural = _(u"Categories")
 
 
-class Service(models.Model):
+OFFER_CHOICES = (
+    (True, _('offer')),
+    (False, _('demand'))
+)
 
+class Service(models.Model):
     creator = models.ForeignKey(Profile, related_name="services",
         verbose_name=_("Creator"))
-    is_offer = models.BooleanField()
+    is_offer = models.BooleanField(_("Service type"), choices=OFFER_CHOICES)
     pub_date = models.DateTimeField(_(u"Publish date"),
         auto_now=True, auto_now_add=True)
     is_active = models.BooleanField(default=True)
