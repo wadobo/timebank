@@ -80,11 +80,10 @@ def update_transfer_email(sender, instance, signal, *args, **kwargs):
     default_protocol = getattr(settings, 'DEFAULT_HTTP_PROTOCOL', 'http')
 
     if instance.status == 'q':
-        recipient_emails = [instance.service.creator.email,]
+        recipient_emails = [instance.creator().email,]
         subject=_('Transfer from %s edited') % instance.creator().username
         template = "serv/edit_transfer_email.html"
     elif instance.status == 'a':
-
         recipient_emails = [instance.creator().email,]
         if instance.service:
             subject=_('Transfer of the service from %s accepted') %\
