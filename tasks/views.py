@@ -113,7 +113,7 @@ class SendEmailUpdates(ViewClass):
                     context_instance=RequestContext(self.request)
                 ))
                 send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
-                    [user.email])
+                    [user.email], fail_silently=True)
                 return
 
     def __should_send_update(self, task, data):

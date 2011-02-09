@@ -75,7 +75,7 @@ class Register(ViewClass):
                     'site_name': settings.SITE_NAME
                 }
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
-                [new_user.email])
+                [new_user.email], fail_silently=True)
 
             self.flash(_("You just joined us, <strong>%(username)s</strong>. We"
                 " have sent you an email to <strong>%(email)s</strong> confirming"
@@ -100,7 +100,7 @@ class Register(ViewClass):
                     'site_name': settings.SITE_NAME
                 }
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
-                [new_user.email])
+                [new_user.email], fail_silently=True)
 
             self.flash(_("You just joined us, <strong>%(username)s</strong>. We"
                 " have sent you a confirmation email to"
@@ -267,7 +267,8 @@ class Remove(ViewClass):
                 'url': current_site.domain,
                 'site_name': settings.SITE_NAME
             }
-        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email],
+            fail_silently=True)
 
         self.flash(_("We regret your decision to take this step.We'll read the"
             " reason why you removed yourself from this community that you"

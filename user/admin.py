@@ -66,7 +66,7 @@ class ProfileAdmin(UserAdmin):
                 'site_name': settings.SITE_NAME
             }
             send_mail(title, message, settings.DEFAULT_FROM_EMAIL,
-                [model.email])
+                [model.email], fail_silently=True)
 
         model.save()
 

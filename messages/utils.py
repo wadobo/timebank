@@ -48,7 +48,7 @@ def new_message_email(sender, instance, signal,
             })
             if instance.recipient.email != "":
                 send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
-                    [instance.recipient.email,])
+                    [instance.recipient.email,], fail_silently=True)
         except Exception, e:
             print e
             pass #fail silently
@@ -72,7 +72,7 @@ def new_transfer_email(sender, instance, signal, *args, **kwargs):
         'transfer': instance
     })
     send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
-        [recipient.email,])
+        [recipient.email,], fail_silently=True)
 
 
 def update_transfer_email(sender, instance, signal, *args, **kwargs):
@@ -118,4 +118,5 @@ def update_transfer_email(sender, instance, signal, *args, **kwargs):
         'site_url': '%s://%s' % (default_protocol, current_domain),
         'transfer': instance
     })
-    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_emails)
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_emails,
+        fail_silently=True)
