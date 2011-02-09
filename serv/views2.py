@@ -246,15 +246,14 @@ class NewTransfer(ViewClass):
         transfer = form.save(commit=False)
         transfer.is_public = False
         transfer.direct_transfer_creator = self.request.user
+        # the other user will always have to accept the transfer first
+        transfer.status = 'q'
         if form.data["service_type"] == '0':
-            # give credits. status jumps directly to accepted, so that the
-            # receiving part can confirm
-            transfer.status = 'a'
+            # give credits
             transfer.credits_payee = form.user
             transfer.credits_debtor = self.request.user
         else:
             # request credits
-            transfer.status = 'q'
             transfer.credits_payee = self.request.user
             transfer.credits_debtor = form.user
 
@@ -441,7 +440,7 @@ class AcceptTransfer(ViewClass):
                 " yours"), "error")
             return redirect('serv-transfers-mine')
 
-        if transfer.status != "a" or not transfer.is_direct() and\
+        if (transfer.status != "a" or not transfer.is_direct()) and\
             transfer.status != "q":
             self.flash(_(u"You can only modify transfers that haven't been"
                 " done"), "error")
