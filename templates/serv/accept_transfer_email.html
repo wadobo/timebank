@@ -9,7 +9,7 @@ The team of {{ site_url }}{% endblocktrans %}
 {% else %}
 {% blocktrans with transfer.creator.username as transfer_creator and transfer.recipient.username as transfer_recipient %}Hi {{ transfer_creator }},
 
-The direct transfer that you requested to {{ recipient }}  has been accepted by him. You can see the details of the transfer in {{ site_url }}{{ transfer_url }}.
+The direct transfer that you requested to {{ transfer_recipient }}  has been accepted by him. You can see the details of the transfer in {{ site_url }}{{ transfer_url }}.
 
 The team of {{ site_url }}{% endblocktrans %}
 {% endif %}
