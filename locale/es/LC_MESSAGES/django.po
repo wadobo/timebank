@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-07 16:30+0100\n"
+"POT-Creation-Date: 2011-02-09 20:10+0100\n"
 "Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
 "Language-Team: Es <timebank-devel@wadobo.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Language: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: settings.py:173
+#: settings.py:176
 msgid "Spanish"
 msgstr "Español"
 
-#: settings.py:174
+#: settings.py:177
 msgid "Spanish (neutral gender)"
 msgstr "Español (género neutral)"
 
-#: settings.py:175
+#: settings.py:178
 msgid "English"
 msgstr "Inglés"
 
@@ -105,12 +105,12 @@ msgstr "Asunto"
 msgid "Message"
 msgstr "Mensaje"
 
-#: main/views.py:59
+#: main/views.py:58
 #, python-format
 msgid "[%(site_name)s] %(username)s: %(email_subject)s"
 msgstr "[%(site_name)s] %(username)s: %(email_subject)s"
 
-#: main/views.py:64
+#: main/views.py:63
 #, python-format
 msgid ""
 "Registered user %(username)s sends the following  message:\n"
@@ -119,12 +119,12 @@ msgstr ""
 "El usuario registrado %(username)s envía el siguiente mensaje:\n"
 "%(message)s"
 
-#: main/views.py:70
+#: main/views.py:69
 #, python-format
 msgid "[%(site_name)s] %(email)s: %(email_subject)s"
 msgstr "[%(site_name)s] %(email)s: %(email_subject)s"
 
-#: main/views.py:75
+#: main/views.py:74
 #, python-format
 msgid ""
 "Registered user %(name)s whose email is %(email)s sends the following "
@@ -135,7 +135,7 @@ msgstr ""
 "mensaje:\n"
 "%(message)s"
 
-#: main/views.py:83
+#: main/views.py:82
 msgid "Mail sent, we'll answer you as soon as possible."
 msgstr "Email enviado, te responderemos lo antes posible."
 
@@ -247,7 +247,7 @@ msgstr "El destinatario lo eliminó a las"
 msgid "Public message"
 msgstr "Mensaje público"
 
-#: messages/models.py:84 serv/models.py:137 templates/serv/add_transfer.html:8
+#: messages/models.py:84 serv/models.py:141 templates/serv/add_transfer.html:8
 #: templates/serv/edit_transfer.html:13
 #: templates/serv/service_add_comment.html:8
 msgid "Service"
@@ -282,27 +282,27 @@ msgstr "Nueva transferencia directa de %s"
 msgid "Transfer from %s edited"
 msgstr "Transferencia de %s editada"
 
-#: messages/utils.py:90
+#: messages/utils.py:89
 #, python-format
 msgid "Transfer of the service from %s accepted"
 msgstr "Transferencia del servicio de %s aceptada"
 
-#: messages/utils.py:93
+#: messages/utils.py:92
 #, python-format
 msgid "Direct transfer from %s accepted"
 msgstr "Transferencia directa de %s aceptado"
 
-#: messages/utils.py:98
+#: messages/utils.py:97
 #, python-format
 msgid "Transfer to %(user1)s from a service of %(user2)s cancelled"
 msgstr "Transferencia de %(user1)s de un servicio de %(user2)s cancelado"
 
-#: messages/utils.py:104
+#: messages/utils.py:103
 #, python-format
 msgid "Direct transfer from %s cancelled"
 msgstr "Transferencia directa de %s cancelada"
 
-#: messages/utils.py:109
+#: messages/utils.py:108
 #, python-format
 msgid "Transfer of the service you did to %s confirmed"
 msgstr "Transferencia del servicio que realizaste a %s confirmada"
@@ -345,7 +345,7 @@ msgstr "Fecha de creación"
 msgid "Last modification date"
 msgstr "Fecha de última modificación"
 
-#: news/models.py:32 serv/models.py:52
+#: news/models.py:32 serv/models.py:56
 msgid "Publish date"
 msgstr "Fecha de publicación"
 
@@ -375,23 +375,11 @@ msgstr "Noticias"
 msgid "News in %s"
 msgstr "Noticias en %s"
 
-#: serv/forms.py:44 serv/forms.py:71 templates/serv/single_service_view.html:5
-msgid "demand"
-msgstr "demanda"
-
-#: serv/forms.py:45 serv/forms.py:70 templates/serv/single_service_view.html:5
-msgid "offer"
-msgstr "oferta"
-
-#: serv/forms.py:48 serv/forms.py:84 serv/forms.py:127
-msgid "Service type"
-msgstr "Tipo de servicio"
-
-#: serv/forms.py:57 templates/serv/single_service_view.html:14
+#: serv/forms.py:52 templates/serv/single_service_view.html:14
 msgid "All"
 msgstr "Todas"
 
-#: serv/forms.py:58
+#: serv/forms.py:53
 msgid ""
 "Tip: do not introduce personal data that you don't want to make public, use "
 "private messages for that."
@@ -399,135 +387,149 @@ msgstr ""
 "Nota: no introduzcas datos personales que no quieras hacer públicos, usa los "
 "mensajes privados para eso."
 
-#: serv/forms.py:74 user/forms.py:99
+#: serv/forms.py:61 serv/models.py:48
+#: templates/serv/single_service_view.html:5
+msgid "offer"
+msgstr "oferta"
+
+#: serv/forms.py:62 serv/models.py:49
+#: templates/serv/single_service_view.html:5
+msgid "demand"
+msgstr "demanda"
+
+#: serv/forms.py:65 user/forms.py:99
 msgid "---------"
 msgstr "---------"
 
-#: serv/forms.py:75
+#: serv/forms.py:66
 msgid "connected less than a day ago"
 msgstr "conectado hace menos de un día"
 
-#: serv/forms.py:76
+#: serv/forms.py:67
 msgid "connected less than a week ago"
 msgstr "conectado hace menos de una semana"
 
-#: serv/forms.py:77
+#: serv/forms.py:68
 msgid "connected less than a month ago"
 msgstr "conectado hace menos de un mes"
 
-#: serv/forms.py:78
+#: serv/forms.py:69
 msgid "connected less than 3 months ago"
 msgstr "conectado hace menos de 3 meses"
 
-#: serv/forms.py:79
+#: serv/forms.py:70
 msgid "connected less than 6 months ago"
 msgstr "conectado hace menos de 6 meses"
 
-#: serv/forms.py:80
+#: serv/forms.py:71
 msgid "connected less than a year ago"
 msgstr "conectado hace menos de un año"
 
-#: serv/forms.py:83
+#: serv/forms.py:74
 msgid "Only list my services"
 msgstr "Mostrar sólo mis servicios"
 
-#: serv/forms.py:86 serv/models.py:37 serv/models.py:43 serv/models.py:56
+#: serv/forms.py:75 serv/forms.py:118 serv/models.py:55
+msgid "Service type"
+msgstr "Tipo de servicio"
+
+#: serv/forms.py:77 serv/models.py:37 serv/models.py:43 serv/models.py:60
 #: templates/serv/single_service_view.html:17
 msgid "Category"
 msgstr "Categoría"
 
-#: serv/forms.py:87 serv/models.py:29 serv/models.py:58
+#: serv/forms.py:78 serv/models.py:29 serv/models.py:62
 #: templates/serv/single_service_view.html:9
 msgid "Area"
 msgstr "Zona"
 
-#: serv/forms.py:88
+#: serv/forms.py:79
 msgid "User status"
 msgstr "Estado del usuario"
 
-#: serv/forms.py:90 serv/forms.py:120 templates/user/view.html:40
+#: serv/forms.py:81 serv/forms.py:111 templates/user/view.html:40
 #: user/forms.py:110
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: serv/forms.py:102 serv/forms.py:151
+#: serv/forms.py:93 serv/forms.py:142
 msgid "half hour"
 msgstr "media hora"
 
-#: serv/forms.py:103 serv/forms.py:152
+#: serv/forms.py:94 serv/forms.py:143
 msgid "1 hour"
 msgstr "1 hora"
 
-#: serv/forms.py:104 serv/forms.py:153
+#: serv/forms.py:95 serv/forms.py:144
 msgid "1 hour and half"
 msgstr "1 hora y media"
 
-#: serv/forms.py:105 serv/forms.py:154
+#: serv/forms.py:96 serv/forms.py:145
 msgid "2 hours"
 msgstr "2 horas"
 
-#: serv/forms.py:106 serv/forms.py:155
+#: serv/forms.py:97 serv/forms.py:146
 msgid "2 hours and half"
 msgstr "2 horas y media"
 
-#: serv/forms.py:107 serv/forms.py:156
+#: serv/forms.py:98 serv/forms.py:147
 msgid "3 hours"
 msgstr "3 horas"
 
-#: serv/forms.py:108 serv/forms.py:157
+#: serv/forms.py:99 serv/forms.py:148
 msgid "3 hours and half"
 msgstr "3 horas y media"
 
-#: serv/forms.py:109 serv/forms.py:158
+#: serv/forms.py:100 serv/forms.py:149
 msgid "4 hours"
 msgstr "4 horas"
 
-#: serv/forms.py:110 serv/forms.py:159
+#: serv/forms.py:101 serv/forms.py:150
 msgid "4 hours and half"
 msgstr "4 horas y media"
 
-#: serv/forms.py:111 serv/forms.py:160
+#: serv/forms.py:102 serv/forms.py:151
 msgid "5 hours"
 msgstr "5 horas"
 
-#: serv/forms.py:112 serv/forms.py:161
+#: serv/forms.py:103 serv/forms.py:152
 msgid "5 hours and half"
 msgstr "5 horas y media"
 
-#: serv/forms.py:113 serv/forms.py:162
+#: serv/forms.py:104 serv/forms.py:153
 msgid "6 hours"
 msgstr "6 horas"
 
-#: serv/forms.py:114 serv/forms.py:163
+#: serv/forms.py:105 serv/forms.py:154
 msgid "6 hours and half"
 msgstr "6 horas y media"
 
-#: serv/forms.py:117
+#: serv/forms.py:108
 msgid "give credits"
 msgstr "dar créditos"
 
-#: serv/forms.py:118
+#: serv/forms.py:109
 msgid "ask for credits"
 msgstr "solicitar créditos"
 
-#: serv/forms.py:121
+#: serv/forms.py:112
 msgid ""
 "Name the user who will receive or will be asked for the credits to transfer"
 msgstr ""
 "Nombre del usuario que recibirá o al que se le solicitan los créditos a "
 "transferir"
 
-#: serv/forms.py:124 serv/forms.py:166 serv/models.py:153
+#: serv/forms.py:115 serv/forms.py:157 serv/models.py:157
 #: templates/template_base.html:112 templates/user/single_person_view.html:8
 #: templates/user/view.html:52
 msgid "Credits"
 msgstr "Créditos"
 
-#: serv/forms.py:128
+#: serv/forms.py:119
 msgid "Choose if you receive or ask for credits with this transfer"
 msgstr "debes elegir si recibes o solicitas créditos con esta transferencia"
 
-#: serv/forms.py:146
+#: serv/forms.py:137
 msgid "No user exists with this username."
 msgstr "No existe un usuario con ese nombre."
 
@@ -535,63 +537,63 @@ msgstr "No existe un usuario con ese nombre."
 msgid "Categories"
 msgstr "Categorías"
 
-#: serv/models.py:50
+#: serv/models.py:54
 msgid "Creator"
 msgstr "Creador"
 
-#: serv/models.py:55 serv/models.py:140 templates/user/view.html:56
+#: serv/models.py:59 serv/models.py:144 templates/user/view.html:56
 msgid "Description"
 msgstr "Descripción"
 
-#: serv/models.py:62
+#: serv/models.py:66
 msgid "offered"
 msgstr "ofertado"
 
-#: serv/models.py:64
+#: serv/models.py:68
 msgid "demanded"
 msgstr "demandado"
 
-#: serv/models.py:111
+#: serv/models.py:115
 msgid "requested"
 msgstr "solicitada"
 
-#: serv/models.py:112
+#: serv/models.py:116
 msgid "accepted"
 msgstr "aceptada"
 
-#: serv/models.py:113
+#: serv/models.py:117
 msgid "cancelled"
 msgstr "cancelada"
 
-#: serv/models.py:114
+#: serv/models.py:118
 msgid "done"
 msgstr "realizada"
 
-#: serv/models.py:126
+#: serv/models.py:130
 msgid "Direct transfer creator"
 msgstr "Creador de transferencia directa"
 
-#: serv/models.py:130
+#: serv/models.py:134
 msgid "Credits payee"
 msgstr "Receptor de créditos"
 
-#: serv/models.py:134
+#: serv/models.py:138
 msgid "Credits debtor"
 msgstr "Deudor de créditos"
 
-#: serv/models.py:142
+#: serv/models.py:146
 msgid "Transfer request date"
 msgstr "Fecha de solicitud de transferencia"
 
-#: serv/models.py:145
+#: serv/models.py:149
 msgid "Transfer confirmation date"
 msgstr "Fecha de confirmación de transferencia"
 
-#: serv/models.py:148 templates/serv/single_transfer_view.html:20
+#: serv/models.py:152 templates/serv/single_transfer_view.html:20
 msgid "Status"
 msgstr "Estado"
 
-#: serv/models.py:150
+#: serv/models.py:154
 msgid "Is public"
 msgstr "Transferencia pública"
 
@@ -635,12 +637,12 @@ msgstr "Servicio desactivado correctamente"
 msgid "You can't transfer credits to yourself"
 msgstr "No puedes transferirte créditos a ti mismo"
 
-#: serv/views2.py:263 serv/views2.py:322 serv/views2.py:428
+#: serv/views2.py:262 serv/views2.py:321 serv/views2.py:427
 msgid "The transfer would exceed the credit limit of the credits receiver"
 msgstr ""
 "La transferencia superaría el límite de crédito del receptor de créditos"
 
-#: serv/views2.py:269
+#: serv/views2.py:268
 msgid ""
 "The transfer would exceed the minimum credit limit of the person giving the "
 "credits"
@@ -648,19 +650,19 @@ msgstr ""
 "La transferencia superaría el límite mínimo de crédito de la persona que da "
 "los créditos"
 
-#: serv/views2.py:275 serv/views2.py:342
+#: serv/views2.py:274 serv/views2.py:341
 msgid "Transfer created successfully"
 msgstr "Transferencia creada correctamente"
 
-#: serv/views2.py:300
+#: serv/views2.py:299
 msgid "You don't have enough credit"
 msgstr "No tienes suficiente crédito"
 
-#: serv/views2.py:304
+#: serv/views2.py:303
 msgid "You can't demand a service to yourself"
 msgstr "No puedes solicitarte un servicio a tí mismo"
 
-#: serv/views2.py:328 serv/views2.py:389 serv/views2.py:434 serv/views2.py:468
+#: serv/views2.py:327 serv/views2.py:388 serv/views2.py:433 serv/views2.py:467
 msgid ""
 "The transfer would exceed the minimum credit limit of the person receiving "
 "the service"
@@ -668,51 +670,51 @@ msgstr ""
 "La transferencia superaría el límite mínimo de crédito de la persona que "
 "recibiría el servicio"
 
-#: serv/views2.py:337
+#: serv/views2.py:336
 msgid "You already have an ongoing transfer for this service"
 msgstr "Ya tienes una transferencia en curso para este servicio"
 
-#: serv/views2.py:355 serv/views2.py:371
+#: serv/views2.py:354 serv/views2.py:370
 msgid "You can't modify a transfer that isn't yours"
 msgstr "No puedes modificar una transferencia que no sea tuya"
 
-#: serv/views2.py:359 serv/views2.py:374
+#: serv/views2.py:358 serv/views2.py:373
 msgid "You can only modify transfers that haven't been accepted"
 msgstr "Sólo se pueden modificar transferencias aun no aceptadas"
 
-#: serv/views2.py:383
+#: serv/views2.py:382
 msgid "The transfer would exceed the credit limit of thecredits receiver"
 msgstr "Transferencia modificada correctamente"
 
-#: serv/views2.py:395
+#: serv/views2.py:394
 msgid "Transfer modified successfully"
 msgstr "Transferencia modificada correctamente"
 
-#: serv/views2.py:408
+#: serv/views2.py:407
 msgid "You can't cancel a transfer that isn't yours"
 msgstr "No puedes cancelar una transferencia que no sea tuya"
 
-#: serv/views2.py:412
+#: serv/views2.py:411
 msgid "You can only cancel transfers that haven't been done"
 msgstr "Sólo puedes cancelar transferencias que no hayan sido realizadas"
 
-#: serv/views2.py:417
+#: serv/views2.py:416
 msgid "Transfer cancelled"
 msgstr "Transferencia cancelada"
 
-#: serv/views2.py:440
+#: serv/views2.py:439
 msgid "You can't accept a transfer of a service that isn't yours"
 msgstr "No puedes aceptar una transferencia de un servicio que no sea tuyo"
 
-#: serv/views2.py:446
+#: serv/views2.py:445
 msgid "You can only modify transfers that haven't been done"
 msgstr "Sólo puedes modificar transferencias que no han sido realizadas"
 
-#: serv/views2.py:451
+#: serv/views2.py:450
 msgid "Transfer accepted"
 msgstr "Transferencia aceptada"
 
-#: serv/views2.py:462
+#: serv/views2.py:461
 msgid ""
 "The transfer would exceed the credit limit of the person receiving the "
 "credits"
@@ -720,51 +722,51 @@ msgstr ""
 "La transferencia superaría el límite de crédito de la persona que recibiría "
 "los créditos"
 
-#: serv/views2.py:474
+#: serv/views2.py:473
 msgid "You can't confirm a transfer of a service that isn't yours"
 msgstr "No puedes confirmar una transferencia de un servicio que no sea tuyo"
 
-#: serv/views2.py:479
+#: serv/views2.py:478
 msgid "You can only confirm accepted transfers"
 msgstr "Sólo se pueden confirmar transferencias aceptadas"
 
-#: serv/views2.py:490
+#: serv/views2.py:489
 msgid "Transfer done"
 msgstr "Transferencia realizada"
 
-#: serv/views2.py:509
+#: serv/views2.py:508
 msgid "You don't have permissions to see this transfer"
 msgstr "No tienes permisos para ver esta transferencia"
 
-#: serv/views2.py:544
+#: serv/views2.py:543
 msgid "Error receiving the rating"
 msgstr "Error recibiendo la puntuación"
 
-#: serv/views2.py:549
+#: serv/views2.py:548
 msgid "You don't have permissions to rate this transfer"
 msgstr "No tienes permisos para puntuar esta transferencia"
 
-#: serv/views2.py:554
+#: serv/views2.py:553
 msgid "Rating must be between 1 and 5"
 msgstr "sólo se puede poner un valor de 1 a 5"
 
-#: serv/views2.py:559
+#: serv/views2.py:558
 msgid "Transfer rating updated successfully"
 msgstr "Tu puntuación de la transferencia ha sido actualizada correctamente"
 
-#: serv/views2.py:576
+#: serv/views2.py:575
 msgid "You can't comment inactive services"
 msgstr "No se pueden comentar servicios inactivos"
 
-#: serv/views2.py:588
+#: serv/views2.py:587
 msgid "Comment added successfully"
 msgstr "Comentario añadido correctamente"
 
-#: serv/views2.py:609
+#: serv/views2.py:608
 msgid "You can't remove a message that isn't yours"
 msgstr "No puedes borrar un mensaje que no sea tuyo"
 
-#: serv/views2.py:613
+#: serv/views2.py:612
 msgid "Comment removed successfully"
 msgstr "Comentario borrado correctamente"
 
@@ -1185,19 +1187,18 @@ msgstr ""
 "El equipo de %(site_url)s"
 
 #: templates/serv/accept_transfer_email.html:10
-#, python-format
 msgid ""
 "Hi %(transfer_creator)s,\n"
 "\n"
-"The direct transfer that you requested to %(recipient)s  has been accepted "
-"by him. You can see the details of the transfer in %(site_url)s%"
+"The direct transfer that you requested to %(transfer_recipient)s  has been "
+"accepted by him. You can see the details of the transfer in %(site_url)s%"
 "(transfer_url)s.\n"
 "\n"
 "The team of %(site_url)s"
 msgstr ""
 "Hola %(transfer_creator)s,\n"
 "\n"
-"La transferencia directa que solicitaste a %(recipient)s ha sido aceptada "
+"La transferencia directa que solicitaste a %(transfer_recipient)s ha sido aceptada "
 "por él. Puedes ver los detalles de la transferencia en %(site_url)s%"
 "(transfer_url)s .\n"
 "\n"
@@ -1300,7 +1301,8 @@ msgstr "Guardar"
 
 #: templates/serv/edit_transfer.html:5 templates/serv/edit_transfer.html:23
 #: templates/serv/service_transfer_actions.html:5
-#: templates/serv/single_transfer_view.html:36
+#: templates/serv/single_transfer_view.html:43
+#: templates/serv/single_transfer_view.html:65
 msgid "Edit transfer"
 msgstr "Editar transferencia"
 
@@ -1409,9 +1411,11 @@ msgid "Send comment"
 msgstr "Enviar comentario"
 
 #: templates/serv/service_transfer_actions.html:7
-#: templates/serv/single_transfer_view.html:38
-#: templates/serv/single_transfer_view.html:49
+#: templates/serv/single_transfer_view.html:45
 #: templates/serv/single_transfer_view.html:54
+#: templates/serv/single_transfer_view.html:59
+#: templates/serv/single_transfer_view.html:67
+#: templates/serv/single_transfer_view.html:77
 msgid "Cancel transfer"
 msgstr "Cancelar transferencia"
 
@@ -1539,16 +1543,18 @@ msgstr "<strong>rechazada</strong>, creada hace %(time)s"
 msgid "<strong>confirmed</strong>, %(time)s ago"
 msgstr "<strong>confirmada</strong> hace %(time)s"
 
-#: templates/serv/single_transfer_view.html:41
+#: templates/serv/single_transfer_view.html:36
+#: templates/serv/single_transfer_view.html:38
 #: templates/user/list_user_services.html:17 templates/user/view.html:23
 msgid "Send private message"
 msgstr "Enviar mensaje privado"
 
-#: templates/serv/single_transfer_view.html:46
+#: templates/serv/single_transfer_view.html:51
+#: templates/serv/single_transfer_view.html:71
 msgid "Accept transfer"
 msgstr "Aceptar transferencia"
 
-#: templates/serv/single_transfer_view.html:60
+#: templates/serv/single_transfer_view.html:83
 msgid "Confirm transfer"
 msgstr "Confirmar transferencia"
 
@@ -1999,7 +2005,7 @@ msgstr "menos de 6 meses"
 msgid "less than one year ago"
 msgstr "menos de un año"
 
-#: user/forms.py:108 user/forms.py:124 user/views.py:329
+#: user/forms.py:108 user/forms.py:124 user/views.py:330
 msgid "User connected"
 msgstr "El usuario se conectó hace"
 
@@ -2272,7 +2278,7 @@ msgstr ""
 "\n"
 "- El Equipo de %(site_name)s."
 
-#: user/views.py:272
+#: user/views.py:273
 msgid ""
 "We regret your decision to take this step.We'll read the reason why you "
 "removed yourself from this community that you provided to us and we'll have "
@@ -2282,19 +2288,19 @@ msgstr ""
 "proporcionaste por la cual te has borrado y la tendremos en cuenta para "
 "mejorar en el futuro."
 
-#: user/views.py:275
+#: user/views.py:276
 msgid "User removed"
 msgstr "Usuario borrado"
 
-#: user/views.py:400
+#: user/views.py:401
 #, python-format
 msgid "Message added to %s public profile"
 msgstr "Mensaje añadido al perfil público de %s"
 
-#: user/views.py:411 user/views.py:423
+#: user/views.py:412 user/views.py:424
 msgid "You don't have permission to send an email to all users"
 msgstr "No tienes permisos para enviar un email a todos los usuarios"
 
-#: user/views.py:436
+#: user/views.py:437
 msgid "Email sent to all users"
 msgstr "Email enviado a todos los usuarios"
