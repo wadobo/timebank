@@ -494,7 +494,7 @@ class ViewService(ViewClass):
     @login_required
     def GET(self, service_id):
         service = get_object_or_404(Service, pk=service_id)
-        context = dict(service=service)
+        context = dict(service=service, complete_description=True)
         return self.context_response('serv/view_service.html', context)
 
 

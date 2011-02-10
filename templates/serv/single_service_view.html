@@ -28,7 +28,19 @@
                 <img src="{% gravatar serv.creator.email 48 %}"/>
             {% endif %}
         </div>
-        <a href="{% url serv-view serv.id %}"><div class="description">{{ serv.description|truncatewords:50|linebreaks }}</div></a>
+        {% if complete_description %}
+            <a href="{% url serv-view serv.id %}">
+                <div class="description">
+                    {{ serv.description|linebreaks }}
+                </div>
+            </a>
+        {% else %}
+            <a href="{% url serv-view serv.id %}" alt="{{ serv.description|linebreaks }}">
+                <div class="description">
+                    {{ serv.description|truncatewords:50|linebreaks }}
+                </div>
+            </a>
+        {% endif %}
         <div class="cleaner"></div>
         <div class="information2">
             {{ serv.transfers_count }} {% trans "transfers" %} / {{ serv.messages_count }} {% trans "comments" %} / {{ serv.credit_hours_transfered }} {% trans "hours transferred" %}
