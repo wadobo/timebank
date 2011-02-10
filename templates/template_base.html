@@ -27,7 +27,7 @@
             <div id="logo_area">
                 <div id="logo"><a href="/"><img src="{{ MEDIA_URL }}imgs/timebank.png"></a></div>
           </div>
-        <form action="{% url django.views.i18n.set_language %}" method="POST">
+        <form action="{% url set_language %}" method="POST">
             {% csrf_token %}
             <select name="language" id="select-language-input">
                 {% get_current_language as LANGUAGE_CODE %}

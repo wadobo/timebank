@@ -62,6 +62,10 @@ class Profile(User):
     email_updates = models.BooleanField(_("Receive email updates"),
         default=True)
 
+    # Saving the user language allows sending emails to him in his desired
+    # language (among other things)
+    lang_code = models.CharField(_("Language Code"), max_length=10, default='')
+
     class Meta:
         verbose_name = _("User")
         verbose_name_plural = _("Users")

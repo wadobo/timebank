@@ -19,8 +19,9 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.db.models import signals
+from django.views.i18n import set_language as django_set_language
 
-from utils import ViewClass, login_required, mail_owners
+from utils import ViewClass, login_required, mail_owners, I18nString
 from forms import AnonymousContactForm, ContactForm
 from serv.models import Service
 from messages.utils import new_transfer_email
@@ -55,28 +56,28 @@ class Contact(ViewClass):
         # Send an email to admins
         if self.request.user.is_authenticated():
             user = self.request.user
-            subject = _("[%(site_name)s] %(username)s: %(email_subject)s") % {
+            subject = I18nString(_("[%(site_name)s] %(username)s: %(email_subject)s"), {
                 'site_name': settings.SITE_NAME,
                 'username': user.username,
                 'email_subject': form.cleaned_data["subject"]
-            }
-            message = _(u"Registered user %(username)s sends the following "\
-            " message:\n%(message)s") % {
+            })
+            message = I18nString(_(u"Registered user %(username)s sends the following "\
+            " message:\n%(message)s"), {
                 'username': user.username,
                 'message': form.cleaned_data["message"]
-            }
+            })
         else:
-            subject = _("[%(site_name)s] %(email)s: %(email_subject)s") % {
+            subject = I18nString(_("[%(site_name)s] %(email)s: %(email_subject)s") % {
                 'site_name': settings.SITE_NAME,
                 'email': form.cleaned_data["email"],
                 'email_subject': form.cleaned_data["subject"]
-            }
-            message = _("Registered user %(name)s whose email is %(email)s"\
-                " sends the following message:\n%(message)s") % {
+            })
+            message = I18nString(_("Registered user %(name)s whose email is %(email)s"\
+                " sends the following message:\n%(message)s"), {
                     'name': form.cleaned_data["name"],
                     'email': form.cleaned_data["email"],
                     'message': form.cleaned_data["message"]
-                }
+                })
         mail_owners(subject, message)
 
         self.flash(_("Mail sent, we'll answer you as soon as possible."))
@@ -93,7 +94,21 @@ class ErrorHandler(ViewClass):
     def POST(self):
         return self.GET()
 
+class SetLanguage(ViewClass):
+    """
+    Extends django's set_language view to save the user's language in his
+    profile
+    """
+
+    def POST(self):
+        if self.request.user.is_authenticated():
+            self.request.user.lang_code = self.request.POST.get('language', None)
+            self.request.user.save()
+
+        return django_set_language(self.request)
+
 index = Index()
 contact = Contact()
 handler404 = ErrorHandler('404.html')
 handler500 = ErrorHandler('500.html')
+set_language = SetLanguage()

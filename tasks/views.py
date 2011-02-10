@@ -19,14 +19,13 @@ from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.core.mail import send_mail
 from django.contrib.sites.models import Site
 from django.core.paginator import Paginator
 from django.shortcuts import redirect
 
 from datetime import datetime, timedelta
 
-from utils import ViewClass, login_required
+from utils import ViewClass, login_required, send_mail, I18nString
 from user.models import Profile
 from tasks.models import Task
 from serv.models import Transfer, Service
@@ -96,13 +95,13 @@ class SendEmailUpdates(ViewClass):
             ]
 
             if self.__should_send_update(task, send_update_data):
-                subject = _(u"Updates from %s" % settings.SITE_NAME)
+                subject = I18nString(_(u"Updates from %s"), settings.SITE_NAME)
                 default_protocol = getattr(settings, 'DEFAULT_HTTP_PROTOCOL', 'http')
                 new_services = Service.objects.filter(is_active=True)
                 paginator = Paginator(new_services, 5)
                 new_services = paginator.page(1)
 
-                message = render_to_string("tasks/email_update.html", dict(
+                message = I18nString("tasks/email_update.html", dict(
                     site_url='%s://%s' % (default_protocol, Site.objects.get_current().domain),
                     site_name=settings.SITE_NAME,
                     unread_messages=unread_messages,
@@ -111,9 +110,9 @@ class SendEmailUpdates(ViewClass):
                     new_services=new_services,
                     recipient=user,
                     context_instance=RequestContext(self.request)
-                ))
+                ), True)
                 send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
-                    [user.email], fail_silently=True)
+                    [user], fail_silently=True)
                 return
 
     def __should_send_update(self, task, data):

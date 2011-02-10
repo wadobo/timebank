@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-09 20:10+0100\n"
+"POT-Creation-Date: 2011-02-10 17:28+0100\n"
 "Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
 "Language-Team: Es <timebank-devel@wadobo.com>\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "Español (género neutral)"
 msgid "English"
 msgstr "Inglés"
 
-#: utils.py:106
+#: utils.py:107
 #, python-format
 msgid ""
 "You must be registered to enter in <a href=\"%(link)s\">%(link_text)s</a>. "
@@ -39,50 +39,50 @@ msgstr ""
 "a>. <a href=\"%(join_url)s\">Regístrate</a> en nuestra comunidad o entra con "
 "tu usuario/a usando el recuadro gris de la izquierda."
 
-#: utils.py:137
+#: utils.py:138
 msgid "Required. "
 msgstr "Requerido. "
 
-#: utils.py:139 utils.py:172
+#: utils.py:140 utils.py:173
 msgid "Optional. "
 msgstr "Opcional. "
 
-#: utils.py:141
+#: utils.py:142
 #, python-format
 msgid "From %(from)d to %(to)d characters. "
 msgstr "De %(from)d a %(to)d caracteres. "
 
-#: utils.py:144
+#: utils.py:145
 #, python-format
 msgid "Up to %d characters. "
 msgstr "Hasta %d caracteres. "
 
-#: utils.py:147
+#: utils.py:148
 #, python-format
 msgid "Minimum %d characters. "
 msgstr "Mínimo %d caracteres. "
 
-#: utils.py:170
+#: utils.py:171
 msgid "Requeried. "
 msgstr "Requerido. "
 
-#: utils.py:173
+#: utils.py:174
 msgid " Example: name@example.com"
 msgstr "Ejemplo: nombre@ejemplo.com"
 
-#: utils.py:203
+#: utils.py:204
 msgid "Required. Example(s): "
 msgstr "Requerido. Ejemplo(s): "
 
-#: utils.py:205
+#: utils.py:206
 msgid "Optional. Example(s): "
 msgstr "Opcional. Ejemplos(s): "
 
-#: utils.py:218
+#: utils.py:219
 msgid "Captcha disabled"
 msgstr "Captcha desactivado"
 
-#: utils.py:242
+#: utils.py:243
 msgid "Invalid captcha"
 msgstr "Captcha inválido"
 
@@ -105,12 +105,12 @@ msgstr "Asunto"
 msgid "Message"
 msgstr "Mensaje"
 
-#: main/views.py:58
+#: main/views.py:59
 #, python-format
 msgid "[%(site_name)s] %(username)s: %(email_subject)s"
 msgstr "[%(site_name)s] %(username)s: %(email_subject)s"
 
-#: main/views.py:63
+#: main/views.py:64
 #, python-format
 msgid ""
 "Registered user %(username)s sends the following  message:\n"
@@ -119,12 +119,12 @@ msgstr ""
 "La persona usuaria registrada %(username)s envía el siguiente mensaje:\n"
 "%(message)s"
 
-#: main/views.py:69
+#: main/views.py:70
 #, python-format
 msgid "[%(site_name)s] %(email)s: %(email_subject)s"
 msgstr "[%(site_name)s] %(email)s: %(email_subject)s"
 
-#: main/views.py:74
+#: main/views.py:75
 #, python-format
 msgid ""
 "Registered user %(name)s whose email is %(email)s sends the following "
@@ -135,7 +135,7 @@ msgstr ""
 "siguiente mensaje:\n"
 "%(message)s"
 
-#: main/views.py:82
+#: main/views.py:83
 msgid "Mail sent, we'll answer you as soon as possible."
 msgstr "Email enviado, te responderemos lo antes posible."
 
@@ -263,47 +263,47 @@ msgstr "Transferencia"
 msgid "Messages"
 msgstr "Mensajes"
 
-#: messages/utils.py:27
+#: messages/utils.py:22
 #, python-format
 msgid "New Message: %(subject)s"
 msgstr "Nuevo mensaje: %(subject)s"
 
-#: messages/utils.py:67
+#: messages/utils.py:62
 #, python-format
 msgid "New transfer request from %s"
 msgstr "Nueva solicitud de transferencia de %s"
 
-#: messages/utils.py:69
+#: messages/utils.py:65
 #, python-format
 msgid "New direct transfer from %s"
 msgstr "Nueva transferencia directa de %s"
 
-#: messages/utils.py:84
+#: messages/utils.py:81
 #, python-format
 msgid "Transfer from %s edited"
 msgstr "Transferencia de %s editada"
 
-#: messages/utils.py:89
+#: messages/utils.py:87
 #, python-format
 msgid "Transfer of the service from %s accepted"
 msgstr "Transferencia del servicio de %s aceptada"
 
-#: messages/utils.py:92
+#: messages/utils.py:90
 #, python-format
 msgid "Direct transfer from %s accepted"
 msgstr "Transferencia directa de %s aceptado"
 
-#: messages/utils.py:97
+#: messages/utils.py:95
 #, python-format
 msgid "Transfer to %(user1)s from a service of %(user2)s cancelled"
 msgstr "Transferencia de %(user1)s de un servicio de %(user2)s cancelado"
 
-#: messages/utils.py:103
+#: messages/utils.py:101
 #, python-format
 msgid "Direct transfer from %s cancelled"
 msgstr "Transferencia directa de %s cancelada"
 
-#: messages/utils.py:108
+#: messages/utils.py:106
 #, python-format
 msgid "Transfer of the service you did to %s confirmed"
 msgstr "Transferencia del servicio que realizaste a %s confirmada"
@@ -358,7 +358,7 @@ msgstr "Oculto"
 msgid "Body"
 msgstr "Mensaje"
 
-#: news/models.py:36 user/models.py:66
+#: news/models.py:36 user/models.py:70
 msgid "User"
 msgstr "Usuario/a"
 
@@ -780,15 +780,15 @@ msgstr "Nombre"
 msgid "Last execution"
 msgstr "Última ejecución"
 
-#: tasks/views.py:66 tasks/views.py:76
+#: tasks/views.py:65 tasks/views.py:75
 msgid "Update task postponed"
 msgstr "Tarea de actualización postergada"
 
-#: tasks/views.py:74
+#: tasks/views.py:73
 msgid "Update task done"
 msgstr "Tarea de actualización realizada"
 
-#: tasks/views.py:99
+#: tasks/views.py:98
 #, python-format
 msgid "Updates from %s"
 msgstr "Novedades de %s"
@@ -906,7 +906,7 @@ msgid "Send email to all users"
 msgstr "Enviar un email a todas las personas usuarias"
 
 #: templates/flatpages/default.html:14 templates/news/basenew.html:7
-#: templates/serv/single_service_view.html:40
+#: templates/serv/single_service_view.html:52
 msgid "Edit"
 msgstr "Editar"
 
@@ -1200,8 +1200,8 @@ msgid ""
 msgstr ""
 "Hola %(transfer_creator)s,\n"
 "\n"
-"La transferencia directa que solicitaste a %(transfer_recipient)s ha sido aceptada "
-"por él. Puedes ver los detalles de la transferencia en %(site_url)s%"
+"La transferencia directa que solicitaste a %(transfer_recipient)s ha sido "
+"aceptada por él. Puedes ver los detalles de la transferencia en %(site_url)s%"
 "(transfer_url)s .\n"
 "\n"
 "El equipo de %(site_url)s"
@@ -1474,36 +1474,36 @@ msgstr "Inactiva"
 msgid "Published %(time)s ago"
 msgstr "Publicado hace %(time)s"
 
-#: templates/serv/single_service_view.html:34
+#: templates/serv/single_service_view.html:46
 msgid "transfers"
 msgstr "transferencias"
 
-#: templates/serv/single_service_view.html:34
+#: templates/serv/single_service_view.html:46
 msgid "comments"
 msgstr "comentarios"
 
-#: templates/serv/single_service_view.html:34
+#: templates/serv/single_service_view.html:46
 msgid "hours transferred"
 msgstr "horas transferidas"
 
-#: templates/serv/single_service_view.html:39
-#: templates/serv/single_service_view.html:56
+#: templates/serv/single_service_view.html:51
+#: templates/serv/single_service_view.html:68
 msgid "Comment"
 msgstr "Comentario"
 
-#: templates/serv/single_service_view.html:42
+#: templates/serv/single_service_view.html:54
 msgid "Remove"
 msgstr "Borrar"
 
-#: templates/serv/single_service_view.html:46
+#: templates/serv/single_service_view.html:58
 msgid "Disable"
 msgstr "Desactivar"
 
-#: templates/serv/single_service_view.html:50
+#: templates/serv/single_service_view.html:62
 msgid "Enable"
 msgstr "Activar"
 
-#: templates/serv/single_service_view.html:57
+#: templates/serv/single_service_view.html:69
 msgid "Send pivate message"
 msgstr "Enviar mensaje privado"
 
@@ -2056,10 +2056,14 @@ msgid "Receive email updates"
 msgstr "Recibir actualizaciones por email"
 
 #: user/models.py:67
+msgid "Language Code"
+msgstr "Código de idioma"
+
+#: user/models.py:71
 msgid "Users"
 msgstr "Usuarios/as"
 
-#: user/models.py:70
+#: user/models.py:74
 #, python-format
 msgid "Id: %(id)s user: %(username)s"
 msgstr "Id: %(id)s usuario/a: %(username)s"

@@ -5,12 +5,7 @@ from django.template import Context, loader
 from django.template.loader import render_to_string
 from django.conf import settings
 
-# favour django-mailer but fall back to django.core.mail
-
-if "mailer" in settings.INSTALLED_APPS:
-    from mailer import send_mail
-else:
-    from django.core.mail import send_mail
+from timebank.utils import send_mail, I18nString
 
 def format_quote(text):
     """
@@ -41,14 +36,14 @@ def new_message_email(sender, instance, signal,
     if 'created' in kwargs and kwargs['created']:
         try:
             current_domain = Site.objects.get_current().domain
-            subject = subject_prefix % {'subject': instance.subject}
-            message = render_to_string(template_name, {
+            subject = I18nString(subject_prefix, {'subject': instance.subject})
+            message = I18nString(template_name, {
                 'site_url': '%s://%s' % (default_protocol, current_domain),
                 'message': instance,
-            })
+            }, True)
             if instance.recipient.email != "":
                 send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
-                    [instance.recipient.email,], fail_silently=True)
+                    [instance,], fail_silently=True)
         except Exception, e:
             print e
             pass #fail silently
@@ -64,15 +59,17 @@ def new_transfer_email(sender, instance, signal, *args, **kwargs):
 
     recipient = instance.recipient()
     if instance.service:
-        subject=_('New transfer request from %s') % instance.creator().username
+        subject=I18nString(_('New transfer request from %s'),
+            instance.creator().username)
     else:
-        subject=_('New direct transfer from %s') % instance.creator().username
-    message = render_to_string("serv/new_transfer_email.html", {
-        'site_url': '%s://%s' % (default_protocol, current_domain),
-        'transfer': instance
-    })
+        subject=I18nString(_('New direct transfer from %s'),
+            instance.creator().username)
+    message = I18nString("serv/new_transfer_email.html", {
+            'site_url': '%s://%s' % (default_protocol, current_domain),
+            'transfer': instance
+        }, True)
     send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
-        [recipient.email,], fail_silently=True)
+        [recipient,], fail_silently=True)
 
 
 def update_transfer_email(sender, instance, signal, *args, **kwargs):
@@ -80,42 +77,43 @@ def update_transfer_email(sender, instance, signal, *args, **kwargs):
     default_protocol = getattr(settings, 'DEFAULT_HTTP_PROTOCOL', 'http')
 
     if instance.status == 'q':
-        recipient_emails = [instance.creator().email,]
-        subject=_('Transfer from %s edited') % instance.creator().username
+        recipients = [instance.creator(),]
+        subject=I18nString(_('Transfer from %s edited'),
+            instance.creator().username)
         template = "serv/edit_transfer_email.html"
     elif instance.status == 'a':
-        recipient_emails = [instance.creator().email,]
+        recipients = [instance.creator(),]
         if instance.service:
-            subject=_('Transfer of the service from %s accepted') %\
-                instance.service.creator.username
+            subject=I18nString(_('Transfer of the service from %s accepted'),
+                instance.service.creator.username)
         else:
-            subject=_('Direct transfer from %s accepted') %\
-                instance.creator().username
+            subject=I18nString(_('Direct transfer from %s accepted'),
+                instance.creator().username)
         template = "serv/accept_transfer_email.html"
     elif instance.status == 'r':
         if not instance.is_direct():
-            subject=_('Transfer to %(user1)s from a service of %(user2)s'
-                ' cancelled') % {
-                    'user1': instance.creator().username,
-                    'user2': instance.service.creator.username
-                }
+            subject=I18nString(_('Transfer to %(user1)s from a service of %(user2)s'
+                ' cancelled'), {
+                        'user1': instance.creator().username,
+                        'user2': instance.service.creator.username
+                    })
         else:
-            subject=_('Direct transfer from %s cancelled') %\
-                instance.creator().username
+            subject=I18nString(_('Direct transfer from %s cancelled'),
+                instance.creator().username)
         template = "serv/cancel_transfer_email.html"
-        recipient_emails = [instance.credits_debtor.email, instance.credits_payee.email]
+        recipients = [instance.credits_debtor, instance.credits_payee]
     elif instance.status == 'd':
-        subject=_('Transfer of the service you did to %s confirmed') % (\
-            instance.credits_debtor.email)
+        subject=I18nString(_('Transfer of the service you did to %s confirmed'),
+                instance.credits_debtor.email)
         template = "serv/done_transfer_email.html"
-        recipient_emails = [instance.credits_payee.email,]
+        recipients = [instance.credits_payee,]
     else:
         print "error, invalid updated transfer status " + instance.service.status
         return
 
-    message = render_to_string(template, {
+    message = I18nString(template, {
         'site_url': '%s://%s' % (default_protocol, current_domain),
         'transfer': instance
-    })
-    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_emails,
+    }, True)
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipients,
         fail_silently=True)

@@ -20,7 +20,7 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.sites.models import Site
-from django.core.mail import send_mail
+from utils import send_mail, I18nString
 from django.conf import settings
 from django.shortcuts import redirect
 
@@ -53,20 +53,20 @@ class ProfileAdmin(UserAdmin):
         if model.is_active == True and old_model.is_active == False:
             # user activated, send activation email
             current_site = Site.objects.get_current()
-            title = _("Welcome to %(site_name)s, %(username)s") % {
+            title = I18nString(_("Welcome to %(site_name)s, %(username)s"), {
                 'site_name': settings.SITE_NAME,
                 'username': model.username
-            }
-            message = _(u"Congratulations %(username)s!\n"
+            })
+            message = I18nString(_(u"Congratulations %(username)s!\n"
             u"The admins have accepted your registration request, "
             u"now you can start collaborating in our community in  "
-            u"http://%(url)s/.\n\n- The team of %(site_name)s.") % {
+            u"http://%(url)s/.\n\n- The team of %(site_name)s."), {
                 'username': model.username,
                 'url': current_site.domain,
                 'site_name': settings.SITE_NAME
-            }
+            })
             send_mail(title, message, settings.DEFAULT_FROM_EMAIL,
-                [model.email], fail_silently=True)
+                [model], fail_silently=True)
 
         model.save()
 
