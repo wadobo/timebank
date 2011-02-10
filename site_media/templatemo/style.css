@@ -680,6 +680,10 @@ div.new .info
     text-decoration: underline;
 }
 
+.services .serv a {
+    text-decoration: none;
+}
+
 .services .serv .information2 a {
     text-decoration: none;
     color: #4061C2;
