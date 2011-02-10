@@ -22,7 +22,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.http import Http404
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 class NewView(ViewClass):
     def GET(self, new_id):
