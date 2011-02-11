@@ -308,19 +308,19 @@ class I18nString(object):
         self.args = args
         self.render = render
 
-    def to_unicode(self, languague_code=None):
+    def to_unicode(self, language_code=None):
         from django.utils import translation
         cur_language = translation.get_language()
         renderized_string = None
         try:
-            if languague_code:
-                translation.activate(languague_code)
+            if language_code:
+                translation.activate(language_code)
             if self.render:
                 renderized_string = render_to_string(self.message, self.args)
             else:
                 renderized_string = self.message % self.args
         finally:
-            if languague_code:
+            if language_code:
                 translation.activate(settings.LANGUAGE_CODE)
         return renderized_string
 

@@ -121,7 +121,6 @@ class SendEmailUpdates(ViewClass):
         date to be checked, returns if it's needed to send an email.
         '''
         current_date = datetime.now()
-        update_period_seconds = self.update_period.total_seconds
         for dict_item in data:
             for obj in dict_item["data"]:
                 start_date = getattr(obj, dict_item["date_field"])
