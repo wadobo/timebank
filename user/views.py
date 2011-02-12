@@ -73,7 +73,7 @@ class Register(ViewClass):
                     'username': new_user.username,
                     'url': current_site.domain,
                     'site_name': settings.SITE_NAME
-                }, True)
+                })
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
                 [new_user], fail_silently=True)
 
