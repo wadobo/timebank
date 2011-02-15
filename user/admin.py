@@ -40,6 +40,8 @@ class ProfileAdmin(UserAdmin):
         ExtraProfileInline,
     ]
     actions = [send_email_action]
+    list_display = ('username', 'email', 'get_full_name', 'last_login',
+                    'is_active', 'is_staff', 'balance', 'karma')
 
     def save_model(self, request, model, form, change):
         '''
