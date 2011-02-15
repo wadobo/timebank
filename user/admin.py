@@ -35,11 +35,23 @@ def send_email_action(profile_admin, request, queryset):
     return redirect('user-send-email-to-all')
 send_email_action.short_description = _("Send email to all users")
 
+
+def activate_user_action(profile_admin, request, queryset):
+    queryset.update(is_active=True)
+activate_user_action.short_description = _("Activate users")
+
+
+def deactivate_user_action(profile_admin, request, queryset):
+    queryset.update(is_active=False)
+deactivate_user_action.short_description = _("Deactivate users")
+
+
 class ProfileAdmin(UserAdmin):
     inlines = [
         ExtraProfileInline,
     ]
-    actions = [send_email_action]
+    actions = [send_email_action, activate_user_action,
+               deactivate_user_action]
     list_display = ('username', 'email', 'get_full_name', 'last_login',
                     'is_active', 'is_staff', 'balance', 'karma')
 
