@@ -393,6 +393,11 @@ class SendMessage(ViewClass):
     def POST(self, recipient_id=None):
         recipient = get_object_or_404(Profile, id=recipient_id)
         form = PublicMessageForm(self.request.POST)
+        if not form.is_valid():
+            messages = Message.objects.public_inbox_for(recipient)
+            return self.context_response('user/view.html', {'profile': recipient,
+                'form': form, 'message_list': messages})
+
         new_message = form.save(commit=False)
         new_message.sender = self.request.user
         new_message.recipient = recipient
