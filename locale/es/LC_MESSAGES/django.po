@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-17 18:04+0100\n"
+"POT-Creation-Date: 2011-02-17 18:47+0100\n"
 "Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
 "Language-Team: Es <timebank-devel@wadobo.com>\n"
 "MIME-Version: 1.0\n"
@@ -919,7 +919,11 @@ msgstr "Enviar un email a todos los usuarios"
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/main/contact.html:13
+#: templates/main/contact.html:8
+msgid "Contact with the site owners via this form."
+msgstr "Contacta con los dueños del sitio web mediante este formulario."
+
+#: templates/main/contact.html:14
 msgid "Send message"
 msgstr "Enviar mensaje"
 
