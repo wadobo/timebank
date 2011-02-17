@@ -31,6 +31,7 @@ urlpatterns = patterns('',
     (r'^messages/', include('messages.urls')),
     (r'^services/', include('serv.urls')),
     (r'^tasks/', include('tasks.urls')),
+    (r'^notification/', include('notification.urls')),
     (r'^', include('main.urls')),
 )
 
