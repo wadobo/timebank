@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-17 09:41+0100\n"
+"POT-Creation-Date: 2011-02-17 18:04+0100\n"
 "Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
 "Language-Team: Es <timebank-devel@wadobo.com>\n"
 "MIME-Version: 1.0\n"
@@ -307,11 +307,11 @@ msgstr "Transferencia directa de %s cancelada"
 msgid "Transfer of the service you did to %s confirmed"
 msgstr "Transferencia del servicio que realizaste a %s confirmada"
 
-#: messages/views.py:106 messages/views.py:165
+#: messages/views.py:105 messages/views.py:163
 msgid "Message successfully sent."
 msgstr "Mensaje enviado con éxito."
 
-#: messages/views.py:134
+#: messages/views.py:133
 #, python-format
 msgid ""
 "%(sender)s wrote:\n"
@@ -320,16 +320,16 @@ msgstr ""
 "%(sender)s escribió:\n"
 "%(body)s"
 
-#: messages/views.py:138
+#: messages/views.py:137
 #, python-format
 msgid "Re: %(subject)s"
 msgstr "Re: %(subject)s"
 
-#: messages/views.py:206
+#: messages/views.py:204
 msgid "Message successfully deleted."
 msgstr "Mensaje eliminado correctamente."
 
-#: messages/views.py:235
+#: messages/views.py:233
 msgid "Message successfully recovered."
 msgstr "Mensaje recuperado conrrectamente."
 
@@ -873,6 +873,7 @@ msgid "Preferences"
 msgstr "Preferencias"
 
 #: templates/template_base.html:112
+#, python-format
 msgid ""
 "\n"
 "                                Credit: <strong>%(balance)s hours</strong>\n"
@@ -1131,11 +1132,35 @@ msgstr ""
 "    hace %(date)s\n"
 "    "
 
+#: templates/notification/messages_deleted/full.txt:1
+#, python-format
+msgid "You have deleted the message '%(message)s'."
+msgstr "Has borrado el mensaje '%(message)s'."
+
 #: templates/notification/messages_deleted/notice.html:1
 #, python-format
 msgid ""
 "You have deleted the message <a href=\"%(message_url)s\">%(message)s</a>."
 msgstr "Has borrado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
+
+#: templates/notification/messages_received/full.txt:1
+#, python-format
+msgid ""
+"%(message_sender)s has sent you a message:\n"
+"\n"
+"%(message)s\n"
+"\n"
+"%(message_body)s\n"
+"\n"
+"http://%(current_site)s%(message_url)s"
+msgstr ""
+"%(message_sender)s te ha respondido a tu mensaje :\n"
+"\n"
+"%(message)s\n"
+"\n"
+"%(message_body)s\n"
+"\n"
+"http://%(current_site)s%(message_url)s"
 
 #: templates/notification/messages_received/notice.html:2
 #, python-format
@@ -1146,35 +1171,82 @@ msgstr ""
 "Has recibido el mensaje <a href=\"%(message_url)s\">%(message)s</a> de %"
 "(message_sender)s."
 
-#: templates/notification/messages_recovered/notice.html:1
+#: templates/notification/messages_received/short.txt:1
+#: templates/notification/messages_reply_received/short.txt:1
 #, python-format
+msgid "%(notice)s by %(message_sender)s"
+msgstr ""
+
+#: templates/notification/messages_recovered/full.txt:1
+#, python-format
+msgid "You have recovered the message '%(message)s'."
+msgstr "Has recuperado el mensaje %(message)s."
+
+#: templates/notification/messages_recovered/notice.html:1
+#, fuzzy, python-format
 msgid ""
 "You have recovered the message <a href=\"%(message_url)s\">%(message)s</a>."
-msgstr "Has recuperado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
+msgstr "Has borrado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
+
+#: templates/notification/messages_replied/full.txt:1
+#, python-format
+msgid ""
+"You have replied to '%(message_parent_msg)s' from %(message_recipient)s."
+msgstr ""
+"Has respondido al mensaje '%(message_parent_msg)s' de %(message_recipient)s."
 
 #: templates/notification/messages_replied/notice.html:2
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "You have replied to <a href=\"%(message_url)s\">%(message_parent_msg)s</a> "
 "from %(message_recipient)s."
 msgstr ""
-"Has respondido al mensaje <a href=\"%(message_url)s\">%(message_parent_msg)"
-"s</a> de %(message_recipient)s."
+"Has respondido al mensaje '%(message_parent_msg)s' de %(message_recipient)s."
+
+#: templates/notification/messages_reply_received/full.txt:1
+#, python-format
+msgid ""
+"%(message_sender)s replied to '%(message_parent_msg)s':\n"
+"\n"
+"%(message)s\n"
+"\n"
+"%(message_body)s\n"
+"\n"
+"http://%(current_site)s%(message_url)s"
+msgstr ""
+"%(message_sender)s respondió a '%(message_parent_msg)s':\n"
+"\n"
+"%(message)s\n"
+"\n"
+"%(message_body)s\n"
+"\n"
+"http://%(current_site)s%(message_url)s"
 
 #: templates/notification/messages_reply_received/notice.html:2
-#, python-format
+#, fuzzy, python-format
 msgid "%(message_sender)s has sent you a reply to %(message_parent_msg)s."
 msgstr ""
-"%(message_sender)s te ha respondido a tu mensaje  %(message_parent_msg)s."
+"%(message_sender)s te ha respondido a tu mensaje :\n"
+"\n"
+"%(message)s\n"
+"\n"
+"%(message_body)s\n"
+"\n"
+"http://%(current_site)s%(message_url)s"
+
+#: templates/notification/messages_sent/full.txt:1
+#, python-format
+msgid "You have sent the message '%(message)s' to %(message_recipient)s."
+msgstr "Has recibido el mensaje %(message)s de %(message_recipient)s."
 
 #: templates/notification/messages_sent/notice.html:2
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "You have sent the message <a href=\"%(message_url)s\">%(message)s</a> to %"
 "(message_recipient)s."
 msgstr ""
 "Has recibido el mensaje <a href=\"%(message_url)s\">%(message)s</a> de %"
-"(message_recipient)s."
+"(message_sender)s."
 
 #: templates/serv/accept_transfer_email.html:4
 #, python-format
