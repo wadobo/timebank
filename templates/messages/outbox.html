@@ -11,7 +11,7 @@
 {% for message in message_list %}
     <tr class="{% if message.new %}new{% endif %} {% if message.replied %}replied {% endif %}
     {% cycle 'row1' 'row2' %} {% if forloop.first %}first{% endif %}{% if forloop.last %}last{% endif %}">
-        <td class="recipient"><a href="/user/profile/view/{{ message.recipient }}">{{ message.recipient }}</a></td>
+        <td class="recipient"><a href="{% url user-view message.recipient.id %}">{{ message.recipient }}</a></td>
         <td class="body">
         <a href="{{ message.get_absolute_url }}">{{ message.body|truncate_chars:60 }}</a>
         </td>
