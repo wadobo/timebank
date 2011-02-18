@@ -14,7 +14,7 @@
                 {{ transfer.credits_payee.username|truncate_chars:7 }}
             </a>
         </div>
-        <a href="{% url serv-transfer-view transfer.id %}"><div class="description description2"><p>{{ transfer.description|linebreaks }}</p></div></a>
+        <a href="{% url serv-transfer-view transfer.id %}"><div class="description description2 status status_{{ transfer.status }}"><p>{{ transfer.description|linebreaks }}</p></div></a>
         <div class="cleaner"></div>
         <div class="information2">
             {% url user-view transfer.credits_debtor.id as debtor_url %}

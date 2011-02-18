@@ -898,3 +898,26 @@ ul.view-profile li > div {
     margin-top: 5px;
     margin-right: 15px;
 }
+
+/* Transfer statuses */
+.status {
+    background-position: top right;
+    background-repeat: no-repeat;
+}
+
+.status_a {
+    background-image: url('../imgs/accepted.png');
+}
+.status_q {
+    background-image: url('../imgs/requested.png');
+}
+.status_r {
+    background-image: url('../imgs/cancelled.png');
+}
+.status_d {
+    background-image: url('../imgs/done.png');
+}
+
+.status p {
+    margin-right: 50px;
+}
