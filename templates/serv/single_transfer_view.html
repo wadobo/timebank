@@ -5,10 +5,16 @@
         <div class="gravatar">
             <a href="{% url user-view transfer.creator.id %}">
                 <img src="{% gravatar transfer.creator.email 48 %}" alt="{{ transfer.creator.username }}" title="{{ transfer.creator.username }}"/>
-                {{ transfer.creator.username }}
+                {{ transfer.creator.username|truncate_chars:7 }}
             </a>
         </div>
-        <a href="{% url serv-transfer-view transfer.id %}"><div class="description"><p>{{ transfer.description|linebreaks }}</p></div></a>
+        <div class="gravatar gravatar2">
+            <a href="{% url user-view transfer.recipient.id %}">
+                <img src="{% gravatar transfer.recipient.email 48 %}" alt="{{ transfer.recipient.username }}" title="{{ transfer.recipient.username }}"/>
+                {{ transfer.recipient.username|truncate_chars:7 }}
+            </a>
+        </div>
+        <a href="{% url serv-transfer-view transfer.id %}"><div class="description description2"><p>{{ transfer.description|linebreaks }}</p></div></a>
         <div class="cleaner"></div>
         <div class="information2">
             {% url user-view transfer.credits_debtor.id as debtor_url %}

@@ -736,6 +736,11 @@ div.new .info
     display: block;
     float: left;
     width: 600px;
+    background-color: white;
+}
+
+.services .serv .description2 {
+    width: 550px;
 }
 
 .services .serv.inactive .description, .services .serv.demand.inactive .description {
@@ -780,6 +785,7 @@ div.new .info
     float: left;
     padding: 2px;
     font-weight: bold;
+    background-color: white;
 }
 
 .services .serv .gravatar:hover {
