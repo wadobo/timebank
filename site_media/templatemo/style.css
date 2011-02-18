@@ -744,7 +744,7 @@ div.new .info
 }
 
 .services .serv.inactive .description, .services .serv.demand.inactive .description {
-    border-color: #fc6;
+    border-color: #f57900;
 }
 
 .services .serv.demand .description {
@@ -763,7 +763,7 @@ div.new .info
 }
 
 .services .serv.inactive .description:hover, .services .serv.demand.inactive .description:hover {
-    background-color: #fc6;
+    background-color: #f57900;
 }
 
 .services .serv.demand .description:hover {
