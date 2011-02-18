@@ -8,7 +8,7 @@
     <ul class="subnavilist">
         <li><a href="{% url serv-list %}?mine=1" class="{% current_tab 'my' 'subtab' %}">{% trans "My Services" %}</a><small>/</small></li>
         <li><a href="{% url serv-list %}" class="{% current_tab 'find' 'subtab' %}">{% trans "Find Services" %}</a><small>/</small></li>
-        <li><a href="{% url serv-add %}"  class="{% current_tab 'add' 'subtab' %}">{% trans "Create new service" %}</a></li>
+        <li><a href="{% url serv-add %}"  class="important_link {% current_tab 'add' 'subtab' %}">{% trans "Create new service" %}</a></li>
     </ul>
     <div class="subcontent services">
         {% block subcontent %}

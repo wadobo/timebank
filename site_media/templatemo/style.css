@@ -921,3 +921,21 @@ ul.view-profile li > div {
 .status p {
     margin-right: 50px;
 }
+
+.important_link {
+    background-color: #f57900;
+    color: white !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+a.important_link:hover {
+    background-color: #64D507;
+    color: black !important;
+}
