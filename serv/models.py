@@ -66,7 +66,8 @@ class Service(models.Model):
             msj = _("offered")
         else:
             msj = _("demanded")
-        return "Service %s %s from: %s" % (self.id, msj, self.creator)
+        msj = unicode(msj)
+        return "%d: '%s' %s from %s" % (self.id, self.short_name(), msj, self.creator)
 
     def short_name(self):
         if len(self.description) < 53:
@@ -188,5 +189,8 @@ class Transfer(models.Model):
 
     def status_readable(self):
         return TRANSFER_STATUS[self.status]
+
+    def __unicode__(self):
+        return self.description[0:53] + '...'
 
 signals.post_save.connect(new_transfer_email, sender=Transfer)

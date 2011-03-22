@@ -25,7 +25,16 @@ class ServiceAdmin(admin.ModelAdmin):
     search_fields = ['^creator__username', 'description', ]
 
 
+class TransferAdmin(admin.ModelAdmin):
+    date_hierarchy = 'request_date'
+    list_display = ('service', 'credits', 'credits_payee',
+                    'credits_debtor', 'status', 'request_date', 'confirmation_date')
+    list_filter = ('status', )
+    list_display_links = ('service',)
+    search_fields = ['^service__category', 'description', ]
+
+
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Area)
 admin.site.register(Category)
-admin.site.register(Transfer)
+admin.site.register(Transfer, TransferAdmin)

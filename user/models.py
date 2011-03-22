@@ -71,9 +71,7 @@ class Profile(User):
         verbose_name_plural = _("Users")
 
     def __unicode__(self):
-        return _("Id: %(id)s user: %(username)s") % {
-            'id': self.id, 'username': self.username
-        }
+        return self.username
 
     # Use UserManager to get the create_user method, etc.
     objects = UserManager()
