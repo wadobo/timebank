@@ -58,8 +58,8 @@ class MessageAdmin(admin.ModelAdmin):
     )
     date_hierarchy = 'sent_at'
     list_display = ('subject', 'sender', 'recipient', 'short_body', 'sent_at', 'read_at')
-    list_filter = ('sent_at', 'sender', 'recipient', 'short_body')
-    list_display_links = ('subject', 'sender', 'recipient')
+    list_filter = ('sent_at', 'sender', 'recipient')
+    list_display_links = ('subject', 'sender', 'recipient', 'short_body')
     search_fields = ('subject', 'body')
 
     def save_model(self, request, obj, form, change):
