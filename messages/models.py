@@ -87,6 +87,10 @@ class Message(models.Model):
 
     objects = MessageManager()
 
+    def get_short_body(self):
+        return self.body[0:53] + ('...' if len(self.body) > 53 else '')
+    short_body = property(get_short_body)
+
     def new(self):
         """returns whether the recipient has read the message or not"""
         if self.read_at is not None:
