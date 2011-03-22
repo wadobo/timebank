@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block nav-global %}
-<a href="{% url rosetta-home %}">{% trans "Translations" %}</a>
-<a href="{% url user-send-email-to-all%}">{% trans "Send email to all users" %}</a>
+<a href="{% url rosetta-home %}">{% trans "Translations" %}</a> |
+<a href="{% url user-send-email-to-all%}">{% trans "Send email to all users" %}</a> |
+<a href="{% url report %}">{% trans "Get report" %}</a>
 {% endblock %}

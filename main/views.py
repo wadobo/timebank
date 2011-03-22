@@ -20,6 +20,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.db.models import signals
 from django.views.i18n import set_language as django_set_language
+from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpResponse
 
 from utils import ViewClass, login_required, mail_owners, I18nString
 from forms import AnonymousContactForm, ContactForm
@@ -107,8 +109,17 @@ class SetLanguage(ViewClass):
 
         return django_set_language(self.request)
 
+
+class Report(ViewClass):
+    @user_passes_test(lambda u: u.is_superuser)
+    def GET(self):
+        from main.management.commands.report import make_report
+        return HttpResponse(make_report(), mimetype="application/x-download")
+
+
 index = Index()
 contact = Contact()
 handler404 = ErrorHandler('404.html')
 handler500 = ErrorHandler('500.html')
 set_language = SetLanguage()
+report = Report()
