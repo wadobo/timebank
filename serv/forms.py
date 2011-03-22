@@ -79,6 +79,7 @@ class ListServicesForm(forms.Form):
     user_status = CustomCharField(label=_("User status"),
         widget=forms.Select(choices=USER_CHOICES), required=False)
     username = forms.CharField(label=_("Username"), required=False)
+    text = forms.CharField(label=_("Text"), required=False)
 
     def __init__(self,  *args, **kwargs):
         super(ListServicesForm, self).__init__(*args, **kwargs)

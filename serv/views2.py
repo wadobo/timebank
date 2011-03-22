@@ -90,6 +90,10 @@ class ListServices(ViewClass):
             username = form.data["username"]
             services = services.filter(creator__username__contains=username)
 
+        if form.data.get("text", ''):
+            text = form.data['text']
+            services = services.filter(description__contains=text)
+
         paginator = Paginator(services, 10)
         try:
             services = paginator.page(page)
