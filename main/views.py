@@ -111,10 +111,13 @@ class SetLanguage(ViewClass):
 
 
 class Report(ViewClass):
+    def __init__(self, report=1):
+        from main.management.commands.report import reports
+        self.report = reports[report - 1]
+
     @user_passes_test(lambda u: u.is_superuser)
     def GET(self):
-        from main.management.commands.report import make_report
-        return HttpResponse(make_report(), mimetype="application/x-download")
+        return HttpResponse(self.report(), mimetype="application/x-download")
 
 
 index = Index()
@@ -122,4 +125,7 @@ contact = Contact()
 handler404 = ErrorHandler('404.html')
 handler500 = ErrorHandler('500.html')
 set_language = SetLanguage()
-report = Report()
+report1 = Report(1)
+report2 = Report(2)
+report3 = Report(3)
+report4 = Report(4)
