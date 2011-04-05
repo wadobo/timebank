@@ -18,7 +18,7 @@ def make_report(fields=[], query_filter=None, query_exclude=None):
     for user in users:
         data = [v[2](getattr(user, v[1])) if v[2] else getattr(user, v[1]) for v in fields]
 
-        rep.append(','.join(map(str, data)))
+        rep.append(u','.join(map(unicode, data)))
     return '\n'.join(rep)
 
 
