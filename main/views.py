@@ -69,7 +69,7 @@ class Contact(ViewClass):
                 'message': form.cleaned_data["message"]
             })
         else:
-            subject = I18nString(_("[%(site_name)s] %(email)s: %(email_subject)s") % {
+            subject = I18nString(_("[%(site_name)s] %(email)s: %(email_subject)s"), {
                 'site_name': settings.SITE_NAME,
                 'email': form.cleaned_data["email"],
                 'email_subject': form.cleaned_data["subject"]
