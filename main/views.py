@@ -87,11 +87,14 @@ class Contact(ViewClass):
 
 
 class ErrorHandler(ViewClass):
-    def __init__(self, template):
+    def __init__(self, template, retcode=200):
         self.template = template
+        self.retcode = retcode
 
     def GET(self):
-        return self.context_response(self.template, {})
+        response = self.context_response(self.template, {})
+        response.status_code = self.retcode
+        return response
 
     def POST(self):
         return self.GET()
@@ -122,8 +125,8 @@ class Report(ViewClass):
 
 index = Index()
 contact = Contact()
-handler404 = ErrorHandler('404.html')
-handler500 = ErrorHandler('500.html')
+handler404 = ErrorHandler('404.html', retcode=404)
+handler500 = ErrorHandler('500.html', retcode=500)
 set_language = SetLanguage()
 report1 = Report(1)
 report2 = Report(2)
