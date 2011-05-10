@@ -3,30 +3,31 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-10 12:33+0200\n"
-"Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
-"Language-Team: Es <timebank-devel@wadobo.com>\n"
-"Language: Spanish\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: settings.py:175
 msgid "Spanish"
-msgstr "Español"
+msgstr ""
 
 #: settings.py:176
 msgid "Spanish (neutral gender)"
-msgstr "Español (género neutral)"
+msgstr ""
 
 #: settings.py:177
 msgid "English"
-msgstr "Inglés"
+msgstr ""
 
 #: settings.py:178
 msgid "Gallego"
@@ -39,80 +40,77 @@ msgid ""
 "You might want to <a href=\"%(join_url)s\">join us now</a> or enter with "
 "your user using the grey login box at the left."
 msgstr ""
-"Tienes que registrarte para entrar en <a href=\"%(link)s\">%(link_text)s</"
-"a>. <a href=\"%(join_url)s\">Regístrate</a> en nuestra comunidad o entra con "
-"tu usuario/a usando el recuadro gris de la izquierda."
 
 #: utils.py:138
 msgid "Required. "
-msgstr "Requerido. "
+msgstr ""
 
 #: utils.py:140 utils.py:173
 msgid "Optional. "
-msgstr "Opcional. "
+msgstr ""
 
 #: utils.py:142
 #, python-format
 msgid "From %(from)d to %(to)d characters. "
-msgstr "De %(from)d a %(to)d caracteres. "
+msgstr ""
 
 #: utils.py:145
 #, python-format
 msgid "Up to %d characters. "
-msgstr "Hasta %d caracteres. "
+msgstr ""
 
 #: utils.py:148
 #, python-format
 msgid "Minimum %d characters. "
-msgstr "Mínimo %d caracteres. "
+msgstr ""
 
 #: utils.py:171
 msgid "Requeried. "
-msgstr "Requerido. "
+msgstr ""
 
 #: utils.py:174
 msgid " Example: name@example.com"
-msgstr "Ejemplo: nombre@ejemplo.com"
+msgstr ""
 
 #: utils.py:204
 msgid "Required. Example(s): "
-msgstr "Requerido. Ejemplo(s): "
+msgstr ""
 
 #: utils.py:206
 msgid "Optional. Example(s): "
-msgstr "Opcional. Ejemplos(s): "
+msgstr ""
 
 #: utils.py:219
 msgid "Captcha disabled"
-msgstr "Captcha desactivado"
+msgstr ""
 
 #: utils.py:243
 msgid "Invalid captcha"
-msgstr "Captcha inválido"
+msgstr ""
 
 #: main/forms.py:27 templates/user/single_person_view.html:6
 msgid "Name and Surname"
-msgstr "Nombre y apellidos"
+msgstr ""
 
 #: main/forms.py:29
 msgid "Your contact email"
-msgstr "Tu email de contacto"
+msgstr ""
 
 #: main/forms.py:30 main/forms.py:40 messages/models.py:72 user/forms.py:129
 msgid "Subject"
-msgstr "Asunto"
+msgstr ""
 
 #: main/forms.py:32 main/forms.py:42 messages/admin.py:44 messages/forms.py:21
 #: messages/models.py:73 messages/models.py:120
 #: templates/messages/inbox.html:8 templates/messages/outbox.html:8
 #: templates/messages/trash.html:8
 msgid "Message"
-msgstr "Mensaje"
+msgstr ""
 
 #: main/views.py:61
 #, python-format
 msgid "[%(site_name)s] %(username)s: %(email_subject)s"
-msgstr "[%(site_name)s] %(username)s: %(email_subject)s"
+msgstr ""
 
 #: main/views.py:66
 #, python-format
@@ -120,13 +118,11 @@ msgid ""
 "Registered user %(username)s sends the following  message:\n"
 "%(message)s"
 msgstr ""
-"La persona usuaria registrada %(username)s envía el siguiente mensaje:\n"
-"%(message)s"
 
 #: main/views.py:72
 #, python-format
 msgid "[%(site_name)s] %(email)s: %(email_subject)s"
-msgstr "[%(site_name)s] %(email)s: %(email_subject)s"
+msgstr ""
 
 #: main/views.py:77
 #, python-format
@@ -135,186 +131,181 @@ msgid ""
 "message:\n"
 "%(message)s"
 msgstr ""
-"La persona usuaria registrada %(name)s cuyo email es %(email)s envía el "
-"siguiente mensaje:\n"
-"%(message)s"
 
 #: main/views.py:85
 msgid "Mail sent, we'll answer you as soon as possible."
-msgstr "Email enviado, te responderemos lo antes posible."
+msgstr ""
 
 #: messages/admin.py:19 messages/forms.py:20 messages/models.py:75
 #: templates/messages/outbox.html:8 templates/messages/view.html:10
 msgid "Recipient"
-msgstr "Destinatario"
+msgstr ""
 
 #: messages/admin.py:21
 msgid "group"
-msgstr "grupo"
+msgstr ""
 
 #: messages/admin.py:22
 msgid "Creates the message optionally for all users or a group of users."
 msgstr ""
-"Crea el mensaje opcionalmente para todas las personas usuarias o un grupo de "
-"personas usuarias."
 
 #: messages/admin.py:29
 msgid "All users"
-msgstr "Todas las personas usuarias"
+msgstr ""
 
 #: messages/admin.py:51
 msgid "Date/time"
-msgstr "Fecha/Hora"
+msgstr ""
 
 #: messages/fields.py:53
 #, python-format
 msgid "The following usernames are incorrect: %(users)s"
-msgstr "Los siguientes nombres de personas usuarias son incorrectos: %(users)s"
+msgstr ""
 
 #: messages/management.py:9
 msgid "Message Received"
-msgstr "Mensaje recibido"
+msgstr ""
 
 #: messages/management.py:9
 msgid "you have received a message"
-msgstr "has recibido un mensaje"
+msgstr ""
 
 #: messages/management.py:10
 msgid "Message Sent"
-msgstr "Mensaje enviado"
+msgstr ""
 
 #: messages/management.py:10
 msgid "you have sent a message"
-msgstr "has enviado un mensaje"
+msgstr ""
 
 #: messages/management.py:11
 msgid "Message Replied"
-msgstr "Mensaje respondido"
+msgstr ""
 
 #: messages/management.py:11
 msgid "you have replied to a message"
-msgstr "has respondido a un mensaje"
+msgstr ""
 
 #: messages/management.py:12
 msgid "Reply Received"
-msgstr "Respuesta recibida"
+msgstr ""
 
 #: messages/management.py:12
 msgid "you have received a reply to a message"
-msgstr "has recibido una respuesta al mensaje"
+msgstr ""
 
 #: messages/management.py:13
 msgid "Message Deleted"
-msgstr "Mensaje borrado"
+msgstr ""
 
 #: messages/management.py:13
 msgid "you have deleted a message"
-msgstr "has borrado un mensaje"
+msgstr ""
 
 #: messages/management.py:14
 msgid "Message Recovered"
-msgstr "Mensaje recuperado"
+msgstr ""
 
 #: messages/management.py:14
 msgid "you have undeleted a message"
-msgstr "has recuperado un mensaje"
+msgstr ""
 
 #: messages/models.py:74 templates/messages/inbox.html:8
 #: templates/messages/trash.html:8 templates/messages/view.html:6
 msgid "Sender"
-msgstr "Remitente"
+msgstr ""
 
 #: messages/models.py:76
 msgid "Parent message"
-msgstr "Mensaje inicial"
+msgstr ""
 
 #: messages/models.py:77
 msgid "sent at"
-msgstr "enviado a las"
+msgstr ""
 
 #: messages/models.py:78
 msgid "read at"
-msgstr "leído a las"
+msgstr ""
 
 #: messages/models.py:79
 msgid "replied at"
-msgstr "respondido a las"
+msgstr ""
 
 #: messages/models.py:80
 msgid "Sender deleted at"
-msgstr "La persona remitente lo eliminó a las"
+msgstr ""
 
 #: messages/models.py:81
 msgid "Recipient deleted at"
-msgstr "La persona destinataria lo eliminó a las"
+msgstr ""
 
 #: messages/models.py:82
 msgid "Public message"
-msgstr "Mensaje público"
+msgstr ""
 
 #: messages/models.py:84 serv/models.py:142 templates/serv/add_transfer.html:8
 #: templates/serv/edit_transfer.html:13
 #: templates/serv/service_add_comment.html:8
 msgid "Service"
-msgstr "Servicio"
+msgstr ""
 
 #: messages/models.py:86 templates/serv/edit_transfer.html:18
 msgid "Transfer"
-msgstr "Transferencia"
+msgstr ""
 
 #: messages/models.py:121 templates/template_base.html:66
 #: templates/messages/base.html:3 templates/messages/base.html.py:7
 msgid "Messages"
-msgstr "Mensajes"
+msgstr ""
 
 #: messages/utils.py:22
 #, python-format
 msgid "New Message: %(subject)s"
-msgstr "Nuevo mensaje: %(subject)s"
+msgstr ""
 
 #: messages/utils.py:62
 #, python-format
 msgid "New transfer request from %s"
-msgstr "Nueva solicitud de transferencia de %s"
+msgstr ""
 
 #: messages/utils.py:65
 #, python-format
 msgid "New direct transfer from %s"
-msgstr "Nueva transferencia directa de %s"
+msgstr ""
 
 #: messages/utils.py:81
 #, python-format
 msgid "Transfer from %s edited"
-msgstr "Transferencia de %s editada"
+msgstr ""
 
 #: messages/utils.py:87
 #, python-format
 msgid "Transfer of the service from %s accepted"
-msgstr "Transferencia del servicio de %s aceptada"
+msgstr ""
 
 #: messages/utils.py:90
 #, python-format
 msgid "Direct transfer from %s accepted"
-msgstr "Transferencia directa de %s aceptado"
+msgstr ""
 
 #: messages/utils.py:95
 #, python-format
 msgid "Transfer to %(user1)s from a service of %(user2)s cancelled"
-msgstr "Transferencia de %(user1)s de un servicio de %(user2)s cancelado"
+msgstr ""
 
 #: messages/utils.py:101
 #, python-format
 msgid "Direct transfer from %s cancelled"
-msgstr "Transferencia directa de %s cancelada"
+msgstr ""
 
 #: messages/utils.py:106
 #, python-format
 msgid "Transfer of the service you did to %s confirmed"
-msgstr "Transferencia del servicio que realizaste a %s confirmada"
+msgstr ""
 
 #: messages/views.py:105 messages/views.py:163
 msgid "Message successfully sent."
-msgstr "Mensaje enviado con éxito."
+msgstr ""
 
 #: messages/views.py:133
 #, python-format
@@ -322,499 +313,482 @@ msgid ""
 "%(sender)s wrote:\n"
 "%(body)s"
 msgstr ""
-"%(sender)s escribió:\n"
-"%(body)s"
 
 #: messages/views.py:137
 #, python-format
 msgid "Re: %(subject)s"
-msgstr "Re: %(subject)s"
+msgstr ""
 
 #: messages/views.py:204
 msgid "Message successfully deleted."
-msgstr "Mensaje eliminado correctamente."
+msgstr ""
 
 #: messages/views.py:233
 msgid "Message successfully recovered."
-msgstr "Mensaje recuperado conrrectamente."
+msgstr ""
 
 #: news/models.py:27
 msgid "Title"
-msgstr "Título"
+msgstr ""
 
 #: news/models.py:28
 msgid "Creation date"
-msgstr "Fecha de creación"
+msgstr ""
 
 #: news/models.py:30
 msgid "Last modification date"
-msgstr "Fecha de última modificación"
+msgstr ""
 
 #: news/models.py:32 serv/models.py:56
 msgid "Publish date"
-msgstr "Fecha de publicación"
+msgstr ""
 
 #: news/models.py:34
 msgid "Hidden"
-msgstr "Oculto"
+msgstr ""
 
 #: news/models.py:35
 msgid "Body"
-msgstr "Mensaje"
+msgstr ""
 
 #: news/models.py:36 user/models.py:70
 msgid "User"
-msgstr "Usuario/a"
+msgstr ""
 
 #: news/models.py:37
 msgid "Author"
-msgstr "Autor"
+msgstr ""
 
 #: news/models.py:40 news/models.py:41 templates/template_base.html:123
 #: templates/template_base.html.py:156
 msgid "News"
-msgstr "Noticias"
+msgstr ""
 
 #: news/views.py:61 news/views.py:63
 #, python-format
 msgid "News in %s"
-msgstr "Noticias en %s"
+msgstr ""
 
 #: serv/forms.py:52 templates/serv/single_service_view.html:14
 msgid "All"
-msgstr "Todas"
+msgstr ""
 
 #: serv/forms.py:53
 msgid ""
 "Tip: do not introduce personal data that you don't want to make public, use "
 "private messages for that."
 msgstr ""
-"Nota: no introduzcas datos personales que no quieras hacer públicos, usa los "
-"mensajes privados para eso."
 
 #: serv/forms.py:61 serv/models.py:48
 #: templates/serv/single_service_view.html:5
 msgid "offer"
-msgstr "oferta"
+msgstr ""
 
 #: serv/forms.py:62 serv/models.py:49
 #: templates/serv/single_service_view.html:5
 msgid "demand"
-msgstr "demanda"
+msgstr ""
 
 #: serv/forms.py:65 user/forms.py:99
 msgid "---------"
-msgstr "---------"
+msgstr ""
 
 #: serv/forms.py:66
 msgid "connected less than a day ago"
-msgstr "conectado hace menos de un día"
+msgstr ""
 
 #: serv/forms.py:67
 msgid "connected less than a week ago"
-msgstr "conectado hace menos de una semana"
+msgstr ""
 
 #: serv/forms.py:68
 msgid "connected less than a month ago"
-msgstr "conectado hace menos de un mes"
+msgstr ""
 
 #: serv/forms.py:69
 msgid "connected less than 3 months ago"
-msgstr "conectado hace menos de 3 meses"
+msgstr ""
 
 #: serv/forms.py:70
 msgid "connected less than 6 months ago"
-msgstr "conectado hace menos de 6 meses"
+msgstr ""
 
 #: serv/forms.py:71
 msgid "connected less than a year ago"
-msgstr "conectado hace menos de un año"
+msgstr ""
 
 #: serv/forms.py:74
 msgid "Only list my services"
-msgstr "Mostrar sólo mis servicios"
+msgstr ""
 
 #: serv/forms.py:75 serv/forms.py:119 serv/models.py:55
 msgid "Service type"
-msgstr "Tipo de servicio"
+msgstr ""
 
 #: serv/forms.py:77 serv/models.py:37 serv/models.py:43 serv/models.py:60
 #: templates/serv/single_service_view.html:17
 msgid "Category"
-msgstr "Categoría"
+msgstr ""
 
 #: serv/forms.py:78 serv/models.py:29 serv/models.py:62
 #: templates/serv/single_service_view.html:9
 msgid "Area"
-msgstr "Zona"
+msgstr ""
 
 #: serv/forms.py:79
 msgid "User status"
-msgstr "Estado de la persona usuaria"
+msgstr ""
 
 #: serv/forms.py:81 serv/forms.py:112 templates/user/view.html:40
 #: user/forms.py:110
 msgid "Username"
-msgstr "Nombre de usuario/a"
+msgstr ""
 
 #: serv/forms.py:82
 msgid "Text"
-msgstr "Texto"
+msgstr ""
 
 #: serv/forms.py:94 serv/forms.py:143
 msgid "half hour"
-msgstr "media hora"
+msgstr ""
 
 #: serv/forms.py:95 serv/forms.py:144
 msgid "1 hour"
-msgstr "1 hora"
+msgstr ""
 
 #: serv/forms.py:96 serv/forms.py:145
 msgid "1 hour and half"
-msgstr "1 hora y media"
+msgstr ""
 
 #: serv/forms.py:97 serv/forms.py:146
 msgid "2 hours"
-msgstr "2 horas"
+msgstr ""
 
 #: serv/forms.py:98 serv/forms.py:147
 msgid "2 hours and half"
-msgstr "2 horas y media"
+msgstr ""
 
 #: serv/forms.py:99 serv/forms.py:148
 msgid "3 hours"
-msgstr "3 horas"
+msgstr ""
 
 #: serv/forms.py:100 serv/forms.py:149
 msgid "3 hours and half"
-msgstr "3 horas y media"
+msgstr ""
 
 #: serv/forms.py:101 serv/forms.py:150
 msgid "4 hours"
-msgstr "4 horas"
+msgstr ""
 
 #: serv/forms.py:102 serv/forms.py:151
 msgid "4 hours and half"
-msgstr "4 horas y media"
+msgstr ""
 
 #: serv/forms.py:103 serv/forms.py:152
 msgid "5 hours"
-msgstr "5 horas"
+msgstr ""
 
 #: serv/forms.py:104 serv/forms.py:153
 msgid "5 hours and half"
-msgstr "5 horas y media"
+msgstr ""
 
 #: serv/forms.py:105 serv/forms.py:154
 msgid "6 hours"
-msgstr "6 horas"
+msgstr ""
 
 #: serv/forms.py:106 serv/forms.py:155
 msgid "6 hours and half"
-msgstr "6 horas y media"
+msgstr ""
 
 #: serv/forms.py:109
 msgid "give credits"
-msgstr "dar créditos"
+msgstr ""
 
 #: serv/forms.py:110
 msgid "ask for credits"
-msgstr "solicitar créditos"
+msgstr ""
 
 #: serv/forms.py:113
 msgid ""
 "Name the user who will receive or will be asked for the credits to transfer"
 msgstr ""
-"Nombre de usuario/a que recibirá o al que se le solicitan los créditos a "
-"transferir"
 
 #: serv/forms.py:116 serv/forms.py:158 serv/models.py:158
 #: templates/user/single_person_view.html:8 templates/user/view.html:52
 msgid "Credits"
-msgstr "Créditos"
+msgstr ""
 
 #: serv/forms.py:120
 msgid "Choose if you receive or ask for credits with this transfer"
-msgstr "debes elegir si recibes o solicitas créditos con esta transferencia"
+msgstr ""
 
 #: serv/forms.py:138
 msgid "No user exists with this username."
-msgstr "No existe una persona usuaria con ese nombre."
+msgstr ""
 
 #: serv/models.py:44
 msgid "Categories"
-msgstr "Categorías"
+msgstr ""
 
 #: serv/models.py:54
 msgid "Creator"
-msgstr "Creador"
+msgstr ""
 
 #: serv/models.py:59 serv/models.py:145 templates/user/view.html:56
 msgid "Description"
-msgstr "Descripción"
+msgstr ""
 
 #: serv/models.py:66
 msgid "offered"
-msgstr "ofertado"
+msgstr ""
 
 #: serv/models.py:68
 msgid "demanded"
-msgstr "demandado"
+msgstr ""
 
 #: serv/models.py:116
 msgid "requested"
-msgstr "solicitada"
+msgstr ""
 
 #: serv/models.py:117
 msgid "accepted"
-msgstr "aceptada"
+msgstr ""
 
 #: serv/models.py:118
 msgid "cancelled"
-msgstr "cancelada"
+msgstr ""
 
 #: serv/models.py:119
 msgid "done"
-msgstr "realizada"
+msgstr ""
 
 #: serv/models.py:131
 msgid "Direct transfer creator"
-msgstr "Creador de transferencia directa"
+msgstr ""
 
 #: serv/models.py:135
 msgid "Credits payee"
-msgstr "Receptor de créditos"
+msgstr ""
 
 #: serv/models.py:139
 msgid "Credits debtor"
-msgstr "Deudor de créditos"
+msgstr ""
 
 #: serv/models.py:147
 msgid "Transfer request date"
-msgstr "Fecha de solicitud de transferencia"
+msgstr ""
 
 #: serv/models.py:150
 msgid "Transfer confirmation date"
-msgstr "Fecha de confirmación de transferencia"
+msgstr ""
 
 #: serv/models.py:153 templates/serv/single_transfer_view.html:26
 msgid "Status"
-msgstr "Estado"
+msgstr ""
 
 #: serv/models.py:155
 msgid "Is public"
-msgstr "Transferencia pública"
+msgstr ""
 
 #: serv/views2.py:127
 msgid "Service added successfully"
-msgstr "Servicio añadido correctamente"
+msgstr ""
 
 #: serv/views2.py:139 serv/views2.py:151 serv/views2.py:199 serv/views2.py:213
 msgid "You can't modify a service that isn't yours"
-msgstr "No puedes modificar un servicio que no es tuyo"
+msgstr ""
 
 #: serv/views2.py:165
 msgid ""
 "You can't change the type of service between offer and demand with transfers "
 "while there are ongoing transfers."
 msgstr ""
-"No puedes cambiar el servicio de oferta a demanda mientras hay "
-"transferencias en curso"
 
 #: serv/views2.py:170
 msgid "Service modified successfully"
-msgstr "Servicio modificado correctamente"
+msgstr ""
 
 #: serv/views2.py:183
 msgid "Service removed successfully"
-msgstr "Servicio eliminado correctamente"
+msgstr ""
 
 #: serv/views2.py:185
 msgid "You can't remove a service that isn't yours"
-msgstr "No puedes eliminar un servicio que no es tuyo"
+msgstr ""
 
 #: serv/views2.py:197
 msgid "Service enabled successfully"
-msgstr "Servicio activado correctamente"
+msgstr ""
 
 #: serv/views2.py:211
 msgid "Service disabled successfully"
-msgstr "Servicio desactivado correctamente"
+msgstr ""
 
 #: serv/views2.py:224 serv/views2.py:240
 msgid "You can't transfer credits to yourself"
-msgstr "No puedes transferirte créditos a ti mismo"
+msgstr ""
 
 #: serv/views2.py:266 serv/views2.py:325 serv/views2.py:431
 msgid "The transfer would exceed the credit limit of the credits receiver"
 msgstr ""
-"La transferencia superaría el límite de crédito del receptor de créditos"
 
 #: serv/views2.py:272
 msgid ""
 "The transfer would exceed the minimum credit limit of the person giving the "
 "credits"
 msgstr ""
-"La transferencia superaría el límite mínimo de crédito de la persona que da "
-"los créditos"
 
 #: serv/views2.py:278 serv/views2.py:345
 msgid "Transfer created successfully"
-msgstr "Transferencia creada correctamente"
+msgstr ""
 
 #: serv/views2.py:303
 msgid "You don't have enough credit"
-msgstr "No tienes suficiente crédito"
+msgstr ""
 
 #: serv/views2.py:307
 msgid "You can't demand a service to yourself"
-msgstr "No puedes solicitarte un servicio a tí mismo"
+msgstr ""
 
 #: serv/views2.py:331 serv/views2.py:392 serv/views2.py:437 serv/views2.py:471
 msgid ""
 "The transfer would exceed the minimum credit limit of the person receiving "
 "the service"
 msgstr ""
-"La transferencia superaría el límite mínimo de crédito de la persona que "
-"recibiría el servicio"
 
 #: serv/views2.py:340
 msgid "You already have an ongoing transfer for this service"
-msgstr "Ya tienes una transferencia en curso para este servicio"
+msgstr ""
 
 #: serv/views2.py:358 serv/views2.py:374
 msgid "You can't modify a transfer that isn't yours"
-msgstr "No puedes modificar una transferencia que no sea tuya"
+msgstr ""
 
 #: serv/views2.py:362 serv/views2.py:377
 msgid "You can only modify transfers that haven't been accepted"
-msgstr "Sólo se pueden modificar transferencias aun no aceptadas"
+msgstr ""
 
 #: serv/views2.py:386
 msgid "The transfer would exceed the credit limit of thecredits receiver"
-msgstr "Transferencia modificada correctamente"
+msgstr ""
 
 #: serv/views2.py:398
 msgid "Transfer modified successfully"
-msgstr "Transferencia modificada correctamente"
+msgstr ""
 
 #: serv/views2.py:411
 msgid "You can't cancel a transfer that isn't yours"
-msgstr "No puedes cancelar una transferencia que no sea tuya"
+msgstr ""
 
 #: serv/views2.py:415
 msgid "You can only cancel transfers that haven't been done"
-msgstr "Sólo puedes cancelar transferencias que no hayan sido realizadas"
+msgstr ""
 
 #: serv/views2.py:420
 msgid "Transfer cancelled"
-msgstr "Transferencia cancelada"
+msgstr ""
 
 #: serv/views2.py:443
 msgid "You can't accept a transfer of a service that isn't yours"
-msgstr "No puedes aceptar una transferencia de un servicio que no sea tuyo"
+msgstr ""
 
 #: serv/views2.py:449
 msgid "You can only modify transfers that haven't been done"
-msgstr "Sólo puedes modificar transferencias que no han sido realizadas"
+msgstr ""
 
 #: serv/views2.py:454
 msgid "Transfer accepted"
-msgstr "Transferencia aceptada"
+msgstr ""
 
 #: serv/views2.py:465
 msgid ""
 "The transfer would exceed the credit limit of the person receiving the "
 "credits"
 msgstr ""
-"La transferencia superaría el límite de crédito de la persona que recibiría "
-"los créditos"
 
 #: serv/views2.py:477
 msgid "You can't confirm a transfer of a service that isn't yours"
-msgstr "No puedes confirmar una transferencia de un servicio que no sea tuyo"
+msgstr ""
 
 #: serv/views2.py:482
 msgid "You can only confirm accepted transfers"
-msgstr "Sólo se pueden confirmar transferencias aceptadas"
+msgstr ""
 
 #: serv/views2.py:493
 msgid "Transfer done"
-msgstr "Transferencia realizada"
+msgstr ""
 
 #: serv/views2.py:512
 msgid "You don't have permissions to see this transfer"
-msgstr "No tienes permisos para ver esta transferencia"
+msgstr ""
 
 #: serv/views2.py:547
 msgid "Error receiving the rating"
-msgstr "Error recibiendo la puntuación"
+msgstr ""
 
 #: serv/views2.py:552
 msgid "You don't have permissions to rate this transfer"
-msgstr "No tienes permisos para puntuar esta transferencia"
+msgstr ""
 
 #: serv/views2.py:557
 msgid "Rating must be between 1 and 5"
-msgstr "sólo se puede poner un valor de 1 a 5"
+msgstr ""
 
 #: serv/views2.py:562
 msgid "Transfer rating updated successfully"
-msgstr "Tu puntuación de la transferencia ha sido actualizada correctamente"
+msgstr ""
 
 #: serv/views2.py:579
 msgid "You can't comment inactive services"
-msgstr "No se pueden comentar servicios inactivos"
+msgstr ""
 
 #: serv/views2.py:591
 msgid "Comment added successfully"
-msgstr "Comentario añadido correctamente"
+msgstr ""
 
 #: serv/views2.py:612
 msgid "You can't remove a message that isn't yours"
-msgstr "No puedes borrar un mensaje que no sea tuyo"
+msgstr ""
 
 #: serv/views2.py:616
 msgid "Comment removed successfully"
-msgstr "Comentario borrado correctamente"
+msgstr ""
 
 #: tasks/models.py:26 templates/user/view.html:44 user/forms.py:33
 #: user/forms.py:54
 msgid "Name"
-msgstr "Nombre"
+msgstr ""
 
 #: tasks/models.py:27
 msgid "Last execution"
-msgstr "Última ejecución"
+msgstr ""
 
 #: tasks/views.py:65 tasks/views.py:75
 msgid "Update task postponed"
-msgstr "Tarea de actualización postergada"
+msgstr ""
 
 #: tasks/views.py:73
 msgid "Update task done"
-msgstr "Tarea de actualización realizada"
+msgstr ""
 
 #: tasks/views.py:98
 #, python-format
 msgid "Updates from %s"
-msgstr "Novedades de %s"
+msgstr ""
 
 #: templates/404.html:4 templates/404.html.py:8
 msgid "Error 404: Page not found"
-msgstr "Error 404: Página no encontrada"
+msgstr ""
 
 #: templates/404.html:10
 msgid ""
 "Sorry, but the page you try to access was not found.\n"
 "            "
 msgstr ""
-"Lo sentimos, pero la página a la que intentas acceder no existe.\n"
-"            "
 
 #: templates/500.html:4 templates/500.html.py:8
 msgid "Error 500"
-msgstr "Error 500"
+msgstr ""
 
 #: templates/500.html:10
 msgid ""
@@ -822,64 +796,61 @@ msgid ""
 "rectify.\n"
 "            "
 msgstr ""
-"Lo sentimos, ha ocurrido un error. Hemos notificado a las personas "
-"administradoras para arreglarlo.\n"
-"            "
 
 #: templates/template_base.html:10 templates/template_base.html.py:75
 #: templates/template_base.html:155 templates/main/index.html:4
 msgid "Home"
-msgstr "Portada"
+msgstr ""
 
 #: templates/template_base.html:56
 #, python-format
 msgid "Hello, %(username)s!"
-msgstr "¡Hola %(username)s!"
+msgstr ""
 
 #: templates/template_base.html:57
 msgid "Log out"
-msgstr "Salir"
+msgstr ""
 
 #: templates/template_base.html:61
 msgid "Administration"
-msgstr "Administración"
+msgstr ""
 
 #: templates/template_base.html:63 templates/template_base.html.py:76
 #: templates/user/find_people.html:3
 msgid "People"
-msgstr "Gente"
+msgstr ""
 
 #: templates/template_base.html:64 templates/template_base.html.py:77
 #: templates/serv/base.html:3 templates/serv/base.html.py:7
 msgid "Services"
-msgstr "Servicios"
+msgstr ""
 
 #: templates/template_base.html:65 templates/serv/base_transfer.html:3
 #: templates/serv/base_transfer.html:7
 msgid "Transfers"
-msgstr "Transferencias"
+msgstr ""
 
 #: templates/template_base.html:67
 msgid "Profile"
-msgstr "Perfil"
+msgstr ""
 
 #: templates/template_base.html:71 templates/template_base.html.py:88
 #: templates/template_base.html:98
 msgid "Login"
-msgstr "Entrar"
+msgstr ""
 
 #: templates/template_base.html:72
 msgid "Register"
-msgstr "Registrar"
+msgstr ""
 
 #: templates/template_base.html:90
 msgid "Forgot your password?"
-msgstr "¿Olvidaste tu contraseña?"
+msgstr ""
 
 #: templates/template_base.html:106 templates/user/preferences.html:3
 #: templates/user/preferences.html.py:7
 msgid "Preferences"
-msgstr "Preferencias"
+msgstr ""
 
 #: templates/template_base.html:112
 #, python-format
@@ -888,69 +859,66 @@ msgid ""
 "                                Credit: <strong>%(balance)s hours</strong>\n"
 "                                "
 msgstr ""
-"\n"
-"                    Crédito: <strong>%(balance)s horas</strong>\n"
-"                    "
 
 #: templates/template_base.html:130
 msgid "+ news"
-msgstr "+ noticias"
+msgstr ""
 
 #: templates/template_base.html:157 templates/main/contact.html:3
 #: templates/main/contact.html.py:7
 msgid "Contact"
-msgstr "Contactar"
+msgstr ""
 
 #: templates/template_base.html:161
 msgid "project page"
-msgstr "página del proyecto"
+msgstr ""
 
 #: templates/template_base.html:162
 msgid "created by"
-msgstr "creado por"
+msgstr ""
 
 #: templates/admin/base_site.html:7
 msgid "Timebank"
-msgstr "Banco del Tiempo"
+msgstr ""
 
 #: templates/admin/base_site.html:11
 msgid "Translations"
-msgstr "Traducciones"
+msgstr ""
 
 #: templates/admin/base_site.html:12 templates/user/send_email_to_all.html:3
 #: templates/user/send_email_to_all.html:7
 #: templates/user/send_email_to_all.html:13 user/admin.py:36
 msgid "Send email to all users"
-msgstr "Enviar un email a todas las personas usuarias"
+msgstr ""
 
 #: templates/admin/base_site.html:13
 msgid "report 1"
-msgstr "informe 1"
+msgstr ""
 
 #: templates/admin/base_site.html:14
 msgid "report 2"
-msgstr "informe 2"
+msgstr ""
 
 #: templates/admin/base_site.html:15
 msgid "report 3"
-msgstr "informe 3"
+msgstr ""
 
 #: templates/admin/base_site.html:16
 msgid "report 4"
-msgstr "informe 4"
+msgstr ""
 
 #: templates/flatpages/default.html:14 templates/news/basenew.html:7
 #: templates/serv/single_service_view.html:52
 msgid "Edit"
-msgstr "Editar"
+msgstr ""
 
 #: templates/main/contact.html:8
 msgid "Contact with the site owners via this form."
-msgstr "Contacta con los dueños del sitio web mediante este formulario."
+msgstr ""
 
 #: templates/main/contact.html:14
 msgid "Send message"
-msgstr "Enviar mensaje"
+msgstr ""
 
 #: templates/main/index.html:9
 #, python-format
@@ -958,67 +926,63 @@ msgid ""
 "%(SITE_NAME)s is a community where you can exchange services with other "
 "users using time as currency."
 msgstr ""
-"%(SITE_NAME)s es una comunidad donde puedes intercambiar servicios con otros/"
-"as usuarios/as usando el tiempo como moneda de cambio"
 
 #: templates/main/index.html:13
 msgid "New services"
-msgstr "Nuevos servicios"
+msgstr ""
 
 #: templates/main/index.html:16
 #, python-format
 msgid ""
 "To see all services you need to <a href='%(user_register)s'>register</a>."
 msgstr ""
-"Para poder ver más servicios debes <a href='%(user_register)s'>registrarte</"
-"a>."
 
 #: templates/main/index.html:21
 msgid "+ services"
-msgstr "+ servicios"
+msgstr ""
 
 #: templates/messages/base.html:9 templates/messages/inbox.html:3
 #: templates/messages/new_message.html:32
 msgid "Inbox"
-msgstr "Bandeja de Entrada"
+msgstr ""
 
 #: templates/messages/base.html:10 templates/messages/outbox.html:3
 msgid "Sent Messages"
-msgstr "Mensajes enviados"
+msgstr ""
 
 #: templates/messages/base.html:11
 msgid "New Message"
-msgstr "Nuevo mensaje"
+msgstr ""
 
 #: templates/messages/base.html:12
 msgid "Trash"
-msgstr "Papelera"
+msgstr ""
 
 #: templates/messages/compose.html:3
 msgid "New message"
-msgstr "Nuevo mensaje"
+msgstr ""
 
 #: templates/messages/compose.html:10
 msgid "Send"
-msgstr "Enviar"
+msgstr ""
 
 #: templates/messages/inbox.html:8
 msgid "Received"
-msgstr "Recibido"
+msgstr ""
 
 #: templates/messages/inbox.html:8 templates/messages/outbox.html:8
 #: templates/messages/trash.html:8
 msgid "Action"
-msgstr "Acción"
+msgstr ""
 
 #: templates/messages/inbox.html:19 templates/messages/outbox.html:19
 msgid "delete"
-msgstr "borrar"
+msgstr ""
 
 #: templates/messages/inbox.html:25 templates/messages/outbox.html:25
 #: templates/messages/trash.html:25
 msgid "No messages."
-msgstr "Sin mensajes."
+msgstr ""
 
 #: templates/messages/new_message.html:4
 #, python-format
@@ -1034,16 +998,6 @@ msgid ""
 "Sent from %(site_url)s\n"
 "View service: (%(site_url)s%(service_url)s\n"
 msgstr ""
-"Hola %(recipient)s,\n"
-"\n"
-"Has recibido el siguiente comentario de %(sender)s en el servicio\n"
-"(%(site_url)s%(service_url)s):\n"
-"\n"
-"%(body)s\n"
-"\n"
-"--\n"
-"Enviado desde %(site_url)s\n"
-"Ver servicio: (%(site_url)s%(service_url)s\n"
 
 #: templates/messages/new_message.html:17
 #, python-format
@@ -1054,10 +1008,6 @@ msgid ""
 "service\n"
 "(%(site_url)s%(service_url)s):"
 msgstr ""
-"Hola %(recipient)s,\n"
-"\n"
-"Has recibido el siguiente mensaje público de %(sender)s en el servicio\n"
-"(%(site_url)s%(service_url)s):"
 
 #: templates/messages/new_message.html:22
 #, python-format
@@ -1068,61 +1018,55 @@ msgid ""
 "service\n"
 "(%(site_url)s%(service_url)s):"
 msgstr ""
-"Hola %(recipient)s,\n"
-"\n"
-"Has recibido el siguiente mensaje privado de %(sender)s en el servicio\n"
-"(%(site_url)s%(service_url)s):"
 
 #: templates/messages/new_message.html:31
 #, python-format
 msgid "Sent from %(site_url)s"
-msgstr "Enviado de %(site_url)s"
+msgstr ""
 
 #: templates/messages/new_message.html:33 templates/messages/view.html:16
 msgid "Reply"
-msgstr "Responder"
+msgstr ""
 
 #: templates/messages/outbox.html:8
 msgid "Sent"
-msgstr "Enviado"
+msgstr ""
 
 #: templates/messages/trash.html:3
 msgid "Deleted Messages"
-msgstr "Mensajes borrados"
+msgstr ""
 
 #: templates/messages/trash.html:8 templates/messages/view.html:8
 msgid "Date"
-msgstr "Fecha"
+msgstr ""
 
 #: templates/messages/trash.html:19
 msgid "undelete"
-msgstr "recuperar"
+msgstr ""
 
 #: templates/messages/trash.html:28
 msgid ""
 "Deleted Messages are removed from the trash at unregular intervals, don't "
 "rely on this feature for long-time storage."
 msgstr ""
-"Los mensajes borrados son eliminados de la papelera de  vez en cuando, no "
-"confíes en esta característica para almacenar mensajes de forma indefinida."
 
 #: templates/messages/view.html:3
 msgid "View Message"
-msgstr "Ver mensaje"
+msgstr ""
 
 #: templates/messages/view.html:18
 msgid "Delete"
-msgstr "Borrar"
+msgstr ""
 
 #: templates/news/allnews.html:4
 msgid "Add a piece of news"
-msgstr "Añadir una noticia"
+msgstr ""
 
 #: templates/news/allnews.html:14 templates/serv/services.html:16
 #: templates/serv/view_transfers.html:18 templates/user/find_people.html:23
 #: templates/user/list_user_services.html:31
 msgid "previous"
-msgstr "anterior"
+msgstr ""
 
 #: templates/news/allnews.html:18
 #, python-format
@@ -1131,15 +1075,12 @@ msgid ""
 "            Page %(number)s of %(num_pages)s\n"
 "            "
 msgstr ""
-"\n"
-"            Página %(number)s de %(num_pages)s\n"
-"            "
 
 #: templates/news/allnews.html:24 templates/serv/services.html:26
 #: templates/serv/view_transfers.html:28 templates/user/find_people.html:33
 #: templates/user/list_user_services.html:41
 msgid "next"
-msgstr "siguiente"
+msgstr ""
 
 #: templates/news/basenew.html:11
 #, python-format
@@ -1147,8 +1088,6 @@ msgid ""
 "\n"
 "    %(date)s ago by "
 msgstr ""
-"\n"
-"    hace %(date)s por "
 
 #: templates/news/truncnewfront.html:9
 #, python-format
@@ -1157,15 +1096,12 @@ msgid ""
 "    %(date)s ago\n"
 "    "
 msgstr ""
-"\n"
-"    hace %(date)s\n"
-"    "
 
 #: templates/notification/messages_deleted/notice.html:1
 #, python-format
 msgid ""
 "You have deleted the message <a href=\"%(message_url)s\">%(message)s</a>."
-msgstr "Has borrado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
+msgstr ""
 
 #: templates/notification/messages_received/notice.html:2
 #, python-format
@@ -1173,14 +1109,12 @@ msgid ""
 "You have received the message <a href=\"%(message_url)s\">%(message)s</a> "
 "from %(message_sender)s."
 msgstr ""
-"Has recibido el mensaje <a href=\"%(message_url)s\">%(message)s</a> de "
-"%(message_sender)s."
 
 #: templates/notification/messages_recovered/notice.html:1
 #, python-format
 msgid ""
 "You have recovered the message <a href=\"%(message_url)s\">%(message)s</a>."
-msgstr "Has recuperado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
+msgstr ""
 
 #: templates/notification/messages_replied/notice.html:2
 #, python-format
@@ -1188,13 +1122,11 @@ msgid ""
 "You have replied to <a href=\"%(message_url)s\">%(message_parent_msg)s</a> "
 "from %(message_recipient)s."
 msgstr ""
-"Has respondido a <a href=\"%(message_url)s\">%(message_parent_msg)s</a> de "
-"%(message_recipient)s."
 
 #: templates/notification/messages_reply_received/notice.html:2
 #, python-format
 msgid "%(message_sender)s has sent you a reply to %(message_parent_msg)s."
-msgstr "%(message_sender)s te ha respondido a %(message_parent_msg)s."
+msgstr ""
 
 #: templates/notification/messages_sent/notice.html:2
 #, python-format
@@ -1202,8 +1134,6 @@ msgid ""
 "You have sent the message <a href=\"%(message_url)s\">%(message)s</a> to "
 "%(message_recipient)s."
 msgstr ""
-"Has enviado el mensaje <a href=\"%(message_url)s\">%(message)s</a> a "
-"%(message_sender)s."
 
 #: templates/serv/accept_transfer_email.html:4
 #, python-format
@@ -1216,13 +1146,6 @@ msgid ""
 "\n"
 "The team of %(site_url)s"
 msgstr ""
-"Hola %(transfer_creator)s,\n"
-"\n"
-"La transferencia que solicitaste del servicio de %(service_creator)s ha sido "
-"aceptada por él/ella. Puedes ver los detalles de la transferencia en "
-"%(site_url)s%(transfer_url)s .\n"
-"\n"
-"El equipo de %(site_url)s"
 
 #: templates/serv/accept_transfer_email.html:10
 #, python-format
@@ -1235,39 +1158,32 @@ msgid ""
 "\n"
 "The team of %(site_url)s"
 msgstr ""
-"Hola %(transfer_creator)s,\n"
-"\n"
-"La transferencia directa que solicitaste a %(transfer_recipient)s ha sido "
-"aceptada por él o ella. Puedes ver los detalles de la transferencia en "
-"%(site_url)s%(transfer_url)s .\n"
-"\n"
-"El equipo de %(site_url)s"
 
 #: templates/serv/add_transfer.html:4 templates/serv/add_transfer.html:13
 #: templates/serv/add_transfer.html:19
 #: templates/serv/service_transfer_actions.html:3
 msgid "Request transfer"
-msgstr "Solicitar transferencia"
+msgstr ""
 
 #: templates/serv/base.html:9
 msgid "My Services"
-msgstr "Mis servicios"
+msgstr ""
 
 #: templates/serv/base.html:10 templates/serv/services.html:10
 msgid "Find Services"
-msgstr "Encontrar Servicios"
+msgstr ""
 
 #: templates/serv/base.html:11
 msgid "Create new service"
-msgstr "Crear un nuevo servicio"
+msgstr ""
 
 #: templates/serv/base_transfer.html:9
 msgid "My Transfers"
-msgstr "Mis Transferencias"
+msgstr ""
 
 #: templates/serv/base_transfer.html:10
 msgid "Create direct transfer"
-msgstr "Crear transferencia directa"
+msgstr ""
 
 #: templates/serv/cancel_transfer_email.html:4
 #, python-format
@@ -1280,13 +1196,6 @@ msgid ""
 "\n"
 "The team of %(site_url)s"
 msgstr ""
-"Hola,\n"
-"\n"
-"La transferencia solicitada en un principio por %(transfer_creator)s del "
-"servicio creado por %(service_creator)s ha sido cancelada. Puedes ver los "
-"detalles de la transferencia en %(site_url)s%(transfer_url)s .\n"
-"\n"
-"El equipo de %(site_url)s"
 
 #: templates/serv/cancel_transfer_email.html:10
 #, python-format
@@ -1299,13 +1208,6 @@ msgid ""
 "\n"
 "The team of %(site_url)s"
 msgstr ""
-"Hola %(transfer_recipient)s,\n"
-"\n"
-"La transferencia directa creada por %(transfer_creator)s contigo ha sido "
-"cancelada. Puedes ver los detalles de la transferencia en %(site_url)s"
-"%(transfer_url)s .\n"
-"\n"
-"El equipo de %(site_url)s"
 
 #: templates/serv/done_transfer_email.html:3
 #, python-format
@@ -1318,40 +1220,33 @@ msgid ""
 "\n"
 "The team of %(site_url)s"
 msgstr ""
-"Hola %(payee)s,\n"
-"\n"
-"La transferencia del servicio que realizaste a %(debtor)s ha sido confirmada "
-"por él/ella. Puedes ver los detalles de la transferencia en %(site_url)s"
-"%(transfer_url)s .\n"
-"\n"
-"El equipo de %(site_url)s"
 
 #: templates/serv/edit_service.html:5
 msgid "Edit service"
-msgstr "Editar servicio"
+msgstr ""
 
 #: templates/serv/edit_service.html:7
 msgid "Add service"
-msgstr "Añadir servicio"
+msgstr ""
 
 #: templates/serv/edit_service.html:17 templates/user/profile.html:13
 msgid "Save"
-msgstr "Guardar"
+msgstr ""
 
 #: templates/serv/edit_transfer.html:5 templates/serv/edit_transfer.html:23
 #: templates/serv/service_transfer_actions.html:5
 #: templates/serv/single_transfer_view.html:49
 #: templates/serv/single_transfer_view.html:71
 msgid "Edit transfer"
-msgstr "Editar transferencia"
+msgstr ""
 
 #: templates/serv/edit_transfer.html:7 templates/serv/edit_transfer.html:25
 msgid "Edit direct transfer"
-msgstr "Editar transferencia directa"
+msgstr ""
 
 #: templates/serv/edit_transfer.html:32
 msgid "Update transfer"
-msgstr "Actualizar transferencia"
+msgstr ""
 
 #: templates/serv/edit_transfer_email.html:3
 #, python-format
@@ -1364,27 +1259,20 @@ msgid ""
 "\n"
 "The team of %(site_url)s"
 msgstr ""
-"Hola %(service_creator)s,\n"
-"\n"
-"La transferencia que solicitó %(transfer_creator)s de un servicio tuyo ha "
-"sido editada por él/ella. Puedes ver los detalles de la transferencia en "
-"%(site_url)s%(transfer_url)s .\n"
-"\n"
-"El equipo de %(site_url)s"
 
 #: templates/serv/listservs.html:6
 msgid "No services."
-msgstr "Ningún servicio"
+msgstr ""
 
 #: templates/serv/new_transfer.html:4 templates/serv/new_transfer.html.py:9
 #: templates/user/list_user_services.html:22
 #: templates/user/single_person_view.html:23 templates/user/view.html:29
 msgid "Transfer hours"
-msgstr "Transferir horas"
+msgstr ""
 
 #: templates/serv/new_transfer.html:15
 msgid "Create transfer"
-msgstr "Crear transferencia"
+msgstr ""
 
 #: templates/serv/new_transfer_email.html:1
 #, python-format
@@ -1396,12 +1284,6 @@ msgid ""
 "\n"
 "The team of %(site_url)s"
 msgstr ""
-"Hola %(transfer_recipient)s,\n"
-"\n"
-"%(transfer_creator)s ha creado una transferencia directa contigo. Puedes ver "
-"y administrar la transferencia en %(site_url)s%(transfer_url)s .\n"
-"\n"
-"El equipo de %(site_url)s"
 
 #: templates/serv/new_transfer_email.html:6
 #, python-format
@@ -1413,12 +1295,6 @@ msgid ""
 "\n"
 "The team of %(site_url)s"
 msgstr ""
-"Hola %(recipient)s,\n"
-"\n"
-"%(sender)s te ha solicitado una transferencia de un servicio que ofertas. "
-"Puedes ver y administrar la transferencia en %(site_url)s%(transfer_url)s .\n"
-"\n"
-"El equipo de %(site_url)s"
 
 #: templates/serv/new_transfer_email.html:12
 #, python-format
@@ -1430,24 +1306,18 @@ msgid ""
 "\n"
 "The team of %(site_url)s"
 msgstr ""
-"Hola %(recipient)s,\n"
-"\n"
-"%(sender)s te ha solicitado una transferencia de un servicio que solicitas. "
-"Puedes ver y administrar la transferencia en %(site_url)s%(transfer_url)s .\n"
-"\n"
-"El equipo de %(site_url)s"
 
 #: templates/serv/service_add_comment.html:4
 msgid "Comment a service"
-msgstr "Comentar un servicio"
+msgstr ""
 
 #: templates/serv/service_add_comment.html:12
 msgid "Comment the service"
-msgstr "Comentar el servicio"
+msgstr ""
 
 #: templates/serv/service_add_comment.html:18
 msgid "Send comment"
-msgstr "Enviar comentario"
+msgstr ""
 
 #: templates/serv/service_transfer_actions.html:7
 #: templates/serv/single_transfer_view.html:51
@@ -1456,15 +1326,15 @@ msgstr "Enviar comentario"
 #: templates/serv/single_transfer_view.html:73
 #: templates/serv/single_transfer_view.html:83
 msgid "Cancel transfer"
-msgstr "Cancelar transferencia"
+msgstr ""
 
 #: templates/serv/service_transfer_actions.html:11
 msgid "Confirm Transfer"
-msgstr "Confirmar transferencia"
+msgstr ""
 
 #: templates/serv/services.html:3 templates/user/preferences.html:13
 msgid "My services"
-msgstr "Mis servicios"
+msgstr ""
 
 #: templates/serv/services.html:20 templates/serv/view_transfers.html:22
 #: templates/user/find_people.html:27
@@ -1475,13 +1345,10 @@ msgid ""
 "                    Page %(number)s of %(num_pages)s\n"
 "                    "
 msgstr ""
-"\n"
-"                    Página %(number)s de %(num_pages)s\n"
-"                    "
 
 #: templates/serv/single_comment_view.html:15
 msgid "comment is private"
-msgstr "el comentario es privado"
+msgstr ""
 
 #: templates/serv/single_comment_view.html:17
 #, python-format
@@ -1490,59 +1357,56 @@ msgid ""
 "        Published %(time)s ago\n"
 "        "
 msgstr ""
-"\n"
-"        Publicado hace %(time)s\n"
-"        "
 
 #: templates/serv/single_comment_view.html:25
 msgid "Remove comment"
-msgstr "Borrar comentario"
+msgstr ""
 
 #: templates/serv/single_service_view.html:4
 msgid "Type"
-msgstr "Tipo"
+msgstr ""
 
 #: templates/serv/single_service_view.html:7
 msgid "Inactive"
-msgstr "Inactiva"
+msgstr ""
 
 #: templates/serv/single_service_view.html:19
 #, python-format
 msgid "Published %(time)s ago"
-msgstr "Publicado hace %(time)s"
+msgstr ""
 
 #: templates/serv/single_service_view.html:46
 msgid "transfers"
-msgstr "transferencias"
+msgstr ""
 
 #: templates/serv/single_service_view.html:46
 msgid "comments"
-msgstr "comentarios"
+msgstr ""
 
 #: templates/serv/single_service_view.html:46
 msgid "hours transferred"
-msgstr "horas transferidas"
+msgstr ""
 
 #: templates/serv/single_service_view.html:51
 #: templates/serv/single_service_view.html:68
 msgid "Comment"
-msgstr "Comentario"
+msgstr ""
 
 #: templates/serv/single_service_view.html:54
 msgid "Remove"
-msgstr "Borrar"
+msgstr ""
 
 #: templates/serv/single_service_view.html:58
 msgid "Disable"
-msgstr "Desactivar"
+msgstr ""
 
 #: templates/serv/single_service_view.html:62
 msgid "Enable"
-msgstr "Activar"
+msgstr ""
 
 #: templates/serv/single_service_view.html:69
 msgid "Send pivate message"
-msgstr "Enviar mensaje privado"
+msgstr ""
 
 #: templates/serv/single_transfer_view.html:23
 #, python-format
@@ -1550,8 +1414,6 @@ msgid ""
 "Transfer of %(credits)s hours from <a href=\"%(debtor_url)s\">%(debtor)s</a> "
 "to <a href=\"%(payee_url)s\">%(payee)s</a>"
 msgstr ""
-"Transferencia de %(credits)s horas de <a href=\"%(debtor_url)s\">%(debtor)s</"
-"a> a <a href=\"%(payee_url)s\">%(payee)s</a>"
 
 #: templates/serv/single_transfer_view.html:25
 #, python-format
@@ -1559,75 +1421,73 @@ msgid ""
 "Private transfer of %(credits)s hours from <a href=\"%(debtor_url)s\">"
 "%(debtor)s</a> to <a href=\"%(payee_url)s\">%(payee)s</a>"
 msgstr ""
-"Transferencia privada de %(credits)s horas de <a href=\"%(debtor_url)s\">"
-"%(debtor)s</a> a <a href=\"%(payee_url)s\">%(payee)s</a>"
 
 #: templates/serv/single_transfer_view.html:28
 #, python-format
 msgid "<strong>created</strong>, %(time)s ago"
-msgstr "<strong>creada</strong>, hace %(time)s"
+msgstr ""
 
 #: templates/serv/single_transfer_view.html:30
 #, python-format
 msgid "<strong>accepted</strong>, created %(time)s ago"
-msgstr "<strong>aceptada</strong>, creada hace %(time)s"
+msgstr ""
 
 #: templates/serv/single_transfer_view.html:32
 #, python-format
 msgid "<strong>rejected</strong>, created %(time)s ago"
-msgstr "<strong>rechazada</strong>, creada hace %(time)s"
+msgstr ""
 
 #: templates/serv/single_transfer_view.html:34
 #, python-format
 msgid "<strong>confirmed</strong>, %(time)s ago"
-msgstr "<strong>confirmada</strong> hace %(time)s"
+msgstr ""
 
 #: templates/serv/single_transfer_view.html:42
 #: templates/serv/single_transfer_view.html:44
 #: templates/user/list_user_services.html:17 templates/user/view.html:23
 msgid "Send private message"
-msgstr "Enviar mensaje privado"
+msgstr ""
 
 #: templates/serv/single_transfer_view.html:57
 #: templates/serv/single_transfer_view.html:77
 msgid "Accept transfer"
-msgstr "Aceptar transferencia"
+msgstr ""
 
 #: templates/serv/single_transfer_view.html:89
 msgid "Confirm transfer"
-msgstr "Confirmar transferencia"
+msgstr ""
 
 #: templates/serv/view_service.html:4
 msgid "View service"
-msgstr "Ver servicio"
+msgstr ""
 
 #: templates/serv/view_service.html:11
 msgid "My transfers in this service"
-msgstr "Mis transferencias en este servicio"
+msgstr ""
 
 #: templates/serv/view_service.html:17 templates/serv/view_transfers.html:13
 msgid "No transfers for now."
-msgstr "Ninguna transferencia por ahora."
+msgstr ""
 
 #: templates/serv/view_service.html:19 templates/serv/view_transfer.html:14
 msgid "Comments on service"
-msgstr "Comentarios sobre el servicio"
+msgstr ""
 
 #: templates/serv/view_service.html:25 templates/serv/view_transfer.html:20
 msgid "No comments for now."
-msgstr "Ningún comentario por ahora."
+msgstr ""
 
 #: templates/serv/view_transfer.html:4
 msgid "View transfer"
-msgstr "Ver transferencia"
+msgstr ""
 
 #: templates/serv/view_transfer.html:10
 msgid "Service being transferred"
-msgstr "Servicio que se transfiere"
+msgstr ""
 
 #: templates/serv/view_transfers.html:4 templates/user/preferences.html:10
 msgid "My transfers"
-msgstr "Mis transferencias"
+msgstr ""
 
 #: templates/tasks/email_update.html:1
 #, python-format
@@ -1637,14 +1497,11 @@ msgid ""
 "There are news in your profile in %(site_name)s that require your "
 "attention:\n"
 msgstr ""
-"Hola %(recipient)s,\n"
-"\n"
-"Hay novedades en tu perfil de %(site_name)s que requieren tu atención:\n"
 
 #: templates/tasks/email_update.html:9
 #, python-format
 msgid "Go to inbox: %(inbox_url)s"
-msgstr "Ir a la bandeja de entrada:%(inbox_url)s"
+msgstr ""
 
 #: templates/tasks/email_update.html:10
 #, python-format
@@ -1655,24 +1512,19 @@ msgid ""
 "        %(body)s\n"
 "\n"
 msgstr ""
-"\n"
-"    %(site_url)s%(msg_url)s\n"
-"    Mensaje de %(from)s enviado hace %(sent_ago)s:\n"
-"        %(body)s\n"
-"\n"
 
 #: templates/tasks/email_update.html:16
 msgid "No unread messages"
-msgstr "No tienes mensajes sin leer"
+msgstr ""
 
 #: templates/tasks/email_update.html:18
 msgid "Unread comments in your profile"
-msgstr "Comentarios en tu perfil sin leer"
+msgstr ""
 
 #: templates/tasks/email_update.html:21
 #, python-format
 msgid "Read all your comments in your profile: %(view_comments_url)s"
-msgstr "Lee todos los comentarios en tu perfil: %(view_comments_url)s"
+msgstr ""
 
 #: templates/tasks/email_update.html:22
 #, python-format
@@ -1682,22 +1534,19 @@ msgid ""
 "        %(body)s\n"
 "\n"
 msgstr ""
-"\n"
-"    Comentario de %(from)s, enviado hace %(sent_ago)s:\n"
-"        %(body)s\n"
 
 #: templates/tasks/email_update.html:27
 msgid "No unread comments in your profile"
-msgstr "No tienes comentarios en tu perfil sin leer"
+msgstr ""
 
 #: templates/tasks/email_update.html:29
 msgid "Pending transfers"
-msgstr "Transferencias pendientes"
+msgstr ""
 
 #: templates/tasks/email_update.html:32
 #, python-format
 msgid "Manage all your transfers: %(my_transfers_url)s"
-msgstr "Administrar todas tus transferencias: %(my_transfers_url)s"
+msgstr ""
 
 #: templates/tasks/email_update.html:33
 #, python-format
@@ -1709,29 +1558,23 @@ msgid ""
 "        %(description)s\n"
 "\n"
 msgstr ""
-"\n"
-"    %(site_url)s%(transfer_url)s\n"
-"    Comentario con %(from)s, creada hace %(created_ago)s en estado "
-"%(status)s\n"
-"        %(description)s\n"
-"\n"
 
 #: templates/tasks/email_update.html:39
 msgid "No pending transfers"
-msgstr "No tienes transferencias pendientes"
+msgstr ""
 
 #: templates/tasks/email_update.html:41
 msgid "Besides all this, you may be interested in:"
-msgstr "Además de todo esto, puedes estar interesado en:"
+msgstr ""
 
 #: templates/tasks/email_update.html:43
 msgid "Latest services"
-msgstr "Últimos servicios"
+msgstr ""
 
 #: templates/tasks/email_update.html:46
 #, python-format
 msgid "Service list: %(services_url)s"
-msgstr "Lista de servicio: %(services_url)s"
+msgstr ""
 
 #: templates/tasks/email_update.html:47
 #, python-format
@@ -1742,15 +1585,10 @@ msgid ""
 "created by %(from)s published %(published_ago)s ago\n"
 "        %(description)s\n"
 msgstr ""
-"\n"
-"    %(site_url)s%(service_url)s\n"
-"    Servicio en la zona \"%(area)s\" y categoría \"%(category)s\" creador "
-"por %(from)s publicado hace %(published_ago)s\n"
-"        %(description)s\n"
 
 #: templates/tasks/email_update.html:52
 msgid "No new services"
-msgstr "No hay servicios recientes"
+msgstr ""
 
 #: templates/tasks/email_update.html:54
 #, python-format
@@ -1762,71 +1600,63 @@ msgid ""
 "Do not want to receive these notifications via email? Set the preferences in "
 "your profile in %(site_url)s%(prefs_url)s"
 msgstr ""
-"\n"
-"\n"
-"Intercambia tu tiempo y habilidades en %(site_name)s, %(site_url)s.\n"
-"\n"
-"¿No quieres recibir notificaciones por email? Ajusta las preferencias de tu "
-"perfil en %(site_url)s%(prefs_url)s"
 
 #: templates/user/find_people.html:11
 msgid "Find people"
-msgstr "Encontrar gente"
+msgstr ""
 
 #: templates/user/find_people.html:17
 msgid "No one was found"
-msgstr "No se encontró a nadie"
+msgstr ""
 
 #: templates/user/list_user_services.html:5
 #: templates/user/list_user_services.html:11
 #, python-format
 msgid " %(username)s's Services "
-msgstr " Servicios de %(username)s"
+msgstr ""
 
 #: templates/user/list_user_services.html:16
 #: templates/user/preferences.html:16 templates/user/view.html:5
 #: templates/user/view.html.py:14 templates/user/view.html:22
 msgid "View profile"
-msgstr "Ver perfil"
+msgstr ""
 
 #: templates/user/list_user_services.html:18
 #: templates/user/single_person_view.html:24 templates/user/view.html:24
 msgid "View his services"
-msgstr "Ver sus servicios"
+msgstr ""
 
 #: templates/user/list_user_services.html:20
 #: templates/user/preferences.html:19 templates/user/profile.html:3
 #: templates/user/profile.html.py:7 templates/user/view.html:27
 msgid "Edit profile"
-msgstr "Editar perfil"
+msgstr ""
 
 #: templates/user/password_change.html:3 templates/user/password_change.html:7
 #: templates/user/password_change.html:13
 #: templates/user/password_reset_confirm.html:15
 #: templates/user/preferences.html:22
 msgid "Change password"
-msgstr "Cambia tu contraseña"
+msgstr ""
 
 #: templates/user/password_reset.html:3 templates/user/password_reset.html:7
 msgid "Did you forget your password?"
-msgstr "¿Has olvidado tu contraseña?"
+msgstr ""
 
 #: templates/user/password_reset.html:8
 msgid ""
 "Fill the following form so that we can send you a link to your email address "
 "which will let you change your password."
 msgstr ""
-"Rellena el siguiente formulario para que podamos enviarte un enlace a tu "
-"dirección de email con el que podrás cambiar tu contraseña."
 
 #: templates/user/password_reset.html:14
 msgid "Send verification email"
-msgstr "Enviar email de comprobación"
+msgstr ""
 
 #: templates/user/password_reset_confirm.html:3
 #: templates/user/password_reset_confirm.html:7
 msgid "Change your password"
-msgstr "Cambia tu contraseña"
+msgstr ""
 
 #: templates/user/password_reset_confirm.html:9
 msgid ""
@@ -1835,10 +1665,6 @@ msgid ""
 "same form to reset it if you at least remember your username or email "
 "address."
 msgstr ""
-"Hemos confirmado tu identidad, ahora puedes establecer tu nueva contraseña. "
-"Intenta no olvidarla, aunque si la vuelves a olvidar puedes volver a "
-"utilizar este mismo formulario para recuperarla siempre que te acuerdes de "
-"tu nombre de usuario o tu email."
 
 #: templates/user/password_reset_confirm.html:18
 msgid ""
@@ -1846,9 +1672,6 @@ msgid ""
 "Check that you accessed the correct link, or try again to reset your "
 "password."
 msgstr ""
-"<strong>¡Error!</strong> Este enlace de confirmación de contraseña es "
-"incorrecto o ha caducado. Comprueba que has accedido al enlace correcto, o "
-"vuelve a solicitar el restablecimiento de tu contraseña."
 
 #: templates/user/password_reset_email.html:1
 #, python-format
@@ -1869,60 +1692,45 @@ msgid ""
 "--\n"
 "The team of %(site_name)s"
 msgstr ""
-"Hola,\n"
-"\n"
-"Estás recibiendo este e-mail porque solicitaste restablecer tu contraseña\n"
-"para tu cuenta en %(protocol)s://%(site_name)s.\n"
-"Si no solicitaste reestablecer tu contraseña, ignora este mensaje.\n"
-"Puedes cambiar tu contraseña en la siguiente dirección:\n"
-"\n"
-"%(protocol)s://%(domain)s%(url_remember)s\n"
-"\n"
-"Tu nombre de usuario/a, en caso de que lo olvidases, es: %(username)s\n"
-"\n"
-"¡Gracias por usar nuestro sitio web!\n"
-"\n"
-"--\n"
-"El equipo de %(site_name)s"
 
 #: templates/user/preferences.html:25 templates/user/remove.html:3
 #: templates/user/remove.html.py:7 templates/user/remove.html:13
 msgid "Remove user"
-msgstr "Borrar"
+msgstr ""
 
 #: templates/user/register.html:3 templates/user/register.html.py:7
 #: templates/user/register.html:13
 msgid "Join Us"
-msgstr "Regístrate"
+msgstr ""
 
 #: templates/user/single_person_view.html:4
 msgid "Nick"
-msgstr "Nick"
+msgstr ""
 
 #: templates/user/single_person_view.html:10
 msgid "Karma"
-msgstr "Karma"
+msgstr ""
 
 #: templates/user/view.html:34
 msgid "Gravatar"
-msgstr "Gravatar"
+msgstr ""
 
 #: templates/user/view.html:48
 msgid "Last Name"
-msgstr "Apellidos"
+msgstr ""
 
 #: templates/user/view.html:60
 msgid "Global rating"
-msgstr "Puntuación global"
+msgstr ""
 
 #: templates/user/view.html:65
 msgid "Age"
-msgstr "Edad"
+msgstr ""
 
 #: templates/user/view.html:69 user/forms.py:36 user/forms.py:58
 #: user/models.py:44
 msgid "Address"
-msgstr "Dirección física"
+msgstr ""
 
 #: templates/user/view.html:73
 msgid "Email"
@@ -1931,40 +1739,40 @@ msgstr ""
 #: templates/user/view.html:77 user/forms.py:40 user/forms.py:65
 #: user/models.py:58
 msgid "Land line"
-msgstr "Teléfono fijo"
+msgstr ""
 
 #: templates/user/view.html:81 user/forms.py:67
 msgid "Mobile telephone"
-msgstr "Teléfono móvil"
+msgstr ""
 
 #: templates/user/view.html:94
 msgid "Publish comment in his profile"
-msgstr "Publicar comentario en su tablón"
+msgstr ""
 
 #: templates/user/view.html:98
 msgid "Messages published in his profile"
-msgstr "Mensajes publicados en su tablón:"
+msgstr ""
 
 #: templates/user/view.html:102
 msgid "No one sent a message to this user profile."
-msgstr "Nadie envió aun ningún mensaje a este perfil de usuario."
+msgstr ""
 
 #: tinymce/views.py:68
 msgid "Error running spellchecker"
-msgstr "Error ejecutando el corrector ortográfico"
+msgstr ""
 
 #: user/admin.py:41
 msgid "Activate users"
-msgstr "Activar las personas usuarias"
+msgstr ""
 
 #: user/admin.py:46
 msgid "Deactivate users"
-msgstr "Desactivar las personas usuarias"
+msgstr ""
 
 #: user/admin.py:70
 #, python-format
 msgid "Welcome to %(site_name)s, %(username)s"
-msgstr "Bienvenido/a a %(site_name)s, %(username)s"
+msgstr ""
 
 #: user/admin.py:74
 #, python-format
@@ -1975,143 +1783,136 @@ msgid ""
 "\n"
 "- The team of %(site_name)s."
 msgstr ""
-"Enhorabuena %(username)s!\n"
-"Las personas administradoras han aceptado tu solicitud de registro, ¡ahora "
-"ya puedes comenzar a colaborar con los demás en http://%(url)s/.\n"
-"\n"
-"- El equipo de %(site_name)s."
 
 #: user/forms.py:30 user/forms.py:51 user/models.py:42
 msgid "Birth date"
-msgstr "Fecha de Nacimiento"
+msgstr ""
 
 #: user/forms.py:34 user/forms.py:56
 msgid "Last name"
-msgstr "Apellidos"
+msgstr ""
 
 #: user/forms.py:35 user/forms.py:57
 msgid "Email address"
-msgstr "Dirección de email"
+msgstr ""
 
 #: user/forms.py:37 user/forms.py:59
 msgid "Example: Avda. Molina, 12, Sevilla"
-msgstr "Ejemplo: Avda. Molina, 12, Sevilla"
+msgstr ""
 
 #: user/forms.py:38 user/forms.py:60
 msgid "Personal description"
-msgstr "Descripción personal"
+msgstr ""
 
 #: user/forms.py:42
 msgid "Mobile Telephone"
-msgstr "Teléfono móvil"
+msgstr ""
 
 #: user/forms.py:62
 msgid "Current password"
-msgstr "Contraseña actual"
+msgstr ""
 
 #: user/forms.py:64
 msgid "Enter your current password to check your identity"
-msgstr "Introduce tu contraseña actual para comprobar tu identidad."
+msgstr ""
 
 #: user/forms.py:77
 msgid "The two password fields didn't match."
-msgstr "Las dos contraseñas introducidas no concuerdan."
+msgstr ""
 
 #: user/forms.py:87
 msgid "Reason"
-msgstr "Razón"
+msgstr ""
 
 #: user/forms.py:89
 msgid ""
 "Have we done something wrong? Please tell us why you wantrmeove your user."
 msgstr ""
-"¿Hemos hecho algo mal? Por favor dinos la razón porla que quieres darte de "
-"baja."
 
 #: user/forms.py:100
 msgid "less than 24 hours ago"
-msgstr "menos de 24 horas"
+msgstr ""
 
 #: user/forms.py:101
 msgid "less than one week ago"
-msgstr "menos de una semana"
+msgstr ""
 
 #: user/forms.py:102
 msgid "less than one month ago"
-msgstr "menos de un mes"
+msgstr ""
 
 #: user/forms.py:103
 msgid "less than 3 months ago"
-msgstr "menos de 3 meses"
+msgstr ""
 
 #: user/forms.py:104
 msgid "less than 6 months ago"
-msgstr "menos de 6 meses"
+msgstr ""
 
 #: user/forms.py:105
 msgid "less than one year ago"
-msgstr "menos de un año"
+msgstr ""
 
 #: user/forms.py:108 user/forms.py:124 user/views.py:330
 msgid "User connected"
-msgstr "El usuario se conectó hace"
+msgstr ""
 
 #: user/forms.py:118
 msgid "more than a week ago"
-msgstr "más de una semana"
+msgstr ""
 
 #: user/forms.py:119
 msgid "more than one month ago"
-msgstr "más de 1 mes"
+msgstr ""
 
 #: user/forms.py:120
 msgid "more than 3 months ago"
-msgstr "más de 3 meses"
+msgstr ""
 
 #: user/forms.py:121
 msgid "more than 6 months ago"
-msgstr "más de 6 meses"
+msgstr ""
 
 #: user/forms.py:122
 msgid "more than one year"
-msgstr "más de un año"
+msgstr ""
 
 #: user/forms.py:126
 msgid "Without services"
-msgstr "Sin servicios"
+msgstr ""
 
 #: user/forms.py:130
 msgid "Message body"
-msgstr "Mensaje"
+msgstr ""
 
 #: user/models.py:32 user/models.py:44
 msgid "address"
-msgstr "dirección"
+msgstr ""
 
 #: user/models.py:55
 msgid "Personal address"
-msgstr "Dirección"
+msgstr ""
 
 #: user/models.py:60
 msgid "Mobile phone"
-msgstr "Teléfono móvil"
+msgstr ""
 
 #: user/models.py:62
 msgid "Receive email updates"
-msgstr "Recibir actualizaciones por email"
+msgstr ""
 
 #: user/models.py:67
 msgid "Language Code"
-msgstr "Código de idioma"
+msgstr ""
 
 #: user/models.py:71
 msgid "Users"
-msgstr "Usuarios/as"
+msgstr ""
 
 #: user/views.py:55
 #, python-format
 msgid "[%(site_name)s] User %(username)s joined"
-msgstr "[%(site_name)s] Usuario/a %(username)s registrado"
+msgstr ""
 
 #: user/views.py:59
 #, python-format
@@ -2119,13 +1920,11 @@ msgid ""
 "A new user has joined with the name %s . Please review his data and make it "
 "active."
 msgstr ""
-"Se ha registrado una nueva persona usuaria con el nombre de %s . Revise sus "
-"datos y delo de alta."
 
 #: user/views.py:64 user/views.py:91
 #, python-format
 msgid "You have joined as %(username)s in %(site_name)s"
-msgstr "Te has registrado como %(username)s en %(site_name)s"
+msgstr ""
 
 #: user/views.py:68
 #, python-format
@@ -2137,13 +1936,6 @@ msgid ""
 "\n"
 "- The team of %(site_name)s."
 msgstr ""
-"¡Hola %(username)s!\n"
-" Te acabas de registrar en http://%(url)s/. Próximamente la creación de tu "
-"cuenta de usuario/a será revisada por nuestras personas administradoras y si "
-"todo está correcto, activaremos tu usuario/a y podrás comenzar a participar "
-"en nuestra comunidad.\n"
-"\n"
-"- El Equipo de %(site_name)s."
 
 #: user/views.py:80
 #, python-format
@@ -2153,15 +1945,10 @@ msgid ""
 "as our admins review your request we will send you an email and you will be "
 "able to start to participate in our community."
 msgstr ""
-"Te acabas de registrar en nuestro sitio web, <strong>%(username)s</strong>. "
-"Te hemos enviado un email a <strong>%(email)s</strong> confirmándote tu "
-"solicitud de inscripción. Tan pronto como nuestros/as administradores/as "
-"hayan revisado dicha solicitud te avisaremos de nuevo por email y podrás "
-"empezar a disfrutar de este sistema."
 
 #: user/views.py:88 user/views.py:112
 msgid "User created successfully"
-msgstr "Usuario creado correctamente"
+msgstr ""
 
 #: user/views.py:95
 #, python-format
@@ -2172,11 +1959,6 @@ msgid ""
 "\n"
 "- The team of %(site_name)s."
 msgstr ""
-"Hola %(username)s!\n"
-" Te acabas de registrar en http://%(url)s/ . Puedes comenzar a participar en "
-"nuestra comunidad.\n"
-"\n"
-"- El Equipo de %(site_name)s."
 
 #: user/views.py:105
 #, python-format
@@ -2185,22 +1967,19 @@ msgid ""
 "confirmation email to <strong>%(email)s</strong>. Now you can start to "
 "participate in our community."
 msgstr ""
-"Te acabas de registrar en nuestro sitio web, <strong>%(username)s</strong>. "
-"Te hemos enviado un email de confirmación a <strong>%(email)s</strong>. "
-"Ahora puedes comenzar a participar en nuestra comunidad."
 
 #: user/views.py:128
 #, python-format
 msgid "Welcome %s"
-msgstr "Bienvenido/a %s"
+msgstr ""
 
 #: user/views.py:130
 msgid "Your account is disabled,  contact the admins"
-msgstr "Tu cuenta está deshabilitada, contacta con los administradores"
+msgstr ""
 
 #: user/views.py:133
 msgid "Invalid username or password"
-msgstr "Nombre de usuario/a o contrase&ntilde;a inválidos"
+msgstr ""
 
 #: user/views.py:139
 msgid ""
@@ -2208,13 +1987,10 @@ msgid ""
 "password. It might take a bit to arrive  to your inbox so please be patient. "
 "If it seems that it doesn't arrive, you might want to check your spam folder."
 msgstr ""
-"Te hemos enviado un correo a tu dirección de email con instrucciones para "
-"poder recuperar tu contraseña. Puede tardar un poco; sé paciente. Si parece "
-"que no te llega, comprueba la carpeta de correos no deseados."
 
 #: user/views.py:143
 msgid "Password recovery in process"
-msgstr "Recuperación de contraseña en proceso"
+msgstr ""
 
 #: user/views.py:149
 msgid ""
@@ -2222,17 +1998,15 @@ msgid ""
 "username and the new password using the login form in the grey box at the "
 "left."
 msgstr ""
-"Has cambiado tu contraseña con éxito, ahora puedes entrar introduciendo tu "
-"usuario y contraseña en el recuadro gris de la izquierda."
 
 #: user/views.py:152
 msgid "Password changed successfully"
-msgstr "Contraseña cambiada exitosamente"
+msgstr ""
 
 #: user/views.py:171
 #, python-format
 msgid "[%(site_name)s] %(username)s modified his data"
-msgstr "[%(site_name)s] %(username)s ha modificado sus datos"
+msgstr ""
 
 #: user/views.py:175
 #, python-format
@@ -2256,38 +2030,20 @@ msgid ""
 " - Description: %(description)s\n"
 "\n"
 msgstr ""
-"La persona usuaria %(username)s ha modificado su perfil. Datos antiguos:\n"
-"\n"
-" - Nombre: %(old_name)s\n"
-" - Apellidos: %(old_surnames)s\n"
-" - Dirección de email: %(old_email)s\n"
-" - Dirección física: %(old_address)s\n"
-" - Fecha de nacimiento: %(old_birth_date)s\n"
-" - Descripción: %(old_description)s\n"
-"\n"
-"Nuevos datos:\n"
-"\n"
-" - Nombre: %(name)s\n"
-" - Apellidos: %(surnames)s\n"
-" - Dirección de email: %(email)s\n"
-" - Dirección física: %(address)s\n"
-" - Fecha de nacimiento: %(birth_date)s\n"
-" - Descripción: %(description)s\n"
-"\n"
 
 #: user/views.py:206
 #, python-format
 msgid "Profile updated: <a href=\"%s\">view your profile</a>."
-msgstr "Perfil actualizado: <a href=\"%s\">ver tu perfil</a>."
+msgstr ""
 
 #: user/views.py:222
 msgid "Password changed."
-msgstr "Contraseña cambiada."
+msgstr ""
 
 #: user/views.py:244
 #, python-format
 msgid "[%(site_name)s] User %(username)s disabled"
-msgstr "[%(site_name)s] Usuario %(username)s desactivado"
+msgstr ""
 
 #: user/views.py:248
 #, python-format
@@ -2297,15 +2053,11 @@ msgid ""
 "\n"
 "%(reason)s"
 msgstr ""
-"La persona usuaria %(username)s ha solicitado set eliminado del sitio web. "
-"La razón que ha expuesto es:\n"
-"\n"
-"%(reason)s"
 
 #: user/views.py:256
 #, python-format
 msgid "You removed your profile %(username)s in %(site_name)s"
-msgstr "Has borrado tu perfil %(username)s de %(site_name)s"
+msgstr ""
 
 #: user/views.py:260
 #, python-format
@@ -2318,12 +2070,6 @@ msgid ""
 "\n"
 "- The team of %(site_name)s."
 msgstr ""
-"Hola %(username)s!\n"
-" Has borrado tu perfil de http://%(url)s/. Sentimos que hayas decidido dar "
-"este paso. Leeremos la razón que nos proporcionaste por la cual te has "
-"borrado y la tendremos en cuenta para mejorar en el futuro.\n"
-"\n"
-"- El Equipo de %(site_name)s."
 
 #: user/views.py:273
 msgid ""
@@ -2331,74 +2077,20 @@ msgid ""
 "removed yourself from this community that you provided to us and we'll have "
 "it in mind to improve our service in the future."
 msgstr ""
-"Sentimos que hayas decidido dar este paso. Leeremos la razón que nos "
-"proporcionaste por la cual te has borrado y la tendremos en cuenta para "
-"mejorar en el futuro."
 
 #: user/views.py:276
 msgid "User removed"
-msgstr "Usuario/a borrado/a"
+msgstr ""
 
 #: user/views.py:406
 #, python-format
 msgid "Message added to %s public profile"
-msgstr "Mensaje añadido al perfil público de %s"
+msgstr ""
 
 #: user/views.py:417 user/views.py:429
 msgid "You don't have permission to send an email to all users"
-msgstr "No tienes permisos para enviar un email a todas las personas usuarias"
+msgstr ""
 
 #: user/views.py:442
 msgid "Email sent to all users"
-msgstr "Email enviado a todas las personas usuarias"
-
-#~ msgid "You have deleted the message '%(message)s'."
-#~ msgstr "Has borrado el mensaje '%(message)s'."
-
-#~ msgid ""
-#~ "%(message_sender)s has sent you a message:\n"
-#~ "\n"
-#~ "%(message)s\n"
-#~ "\n"
-#~ "%(message_body)s\n"
-#~ "\n"
-#~ "http://%(current_site)s%(message_url)s"
-#~ msgstr ""
-#~ "%(message_sender)s te ha respondido a tu mensaje:\n"
-#~ "\n"
-#~ "%(message)s\n"
-#~ "\n"
-#~ "%(message_body)s\n"
-#~ "\n"
-#~ "http://%(current_site)s%(message_url)s"
-
-#~ msgid "You have recovered the message '%(message)s'."
-#~ msgstr "Has recuperado el mensaje %(message)s."
-
-#~ msgid ""
-#~ "You have replied to '%(message_parent_msg)s' from %(message_recipient)s."
-#~ msgstr ""
-#~ "Has respondido al mensaje %(message_parent_msg)s de %(message_recipient)s."
-
-#~ msgid ""
-#~ "%(message_sender)s replied to '%(message_parent_msg)s':\n"
-#~ "\n"
-#~ "%(message)s\n"
-#~ "\n"
-#~ "%(message_body)s\n"
-#~ "\n"
-#~ "http://%(current_site)s%(message_url)s"
-#~ msgstr ""
-#~ "%(message_sender)s respondió a '%(message_parent_msg)s':\n"
-#~ "\n"
-#~ "%(message)s\n"
-#~ "\n"
-#~ "%(message_body)s\n"
-#~ "\n"
-#~ "http://%(current_site)s%(message_url)s"
-
-#~ msgid "You have sent the message '%(message)s' to %(message_recipient)s."
-#~ msgstr "Has recibido el mensaje %(message)s de %(message_recipient)s."
-
-#~ msgid "Id: %(id)s user: %(username)s"
-#~ msgstr "Id: %(id)s usuario/a: %(username)s"
+msgstr ""

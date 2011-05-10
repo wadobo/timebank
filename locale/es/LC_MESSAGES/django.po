@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-22 20:27+0100\n"
+"POT-Creation-Date: 2011-05-10 12:32+0200\n"
 "Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
 "Language-Team: Es <timebank-devel@wadobo.com>\n"
 "Language: Spanish\n"
@@ -16,17 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: settings.py:177
+#: settings.py:175
 msgid "Spanish"
 msgstr "Español"
 
-#: settings.py:178
+#: settings.py:176
 msgid "Spanish (neutral gender)"
 msgstr "Español (género neutral)"
 
-#: settings.py:179
+#: settings.py:177
 msgid "English"
 msgstr "Inglés"
+
+#: settings.py:178
+msgid "Gallego"
+msgstr ""
 
 #: utils.py:107
 #, python-format
@@ -35,7 +39,7 @@ msgid ""
 "You might want to <a href=\"%(join_url)s\">join us now</a> or enter with "
 "your user using the grey login box at the left."
 msgstr ""
-"Tienes que estrar registrado para entrar en <a href=\"%(link)s\">"
+"Tienes que estar registrado para entrar en <a href=\"%(link)s\">"
 "%(link_text)s</a>. <a href=\"%(join_url)s\">Regístrate</a> en nuestra "
 "comunidad o entra con tu usuario usando el recuadro gris de la izquierda."
 
@@ -919,8 +923,20 @@ msgid "Send email to all users"
 msgstr "Enviar un email a todos los usuarios"
 
 #: templates/admin/base_site.html:13
-msgid "Get report"
-msgstr "Obtener informe"
+msgid "report 1"
+msgstr "informe 1"
+
+#: templates/admin/base_site.html:14
+msgid "report 2"
+msgstr "informe 2"
+
+#: templates/admin/base_site.html:15
+msgid "report 3"
+msgstr "informe 3"
+
+#: templates/admin/base_site.html:16
+msgid "report 4"
+msgstr "informe 4"
 
 #: templates/flatpages/default.html:14 templates/news/basenew.html:7
 #: templates/serv/single_service_view.html:52
@@ -1160,38 +1176,32 @@ msgstr ""
 "%(message_sender)s."
 
 #: templates/notification/messages_recovered/notice.html:1
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have recovered the message <a href=\"%(message_url)s\">%(message)s</a>."
-msgstr "Has borrado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
+msgstr "Has recuperado el mensaje <a href=\"%(message_url)s\">%(message)s</a>."
 
 #: templates/notification/messages_replied/notice.html:2
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have replied to <a href=\"%(message_url)s\">%(message_parent_msg)s</a> "
 "from %(message_recipient)s."
 msgstr ""
-"Has respondido al mensaje '%(message_parent_msg)s' de %(message_recipient)s."
+"Has respondido a <a href=\"%(message_url)s\">%(message_parent_msg)s</a> de "
+"%(message_recipient)s."
 
 #: templates/notification/messages_reply_received/notice.html:2
-#, fuzzy, python-format
+#, python-format
 msgid "%(message_sender)s has sent you a reply to %(message_parent_msg)s."
-msgstr ""
-"%(message_sender)s te ha respondido a tu mensaje :\n"
-"\n"
-"%(message)s\n"
-"\n"
-"%(message_body)s\n"
-"\n"
-"http://%(current_site)s%(message_url)s"
+msgstr "%(message_sender)s te ha respondido a %(message_parent_msg)s."
 
 #: templates/notification/messages_sent/notice.html:2
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have sent the message <a href=\"%(message_url)s\">%(message)s</a> to "
 "%(message_recipient)s."
 msgstr ""
-"Has recibido el mensaje <a href=\"%(message_url)s\">%(message)s</a> de "
+"Has enviado el mensaje <a href=\"%(message_url)s\">%(message)s</a> a "
 "%(message_sender)s."
 
 #: templates/serv/accept_transfer_email.html:4
@@ -2366,8 +2376,8 @@ msgstr "Email enviado a todos los usuarios"
 #~ msgid ""
 #~ "You have replied to '%(message_parent_msg)s' from %(message_recipient)s."
 #~ msgstr ""
-#~ "Has respondido al mensaje '%(message_parent_msg)s' de "
-#~ "%(message_recipient)s."
+#~ "Has respondido al mensaje '%(message_parent_msg)s' de %(message_recipient)"
+#~ "s."
 
 #~ msgid ""
 #~ "%(message_sender)s replied to '%(message_parent_msg)s':\n"
