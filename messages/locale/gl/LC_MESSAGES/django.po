@@ -19,7 +19,7 @@ msgstr ""
 
 #: admin.py:19 forms.py:20 models.py:75
 msgid "Recipient"
-msgstr "Odbiorca"
+msgstr ""
 
 #: admin.py:21
 msgid "group"
@@ -35,102 +35,100 @@ msgstr ""
 
 #: admin.py:44 forms.py:21 models.py:73 models.py:120
 msgid "Message"
-msgstr "Wiadomość"
+msgstr ""
 
 #: admin.py:51
-#, fuzzy
 msgid "Date/time"
-msgstr "Data"
+msgstr ""
 
 #: fields.py:53
 #, python-format
 msgid "The following usernames are incorrect: %(users)s"
-msgstr "Te nazwy użytkowników są niewłaściwe: %(users)s"
+msgstr ""
 
 #: management.py:9
 msgid "Message Received"
-msgstr "Wiadomość otrzymana"
+msgstr ""
 
 #: management.py:9
 msgid "you have received a message"
-msgstr "otrzymałeś wiadomość"
+msgstr ""
 
 #: management.py:10
 msgid "Message Sent"
-msgstr "Wiadomość wysłana"
+msgstr ""
 
 #: management.py:10
 msgid "you have sent a message"
-msgstr "wysłałeś wiadomość"
+msgstr ""
 
 #: management.py:11
 msgid "Message Replied"
-msgstr "Odpowiedź wysłana"
+msgstr ""
 
 #: management.py:11
 msgid "you have replied to a message"
-msgstr "odpowiedziałeś na wiadomość"
+msgstr ""
 
 #: management.py:12
 msgid "Reply Received"
-msgstr "Odpowiedź otrzymana"
+msgstr ""
 
 #: management.py:12
 msgid "you have received a reply to a message"
-msgstr "Dostałeś odpowiedź na wiadomość"
+msgstr ""
 
 #: management.py:13
 msgid "Message Deleted"
-msgstr "Wiadomość skasowana"
+msgstr ""
 
 #: management.py:13
 msgid "you have deleted a message"
-msgstr "skasowałeś wiadomość"
+msgstr ""
 
 #: management.py:14
 msgid "Message Recovered"
-msgstr "Wiadomość odzyskana"
+msgstr ""
 
 #: management.py:14
 msgid "you have undeleted a message"
-msgstr "Odzyskałeś skasowaną wiadomość"
+msgstr ""
 
 #: models.py:72
 msgid "Subject"
-msgstr "Temat"
+msgstr ""
 
 #: models.py:74
 msgid "Sender"
-msgstr "Nadawca"
+msgstr ""
 
 #: models.py:76
 msgid "Parent message"
-msgstr "Poprzednia wiadomość"
+msgstr ""
 
 #: models.py:77
 msgid "sent at"
-msgstr "wysłano"
+msgstr ""
 
 #: models.py:78
 msgid "read at"
-msgstr "przeczytano"
+msgstr ""
 
 #: models.py:79
 msgid "replied at"
-msgstr "odpowiedziano"
+msgstr ""
 
 #: models.py:80
 msgid "Sender deleted at"
-msgstr "Nadawcę skasowano"
+msgstr ""
 
 #: models.py:81
 msgid "Recipient deleted at"
-msgstr "Adresata skasowano"
+msgstr ""
 
 #: models.py:82
-#, fuzzy
 msgid "Public message"
-msgstr "Poprzednia wiadomość"
+msgstr ""
 
 #: models.py:84
 msgid "Service"
@@ -142,12 +140,12 @@ msgstr ""
 
 #: models.py:121
 msgid "Messages"
-msgstr "Wiadomości"
+msgstr ""
 
 #: utils.py:22
 #, python-format
 msgid "New Message: %(subject)s"
-msgstr "Nowa wiadomość: %(subject)s"
+msgstr ""
 
 #: utils.py:62
 #, python-format
@@ -191,7 +189,7 @@ msgstr ""
 
 #: views.py:105 views.py:163
 msgid "Message successfully sent."
-msgstr "Wiadomość wysłana"
+msgstr ""
 
 #: views.py:133
 #, python-format
@@ -199,90 +197,16 @@ msgid ""
 "%(sender)s wrote:\n"
 "%(body)s"
 msgstr ""
-"%(sender)s napisał:\n"
-"%(body)s"
 
 #: views.py:137
 #, python-format
 msgid "Re: %(subject)s"
-msgstr "Odp: %(subject)s"
+msgstr ""
 
 #: views.py:204
 msgid "Message successfully deleted."
-msgstr "Wiadomość skasowana"
+msgstr ""
 
 #: views.py:233
 msgid "Message successfully recovered."
-msgstr "Wiadomość odzyskana"
-
-#~ msgid "Body"
-#~ msgstr "Treść"
-
-#~ msgid "Inbox"
-#~ msgstr "Wiadomości otrzymane"
-
-#~ msgid "Sent Messages"
-#~ msgstr "Wiadomości wysłane"
-
-#~ msgid "New Message"
-#~ msgstr "Nowa wiadomość"
-
-#~ msgid "Trash"
-#~ msgstr "Kosz"
-
-#~ msgid "Compose Message"
-#~ msgstr "Stwórz wiadomość"
-
-#~ msgid "Send"
-#~ msgstr "Wyślij"
-
-#~ msgid "Received"
-#~ msgstr "Otrzymane"
-
-#~ msgid "Action"
-#~ msgstr "akcja"
-
-#~ msgid "delete"
-#~ msgstr "usuń"
-
-#~ msgid ""
-#~ "Hello %(recipient)s,\n"
-#~ "\n"
-#~ "you received a private message from %(sender)s with\n"
-#~ "the following contents:"
-#~ msgstr ""
-#~ "Witaj, %(recipient)s,\n"
-#~ "\n"
-#~ "otrzymałeś od użytkownika %(sender)s wiadomość\n"
-#~ "o następującej treści:"
-
-#~ msgid "Sent from %(site_url)s"
-#~ msgstr "Wysłane z adresu %(site_url)s"
-
-#~ msgid "Reply"
-#~ msgstr "Odpowiedz"
-
-#~ msgid "Sent"
-#~ msgstr "Wiadomości wysłane"
-
-#~ msgid "Deleted Messages"
-#~ msgstr "Wiadomości skasowane"
-
-#~ msgid "Date"
-#~ msgstr "Data"
-
-#~ msgid "undelete"
-#~ msgstr "odzyskaj"
-
-#~ msgid ""
-#~ "Deleted Messages are removed from the trash at unregular intervals, don't "
-#~ "rely on this feature for long-time storage."
-#~ msgstr ""
-#~ "Wiadomości są usuwane z Kosza nieregularnie. Nie licz, że zastaniesz je "
-#~ "tutaj po dłuższym czasie"
-
-#~ msgid "View Message"
-#~ msgstr "Zobacz wiadomość"
-
-#~ msgid "Delete"
-#~ msgstr "Usuń"
+msgstr ""
