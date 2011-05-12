@@ -1202,7 +1202,7 @@ msgid ""
 "%(message_recipient)s."
 msgstr ""
 "Has enviado el mensaje <a href=\"%(message_url)s\">%(message)s</a> a "
-"%(message_sender)s."
+"%(message_recipient)s."
 
 #: templates/serv/accept_transfer_email.html:4
 #, python-format
