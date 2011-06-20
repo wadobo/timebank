@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load flashmsg %}
+{% load extensions %}
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -11,6 +12,7 @@
         <meta name="keywords" content="timebank,banco del tiempo"/>
         <meta name="description" content="timebank"/>
         <link rel="shortcut icon" href="{{ MEDIA_URL }}imgs/favicon.ico" type="image/x-icon" />
+        <link href="{{ MEDIA_URL }}extension.css" rel="stylesheet" type="text/css" />
         <link href="{{ MEDIA_URL }}flashmsg.css" rel="stylesheet" type="text/css" />
         <link href="{{ MEDIA_URL }}templatemo/style.css" rel="stylesheet" type="text/css" />
         <link href="{{ MEDIA_URL }}templatemo/fullsize.css" media="screen" rel="stylesheet" type="text/css" />
@@ -118,6 +120,7 @@
                 </div>
 
                 <div class="section_2">
+                    {% extension left1 %}
                     <h1>
                         <a href="{% url news.views.feed %}"><img src="{{ MEDIA_URL }}templatemo/templatemo_icon_3.jpg" alt="RSS"></a>
                         {% trans 'News' %}
@@ -128,6 +131,8 @@
                         </div>
                     {% endfor %}
                     <a href="{% url news %}">{% trans "+ news" %}</a>
+
+                    {% extension left2 %}
                 </div>
 
                 <div class="section_2">
@@ -139,8 +144,10 @@
 
             <div id="right">
                 <div id="flash_messages">{% flash %}</div>
+                {% extension bodytop %}
                 {% block content %}
                 {% endblock %}
+                {% extension bodybottom %}
 
                 <div class="cleaner"></div>
 
