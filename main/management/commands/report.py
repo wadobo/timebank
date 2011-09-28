@@ -1,6 +1,7 @@
 import datetime
 from user.models import Profile
 from serv.models import Transfer
+from serv.models import Service
 
 
 from django.core.management.base import BaseCommand, CommandError
@@ -55,8 +56,27 @@ def make_report1(query_filter=None, query_exclude=None):
     return make_report(r, query_filter, query_exclude)
 
 
+def make_report5():
+    servs = Service.objects.all()
+    sservs = sorted(servs, key=lambda x: x.creator.username)
+    rep = []
+    rep.append("username; full name; tlfn; mv; offer/demand; servname; servdesc")
+    for s in sservs:
+        line = ";".join(map(lambda x: '"%s"' % x, [
+        s.creator.username,
+        s.creator.get_full_name(),
+        s.creator.land_line,
+        s.creator.mobile_tlf,
+        s.get_is_offer_display(),
+        s.short_name(),
+        s.description]))
+        rep.append(line)
+
+    return '\n'.join(rep)
+
+
 reports = [make_report1, make_report2, make_report3,
-           make_report_total]
+           make_report_total, make_report5]
 
 
 class Command(BaseCommand):
