@@ -162,7 +162,7 @@ class EditProfile(ViewClass):
     @login_required
     def POST(self):
         form = EditProfileForm(self.request, self.request.POST,
-            instance=self.request.user)
+                               self.request.FILES, instance=self.request.user)
         if not form.is_valid():
             return self.context_response('user/profile.html', {'form': form})
 

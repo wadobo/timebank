@@ -16,14 +16,32 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+import Image
 from django import template
 from django.template import RequestContext
 import urllib, hashlib
+from django.conf import settings
 
 from djangoratings.templatetags.ratings import *
 from messages.models import Message
 
 register = template.Library()
+
+@register.simple_tag
+def avatar(user, size=48):
+    if(user.photo):
+        path = user.photo.path
+        path = "%s_%s.png" % (path, size)
+        if not os.path.exists(path):
+            im = Image.open(user.photo.path)
+            im.thumbnail((size, size))
+            im.save(path)
+
+        path = path[len(settings.STATIC_DOC_ROOT) + 1:]
+        return settings.MEDIA_URL + path
+    else:
+        return gravatar(user.email, size)
 
 @register.simple_tag
 def gravatar(email, size=48, d='identicon'):

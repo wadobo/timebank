@@ -12,7 +12,7 @@
         </div>
         <div class="gravatar">
             <a href="{% url user-view person.id %}">
-                <img src="{% gravatar person.email 48 %}" alt="{{ person.username }}" title="{{ person.username }}"/>
+                <img src="{% avatar person 48 %}" alt="{{ person.username }}" title="{{ person.username }}"/>
                 {{ person.username|truncate_chars:7 }}
             </a>
         </div>

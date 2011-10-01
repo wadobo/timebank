@@ -19,6 +19,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.db.models import signals, Avg, Q
 from datetime import date
+import os
+from django.conf import settings
 
 def create_profile_for_user(sender, **kwargs):
     '''
@@ -39,6 +41,9 @@ class Profile(User):
     '''
     User with time bank settings.
     '''
+
+    photo = models.ImageField(_("Avatar"), blank=True, null=True,
+                              upload_to=os.path.join(settings.STATIC_DOC_ROOT, "photos"))
     birth_date = models.DateField(_("Birth date"), default=date.today())
 
     address = models.CharField(_("Address"), max_length=100, default=_("address"))

@@ -4,13 +4,13 @@
         </div>
         <div class="gravatar">
             <a href="{% url user-view transfer.credits_debtor.id %}">
-                <img src="{% gravatar transfer.credits_debtor.email 48 %}" alt="{{ transfer.credits_debtor.username }}" title="{{ transfer.credits_debtor.username }}"/>
+                <img src="{% avatar transfer.credits_debtor 48 %}" alt="{{ transfer.credits_debtor.username }}" title="{{ transfer.credits_debtor.username }}"/>
                 {{ transfer.credits_debtor.username|truncate_chars:7 }}
             </a>
         </div>
         <div class="gravatar gravatar2">
             <a href="{% url user-view transfer.credits_payee.id %}">
-                <img src="{% gravatar transfer.credits_payee.email 48 %}" alt="{{ transfer.credits_payee.username }}" title="{{ transfer.credits_payee.username }}"/>
+                <img src="{% avatar transfer.credits_payee 48 %}" alt="{{ transfer.credits_payee.username }}" title="{{ transfer.credits_payee.username }}"/>
                 {{ transfer.credits_payee.username|truncate_chars:7 }}
             </a>
         </div>

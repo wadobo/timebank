@@ -110,7 +110,7 @@
                         </div>
                         <div class="middle">
                             <div class="bottom">
-                                <img src="{% gravatar user.email 80 %}" alt="{{ user.username }}" title="{{ user.username }}"/>
+                                <img src="{% avatar user 80 %}" alt="{{ user.username }}" title="{{ user.username }}"/>
                                 {% blocktrans with user.balance_hours as balance %}
                                 Credit: <strong>{{ balance }} hours</strong>
                                 {% endblocktrans %}

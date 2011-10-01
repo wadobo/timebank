@@ -27,7 +27,7 @@ from django.shortcuts import redirect
 class ExtraProfileInline(admin.StackedInline):
     model = Profile
     fieldsets = (('Extra data', {
-        'fields': ('birth_date', 'address', 'balance')
+        'fields': ('photo', 'birth_date', 'address', 'balance')
     }),)
     list_display = ('birth_date', 'address', 'balance')
 

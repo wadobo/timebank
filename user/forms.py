@@ -48,6 +48,7 @@ class RegisterForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'address', 'birth_date', 'description', 'land_line', 'mobile_tlf')
 
 class EditProfileForm(forms.ModelForm):
+    photo = forms.ImageField(label=_("Avatar"), required=False)
     birth_date = FormDateField(label=_("Birth date"),
         input_formats=("%d/%m/%Y",))
 
@@ -80,7 +81,7 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         hidden = ()
-        fields = ('first_name', 'last_name', 'email', 'address',  'birth_date',
+        fields = ('photo', 'first_name', 'last_name', 'email', 'address',  'birth_date',
             'description', 'land_line', 'mobile_tlf', 'email_updates')
 
 class RemoveForm(forms.Form):

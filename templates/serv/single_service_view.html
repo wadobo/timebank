@@ -21,11 +21,11 @@
         <div class="gravatar">
             {% if user.is_authenticated %}
                 <a href="{% url user-view serv.creator.id %}">
-                    <img src="{% gravatar serv.creator.email 48 %}" alt="{{ serv.creator.username }}" title="{{ serv.creator.username }}"/>
+                    <img src="{% avatar serv.creator 48 %}" alt="{{ serv.creator.username }}" title="{{ serv.creator.username }}"/>
                     <div>{{ serv.creator.username|truncate_chars:7 }}</div>
                 </a>
             {% else %}
-                <img src="{% gravatar serv.creator.email 48 %}"/>
+                <img src="{% avatar serv.creator 48 %}"/>
             {% endif %}
         </div>
         {% if complete_description %}

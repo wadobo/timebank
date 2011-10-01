@@ -4,7 +4,7 @@
     </div>
     <div class="gravatar">
         <a href="{% url user-view comment.sender.id %}">
-            <img src="{% gravatar comment.sender.email 48 %}" alt="{{ comment.sender.username }}" title="{{ comment.sender.username }}"/>
+            <img src="{% avatar comment.sender 48 %}" alt="{{ comment.sender.username }}" title="{{ comment.sender.username }}"/>
             {{ comment.sender.username }}
         </a>
     </div>
