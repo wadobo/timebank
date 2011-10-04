@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-10 12:43+0200\n"
+"POT-Creation-Date: 2011-10-04 16:38+0200\n"
 "Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
 "Language-Team: Es <timebank-devel@wadobo.com>\n"
 "Language: Spanish\n"
@@ -16,19 +16,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: settings.py:175
+#: settings.py:176
 msgid "Spanish"
 msgstr "Español"
 
-#: settings.py:176
+#: settings.py:177
 msgid "Spanish (neutral gender)"
 msgstr "Español (género neutral)"
 
-#: settings.py:177
+#: settings.py:178
 msgid "English"
 msgstr "Inglés"
 
-#: settings.py:178
+#: settings.py:179
 msgid "Gallego"
 msgstr ""
 
@@ -90,6 +90,22 @@ msgstr "Captcha desactivado"
 msgid "Invalid captcha"
 msgstr "Captcha inválido"
 
+#: exts/models.py:23
+msgid "Extension point"
+msgstr ""
+
+#: exts/models.py:24
+msgid "The extension point: left1, left2, bodytop, bodybottom, etc"
+msgstr ""
+
+#: exts/models.py:26
+msgid "Content"
+msgstr ""
+
+#: exts/models.py:26
+msgid "Use HTML"
+msgstr ""
+
 #: main/forms.py:27 templates/user/single_person_view.html:6
 msgid "Name and Surname"
 msgstr "Nombre y apellidos"
@@ -98,7 +114,7 @@ msgstr "Nombre y apellidos"
 msgid "Your contact email"
 msgstr "Tu email de contacto"
 
-#: main/forms.py:30 main/forms.py:40 messages/models.py:72 user/forms.py:129
+#: main/forms.py:30 main/forms.py:40 messages/models.py:72 user/forms.py:130
 msgid "Subject"
 msgstr "Asunto"
 
@@ -262,7 +278,7 @@ msgstr "Servicio"
 msgid "Transfer"
 msgstr "Transferencia"
 
-#: messages/models.py:121 templates/template_base.html:66
+#: messages/models.py:121 templates/template_base.html:68
 #: templates/messages/base.html:3 templates/messages/base.html.py:7
 msgid "Messages"
 msgstr "Mensajes"
@@ -362,7 +378,7 @@ msgstr "Oculto"
 msgid "Body"
 msgstr "Mensaje"
 
-#: news/models.py:36 user/models.py:70
+#: news/models.py:36 user/models.py:75
 msgid "User"
 msgstr "Usuario/a"
 
@@ -370,8 +386,8 @@ msgstr "Usuario/a"
 msgid "Author"
 msgstr "Autor"
 
-#: news/models.py:40 news/models.py:41 templates/template_base.html:123
-#: templates/template_base.html.py:156
+#: news/models.py:40 news/models.py:41 templates/template_base.html:126
+#: templates/template_base.html.py:163
 msgid "News"
 msgstr "Noticias"
 
@@ -402,7 +418,7 @@ msgstr "oferta"
 msgid "demand"
 msgstr "demanda"
 
-#: serv/forms.py:65 user/forms.py:99
+#: serv/forms.py:65 user/forms.py:100
 msgid "---------"
 msgstr "---------"
 
@@ -453,7 +469,7 @@ msgid "User status"
 msgstr "Estado de la persona usuaria"
 
 #: serv/forms.py:81 serv/forms.py:112 templates/user/view.html:40
-#: user/forms.py:110
+#: user/forms.py:111
 msgid "Username"
 msgstr "Nombre de usuario/a"
 
@@ -779,7 +795,7 @@ msgid "Comment removed successfully"
 msgstr "Comentario borrado correctamente"
 
 #: tasks/models.py:26 templates/user/view.html:44 user/forms.py:33
-#: user/forms.py:54
+#: user/forms.py:55
 msgid "Name"
 msgstr "Nombre"
 
@@ -826,62 +842,62 @@ msgstr ""
 "administradoras para arreglarlo.\n"
 "            "
 
-#: templates/template_base.html:10 templates/template_base.html.py:75
-#: templates/template_base.html:155 templates/main/index.html:4
+#: templates/template_base.html:11 templates/template_base.html.py:77
+#: templates/template_base.html:162 templates/main/index.html:4
 msgid "Home"
 msgstr "Portada"
 
-#: templates/template_base.html:56
+#: templates/template_base.html:58
 #, python-format
 msgid "Hello, %(username)s!"
 msgstr "¡Hola %(username)s!"
 
-#: templates/template_base.html:57
+#: templates/template_base.html:59
 msgid "Log out"
 msgstr "Salir"
 
-#: templates/template_base.html:61
+#: templates/template_base.html:63
 msgid "Administration"
 msgstr "Administración"
 
-#: templates/template_base.html:63 templates/template_base.html.py:76
+#: templates/template_base.html:65 templates/template_base.html.py:78
 #: templates/user/find_people.html:3
 msgid "People"
 msgstr "Gente"
 
-#: templates/template_base.html:64 templates/template_base.html.py:77
+#: templates/template_base.html:66 templates/template_base.html.py:79
 #: templates/serv/base.html:3 templates/serv/base.html.py:7
 msgid "Services"
 msgstr "Servicios"
 
-#: templates/template_base.html:65 templates/serv/base_transfer.html:3
+#: templates/template_base.html:67 templates/serv/base_transfer.html:3
 #: templates/serv/base_transfer.html:7
 msgid "Transfers"
 msgstr "Transferencias"
 
-#: templates/template_base.html:67
+#: templates/template_base.html:69
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/template_base.html:71 templates/template_base.html.py:88
-#: templates/template_base.html:98
+#: templates/template_base.html:73 templates/template_base.html.py:90
+#: templates/template_base.html:100
 msgid "Login"
 msgstr "Entrar"
 
-#: templates/template_base.html:72
+#: templates/template_base.html:74
 msgid "Register"
 msgstr "Registrar"
 
-#: templates/template_base.html:90
+#: templates/template_base.html:92
 msgid "Forgot your password?"
 msgstr "¿Olvidaste tu contraseña?"
 
-#: templates/template_base.html:106 templates/user/preferences.html:3
+#: templates/template_base.html:108 templates/user/preferences.html:3
 #: templates/user/preferences.html.py:7
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: templates/template_base.html:112
+#: templates/template_base.html:114
 #, python-format
 msgid ""
 "\n"
@@ -892,20 +908,20 @@ msgstr ""
 "                    Crédito: <strong>%(balance)s horas</strong>\n"
 "                    "
 
-#: templates/template_base.html:130
+#: templates/template_base.html:133
 msgid "+ news"
 msgstr "+ noticias"
 
-#: templates/template_base.html:157 templates/main/contact.html:3
+#: templates/template_base.html:164 templates/main/contact.html:3
 #: templates/main/contact.html.py:7
 msgid "Contact"
 msgstr "Contactar"
 
-#: templates/template_base.html:161
+#: templates/template_base.html:168
 msgid "project page"
 msgstr "página del proyecto"
 
-#: templates/template_base.html:162
+#: templates/template_base.html:169
 msgid "created by"
 msgstr "creado por"
 
@@ -938,6 +954,10 @@ msgstr "informe 3"
 #: templates/admin/base_site.html:16
 msgid "report 4"
 msgstr "informe 4"
+
+#: templates/admin/base_site.html:17
+msgid "report 5"
+msgstr "informe 5"
 
 #: templates/flatpages/default.html:14 templates/news/basenew.html:7
 #: templates/serv/single_service_view.html:52
@@ -1919,33 +1939,33 @@ msgstr "Puntuación global"
 msgid "Age"
 msgstr "Edad"
 
-#: templates/user/view.html:69 user/forms.py:36 user/forms.py:58
-#: user/models.py:44
+#: templates/user/view.html:69 user/forms.py:36 user/forms.py:59
+#: user/models.py:49
 msgid "Address"
 msgstr "Dirección física"
 
-#: templates/user/view.html:73
+#: templates/user/view.html:75
 msgid "Email"
 msgstr ""
 
-#: templates/user/view.html:77 user/forms.py:40 user/forms.py:65
-#: user/models.py:58
+#: templates/user/view.html:79 user/forms.py:40 user/forms.py:66
+#: user/models.py:63
 msgid "Land line"
 msgstr "Teléfono fijo"
 
-#: templates/user/view.html:81 user/forms.py:67
+#: templates/user/view.html:83 user/forms.py:68
 msgid "Mobile telephone"
 msgstr "Teléfono móvil"
 
-#: templates/user/view.html:94
+#: templates/user/view.html:96
 msgid "Publish comment in his profile"
 msgstr "Publicar comentario en su tablón"
 
-#: templates/user/view.html:98
+#: templates/user/view.html:100
 msgid "Messages published in his profile"
 msgstr "Mensajes publicados en su tablón:"
 
-#: templates/user/view.html:102
+#: templates/user/view.html:104
 msgid "No one sent a message to this user profile."
 msgstr "Nadie envió aun ningún mensaje a este perfil de usuario."
 
@@ -1981,23 +2001,23 @@ msgstr ""
 "\n"
 "- El equipo de %(site_name)s."
 
-#: user/forms.py:30 user/forms.py:51 user/models.py:42
+#: user/forms.py:30 user/forms.py:52 user/models.py:47
 msgid "Birth date"
 msgstr "Fecha de Nacimiento"
 
-#: user/forms.py:34 user/forms.py:56
+#: user/forms.py:34 user/forms.py:57
 msgid "Last name"
 msgstr "Apellidos"
 
-#: user/forms.py:35 user/forms.py:57
+#: user/forms.py:35 user/forms.py:58
 msgid "Email address"
 msgstr "Dirección de email"
 
-#: user/forms.py:37 user/forms.py:59
+#: user/forms.py:37 user/forms.py:60
 msgid "Example: Avda. Molina, 12, Sevilla"
 msgstr "Ejemplo: Avda. Molina, 12, Sevilla"
 
-#: user/forms.py:38 user/forms.py:60
+#: user/forms.py:38 user/forms.py:61
 msgid "Personal description"
 msgstr "Descripción personal"
 
@@ -2005,106 +2025,110 @@ msgstr "Descripción personal"
 msgid "Mobile Telephone"
 msgstr "Teléfono móvil"
 
-#: user/forms.py:62
+#: user/forms.py:51 user/models.py:45
+msgid "Avatar"
+msgstr "Avatar"
+
+#: user/forms.py:63
 msgid "Current password"
 msgstr "Contraseña actual"
 
-#: user/forms.py:64
+#: user/forms.py:65
 msgid "Enter your current password to check your identity"
 msgstr "Introduce tu contraseña actual para comprobar tu identidad."
 
-#: user/forms.py:77
+#: user/forms.py:78
 msgid "The two password fields didn't match."
 msgstr "Las dos contraseñas introducidas no concuerdan."
 
-#: user/forms.py:87
+#: user/forms.py:88
 msgid "Reason"
 msgstr "Razón"
 
-#: user/forms.py:89
+#: user/forms.py:90
 msgid ""
 "Have we done something wrong? Please tell us why you wantrmeove your user."
 msgstr ""
 "¿Hemos hecho algo mal? Por favor dinos la razón porla que quieres darte de "
 "baja."
 
-#: user/forms.py:100
+#: user/forms.py:101
 msgid "less than 24 hours ago"
 msgstr "menos de 24 horas"
 
-#: user/forms.py:101
+#: user/forms.py:102
 msgid "less than one week ago"
 msgstr "menos de una semana"
 
-#: user/forms.py:102
+#: user/forms.py:103
 msgid "less than one month ago"
 msgstr "menos de un mes"
 
-#: user/forms.py:103
+#: user/forms.py:104
 msgid "less than 3 months ago"
 msgstr "menos de 3 meses"
 
-#: user/forms.py:104
+#: user/forms.py:105
 msgid "less than 6 months ago"
 msgstr "menos de 6 meses"
 
-#: user/forms.py:105
+#: user/forms.py:106
 msgid "less than one year ago"
 msgstr "menos de un año"
 
-#: user/forms.py:108 user/forms.py:124 user/views.py:330
+#: user/forms.py:109 user/forms.py:125 user/views.py:330
 msgid "User connected"
 msgstr "El usuario se conectó hace"
 
-#: user/forms.py:118
+#: user/forms.py:119
 msgid "more than a week ago"
 msgstr "más de una semana"
 
-#: user/forms.py:119
+#: user/forms.py:120
 msgid "more than one month ago"
 msgstr "más de 1 mes"
 
-#: user/forms.py:120
+#: user/forms.py:121
 msgid "more than 3 months ago"
 msgstr "más de 3 meses"
 
-#: user/forms.py:121
+#: user/forms.py:122
 msgid "more than 6 months ago"
 msgstr "más de 6 meses"
 
-#: user/forms.py:122
+#: user/forms.py:123
 msgid "more than one year"
 msgstr "más de un año"
 
-#: user/forms.py:126
+#: user/forms.py:127
 msgid "Without services"
 msgstr "Sin servicios"
 
-#: user/forms.py:130
+#: user/forms.py:131
 msgid "Message body"
 msgstr "Mensaje"
 
-#: user/models.py:32 user/models.py:44
+#: user/models.py:34 user/models.py:49
 msgid "address"
 msgstr "dirección"
 
-#: user/models.py:55
+#: user/models.py:60
 msgid "Personal address"
 msgstr "Dirección"
 
-#: user/models.py:60
+#: user/models.py:65
 msgid "Mobile phone"
 msgstr "Teléfono móvil"
 
-#: user/models.py:62
+#: user/models.py:67
 msgid "Receive email updates"
 msgstr "Recibir actualizaciones por email"
 
-#: user/models.py:67
+#: user/models.py:72
 msgid "Language Code"
 msgstr "Código de idioma"
 
-#: user/models.py:71
+#: user/models.py:76
 msgid "Users"
 msgstr "Usuarios/as"
 
