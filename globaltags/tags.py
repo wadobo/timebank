@@ -25,16 +25,18 @@ from django.conf import settings
 
 from djangoratings.templatetags.ratings import *
 from messages.models import Message
+from user.models import Profile
 
 register = template.Library()
 
 @register.simple_tag
 def avatar(user, size=48):
-    if(user.photo):
-        path = user.photo.path
+    puser = Profile.objects.get(username=user.username)
+    if(puser.photo):
+        path = puser.photo.path
         path = "%s_%s.png" % (path, size)
         if not os.path.exists(path):
-            im = Image.open(user.photo.path)
+            im = Image.open(puser.photo.path)
             im.thumbnail((size, size))
             im.save(path)
 
