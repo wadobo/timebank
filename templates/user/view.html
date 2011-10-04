@@ -69,6 +69,8 @@
                     <em>{% trans "Address" %}:</em>
                     <div>{{ profile.address }}</div>
                 </li>
+            {% endif %}
+            {% if user.is_staff or PUBLIC_USER_INFO %}
                 <li>
                     <em>{% trans "Email" %}:</em>
                     <div>{{ profile.email }}</div>

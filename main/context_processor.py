@@ -34,6 +34,7 @@ def base(request):
     return {
         'SITE_NAME': settings.SITE_NAME,
         'MEDIA_URL': settings.MEDIA_URL,
+        'PUBLIC_USER_INFO': settings.PUBLIC_USER_INFO,
         'user': request.user,
         'front_news': New.objects.filter(hidden=False).order_by("-publish_date")[:3],
         'session': request.session,

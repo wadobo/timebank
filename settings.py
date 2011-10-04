@@ -185,6 +185,8 @@ AUTOACCEPT_REGISTRATION=False
 
 SHOW_CAPTCHAS=True
 
+PUBLIC_USER_INFO = False
+
 try:
     from local_settings import *
 except ImportError:
