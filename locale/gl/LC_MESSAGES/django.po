@@ -37,7 +37,7 @@ msgstr "Galego"
 #: utils.py:107
 #, python-format
 msgid "You must be registered to enter in <a href=\"%(link)s\">%(link_text)s</a>. You might want to <a href=\"%(join_url)s\">join us now</a> or enter with your user using the grey login box at the left."
-msgstr "Vostede debe estar rexistrado para entrar en <a href=\"%(link)s\">%(link text)s </a> . Pode <a href=\"%(join_url)s\"> unirse a nós agora </a> ou escribir o seu nome de usuario utilizando o botón da esquerda."
+msgstr "Vostede debe estar rexistrado para entrar en <a href=\"%(link)s\">%(link_text)s </a> . Pode <a href=\"%(join_url)s\"> unirse a nós agora </a> ou escribir o seu nome de usuario utilizando o botón da esquerda."
 
 #: utils.py:138
 msgid "Required. "
@@ -143,7 +143,9 @@ msgstr "[%(site_name)s] %(email)s: %(email_subject)s"
 msgid ""
 "Registered user %(name)s whose email is %(email)s sends the following message:\n"
 "%(message)s"
-msgstr "% Usuario rexistrado %(name)s cuxo correo electrónico orixinal é %(email)s  envía a seguinte mensaxe: %(message)s "
+msgstr ""
+"Usuario rexistrado %(name)s cuxo correo electrónico orixinal é %(email)s  envía a seguinte mensaxe:\n"
+"%(message)s "
 
 #: main/views.py:85
 msgid "Mail sent, we'll answer you as soon as possible."
@@ -1003,11 +1005,11 @@ msgid ""
 "View service: (%(site_url)s%(service_url)s\n"
 msgstr ""
 "Ola %(recipient)s,\n"
-"Recibiches o seguinte comentario de %(sender)s  ao servizo (% (site_url)% s (service_url) s):\n"
+"Recibiches o seguinte comentario de %(sender)s  ao servizo (%(site_url)s%(service_url)s):\n"
 "%(body)s\n"
 "--\n"
 "Enviado de %(site_url)s\n"
-"Servizo: (% (site_url)% s (service_url) s\n"
+"Servizo: (%(site_url)s%(service_url)s\n"
 
 #: templates/messages/new_message.html:17
 #, python-format
@@ -1018,7 +1020,7 @@ msgid ""
 "(%(site_url)s%(service_url)s):"
 msgstr ""
 "Ola %(recipient)s,\n"
-"Recibiches a seguinte mensaxe pública de %(sender)s  ao servizo (% (site_url)% s (service_url) s):"
+"Recibiches a seguinte mensaxe pública de %(sender)s  ao servizo (%(site_url)s%(service_url)s):"
 
 #: templates/messages/new_message.html:22
 #, python-format
@@ -1029,7 +1031,7 @@ msgid ""
 "(%(site_url)s%(service_url)s):"
 msgstr ""
 "Ola %(recipient)s,\n"
-"Recibiches a seguinte mensaxe privada de %(sender)s  ao servizo (% (site_url)% s (service_url) s):"
+"Recibiches a seguinte mensaxe privada de %(sender)s  ao servizo (%(site_url)s%(service_url)s):"
 
 #: templates/messages/new_message.html:31
 #, python-format
@@ -1166,7 +1168,7 @@ msgid ""
 "The team of %(site_url)s"
 msgstr ""
 "Ola %(transfer_creator)s,\n"
-"A transferencia directa que pediches a %(transfer_recipient)s  foi aceptada. Podes ver os detalles da transferencia en% (site_url)% s (transfer_url) s. \n"
+"A transferencia directa que pediches a %(transfer_recipient)s  foi aceptada. Podes ver os detalles da transferencia en %(site_url)s%(transfer_url)s. \n"
 "O equipo de %(site_url)s "
 
 #: templates/serv/add_transfer.html:4 templates/serv/add_transfer.html:13
@@ -1205,7 +1207,7 @@ msgid ""
 "The team of %(site_url)s"
 msgstr ""
 "Ola, \n"
-"A transferencia solicitada inicialmente por %(transfer_creator)s  do servizo creado por %(service_creator)s  foi cancelada. Podes ver os detalles da transferencia cancelada en% (site_url)% s (transfer_url) s. \n"
+"A transferencia solicitada inicialmente por %(transfer_creator)s  do servizo creado por %(service_creator)s  foi cancelada. Podes ver os detalles da transferencia cancelada en %(site_url)s%(transfer_url)s. \n"
 "O equipo de %(site_url)s "
 
 #: templates/serv/cancel_transfer_email.html:10
@@ -1218,7 +1220,7 @@ msgid ""
 "The team of %(site_url)s"
 msgstr ""
 "Ola %(transfer_recipient)s,\n"
-"A transferencia directa creada por %(transfer_creator)s  contigo foi cancelada. Podes ver os detalles da transferencia cancelada en% (site_url)% s (transfer_url) s. \n"
+"A transferencia directa creada por %(transfer_creator)s  contigo foi cancelada. Podes ver os detalles da transferencia cancelada en %(site_url)s%(transfer_url)s. \n"
 "O equipo de %(site_url)s "
 
 #: templates/serv/done_transfer_email.html:3
@@ -1231,7 +1233,7 @@ msgid ""
 "The team of %(site_url)s"
 msgstr ""
 "Ola %(payee)s,\n"
-"A transferencia do servizo prestado por %(debtor)s  non está confirmada. Podes ver os detalles da transferencia en %(site_url)s  %(transfer_url)s.\n"
+"A transferencia do servizo prestado por %(debtor)s  non está confirmada. Podes ver os detalles da transferencia en %(site_url)s%(transfer_url)s.\n"
 "O equipo de %(site_url)s "
 
 #: templates/serv/edit_service.html:5
@@ -1435,7 +1437,7 @@ msgstr "Enviar mensaxe privada"
 #: templates/serv/single_transfer_view.html:23
 #, python-format
 msgid "Transfer of %(credits)s hours from <a href=\"%(debtor_url)s\">%(debtor)s</a> to <a href=\"%(payee_url)s\">%(payee)s</a>"
-msgstr "Transferencia de %(credits)s horas de <a href=\"%(debtor_url)s\">% s (debtor)</a> a <a href=\"%(payee_url)s\"> %(payee)s </a>"
+msgstr "Transferencia de %(credits)s horas de <a href=\"%(debtor_url)s\">%(debtor)s</a> a <a href=\"%(payee_url)s\"> %(payee)s </a>"
 
 #: templates/serv/single_transfer_view.html:25
 #, python-format
@@ -1613,7 +1615,7 @@ msgid ""
 "        %(description)s\n"
 msgstr ""
 "\n"
-"%(site_url)s %(service_url)\n"
+"%(site_url)s %(service_url)s\n"
 "Servizo na área de \"%(area)s \" e categoría \" %(category)s \" creado por %(from)s  publicado hai %(published_ago)s \n"
 "%(description)s\n"
 
@@ -1948,7 +1950,7 @@ msgstr "Usuarios"
 #: user/views.py:55
 #, python-format
 msgid "[%(site_name)s] User %(username)s joined"
-msgstr "[%(site_name)s]% O usuario %(username)s uniuse"
+msgstr "[%(site_name)s] O usuario %(username)s uniuse"
 
 #: user/views.py:59
 #, python-format
@@ -2060,7 +2062,7 @@ msgstr ""
 "- Email: %(old_email)s  \n"
 "- Dirección: %(old_address)s  \n"
 "- Data de nacemento: %(old_birth_date)s  \n"
-"- Descrición:% (old_description) \n"
+"- Descrición: %(old_description)s \n"
 "\n"
 "Novos datos: \n"
 "- Nome: %(name)s  \n"
