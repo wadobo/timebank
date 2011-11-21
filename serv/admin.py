@@ -16,6 +16,20 @@
 
 from serv.models import Service, Area, Category, Transfer
 from django.contrib import admin
+from django.utils.translation import ugettext as _
+from datetime import datetime
+
+
+def apply_transfer(modeladmin, request, queryset):
+    for transfer in queryset:
+        transfer.status = "d"
+        transfer.confirmation_date = datetime.now()
+        transfer.credits_debtor.balance -= transfer.credits
+        transfer.credits_payee.balance += transfer.credits
+        transfer.credits_debtor.save()
+        transfer.credits_payee.save()
+        transfer.save()
+apply_transfer.short_description = _("Apply tranfer")
 
 class ServiceAdmin(admin.ModelAdmin):
     date_hierarchy = 'pub_date'
@@ -32,6 +46,8 @@ class TransferAdmin(admin.ModelAdmin):
     list_filter = ('status', )
     list_display_links = ('service',)
     search_fields = ['^service__category', 'description', ]
+
+    actions = [apply_transfer]
 
 
 admin.site.register(Service, ServiceAdmin)
