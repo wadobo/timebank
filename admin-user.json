@@ -13,7 +13,7 @@
             "groups": [], 
             "user_permissions": [], 
             "password": "sha1$d21fa$824ddf461190c46afd8e45444de8a0450dcca9e7", 
-            "email": "info@wadobo.com", 
+            "email": "admin@example.com", 
             "date_joined": "2011-01-31 14:00:49"
         }
     }, 
