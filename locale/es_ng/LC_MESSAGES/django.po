@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-04 16:38+0200\n"
+"POT-Creation-Date: 2012-01-06 22:56+0100\n"
 "Last-Translator: Eduardo Robles Elvira <edulix@wadobo.com>\n"
 "Language-Team: Es <timebank-devel@wadobo.com>\n"
 "Language: Spanish\n"
@@ -114,14 +114,12 @@ msgstr "Nombre y apellidos"
 msgid "Your contact email"
 msgstr "Tu email de contacto"
 
-#: main/forms.py:30 main/forms.py:40 messages/models.py:72 user/forms.py:130
+#: main/forms.py:30 main/forms.py:40 user/forms.py:130
 msgid "Subject"
 msgstr "Asunto"
 
-#: main/forms.py:32 main/forms.py:42 messages/admin.py:44 messages/forms.py:21
-#: messages/models.py:73 messages/models.py:120
-#: templates/messages/inbox.html:8 templates/messages/outbox.html:8
-#: templates/messages/trash.html:8
+#: main/forms.py:32 main/forms.py:42 templates/messages/inbox.html:8
+#: templates/messages/outbox.html:8 templates/messages/trash.html:8
 msgid "Message"
 msgstr "Mensaje"
 
@@ -158,201 +156,6 @@ msgstr ""
 #: main/views.py:85
 msgid "Mail sent, we'll answer you as soon as possible."
 msgstr "Email enviado, te responderemos lo antes posible."
-
-#: messages/admin.py:19 messages/forms.py:20 messages/models.py:75
-#: templates/messages/outbox.html:8 templates/messages/view.html:10
-msgid "Recipient"
-msgstr "Destinatario"
-
-#: messages/admin.py:21
-msgid "group"
-msgstr "grupo"
-
-#: messages/admin.py:22
-msgid "Creates the message optionally for all users or a group of users."
-msgstr ""
-"Crea el mensaje opcionalmente para todas las personas usuarias o un grupo de "
-"personas usuarias."
-
-#: messages/admin.py:29
-msgid "All users"
-msgstr "Todas las personas usuarias"
-
-#: messages/admin.py:51
-msgid "Date/time"
-msgstr "Fecha/Hora"
-
-#: messages/fields.py:53
-#, python-format
-msgid "The following usernames are incorrect: %(users)s"
-msgstr "Los siguientes nombres de personas usuarias son incorrectos: %(users)s"
-
-#: messages/management.py:9
-msgid "Message Received"
-msgstr "Mensaje recibido"
-
-#: messages/management.py:9
-msgid "you have received a message"
-msgstr "has recibido un mensaje"
-
-#: messages/management.py:10
-msgid "Message Sent"
-msgstr "Mensaje enviado"
-
-#: messages/management.py:10
-msgid "you have sent a message"
-msgstr "has enviado un mensaje"
-
-#: messages/management.py:11
-msgid "Message Replied"
-msgstr "Mensaje respondido"
-
-#: messages/management.py:11
-msgid "you have replied to a message"
-msgstr "has respondido a un mensaje"
-
-#: messages/management.py:12
-msgid "Reply Received"
-msgstr "Respuesta recibida"
-
-#: messages/management.py:12
-msgid "you have received a reply to a message"
-msgstr "has recibido una respuesta al mensaje"
-
-#: messages/management.py:13
-msgid "Message Deleted"
-msgstr "Mensaje borrado"
-
-#: messages/management.py:13
-msgid "you have deleted a message"
-msgstr "has borrado un mensaje"
-
-#: messages/management.py:14
-msgid "Message Recovered"
-msgstr "Mensaje recuperado"
-
-#: messages/management.py:14
-msgid "you have undeleted a message"
-msgstr "has recuperado un mensaje"
-
-#: messages/models.py:74 templates/messages/inbox.html:8
-#: templates/messages/trash.html:8 templates/messages/view.html:6
-msgid "Sender"
-msgstr "Remitente"
-
-#: messages/models.py:76
-msgid "Parent message"
-msgstr "Mensaje inicial"
-
-#: messages/models.py:77
-msgid "sent at"
-msgstr "enviado a las"
-
-#: messages/models.py:78
-msgid "read at"
-msgstr "leído a las"
-
-#: messages/models.py:79
-msgid "replied at"
-msgstr "respondido a las"
-
-#: messages/models.py:80
-msgid "Sender deleted at"
-msgstr "La persona remitente lo eliminó a las"
-
-#: messages/models.py:81
-msgid "Recipient deleted at"
-msgstr "La persona destinataria lo eliminó a las"
-
-#: messages/models.py:82
-msgid "Public message"
-msgstr "Mensaje público"
-
-#: messages/models.py:84 serv/models.py:142 templates/serv/add_transfer.html:8
-#: templates/serv/edit_transfer.html:13
-#: templates/serv/service_add_comment.html:8
-msgid "Service"
-msgstr "Servicio"
-
-#: messages/models.py:86 templates/serv/edit_transfer.html:18
-msgid "Transfer"
-msgstr "Transferencia"
-
-#: messages/models.py:121 templates/template_base.html:68
-#: templates/messages/base.html:3 templates/messages/base.html.py:7
-msgid "Messages"
-msgstr "Mensajes"
-
-#: messages/utils.py:22
-#, python-format
-msgid "New Message: %(subject)s"
-msgstr "Nuevo mensaje: %(subject)s"
-
-#: messages/utils.py:62
-#, python-format
-msgid "New transfer request from %s"
-msgstr "Nueva solicitud de transferencia de %s"
-
-#: messages/utils.py:65
-#, python-format
-msgid "New direct transfer from %s"
-msgstr "Nueva transferencia directa de %s"
-
-#: messages/utils.py:81
-#, python-format
-msgid "Transfer from %s edited"
-msgstr "Transferencia de %s editada"
-
-#: messages/utils.py:87
-#, python-format
-msgid "Transfer of the service from %s accepted"
-msgstr "Transferencia del servicio de %s aceptada"
-
-#: messages/utils.py:90
-#, python-format
-msgid "Direct transfer from %s accepted"
-msgstr "Transferencia directa de %s aceptado"
-
-#: messages/utils.py:95
-#, python-format
-msgid "Transfer to %(user1)s from a service of %(user2)s cancelled"
-msgstr "Transferencia de %(user1)s de un servicio de %(user2)s cancelado"
-
-#: messages/utils.py:101
-#, python-format
-msgid "Direct transfer from %s cancelled"
-msgstr "Transferencia directa de %s cancelada"
-
-#: messages/utils.py:106
-#, python-format
-msgid "Transfer of the service you did to %s confirmed"
-msgstr "Transferencia del servicio que realizaste a %s confirmada"
-
-#: messages/views.py:105 messages/views.py:163
-msgid "Message successfully sent."
-msgstr "Mensaje enviado con éxito."
-
-#: messages/views.py:133
-#, python-format
-msgid ""
-"%(sender)s wrote:\n"
-"%(body)s"
-msgstr ""
-"%(sender)s escribió:\n"
-"%(body)s"
-
-#: messages/views.py:137
-#, python-format
-msgid "Re: %(subject)s"
-msgstr "Re: %(subject)s"
-
-#: messages/views.py:204
-msgid "Message successfully deleted."
-msgstr "Mensaje eliminado correctamente."
-
-#: messages/views.py:233
-msgid "Message successfully recovered."
-msgstr "Mensaje recuperado conrrectamente."
 
 #: news/models.py:27
 msgid "Title"
@@ -395,6 +198,11 @@ msgstr "Noticias"
 #, python-format
 msgid "News in %s"
 msgstr "Noticias en %s"
+
+#: serv/admin.py:32
+#, fuzzy
+msgid "Apply tranfer"
+msgstr "Mis transferencias"
 
 #: serv/forms.py:52 templates/serv/single_service_view.html:14
 msgid "All"
@@ -604,6 +412,12 @@ msgstr "Receptor de créditos"
 #: serv/models.py:139
 msgid "Credits debtor"
 msgstr "Deudor de créditos"
+
+#: serv/models.py:142 templates/serv/add_transfer.html:8
+#: templates/serv/edit_transfer.html:13
+#: templates/serv/service_add_comment.html:8
+msgid "Service"
+msgstr "Servicio"
 
 #: serv/models.py:147
 msgid "Transfer request date"
@@ -875,6 +689,11 @@ msgstr "Servicios"
 msgid "Transfers"
 msgstr "Transferencias"
 
+#: templates/template_base.html:68 templates/messages/base.html:3
+#: templates/messages/base.html.py:7
+msgid "Messages"
+msgstr "Mensajes"
+
 #: templates/template_base.html:69
 msgid "Profile"
 msgstr "Perfil"
@@ -1022,6 +841,11 @@ msgstr "Nuevo mensaje"
 msgid "Send"
 msgstr "Enviar"
 
+#: templates/messages/inbox.html:8 templates/messages/trash.html:8
+#: templates/messages/view.html:6
+msgid "Sender"
+msgstr "Remitente"
+
 #: templates/messages/inbox.html:8
 msgid "Received"
 msgstr "Recibido"
@@ -1101,6 +925,10 @@ msgstr "Enviado de %(site_url)s"
 #: templates/messages/new_message.html:33 templates/messages/view.html:16
 msgid "Reply"
 msgstr "Responder"
+
+#: templates/messages/outbox.html:8 templates/messages/view.html:10
+msgid "Recipient"
+msgstr "Destinatario"
 
 #: templates/messages/outbox.html:8
 msgid "Sent"
@@ -1368,6 +1196,10 @@ msgstr "Editar transferencia"
 #: templates/serv/edit_transfer.html:7 templates/serv/edit_transfer.html:25
 msgid "Edit direct transfer"
 msgstr "Editar transferencia directa"
+
+#: templates/serv/edit_transfer.html:18
+msgid "Transfer"
+msgstr "Transferencia"
 
 #: templates/serv/edit_transfer.html:32
 msgid "Update transfer"
@@ -1981,12 +1813,48 @@ msgstr "Activar las personas usuarias"
 msgid "Deactivate users"
 msgstr "Desactivar las personas usuarias"
 
-#: user/admin.py:70
+#: user/admin.py:59
+#, python-format
+msgid "Your password has been reset for %(site_name)s"
+msgstr "Tu contraseña para %(site_name)s ha sido restaurada"
+
+#: user/admin.py:63
+#, python-format
+msgid ""
+" %(username)s!\n"
+"The admins have reset your password, You can enter in http://%(url)s/ with "
+"the following credentials:\n"
+"\n"
+"username: %(username)s\n"
+"password: %(password)s\n"
+"\n"
+"You can change your password in your profile:\n"
+"http://%(url)s%(pwdchange)s\n"
+"\n"
+"- The team of %(site_name)s."
+msgstr ""
+" %(username)s!\n"
+"Los administradores han restaurado tu contraseña, puedes entrar en http://%(url)s/ con "
+"las siguientes credenciales:\n"
+"\n"
+"usuario: %(username)s\n"
+"contraseña: %(password)s\n"
+"\n"
+"Puedes cambiar la contraseña en tu perfil:\n"
+"http://%(url)s%(pwdchange)s\n"
+"\n"
+"- El equipo de %(site_name)s."
+
+#: user/admin.py:82
+msgid "Reset password"
+msgstr "Restaurar contraseña"
+
+#: user/admin.py:107
 #, python-format
 msgid "Welcome to %(site_name)s, %(username)s"
 msgstr "Bienvenido/a a %(site_name)s, %(username)s"
 
-#: user/admin.py:74
+#: user/admin.py:111
 #, python-format
 msgid ""
 "Congratulations %(username)s!\n"
@@ -2375,6 +2243,127 @@ msgstr "No tienes permisos para enviar un email a todas las personas usuarias"
 #: user/views.py:442
 msgid "Email sent to all users"
 msgstr "Email enviado a todas las personas usuarias"
+
+#~ msgid "group"
+#~ msgstr "grupo"
+
+#~ msgid "Creates the message optionally for all users or a group of users."
+#~ msgstr ""
+#~ "Crea el mensaje opcionalmente para todas las personas usuarias o un grupo "
+#~ "de personas usuarias."
+
+#~ msgid "All users"
+#~ msgstr "Todas las personas usuarias"
+
+#~ msgid "Date/time"
+#~ msgstr "Fecha/Hora"
+
+#~ msgid "The following usernames are incorrect: %(users)s"
+#~ msgstr ""
+#~ "Los siguientes nombres de personas usuarias son incorrectos: %(users)s"
+
+#~ msgid "Message Received"
+#~ msgstr "Mensaje recibido"
+
+#~ msgid "you have received a message"
+#~ msgstr "has recibido un mensaje"
+
+#~ msgid "Message Sent"
+#~ msgstr "Mensaje enviado"
+
+#~ msgid "you have sent a message"
+#~ msgstr "has enviado un mensaje"
+
+#~ msgid "Message Replied"
+#~ msgstr "Mensaje respondido"
+
+#~ msgid "you have replied to a message"
+#~ msgstr "has respondido a un mensaje"
+
+#~ msgid "Reply Received"
+#~ msgstr "Respuesta recibida"
+
+#~ msgid "you have received a reply to a message"
+#~ msgstr "has recibido una respuesta al mensaje"
+
+#~ msgid "Message Deleted"
+#~ msgstr "Mensaje borrado"
+
+#~ msgid "you have deleted a message"
+#~ msgstr "has borrado un mensaje"
+
+#~ msgid "Message Recovered"
+#~ msgstr "Mensaje recuperado"
+
+#~ msgid "you have undeleted a message"
+#~ msgstr "has recuperado un mensaje"
+
+#~ msgid "Parent message"
+#~ msgstr "Mensaje inicial"
+
+#~ msgid "sent at"
+#~ msgstr "enviado a las"
+
+#~ msgid "read at"
+#~ msgstr "leído a las"
+
+#~ msgid "replied at"
+#~ msgstr "respondido a las"
+
+#~ msgid "Sender deleted at"
+#~ msgstr "La persona remitente lo eliminó a las"
+
+#~ msgid "Recipient deleted at"
+#~ msgstr "La persona destinataria lo eliminó a las"
+
+#~ msgid "Public message"
+#~ msgstr "Mensaje público"
+
+#~ msgid "New Message: %(subject)s"
+#~ msgstr "Nuevo mensaje: %(subject)s"
+
+#~ msgid "New transfer request from %s"
+#~ msgstr "Nueva solicitud de transferencia de %s"
+
+#~ msgid "New direct transfer from %s"
+#~ msgstr "Nueva transferencia directa de %s"
+
+#~ msgid "Transfer from %s edited"
+#~ msgstr "Transferencia de %s editada"
+
+#~ msgid "Transfer of the service from %s accepted"
+#~ msgstr "Transferencia del servicio de %s aceptada"
+
+#~ msgid "Direct transfer from %s accepted"
+#~ msgstr "Transferencia directa de %s aceptado"
+
+#~ msgid "Transfer to %(user1)s from a service of %(user2)s cancelled"
+#~ msgstr "Transferencia de %(user1)s de un servicio de %(user2)s cancelado"
+
+#~ msgid "Direct transfer from %s cancelled"
+#~ msgstr "Transferencia directa de %s cancelada"
+
+#~ msgid "Transfer of the service you did to %s confirmed"
+#~ msgstr "Transferencia del servicio que realizaste a %s confirmada"
+
+#~ msgid "Message successfully sent."
+#~ msgstr "Mensaje enviado con éxito."
+
+#~ msgid ""
+#~ "%(sender)s wrote:\n"
+#~ "%(body)s"
+#~ msgstr ""
+#~ "%(sender)s escribió:\n"
+#~ "%(body)s"
+
+#~ msgid "Re: %(subject)s"
+#~ msgstr "Re: %(subject)s"
+
+#~ msgid "Message successfully deleted."
+#~ msgstr "Mensaje eliminado correctamente."
+
+#~ msgid "Message successfully recovered."
+#~ msgstr "Mensaje recuperado conrrectamente."
 
 #~ msgid "You have deleted the message '%(message)s'."
 #~ msgstr "Has borrado el mensaje '%(message)s'."
