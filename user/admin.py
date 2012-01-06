@@ -45,13 +45,50 @@ def deactivate_user_action(profile_admin, request, queryset):
     queryset.update(is_active=False)
 deactivate_user_action.short_description = _("Deactivate users")
 
+def reset_password_user_action(profile_admin, request, queryset):
+    import random
+    from string import letters
+    from django.core.urlresolvers import reverse
+
+    for u in queryset:
+        pwd = ''.join(random.choice(letters) for i in range(8))
+        u.set_password(pwd)
+        u.save()
+
+        current_site = Site.objects.get_current()
+        title = I18nString(_("Your password has been reset for %(site_name)s"), {
+            'site_name': settings.SITE_NAME,
+            'username': u.username
+        })
+        message = I18nString(_(u" %(username)s!\n"
+        u"The admins have reset your password, "
+        u"You can enter in "
+        u"http://%(url)s/ with the following credentials:\n\n"
+        u"username: %(username)s\n"
+        u"password: %(password)s\n\n"
+        u"You can change your password in your profile:\n"
+        u"http://%(url)s%(pwdchange)s"
+        u"\n\n- The team of %(site_name)s."), {
+            'username': u.username,
+            'password': pwd,
+            'url': current_site.domain,
+            'pwdchange': reverse("user-password-change"),
+            'site_name': settings.SITE_NAME
+        })
+
+        send_mail(title, message, settings.DEFAULT_FROM_EMAIL,
+            [u], fail_silently=True)
+
+reset_password_user_action.short_description = _("Reset password")
+
 
 class ProfileAdmin(UserAdmin):
     inlines = [
         ExtraProfileInline,
     ]
     actions = [send_email_action, activate_user_action,
-               deactivate_user_action]
+               deactivate_user_action,
+               reset_password_user_action]
     list_display = ('username', 'email', 'get_full_name', 'last_login',
                     'is_active', 'is_staff', 'balance', 'karma')
 
