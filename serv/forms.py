@@ -83,8 +83,8 @@ class ListServicesForm(forms.Form):
 
     def __init__(self,  *args, **kwargs):
         super(ListServicesForm, self).__init__(*args, **kwargs)
-        self.fields['category'].queryset = Category.objects.all()
-        self.fields['area'].queryset = Area.objects.all()
+        self.fields['category'].queryset = Category.objects.all().order_by('name')
+        self.fields['area'].queryset = Area.objects.all().order_by('name')
 
     def as_url_args(self):
         return urllib.urlencode(self.data)
