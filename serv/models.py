@@ -31,6 +31,9 @@ class Area(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        ordering = ["name"]
+
 
 class Category(models.Model):
 
@@ -40,6 +43,7 @@ class Category(models.Model):
         return self.name
 
     class Meta:
+        ordering = ["name"]
         verbose_name = _(u"Category")
         verbose_name_plural = _(u"Categories")
 
