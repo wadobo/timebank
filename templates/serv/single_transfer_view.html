@@ -1,24 +1,25 @@
+{% load url from future %}
 {% load i18n %}
 <div class="serv transfer {% if not transfer.status == 'r' %}inactive{% endif %} {% if not transfer.status == 'd' %}offer{% endif %}">
         <div class="information">
         </div>
         <div class="gravatar">
-            <a href="{% url user-view transfer.credits_debtor.id %}">
+            <a href="{% url 'user-view' transfer.credits_debtor.id %}">
                 <img src="{% avatar transfer.credits_debtor 48 %}" alt="{{ transfer.credits_debtor.username }}" title="{{ transfer.credits_debtor.username }}"/>
                 {{ transfer.credits_debtor.username|truncate_chars:7 }}
             </a>
         </div>
         <div class="gravatar gravatar2">
-            <a href="{% url user-view transfer.credits_payee.id %}">
+            <a href="{% url 'user-view' transfer.credits_payee.id %}">
                 <img src="{% avatar transfer.credits_payee 48 %}" alt="{{ transfer.credits_payee.username }}" title="{{ transfer.credits_payee.username }}"/>
                 {{ transfer.credits_payee.username|truncate_chars:7 }}
             </a>
         </div>
-        <a href="{% url serv-transfer-view transfer.id %}"><div class="description description2 status status_{{ transfer.status }}"><p>{{ transfer.description|linebreaks }}</p></div></a>
+        <a href="{% url 'serv-transfer-view' transfer.id %}"><div class="description description2 status status_{{ transfer.status }}"><p>{{ transfer.description|linebreaks }}</p></div></a>
         <div class="cleaner"></div>
         <div class="information2">
-            {% url user-view transfer.credits_debtor.id as debtor_url %}
-            {% url user-view transfer.credits_payee.id as payee_url %}
+            {% url 'user-view' transfer.credits_debtor.id as debtor_url %}
+            {% url 'user-view' transfer.credits_payee.id as payee_url %}
             {% if transfer.is_public %}
                 {% blocktrans with transfer.credits_debtor.username as debtor and transfer.credits_payee.username as payee and transfer.credit_hours as credits and transfer.request_date|timesince as created %}Transfer of {{ credits }} hours from <a href="{{ debtor_url }}">{{ debtor }}</a> to <a href="{{ payee_url }}">{{ payee }}</a>{% endblocktrans %}
             {% else %}
@@ -39,53 +40,53 @@
         <div class="buttons">
             {% if user.is_staff or user.is_superuser or user == transfer.credits_payee or user == transfer.credits_debtor %}
                 {% if transfer.creator == user %}
-                    <a class="action" href="{% url messages_compose_to transfer.recipient.username %}">{% trans "Send private message" %}</a>
+                    <a class="action" href="{% url 'messages_compose_to' transfer.recipient.username %}">{% trans "Send private message" %}</a>
                 {% else %}
-                    <a class="action" href="{% url messages_compose_to transfer.creator.username %}">{% trans "Send private message" %}</a>
+                    <a class="action" href="{% url 'messages_compose_to' transfer.creator.username %}">{% trans "Send private message" %}</a>
                 {% endif %}
                 {% if not transfer.is_direct %}
                     {% if transfer.service.creator != user %}
                         {% if transfer.status == "q" or transfer.status == "a" %}
-                            <a class="action" href="{% url serv-transfer-edit transfer.id %}">{% trans "Edit transfer" %}</a>
-                            <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
+                            <a class="action" href="{% url 'serv-transfer-edit' transfer.id %}">{% trans "Edit transfer" %}</a>
+                            <form method="POST" action="{% url 'serv-transfer-cancel' transfer.id %}"> {% csrf_token %}
                                 <input class="action" name="submit" type="submit" value="{% trans 'Cancel transfer' %}"/>
                             </form>
                         {% endif %}
                     {% else %}
                         {% if transfer.status == "q" %}
-                            <form method="POST" action="{% url serv-transfer-accept transfer.id %}"> {% csrf_token %}
+                            <form method="POST" action="{% url 'serv-transfer-accept' transfer.id %}"> {% csrf_token %}
                                 <input class="action" name="submit" type="submit" value="{% trans 'Accept transfer' %}"/>
                             </form>
-                            <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
+                            <form method="POST" action="{% url 'serv-transfer-cancel' transfer.id %}"> {% csrf_token %}
                                 <input class="action" name="submit" type="submit" value="{% trans 'Cancel transfer' %}"/>
                             </form>
                         {% endif %}
                         {% if transfer.status == "a" %}
-                            <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
+                            <form method="POST" action="{% url 'serv-transfer-cancel' transfer.id %}"> {% csrf_token %}
                                 <input class="action" name="submit" type="submit" value="{% trans 'Cancel transfer' %}"/>
                             </form>
                         {% endif %}
                     {% endif %}
                 {% else %}
                     {% if transfer.status == "q" %}
-                        <a class="action" href="{% url serv-transfer-edit transfer.id %}">{% trans "Edit transfer" %}</a>
-                        <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
+                        <a class="action" href="{% url 'serv-transfer-edit' transfer.id %}">{% trans "Edit transfer" %}</a>
+                        <form method="POST" action="{% url 'serv-transfer-cancel' transfer.id %}"> {% csrf_token %}
                             <input class="action" name="submit" type="submit" value="{% trans 'Cancel transfer' %}"/>
                         </form>
                         {% if transfer.direct_transfer_creator != user %}
-                            <form method="POST" action="{% url serv-transfer-accept transfer.id %}"> {% csrf_token %}
+                            <form method="POST" action="{% url 'serv-transfer-accept' transfer.id %}"> {% csrf_token %}
                                 <input class="action" name="submit" type="submit" value="{% trans 'Accept transfer' %}"/>
                             </form>
                         {% endif %}
                     {% endif %}
                     {% if transfer.status == "a" %}
-                        <form method="POST" action="{% url serv-transfer-cancel transfer.id %}"> {% csrf_token %}
+                        <form method="POST" action="{% url 'serv-transfer-cancel' transfer.id %}"> {% csrf_token %}
                             <input class="action" name="submit" type="submit" value="{% trans 'Cancel transfer' %}"/>
                         </form>
                     {% endif %}
                 {% endif %}
                 {% if transfer.credits_debtor == user and transfer.status == "a" %}
-                        <form method="POST" action="{% url serv-transfer-confirm transfer.id %}"> {% csrf_token %}
+                        <form method="POST" action="{% url 'serv-transfer-confirm' transfer.id %}"> {% csrf_token %}
                             <input class="action" name="submit" type="submit" value="{% trans 'Confirm transfer' %}"/>
                         </form>
                 {% endif %}

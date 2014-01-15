@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from utils import ViewClass, login_required
+from timebank.utils import ViewClass, login_required
 from datetime import datetime, timedelta
 
 from django.shortcuts import get_object_or_404

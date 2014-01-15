@@ -1,4 +1,7 @@
 {% extends "messages/base.html" %}
+
+{% load url from future %}
+
 {% load i18n %}
 {% block subtitle %} {% trans "Deleted Messages" %} {% endblock %}
 {% block subcontent %}
@@ -11,12 +14,12 @@
 {% for message in message_list %}
     <tr class="{% if message.new %}new{% endif %} {% if message.replied %}replied {% endif %}
     {% cycle 'row1' 'row2' %} {% if forloop.first %}first{% endif %}{% if forloop.last %}last{% endif %}">
-        <td class="sender"><a href="{% url user-view user.id %}">{{ message.sender }}</a></td>
+        <td class="sender"><a href="{% url 'user-view' user.id %}">{{ message.sender }}</a></td>
         <td class="body">
             <a href="{{ message.get_absolute_url }}">{{ message.body|truncate_chars:60 }}</a>
         </td>
         <td class="date">{{ message.sent_at|timesince }}</td>
-        <td class="actions"><a href="{% url messages_undelete message.id %}">{% trans "undelete" %}</a></td>
+        <td class="actions"><a href="{% url 'messages_undelete' message.id %}">{% trans "undelete" %}</a></td>
     </tr>
 {% endfor %}
     </tbody>

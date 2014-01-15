@@ -1,5 +1,8 @@
 
 {% extends "template_base.html" %}
+
+{% load url from future %}
+
 {% load i18n %}
 {% block title %} {% trans 'Home' %} {% endblock %}
 
@@ -12,13 +15,13 @@
     <div class="section_4">
         <h1>{% trans 'New services' %}</h1>
         {% if not user.is_authenticated %}
-            {% url user-register as user_register %}
+            {% url 'user-register' as user_register %}
             <p>{% blocktrans %}To see all services you need to <a href='{{ user_register }}'>register</a>.{% endblocktrans %}</p>
         {% endif %}
         <p>
         <div class="subcontent services">
             {% include "serv/listservs.html" %}
-            <a href="{% url serv-list %}" class="more">{% trans "+ services" %}</a>
+            <a href="{% url 'serv-list' %}" class="more">{% trans "+ services" %}</a>
         </div>
         <div class="cleaner"></div>
     </div>

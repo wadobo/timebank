@@ -1,4 +1,5 @@
-{% load i18n %}{% url serv-transfer-view transfer.id as transfer_url %}{% if transfer.is_direct %}{% blocktrans with transfer.creator.username as transfer_creator and transfer.recipient.username as transfer_recipient %}Hi {{ transfer_recipient }},
+{% load url from future %}
+{% load i18n %}{% url 'serv-transfer-view' transfer.id as transfer_url %}{% if transfer.is_direct %}{% blocktrans with transfer.creator.username as transfer_creator and transfer.recipient.username as transfer_recipient %}Hi {{ transfer_recipient }},
 
 {{ transfer_creator }} has created a direct transfer with you. You can see and admin the transfer in {{ site_url }}{{ transfer_url }} .
 

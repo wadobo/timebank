@@ -1,15 +1,16 @@
+{% load url from future %}
 {% load i18n %}
 
 <div class="new">
-    <h2><a href="{% url news-view new.id %}">{{ new.title }}</a></h2>
+    <h2><a href="{% url 'news-view' new.id %}">{{ new.title }}</a></h2>
 
     {% if user.is_staff %}
-        <a href="{% url admin:news_new_change new.id %}">{% trans "Edit" %}</a>
+        <a href="{% url 'admin:news_new_change' new.id %}">{% trans "Edit" %}</a>
     {% endif %}
     <h3 class="info">
     {% block newinfo %}
     {% blocktrans with new.publish_date|timesince as date and new.author as author %}
-    {{ date }} ago by {% endblocktrans %} <a href="{% url user-view new.author.id %}">{{ new.author }}</a>
+    {{ date }} ago by {% endblocktrans %} <a href="{% url 'user-view' new.author.id %}">{{ new.author }}</a>
     {% endblock %}
 
     </h3>

@@ -1,5 +1,6 @@
+{% load url from future %}
 {% load i18n %}
-{% url serv-transfer-view transfer.id as transfer_url %}
+{% url 'serv-transfer-view' transfer.id as transfer_url %}
 {% blocktrans with transfer.credits_payee.username as payee and transfer.credits_debtor.username as debtor %}Hi {{ payee }},
 
 The transfer of the service rendered by  {{ debtor }} has been confirmed by him. You can see the details of the transfer in  {{ site_url }}{{ transfer_url }} .

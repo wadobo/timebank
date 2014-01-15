@@ -20,6 +20,7 @@ import os
 from django.utils.translation import ugettext_lazy as _
 
 curdir = os.path.abspath(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -72,7 +73,7 @@ MEDIA_ROOT = ''
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/site_media/'
+MEDIA_URL = '/site_media/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -83,16 +84,11 @@ ADMIN_MEDIA_PREFIX = '/media/'
 # Automatically when executing python manage.py start-project
 SECRET_KEY = 'k#)-9d^v+^k37nt_j0%9+mdvlq5qj%_1@^-d&!m()w^sfvfdj&'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source'
-)
-
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware'
@@ -103,14 +99,20 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'main.context_processor.base',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'timebank.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or
     # "C:/www/django/templates". Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(curdir, 'templates'),
+    os.path.join(BASE_DIR, 'templates'),
 )
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'site_media'),
+)
+
+STATIC_URL = '/site_media/'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -120,6 +122,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.flatpages',
+    'django.contrib.staticfiles',
+    'django.contrib.messages',
     'serv',
     'main',
     'flashmsg',
@@ -143,7 +147,7 @@ LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
 # Path for static docs (css, images, etc)
-STATIC_DOC_ROOT = os.path.join(curdir, 'site_media')
+STATIC_DOC_ROOT = os.path.join(BASE_DIR, 'site_media')
 
 DATE_FORMAT = 'd/m/Y'
 DATETIME_FORMAT = 'd/m/Y, H:i'
@@ -178,6 +182,10 @@ LANGUAGES = (
       ('en', _('English')),
       ('gl', _('Gallego')),
 )
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Just in case
 RATINGS_VOTES_PER_IP = 3

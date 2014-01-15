@@ -33,7 +33,7 @@ def base(request):
         login_form = AuthenticationForm()
     return {
         'SITE_NAME': settings.SITE_NAME,
-        'MEDIA_URL': settings.MEDIA_URL,
+        'STATIC_URL': settings.STATIC_URL,
         'PUBLIC_USER_INFO': settings.PUBLIC_USER_INFO,
         'user': request.user,
         'front_news': New.objects.filter(hidden=False).order_by("-publish_date")[:3],

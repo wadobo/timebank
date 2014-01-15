@@ -1,9 +1,10 @@
+{% load url from future %}
 {% load i18n %}
 <div class="serv comment">
     <div class="information">
     </div>
     <div class="gravatar">
-        <a href="{% url user-view comment.sender.id %}">
+        <a href="{% url 'user-view' comment.sender.id %}">
             <img src="{% avatar comment.sender 48 %}" alt="{{ comment.sender.username }}" title="{{ comment.sender.username }}"/>
             {{ comment.sender.username }}
         </a>
@@ -21,7 +22,7 @@
     <div class="cleaner"></div>
     <div class="buttons">
         {% if user.is_authenticated and comment.sender == user %}
-            <form method="POST" action="{% url serv-comment-delete comment.id %}"> {% csrf_token %}
+            <form method="POST" action="{% url 'serv-comment-delete' comment.id %}"> {% csrf_token %}
                 <input class="action" name="submit" type="submit" value="{% trans 'Remove comment' %}"/>
             </form>
         {% endif %}

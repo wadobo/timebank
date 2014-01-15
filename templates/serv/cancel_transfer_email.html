@@ -1,5 +1,6 @@
+{% load url from future %}
 {% load i18n %}
-{% url serv-transfer-view transfer.id as transfer_url %}
+{% url 'serv-transfer-view' transfer.id as transfer_url %}
 {% if not transfer.is_direct %}
 {% blocktrans with transfer.creator.username as transfer_creator and transfer.service.creator.username as service_creator %}Hi,
 

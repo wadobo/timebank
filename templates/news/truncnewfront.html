@@ -1,6 +1,7 @@
+{% load url from future %}
 {% load i18n %}
 <div class="new">
-    <h2><a href="{% url news-view new.id %}">{{ new.title }}</a></h2>
+    <h2><a href="{% url 'news-view' new.id %}">{{ new.title }}</a></h2>
     <p>
     {% block newbody %}
     {{ new.body|truncatewords_html:20|safe }}

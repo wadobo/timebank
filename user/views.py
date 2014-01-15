@@ -25,7 +25,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 from datetime import datetime, timedelta
 
-from utils import ViewClass, login_required, mail_owners, send_mail, I18nString
+from timebank.utils import ViewClass, login_required, mail_owners, send_mail, I18nString
 from forms import (RegisterForm, EditProfileForm, RemoveForm,
     PublicMessageForm, FindPeopleForm, FindPeople4AdminsForm,
     SendEmailToAllForm)

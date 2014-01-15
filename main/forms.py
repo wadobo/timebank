@@ -16,7 +16,7 @@
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from utils import FormCharField, FormEmailField, FormCaptchaField
+from timebank.utils import FormCharField, FormEmailField, FormCaptchaField
 
 class AnonymousContactForm(forms.Form):
     '''

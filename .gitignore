@@ -6,3 +6,4 @@ database.sqlite
 .kdev4
 env
 local_settings.py
+site_media/photos/*

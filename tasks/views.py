@@ -25,7 +25,7 @@ from django.shortcuts import redirect
 
 from datetime import datetime, timedelta
 
-from utils import ViewClass, login_required, send_mail, I18nString
+from timebank.utils import ViewClass, login_required, send_mail, I18nString
 from user.models import Profile
 from tasks.models import Task
 from serv.models import Transfer, Service

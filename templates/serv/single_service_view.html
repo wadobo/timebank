@@ -1,13 +1,14 @@
+{% load url from future %}
 {% load i18n %} 
 <div class="serv {% if serv.is_offer %}offer{% else %}demand{% endif %} {% if not serv.is_active %}inactive{% endif %}">
         <div class="information">
             {% trans "Type" %}:
-            <span class="type">{% if serv.is_offer %}<a href="{% url serv-list %}?the_type=1">{% trans "offer" %}{% else %}<a href="{% url serv-list %}?the_type=2">{% trans "demand" %}{% endif %}</a></span> /
+            <span class="type">{% if serv.is_offer %}<a href="{% url 'serv-list' %}?the_type=1">{% trans "offer" %}{% else %}<a href="{% url 'serv-list' %}?the_type=2">{% trans "demand" %}{% endif %}</a></span> /
             {% if not serv.is_active %}
                 <span class="inactive">{% trans "Inactive"  %}</span> /
             {% endif %}
             {% trans "Area" %}:
-            <span class="zone"><a href="{% url serv-list %}?area={{ serv.area.id }}">
+            <span class="zone"><a href="{% url 'serv-list' %}?area={{ serv.area.id }}">
             {% if serv.area %}
                 {{ serv.area }}
             {% else %}
@@ -15,12 +16,12 @@
             {% endif %}
             </a></span> /
             {% trans "Category" %}:
-            <span class="category"><a href="{% url serv-list %}?category={{ serv.category.id }}">{{ serv.category }}</a></span> /
+            <span class="category"><a href="{% url 'serv-list' %}?category={{ serv.category.id }}">{{ serv.category }}</a></span> /
             <span class="date"> {% blocktrans with serv.pub_date|timesince as time %}Published {{ time }} ago{% endblocktrans %}</span>
         </div>
         <div class="gravatar">
             {% if user.is_authenticated %}
-                <a href="{% url user-view serv.creator.id %}">
+                <a href="{% url 'user-view' serv.creator.id %}">
                     <img src="{% avatar serv.creator 48 %}" alt="{{ serv.creator.username }}" title="{{ serv.creator.username }}"/>
                     <div>{{ serv.creator.username|truncate_chars:7 }}</div>
                 </a>
@@ -29,13 +30,13 @@
             {% endif %}
         </div>
         {% if complete_description %}
-            <a href="{% url serv-view serv.id %}">
+            <a href="{% url 'serv-view' serv.id %}">
                 <div class="description">
                     {{ serv.description|linebreaks }}
                 </div>
             </a>
         {% else %}
-            <a href="{% url serv-view serv.id %}" alt="{{ serv.description|linebreaks }}">
+            <a href="{% url 'serv-view' serv.id %}" alt="{{ serv.description|linebreaks }}">
                 <div class="description">
                     {{ serv.description|truncatewords:50|linebreaks }}
                 </div>
@@ -48,25 +49,25 @@
         <div class="cleaner"></div>
         <div class="buttons">
             {% if user.is_authenticated and serv.creator == user %}
-                <a class="action" href="{% url serv-comment-add serv.id %}">{% trans "Comment" %}</a>
-                <a class="action" href="{% url serv-edit serv.id %}">{% trans "Edit" %}</a>
-                <form method="POST" action="{% url serv-del serv.id %}"> {% csrf_token %}
+                <a class="action" href="{% url 'serv-comment-add' serv.id %}">{% trans "Comment" %}</a>
+                <a class="action" href="{% url 'serv-edit' serv.id %}">{% trans "Edit" %}</a>
+                <form method="POST" action="{% url 'serv-del' serv.id %}"> {% csrf_token %}
                     <input class="action" name="delete" type="submit" value="{% trans 'Remove' %}"/>
                 </form>
                 {% if serv.is_active %}
-                    <form method="POST" action="{% url serv-deactive serv.id %}"> {% csrf_token %}
+                    <form method="POST" action="{% url 'serv-deactive' serv.id %}"> {% csrf_token %}
                         <input class="action" name="deactive" type="submit" value="{% trans 'Disable' %}"/>
                     </form>
                 {% else %}
-                    <form method="POST" action="{% url serv-active serv.id %}"> {% csrf_token %}
+                    <form method="POST" action="{% url 'serv-active' serv.id %}"> {% csrf_token %}
                         <input class="action" name="active" type="submit" value="{% trans 'Enable' %}"/>
                     </form>
                 {% endif %}
             {% endif %}
             {% if user.is_authenticated and serv.creator != user %}
                 {% transfer_actions serv %}
-                <a class="action" href="{% url serv-comment-add serv.id %}">{% trans "Comment" %}</a>
-                <a class="action" href="{% url messages_compose_to serv.creator.username %}">{% trans "Send pivate message" %}</a>
+                <a class="action" href="{% url 'serv-comment-add' serv.id %}">{% trans "Comment" %}</a>
+                <a class="action" href="{% url 'messages_compose_to' serv.creator.username %}">{% trans "Send pivate message" %}</a>
             {% endif %}
         </div>
     </div>

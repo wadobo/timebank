@@ -1,4 +1,7 @@
 {% extends "template_base.html" %}
+
+{% load url from future %}
+
 {% load i18n %}
 
 {% block title %}
@@ -11,7 +14,7 @@
 </h1>
 
 {% if user.is_staff %}
-<a href="{% url admin:flatpages_flatpage_change flatpage.id %}">{% trans "Edit" %}</a>
+<a href="{% url 'admin:flatpages_flatpage_change' flatpage.id %}">{% trans "Edit" %}</a>
 {% endif %}
 
 {{ flatpage.content }}

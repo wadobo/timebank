@@ -22,7 +22,7 @@ from tinymce.widgets import TinyMCE
 
 from models import Profile
 from messages.models import Message
-from utils import (FormCharField, FormEmailField, FormDateField,
+from timebank.utils import (FormCharField, FormEmailField, FormDateField,
     FormCaptchaField)
 from  serv.forms import CustomCharField
 

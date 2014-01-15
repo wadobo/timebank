@@ -1,4 +1,7 @@
 {% extends "template_base.html" %}
+
+{% load url from future %}
+
 {% load i18n %}
 {% block title %} {% trans 'Preferences' %} {% endblock %}
 
@@ -7,22 +10,22 @@
         <h1>{% trans 'Preferences' %}</h1>
         <ul class="preferences">
             <li>
-                <a href="{% url serv-transfers-mine %}">{% trans "My transfers" %}</a>
+                <a href="{% url 'serv-transfers-mine' %}">{% trans "My transfers" %}</a>
             </li>
             <li>
-                <a href="{% url serv-myservices %}">{% trans "My services" %}</a>
+                <a href="{% url 'serv-myservices' %}">{% trans "My services" %}</a>
             </li>
             <li>
-                <a href="{% url user-view-current %}">{% trans "View profile" %}</a>
+                <a href="{% url 'user-view-current' %}">{% trans "View profile" %}</a>
             </li>
             <li>
-                <a href="{% url user-edit-profile %}">{% trans "Edit profile" %}</a>
+                <a href="{% url 'user-edit-profile' %}">{% trans "Edit profile" %}</a>
             </li>
             <li>
-                <a href="{% url user-password-change %}">{% trans "Change password" %}</a>
+                <a href="{% url 'user-password-change' %}">{% trans "Change password" %}</a>
             </li>
             <li>
-                <a href="{% url user-remove %}">{% trans "Remove user" %}</a>
+                <a href="{% url 'user-remove' %}">{% trans "Remove user" %}</a>
             </li>
         </ul>
     </div>

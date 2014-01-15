@@ -16,7 +16,7 @@
 
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
-from utils import ViewClass
+from timebank.utils import ViewClass
 from news.models import New
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import Site

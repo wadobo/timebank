@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import Image
+from PIL import Image
 from django import template
 from django.template import RequestContext
 import urllib, hashlib
@@ -41,7 +41,7 @@ def avatar(user, size=48):
             im.save(path)
 
         path = path[len(settings.STATIC_DOC_ROOT) + 1:]
-        return settings.MEDIA_URL + path
+        return settings.STATIC_URL + path
     else:
         return gravatar(user.email, size)
 

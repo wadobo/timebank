@@ -5,7 +5,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.models import User
-from utils import login_required, ViewClass
+from timebank.utils import login_required, ViewClass
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_noop
 from django.core.urlresolvers import reverse

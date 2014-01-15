@@ -20,7 +20,7 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.sites.models import Site
-from utils import send_mail, I18nString
+from timebank.utils import send_mail, I18nString
 from django.conf import settings
 from django.shortcuts import redirect
 

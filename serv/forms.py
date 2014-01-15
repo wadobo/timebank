@@ -27,7 +27,7 @@ import urllib
 
 from serv.models import Service, Area, Category, Transfer
 from messages.models import Message
-from utils import FormCharField
+from timebank.utils import FormCharField
 
 class CustomCharField(forms.CharField):
 

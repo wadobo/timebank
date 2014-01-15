@@ -1,10 +1,10 @@
-from django.conf.urls.defaults import *
-from django.views.generic.simple import redirect_to
+from django.conf.urls import patterns, include, url
+from django.views.generic import RedirectView
 
 from messages.views import *
 
 urlpatterns = patterns('',
-    url(r'^$', redirect_to, {'url': 'inbox/'}),
+    url(r'^$', RedirectView.as_view(url='inbox/')),
     url(r'^inbox/$', inbox, name='messages_inbox'),
     url(r'^outbox/$', outbox, name='messages_outbox'),
     url(r'^compose/$', compose, name='messages_compose'),

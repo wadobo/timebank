@@ -1,4 +1,5 @@
 {% extends "admin/base.html" %}
+
 {% load i18n %}
 
 {% block title %}Administration{% endblock %}
@@ -8,11 +9,11 @@
 {% endblock %}
 
 {% block nav-global %}
-<a href="{% url rosetta-home %}">{% trans "Translations" %}</a> |
-<a href="{% url user-send-email-to-all%}">{% trans "Send email to all users" %}</a> |
-<a href="{% url report1 %}">{% trans "report 1" %}</a> |
-<a href="{% url report2 %}">{% trans "report 2" %}</a> |
-<a href="{% url report3 %}">{% trans "report 3" %}</a> |
-<a href="{% url report4 %}">{% trans "report 4" %}</a> |
-<a href="{% url report5 %}">{% trans "report 5" %}</a>
+<a href="{% url 'rosetta-home' %}">{% trans "Translations" %}</a> |
+<a href="{% url 'user-send-email-to-all' %}">{% trans "Send email to all users" %}</a> |
+<a href="{% url 'report1' %}">{% trans "report 1" %}</a> |
+<a href="{% url 'report2' %}">{% trans "report 2" %}</a> |
+<a href="{% url 'report3' %}">{% trans "report 3" %}</a> |
+<a href="{% url 'report4' %}">{% trans "report 4" %}</a> |
+<a href="{% url 'report5' %}">{% trans "report 5" %}</a>
 {% endblock %}

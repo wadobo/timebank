@@ -1,6 +1,7 @@
+{% load url from future %}
 {% load i18n %}
 {% if message.service %}
-{% url serv-view message.service.id as service_url %}
+{% url 'serv-view' message.service.id as service_url %}
 {% blocktrans with message.recipient.username as recipient and message.sender.username as sender and message.body|safe as body %}Hi {{ recipient }},
 
 You have received the following comment from {{ sender }} in the service
@@ -29,7 +30,7 @@ You have received the following private message from {{ sender }} in the service
 
 --
 {% blocktrans %}Sent from {{ site_url }}{% endblocktrans %}
-{% trans "Inbox" %}: {{ site_url }}{% url messages_inbox %}
-{% trans "Reply" %}: {{ site_url }}{% url messages_reply message.pk %}
+{% trans "Inbox" %}: {{ site_url }}{% url 'messages_inbox' %}
+{% trans "Reply" %}: {{ site_url }}{% url 'messages_reply' message.pk %}
 {% endif %}
 

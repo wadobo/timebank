@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns, include, url
 from django.conf import settings
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 
 urlpatterns = patterns('main.views',
     url(r'^contact/$', 'contact', name="contact"),
@@ -28,6 +28,6 @@ urlpatterns = patterns('main.views',
     url(r'^report4.csv$', 'report4', name="report4"),
     url(r'^report5.csv$', 'report5', name="report5"),
     (r'^/?$', 'index'),
-    (r'^robots\.txt$', direct_to_template,
-        {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+    (r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt",
+                                            content_type='text/plain')),
 )

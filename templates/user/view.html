@@ -1,4 +1,7 @@
 {% extends "template_base.html" %}
+
+{% load url from future %}
+
 {% load i18n %}
 
 {% block title %}
@@ -19,14 +22,14 @@
 
         <ul class="subnavilist">
         {% if not user.is_anonymous %}
-            <li><a href="{% url user-view profile.id %}" class="current">{% trans "View profile"%}</a><small>/</small></li>
-            <li><a href="{% url messages_compose_to profile.username %}">{% trans "Send private message"%}</a><small>/</small></li>
-            <li><a href="{% url user-view-services profile.id %}">{% trans "View his services"%}</a><small>/</small></li>
+            <li><a href="{% url 'user-view' profile.id %}" class="current">{% trans "View profile"%}</a><small>/</small></li>
+            <li><a href="{% url 'messages_compose_to' profile.username %}">{% trans "Send private message"%}</a><small>/</small></li>
+            <li><a href="{% url 'user-view-services' profile.id %}">{% trans "View his services"%}</a><small>/</small></li>
         {% endif %}
         {% if not user.is_anonymous and user == profile %}
-            <li><a href="{% url user-edit-profile %}">{% trans "Edit profile" %}</a></li>
+            <li><a href="{% url 'user-edit-profile' %}">{% trans "Edit profile" %}</a></li>
         {% else %}
-            <li><a href="{% url serv-transfer-new-to profile.id %}">{% trans "Transfer hours" %}</a></li>
+            <li><a href="{% url 'serv-transfer-new-to' profile.id %}">{% trans "Transfer hours" %}</a></li>
         {% endif %}
         </ul>
         <ul class="view-profile">
@@ -88,7 +91,7 @@
         <div class="cleaner"></div>
         {% if form %}
         <div class="public_messages">
-            <form action="{% url user-send-public-message profile.id %}" method="post">
+            <form action="{% url 'user-send-public-message' profile.id %}" method="post">
                 {% csrf_token %}
                 <fieldset>
                     {% include "main/form_snippet.html" %}

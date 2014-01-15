@@ -1,6 +1,7 @@
+{% load url from future %}
 {% load i18n %}
 {% if transfer.status == "d" %}
-            <form class="rating" id="rating-{{transfer.id}}" action="{% url serv-transfer-rate transfer.id  %}" method="post">
+            <form class="rating" id="rating-{{transfer.id}}" action="{% url 'serv-transfer-rate' transfer.id  %}" method="post">
                 {% csrf_token %}
                 {% if user.is_authenticated and transfer.credits_debtor == user %}
                     {% rating_by_user user on transfer.rating as user_rating %}

@@ -14,15 +14,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls.defaults import *
-from django.views.generic.simple import redirect_to
+from django.conf.urls import patterns, include, url
+from django.views.generic import RedirectView
 from views2 import (list_services, view, add, edit, delete, active, deactive,
     add_transfer, edit_transfer, cancel_transfer, view_transfer, my_transfers,
     add_comment, delete_comment, accept_transfer, confirm_transfer,
     rate_transfer, new_transfer)
 
 urlpatterns = patterns('',
-    url(r'^$', redirect_to, {'url': 'list/?mine=true'}, name="serv-myservices"),
+    url(r'^$', RedirectView.as_view(url='list/?mine=true'), name="serv-myservices"),
     url(r'^list/.*$', list_services, name='serv-list'),
     url(r'^add/$', add, name='serv-add'),
     url(r'^edit/(\d+)/$', edit, name='serv-edit'),

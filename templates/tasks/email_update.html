@@ -1,3 +1,4 @@
+{% load url from future %}
 {% load i18n %}{% blocktrans with recipient.username as recipient%}Hi {{ recipient }},
 
 There are news in your profile in {{ site_name }} that require your attention:
@@ -6,8 +7,8 @@ There are news in your profile in {{ site_name }} that require your attention:
 ## Unread messages
 
 {% for msg in unread_messages %}
-{% url messages_inbox as inbox_url %}{% if forloop.first %}{% blocktrans %}Go to inbox: {{ inbox_url }}{% endblocktrans %}{% endif %}
-{% url messages_detail msg.id as msg_url %}{% blocktrans with msg.sender.username as from and msg.sent_at|timesince as sent_ago and msg.body|truncate_chars as body %}
+{% url 'messages_inbox' as inbox_url %}{% if forloop.first %}{% blocktrans %}Go to inbox: {{ inbox_url }}{% endblocktrans %}{% endif %}
+{% url 'messages_detail' msg.id as msg_url %}{% blocktrans with msg.sender.username as from and msg.sent_at|timesince as sent_ago and msg.body|truncate_chars as body %}
     {{ site_url }}{{ msg_url }}
     Message from {{ from }} sent {{ sent_ago}} ago:
         {{ body }}
@@ -18,7 +19,7 @@ There are news in your profile in {{ site_name }} that require your attention:
 ## {% trans "Unread comments in your profile" %}
 
 {% for msg in unread_comments %}
-{% url user-view-current as view_comments_url %}{% if forloop.first %}{% blocktrans %}Read all your comments in your profile: {{ view_comments_url }}{% endblocktrans %}{% endif %}
+{% url 'user-view-current' as view_comments_url %}{% if forloop.first %}{% blocktrans %}Read all your comments in your profile: {{ view_comments_url }}{% endblocktrans %}{% endif %}
 {% blocktrans with msg.sender.username as from and msg.sent_at|timesince as sent_ago and msg.body|truncate_chars as body %}
 	Comment from {{ from }}, sent {{ sent_ago }} ago:
         {{ body }}
@@ -29,8 +30,8 @@ There are news in your profile in {{ site_name }} that require your attention:
 ## {% trans "Pending transfers" %}
 
 {% for transfer in transfers_pending %}
-    {% url serv-transfers-mine as my_transfers_url %}{% if forloop.first %}{% blocktrans %}Manage all your transfers: {{ my_transfers_url }}{% endblocktrans %}{% endif %}
-    {% url serv-transfer-view transfer.id as transfer_url %}{% blocktrans with transfer.creator.username as from and transfer.request_date|timesince as created_ago and transfer.description|truncate_chars as description and transfer.status_readable as status %}
+    {% url 'serv-transfers-mine' as my_transfers_url %}{% if forloop.first %}{% blocktrans %}Manage all your transfers: {{ my_transfers_url }}{% endblocktrans %}{% endif %}
+    {% url 'serv-transfer-view' transfer.id as transfer_url %}{% blocktrans with transfer.creator.username as from and transfer.request_date|timesince as created_ago and transfer.description|truncate_chars as description and transfer.status_readable as status %}
     {{ site_url }}{{ transfer_url }}
     Transfer with {{ from }}, created {{ created_ago }} ago in status {{ status }}
         {{ description }}
@@ -43,15 +44,15 @@ There are news in your profile in {{ site_name }} that require your attention:
 ## {% trans "Latest services" %}
 
 {% for service in new_services.object_list %}
-{% url serv-list as services_url %}{% if forloop.first %}{% blocktrans %}Service list: {{ services_url }}{% endblocktrans %}{% endif %}
-{% url serv-view service.id as service_url %}{% blocktrans with service.creator.username as from and service.pub_date|timesince as published_ago and service.description|truncate_chars as description and service.category.name as category and service.area.name as area %}
+{% url 'serv-list' as services_url %}{% if forloop.first %}{% blocktrans %}Service list: {{ services_url }}{% endblocktrans %}{% endif %}
+{% url 'serv-view' service.id as service_url %}{% blocktrans with service.creator.username as from and service.pub_date|timesince as published_ago and service.description|truncate_chars as description and service.category.name as category and service.area.name as area %}
     {{ site_url }}{{ service_url }}
     Service in the area of "{{ area }}" and category "{{category }}" created by {{ from }} published {{ published_ago }} ago
         {{ description }}
 {% endblocktrans %}{% empty %}
     {% trans "No new services" %}{% endfor %}
 --
-{% url user-edit-profile as prefs_url %}{% blocktrans %}
+{% url 'user-edit-profile' as prefs_url %}{% blocktrans %}
 
 Exchange your time and skills in {{ site_name }}, {{ site_url }} .
 

@@ -23,7 +23,7 @@ from django.views.i18n import set_language as django_set_language
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse
 
-from utils import ViewClass, login_required, mail_owners, I18nString
+from timebank.utils import ViewClass, login_required, mail_owners, I18nString
 from forms import AnonymousContactForm, ContactForm
 from serv.models import Service
 from messages.utils import new_transfer_email

@@ -1,3 +1,4 @@
+{% load url from future %}
 {% load i18n %}
 <div class="serv person">
         <div class="information">
@@ -11,17 +12,17 @@
             <span>{{ person.karma }}</span>
         </div>
         <div class="gravatar">
-            <a href="{% url user-view person.id %}">
+            <a href="{% url 'user-view' person.id %}">
                 <img src="{% avatar person 48 %}" alt="{{ person.username }}" title="{{ person.username }}"/>
                 {{ person.username|truncate_chars:7 }}
             </a>
         </div>
-        <a href="{% url user-view person.id %}"><div class="description">{{ person.description|linebreaks }}</div></a>
+        <a href="{% url 'user-view' person.id %}"><div class="description">{{ person.description|linebreaks }}</div></a>
         {% if user.is_authenticated %}
         <div class="cleaner"></div>
         <div class="buttons">
-            <a class="action" href="{% url serv-transfer-new-to person.id %}">{% trans "Transfer hours" %}</a>
-            <a class="action" href="{% url user-view-services person.id %}">{% trans "View his services" %}</a>
+            <a class="action" href="{% url 'serv-transfer-new-to' person.id %}">{% trans "Transfer hours" %}</a>
+            <a class="action" href="{% url 'user-view-services' person.id %}">{% trans "View his services" %}</a>
         </div>
         {% endif %}
 </div>

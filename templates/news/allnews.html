@@ -1,7 +1,8 @@
+{% load url from future %}
 {% load i18n %}
 
 {% if user.is_staff %}
-    <a href="{% url admin:news_new_add %}">{% trans "Add a piece of news" %}</a>
+    <a href="{% url 'admin:news_new_add' %}">{% trans "Add a piece of news" %}</a>
 {% endif %}
 {% for new in news.object_list %}
     <div class="new">
