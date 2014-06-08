@@ -97,7 +97,9 @@ class ErrorHandler(ViewClass):
         return response
 
     def POST(self):
-        return self.GET()
+        response = self.context_response(self.template, {})
+        response.status_code = self.retcode
+        return response
 
 class SetLanguage(ViewClass):
     """
