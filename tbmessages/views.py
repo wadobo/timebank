@@ -11,9 +11,9 @@ from django.utils.translation import ugettext_noop
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from messages.models import Message
-from messages.forms import ComposeForm
-from messages.utils import format_quote
+from tbmessages.models import Message
+from tbmessages.forms import ComposeForm
+from tbmessages.utils import format_quote
 
 if "notification" in settings.INSTALLED_APPS:
     from notification import models as notification

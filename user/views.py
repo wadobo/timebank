@@ -31,7 +31,7 @@ from forms import (RegisterForm, EditProfileForm, RemoveForm,
     SendEmailToAllForm)
 from models import Profile
 from serv.models import Service
-from messages.models import Message
+from tbmessages.models import Message
 
 class Register(ViewClass):
     def GET(self):

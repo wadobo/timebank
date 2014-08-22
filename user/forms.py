@@ -21,7 +21,7 @@ from django.utils.translation import ugettext_lazy as _
 from tinymce.widgets import TinyMCE
 
 from models import Profile
-from messages.models import Message
+from tbmessages.models import Message
 from timebank.utils import (FormCharField, FormEmailField, FormDateField,
     FormCaptchaField)
 from  serv.forms import CustomCharField

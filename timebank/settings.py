@@ -132,7 +132,7 @@ INSTALLED_APPS = (
     'south',
     'user',
     'globaltags',
-    'messages',
+    'tbmessages',
     'djangoratings',
     'tasks',
     'rosetta',

@@ -29,7 +29,7 @@ from timebank.utils import ViewClass, login_required, send_mail, I18nString
 from user.models import Profile
 from tasks.models import Task
 from serv.models import Transfer, Service
-from messages.models import Message
+from tbmessages.models import Message
 
 class SendEmailUpdates(ViewClass):
     '''

@@ -31,7 +31,7 @@ from serv.models import Service, Area, Category, Transfer
 from serv.forms import (ServiceForm, ListServicesForm, AddTransferForm,
     AddCommentForm, NewTransferForm)
 from user.models import Profile
-from messages.models import Message
+from tbmessages.models import Message
 
 class ListServices(ViewClass):
     @login_required

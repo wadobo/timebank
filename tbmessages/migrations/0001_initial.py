@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
             ('body', self.gf('django.db.models.fields.TextField')()),
             ('sender', self.gf('django.db.models.fields.related.ForeignKey')(related_name='sent_messages', to=orm['auth.User'])),
             ('recipient', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='received_messages', null=True, to=orm['auth.User'])),
-            ('parent_msg', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='next_messages', null=True, to=orm['messages.Message'])),
+            ('parent_msg', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='next_messages', null=True, to=orm['tbmessages.Message'])),
             ('sent_at', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
             ('read_at', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
             ('replied_at', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
@@ -25,7 +25,7 @@ class Migration(SchemaMigration):
             ('service', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='messages', null=True, to=orm['serv.Service'])),
             ('transfer', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='messages', null=True, to=orm['serv.Transfer'])),
         ))
-        db.send_create_signal('messages', ['Message'])
+        db.send_create_signal('tbmessages', ['Message'])
 
 
     def backwards(self, orm):
@@ -71,12 +71,12 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'messages.message': {
+        'tbmessages.message': {
             'Meta': {'ordering': "['-sent_at']", 'object_name': 'Message'},
             'body': ('django.db.models.fields.TextField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'parent_msg': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'next_messages'", 'null': 'True', 'to': "orm['messages.Message']"}),
+            'parent_msg': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'next_messages'", 'null': 'True', 'to': "orm['tbmessages.Message']"}),
             'read_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'recipient': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'received_messages'", 'null': 'True', 'to': "orm['auth.User']"}),
             'recipient_deleted_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
@@ -138,4 +138,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['messages']
+    complete_apps = ['tbmessages']

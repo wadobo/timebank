@@ -26,7 +26,7 @@ from django.conf import settings
 import urllib
 
 from serv.models import Service, Area, Category, Transfer
-from messages.models import Message
+from tbmessages.models import Message
 from timebank.utils import FormCharField
 
 class CustomCharField(forms.CharField):

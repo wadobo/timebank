@@ -22,7 +22,7 @@ from djangoratings.fields import RatingField
 from django.db.models import signals
 
 from user.models import Profile
-from messages.utils import new_transfer_email
+from tbmessages.utils import new_transfer_email
 
 class Area(models.Model):
 
@@ -86,11 +86,11 @@ class Service(models.Model):
         return self.transfers.order_by('-request_date')
 
     def messages_count(self):
-        from messages.models import Message
+        from tbmessages.models import Message
         return Message.objects.filter(service=self).count()
 
     def messages(self):
-        from messages.models import Message
+        from tbmessages.models import Message
         return Message.objects.filter(service=self)
 
     def credits_transfered(self):

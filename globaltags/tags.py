@@ -24,7 +24,7 @@ import urllib, hashlib
 from django.conf import settings
 
 from djangoratings.templatetags.ratings import *
-from messages.models import Message
+from tbmessages.models import Message
 from user.models import Profile
 
 register = template.Library()

@@ -10,8 +10,8 @@ if "notification" in settings.INSTALLED_APPS:
 else:
     notification = None
 
-from messages.models import Message
-from messages.fields import CommaSeparatedUserField
+from tbmessages.models import Message
+from tbmessages.fields import CommaSeparatedUserField
 
 class ComposeForm(forms.Form):
     """

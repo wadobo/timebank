@@ -26,7 +26,7 @@ from django.http import HttpResponse
 from timebank.utils import ViewClass, login_required, mail_owners, I18nString
 from forms import AnonymousContactForm, ContactForm
 from serv.models import Service
-from messages.utils import new_transfer_email
+from tbmessages.utils import new_transfer_email
 
 class Index(ViewClass):
     def GET(self):

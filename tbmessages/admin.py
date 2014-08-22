@@ -9,7 +9,7 @@ if "notification" in settings.INSTALLED_APPS:
 else:
     notification = None
     
-from messages.models import Message
+from tbmessages.models import Message
 
 class MessageAdminForm(forms.ModelForm):
     """
