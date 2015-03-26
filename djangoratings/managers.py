@@ -29,7 +29,7 @@ class VoteQuerySet(QuerySet):
         return retval
         
 class VoteManager(Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return VoteQuerySet(self.model)
 
     def get_for_user_in_bulk(self, objects, user):

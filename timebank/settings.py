@@ -129,7 +129,6 @@ INSTALLED_APPS = (
     'flashmsg',
     'news',
     'tinymce',
-    'south',
     'user',
     'globaltags',
     'tbmessages',
@@ -141,6 +140,7 @@ INSTALLED_APPS = (
 )
 
 LOGIN_URL = '/'
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # The URL where requests are redirected after login when the
 # contrib.auth.login view gets no next parameter.
@@ -175,12 +175,23 @@ MIN_CREDIT = -10*60
 MAX_CREDIT = 20*60
 MAX_CREDITS_PER_TRANSFER = 10*60
 
+from django.conf.locale import LANG_INFO
+LANG_INFO['ng'] = {
+        'bidi': False,
+        'code': 'ng',
+        'name': 'Spanish (neutral gender)',
+        'name_local': u'Español (género neutral)',
+}
 
 LANGUAGES = (
       ('es', _('Spanish')),
-      ('es_ng', _('Spanish (neutral gender)')),
+      ('ng', _('Spanish (neutral gender)')),
       ('en', _('English')),
       ('gl', _('Gallego')),
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'

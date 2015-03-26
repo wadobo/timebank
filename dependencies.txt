@@ -1,8 +1,0 @@
-Django==1.6.1
-Pillow==2.3.0
-South==0.8.4
-django-notification==1.1.1
-django-rosetta==0.7.3
-recaptcha-client==1.0.6
-ipdb==0.8
-ipython==1.1.0

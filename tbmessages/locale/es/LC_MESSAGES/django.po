@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-10 12:47+0200\n"
+"POT-Creation-Date: 2015-03-26 09:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,183 +19,184 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:19 forms.py:20 models.py:75
+#: tbmessages/admin.py:19 tbmessages/forms.py:20 tbmessages/models.py:75
 msgid "Recipient"
 msgstr "Destinatario"
 
-#: admin.py:21
+#: tbmessages/admin.py:21
 msgid "group"
 msgstr ""
 
-#: admin.py:22
+#: tbmessages/admin.py:22
 msgid "Creates the message optionally for all users or a group of users."
 msgstr ""
 
-#: admin.py:29
+#: tbmessages/admin.py:29
 msgid "All users"
 msgstr ""
 
-#: admin.py:44 forms.py:21 models.py:73 models.py:120
+#: tbmessages/admin.py:45 tbmessages/forms.py:21 tbmessages/models.py:73
+#: tbmessages/models.py:121
 msgid "Message"
 msgstr "Mensaje"
 
-#: admin.py:51
+#: tbmessages/admin.py:52
 #, fuzzy
 msgid "Date/time"
 msgstr "Fecha"
 
-#: fields.py:53
+#: tbmessages/fields.py:53
 #, python-format
 msgid "The following usernames are incorrect: %(users)s"
 msgstr "Los siguientes usuarios son incorrectos: %(users)s"
 
-#: management.py:9
+#: tbmessages/management.py:9
 msgid "Message Received"
 msgstr "Mensaje Recibido"
 
-#: management.py:9
+#: tbmessages/management.py:9
 msgid "you have received a message"
 msgstr "ha recibido un mensaje"
 
-#: management.py:10
+#: tbmessages/management.py:10
 msgid "Message Sent"
 msgstr "Mensaje Enviado"
 
-#: management.py:10
+#: tbmessages/management.py:10
 msgid "you have sent a message"
 msgstr "ha enviado un mensaje"
 
-#: management.py:11
+#: tbmessages/management.py:11
 msgid "Message Replied"
 msgstr "Mensaje Respondido"
 
-#: management.py:11
+#: tbmessages/management.py:11
 msgid "you have replied to a message"
 msgstr "ha respondido un mensaje"
 
-#: management.py:12
+#: tbmessages/management.py:12
 msgid "Reply Received"
 msgstr "Respuesta Recibida"
 
-#: management.py:12
+#: tbmessages/management.py:12
 msgid "you have received a reply to a message"
 msgstr "ha recibido una respuesta a un mensaje"
 
-#: management.py:13
+#: tbmessages/management.py:13
 msgid "Message Deleted"
 msgstr "Mensaje Eliminado"
 
-#: management.py:13
+#: tbmessages/management.py:13
 msgid "you have deleted a message"
 msgstr "ha eliminado un mensaje"
 
-#: management.py:14
+#: tbmessages/management.py:14
 msgid "Message Recovered"
 msgstr "Mensaje Recuperado"
 
-#: management.py:14
+#: tbmessages/management.py:14
 msgid "you have undeleted a message"
 msgstr "ha recuperado un mensaje"
 
-#: models.py:72
+#: tbmessages/models.py:72
 msgid "Subject"
 msgstr "Asunto"
 
-#: models.py:74
+#: tbmessages/models.py:74
 msgid "Sender"
 msgstr "Emisor"
 
-#: models.py:76
+#: tbmessages/models.py:76
 msgid "Parent message"
 msgstr "Mensaje padre"
 
-#: models.py:77
+#: tbmessages/models.py:77
 msgid "sent at"
 msgstr "enviado"
 
-#: models.py:78
+#: tbmessages/models.py:78
 msgid "read at"
 msgstr "leído"
 
-#: models.py:79
+#: tbmessages/models.py:79
 msgid "replied at"
 msgstr "respondido"
 
-#: models.py:80
+#: tbmessages/models.py:80
 msgid "Sender deleted at"
 msgstr "Emisor borrado"
 
-#: models.py:81
+#: tbmessages/models.py:81
 msgid "Recipient deleted at"
 msgstr "Destinatario borrado"
 
-#: models.py:82
+#: tbmessages/models.py:82
 #, fuzzy
 msgid "Public message"
 msgstr "Mensaje padre"
 
-#: models.py:84
+#: tbmessages/models.py:84
 msgid "Service"
 msgstr ""
 
-#: models.py:86
+#: tbmessages/models.py:86
 msgid "Transfer"
 msgstr ""
 
-#: models.py:121
+#: tbmessages/models.py:122
 msgid "Messages"
 msgstr "Mensajes"
 
-#: utils.py:22
+#: tbmessages/utils.py:22
 #, python-format
 msgid "New Message: %(subject)s"
 msgstr "Nuevo Mensaje: %(subject)s"
 
-#: utils.py:62
+#: tbmessages/utils.py:62
 #, python-format
 msgid "New transfer request from %s"
 msgstr ""
 
-#: utils.py:65
+#: tbmessages/utils.py:65
 #, python-format
 msgid "New direct transfer from %s"
 msgstr ""
 
-#: utils.py:81
+#: tbmessages/utils.py:81
 #, python-format
 msgid "Transfer from %s edited"
 msgstr ""
 
-#: utils.py:87
+#: tbmessages/utils.py:87
 #, python-format
 msgid "Transfer of the service from %s accepted"
 msgstr ""
 
-#: utils.py:90
+#: tbmessages/utils.py:90
 #, python-format
 msgid "Direct transfer from %s accepted"
 msgstr ""
 
-#: utils.py:95
+#: tbmessages/utils.py:95
 #, python-format
 msgid "Transfer to %(user1)s from a service of %(user2)s cancelled"
 msgstr ""
 
-#: utils.py:101
+#: tbmessages/utils.py:101
 #, python-format
 msgid "Direct transfer from %s cancelled"
 msgstr ""
 
-#: utils.py:106
+#: tbmessages/utils.py:106
 #, python-format
 msgid "Transfer of the service you did to %s confirmed"
 msgstr ""
 
-#: views.py:105 views.py:163
+#: tbmessages/views.py:105 tbmessages/views.py:163
 msgid "Message successfully sent."
 msgstr "Se envió con éxito el mensaje."
 
-#: views.py:133
+#: tbmessages/views.py:133
 #, python-format
 msgid ""
 "%(sender)s wrote:\n"
@@ -204,16 +205,16 @@ msgstr ""
 "%(sender)s escribió:\n"
 "%(body)s"
 
-#: views.py:137
+#: tbmessages/views.py:137
 #, python-format
 msgid "Re: %(subject)s"
 msgstr "Re: %(subject)s"
 
-#: views.py:204
+#: tbmessages/views.py:204
 msgid "Message successfully deleted."
 msgstr "Se eliminó con éxito el mensaje."
 
-#: views.py:233
+#: tbmessages/views.py:233
 msgid "Message successfully recovered."
 msgstr "Se recuperó con éxito el mensaje."
 

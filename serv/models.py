@@ -56,7 +56,7 @@ OFFER_CHOICES = (
 class Service(models.Model):
     creator = models.ForeignKey(Profile, related_name="services",
         verbose_name=_("Creator"))
-    is_offer = models.BooleanField(_("Service type"), choices=OFFER_CHOICES)
+    is_offer = models.BooleanField(_("Service type"), choices=OFFER_CHOICES, default=True)
     pub_date = models.DateTimeField(_(u"Publish date"),
         auto_now=True, auto_now_add=True)
     is_active = models.BooleanField(default=True)

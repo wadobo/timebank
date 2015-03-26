@@ -19,7 +19,7 @@
             <a href="{{ message.get_absolute_url }}">{{ message.body|truncate_chars:60 }}</a>
         </td>
         <td class="date">{{ message.sent_at|timesince }}</td>
-        <td class="actions"><a href="{% url 'messages.views.delete' message.id %}">{% trans "delete" %}</a></td>
+        <td class="actions"><a href="{% url 'messages_delete' message.id %}">{% trans "delete" %}</a></td>
     </tr>
 {% endfor %}
     </tbody>

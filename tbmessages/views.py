@@ -126,7 +126,7 @@ class Reply(ViewClass):
         """
         parent = get_object_or_404(Message, id=message_id)
 
-        if parent.sender != self.request.user and parent.recipient != self.request.user:
+        if parent.sender.username != self.request.user.username and parent.recipient.username != self.request.user.username:
             raise Http404
 
         form = form_class({
@@ -153,7 +153,7 @@ class Reply(ViewClass):
         """
         parent = get_object_or_404(Message, id=message_id)
 
-        if parent.sender != self.request.user and parent.recipient != self.request.user:
+        if parent.sender.username != self.request.user.username and parent.recipient.username != self.request.user.username:
             raise Http404
 
         sender = self.request.user
@@ -193,10 +193,10 @@ class Delete(ViewClass):
             success_url = reverse('messages_inbox')
         if self.request.GET.has_key('next'):
             success_url = self.request.GET['next']
-        if message.sender == user:
+        if message.sender.username == user.username:
             message.sender_deleted_at = now
             deleted = True
-        if message.recipient == user:
+        if message.recipient.username == user.username:
             message.recipient_deleted_at = now
             deleted = True
         if deleted:
@@ -222,10 +222,10 @@ class Undelete(ViewClass):
             success_url = reverse('messages_inbox')
         if self.request.GET.has_key('next'):
             success_url = self.request.GET['next']
-        if message.sender == user:
+        if message.sender.username == user.username:
             message.sender_deleted_at = None
             undeleted = True
-        if message.recipient == user:
+        if message.recipient.username == user.username:
             message.recipient_deleted_at = None
             undeleted = True
         if undeleted:
@@ -251,9 +251,9 @@ class View(ViewClass):
         user = self.request.user
         now = datetime.datetime.now()
         message = get_object_or_404(Message, id=message_id)
-        if (message.sender != user) and (message.recipient != user):
+        if (message.sender.username != user.username) and (message.recipient.username != user.username):
             raise Http404
-        if message.read_at is None and message.recipient == user:
+        if message.read_at is None and message.recipient.username == user.username:
             message.read_at = now
             message.save()
         return self.context_response(template_name, {
