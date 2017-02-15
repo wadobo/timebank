@@ -240,7 +240,7 @@ class FormCaptchaField(forms.CharField):
         check_captcha = captcha.submit(recaptcha_challenge_value,
             recaptcha_response_value, settings.RECAPTCHA_PRIVATE_KEY, {})
         if not check_captcha.is_valid:
-            raise forms.util.ValidationError(_(u'Invalid captcha'))
+            raise forms.ValidationError(_(u'Invalid captcha'))
         return values[0]
 
 def mail_owners(subject, message, fail_silently=False, connection=None):
