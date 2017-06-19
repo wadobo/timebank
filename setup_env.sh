@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pip-2.7 -E env install -r dependencies.txt --upgrade
+pip-2.7 -E env install -r requirements.txt --upgrade
