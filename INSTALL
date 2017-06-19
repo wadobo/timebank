@@ -34,6 +34,7 @@ following within the directory containing the env/ subdirectory:
 After that, we need to configure the database (we use sqlite by default):
 
     $ ./manage.py syncdb --noinput
+    $ ./manage.py migrate
 
 Then create the admin user in the database:
 
